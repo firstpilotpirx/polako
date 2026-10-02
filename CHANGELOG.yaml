@@ -1,5 +1,18 @@
 # What's new per version. The upgrade module reads entries newer than the folder's plugin_version.
 # actions: what the upgrade does after migrating (rebuild, new cards, …).
+- version: "0.2.0"
+  date: "2026-10-03"
+  data_version: 1
+  notes:
+    ru:
+      - "Набор «Белград: первые разговоры»: соседи в подъезде, магазин, МУП (ВНЖ, ПМЖ, справки), нотариус/юрист/бухгалтер (доверенности, переводы, заверения), дружеская беседа с коллегой — 15 диалогов, ~250 слов, ~90 фраз, карточки на падежи."
+      - "Слова набора покрывают ~94% слов в его диалогах; ядро — самые частые слова, дальше слова ситуаций."
+      - "Примеры и привязка к ситуациям проставляются из диалогов автоматически; слова важных ситуаций не уходят в хвост колоды."
+    en:
+      - "Pack «Belgrade: first conversations»: neighbours, shop, MUP (temporary/permanent residence, certificates), notary/lawyer/accountant, a friendly chat with a colleague — 15 dialogs, ~250 words, ~90 phrases, case cards."
+      - "The pack's words cover ~94% of the words in its dialogs."
+      - "Examples and situation tags come from the dialogs automatically; words of important situations no longer sink to the deck's tail."
+  actions: [rebuild]
 - version: "0.1.0"
   date: "2026-10-02"
   data_version: 1

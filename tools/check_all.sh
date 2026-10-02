@@ -43,6 +43,8 @@ step "state";             "$PY" tools/state.py --dir "$S" --no-build wizard fini
 step "stats";             "$PY" tools/stats.py --dir "$S" | head -2
 step "versions";          "$PY" tools/migrate.py --dir "$S" --init && "$PY" tools/migrate.py --dir "$S" && "$PY" tools/backup.py --dir "$S" list | head -1
 step "hub menu";          "$PY" tools/next_steps.py --dir "$S"
+step "pack";              mkdir -p "$OUT/pack" && "$PY" tools/pack.py --dir "$OUT/pack" install belgrade-basics | tail -1 \
+                       && "$PY" tools/next_steps.py --dir "$OUT/pack" | head -2
 step "page";              "$PY" tools/build_page.py --dir "$S"
 if command -v node >/dev/null && node -e "require('jsdom')" 2>/dev/null; then
   step "page in jsdom";   node tests/page_smoke.js "$S/dist/index.html"

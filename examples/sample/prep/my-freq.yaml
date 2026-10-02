@@ -1,5 +1,5 @@
 version: 1
-built: '2026-10-02'
+built: '2026-10-03'
 sources:
 - id: my.banka
   kind: my
@@ -1027,14 +1027,15 @@ lemmas:
   - sit.pekara
   how: lex
   pos: adv
-- l: komšinice
-  sr: komšinice
+- l: komšinica
+  sr: komšinica
   n: 1
   my: 1
   sit: 0
   src:
   - my.stanodavka
-  how: self
+  how: lex
+  pos: noun
   ex:
   - sr: Ako niste, ostavite ključ kod komšinice na drugom spratu.
     from: my.stanodavka
@@ -1853,14 +1854,15 @@ lemmas:
   - sit.mup
   how: lex
   pos: adj
-- l: sporije
-  sr: sporije
+- l: sporo
+  sr: sporo
   n: 1
   my: 0
   sit: 1
   src:
   - sit.mup
-  how: self
+  how: lex
+  pos: adv
 - l: svoj
   sr: svoj
   n: 1
@@ -1879,15 +1881,15 @@ lemmas:
   - sit.apoteka
   how: lex
   pos: noun
-- l: treba
-  sr: treba
+- l: trebati
+  sr: trebati
   n: 1
   my: 0
   sit: 1
   src:
   - sit.prodavnica
   how: lex
-  pos: adv
+  pos: verb
 - l: treći
   sr: treći
   n: 1

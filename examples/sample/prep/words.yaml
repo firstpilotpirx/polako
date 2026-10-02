@@ -1,5 +1,5 @@
 version: 1
-built: '2026-10-02'
+built: '2026-10-03'
 explain: ru
 group_size: 50
 rounds: 1
@@ -810,10 +810,45 @@ words:
   zipf: 5.72
   pm: 520.89
   band: 1
+- id: w:dolaziti
+  sr: dolaziti
+  tr: приходить, приезжать
+  rank: 29
+  grp: 1
+  pos: verb
+  forms:
+    prs1: dolazim
+    prs3: dolazi
+    prs3pl: dolaze
+    past: dolazio
+    imp: dolazi
+  src:
+  - base
+  - my
+  my:
+  - my.stanodavka
+  sit:
+  - mup
+  - pekara
+  - stan
+  ex:
+  - sr: Sutra u deset dolazi majstor da popravi bojler u kupatilu, da li ćete biti kod kuće?
+    tr: Завтра в десять придёт мастер починить бойлер в ванной — вы будете дома?
+    about: my
+    from: my.stanodavka
+  - sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
+    tr: Добрый день. Я пришёл подать заявление на временное пребывание.
+    about: sit
+    from: sit.mup
+  round: 1
+  score: 10.041
+  zipf: 5.8
+  pm: 629.41
+  band: 1
 - id: w:ovo
   sr: ovo
   tr: это (здесь)
-  rank: 29
+  rank: 30
   grp: 1
   pos: pron
   src:
@@ -834,7 +869,7 @@ words:
 - id: w:kad
   sr: kad
   tr: когда
-  rank: 30
+  rank: 31
   grp: 1
   pos: conj
   src:
@@ -855,7 +890,7 @@ words:
 - id: w:jedan
   sr: jedan
   tr: один
-  rank: 31
+  rank: 32
   grp: 1
   pos: num
   src:
@@ -881,7 +916,7 @@ words:
 - id: w:sutra
   sr: sutra
   tr: завтра
-  rank: 32
+  rank: 33
   grp: 1
   pos: adv
   src:
@@ -909,7 +944,7 @@ words:
 - id: w:vash
   sr: vaš
   tr: ваш
-  rank: 33
+  rank: 34
   grp: 1
   pos: pron
   src:
@@ -931,7 +966,7 @@ words:
 - id: w:potreban
   sr: potreban
   tr: нужный
-  rank: 34
+  rank: 35
   grp: 1
   pos: adj
   forms:
@@ -963,7 +998,7 @@ words:
 - id: w:svoj
   sr: svoj
   tr: свой
-  rank: 35
+  rank: 36
   grp: 1
   pos: pron
   src:
@@ -984,7 +1019,7 @@ words:
 - id: w:deset
   sr: deset
   tr: десять
-  rank: 36
+  rank: 37
   grp: 1
   pos: num
   src:
@@ -1012,7 +1047,7 @@ words:
 - id: w:neshto
   sr: nešto
   tr: что-то
-  rank: 37
+  rank: 38
   grp: 1
   pos: pron
   src:
@@ -1033,7 +1068,7 @@ words:
 - id: w:raditi
   sr: raditi
   tr: работать; делать
-  rank: 38
+  rank: 39
   grp: 1
   pos: verb
   forms:
@@ -1061,7 +1096,7 @@ words:
 - id: w:sad
   sr: sad
   tr: сейчас
-  rank: 39
+  rank: 40
   grp: 1
   pos: adv
   src:
@@ -1082,7 +1117,7 @@ words:
 - id: w:kod
   sr: kod
   tr: у (кого-то), возле
-  rank: 40
+  rank: 41
   grp: 1
   pos: prep
   src:
@@ -1103,7 +1138,7 @@ words:
 - id: w:zbog
   sr: zbog
   tr: из-за
-  rank: 41
+  rank: 42
   grp: 1
   pos: prep
   src:
@@ -1124,7 +1159,7 @@ words:
 - id: w:icji
   sr: ići
   tr: идти, ехать
-  rank: 42
+  rank: 43
   grp: 1
   pos: verb
   forms:
@@ -1149,10 +1184,32 @@ words:
   zipf: 6.57
   pm: 3749.69
   band: 1
+- id: w:treba
+  sr: treba
+  tr: нужно, надо
+  rank: 44
+  grp: 1
+  lemma: trebati
+  pos: adv
+  src:
+  - base
+  - sit
+  sit:
+  - prodavnica
+  ex:
+  - sr: Treba li vam kesa?
+    tr: Пакет нужен?
+    about: sit
+    from: sit.prodavnica
+  round: 1
+  score: 9.365
+  zipf: 6.56
+  pm: 3632.01
+  band: 1
 - id: w:ovde
   sr: ovde
   tr: здесь
-  rank: 43
+  rank: 45
   grp: 1
   pos: adv
   src:
@@ -1173,7 +1230,7 @@ words:
 - id: w:vreme
   sr: vreme
   tr: время; погода
-  rank: 44
+  rank: 46
   grp: 1
   pos: noun
   gender: n
@@ -1203,7 +1260,7 @@ words:
 - id: w:bez
   sr: bez
   tr: без
-  rank: 45
+  rank: 47
   grp: 1
   pos: prep
   src:
@@ -1229,7 +1286,7 @@ words:
 - id: w:rachun
   sr: račun
   tr: счёт; чек
-  rank: 46
+  rank: 48
   grp: 1
   pos: noun
   gender: m
@@ -1265,7 +1322,7 @@ words:
 - id: w:uz
   sr: uz
   tr: вдоль; с, при
-  rank: 47
+  rank: 49
   grp: 1
   pos: prep
   src:
@@ -1287,7 +1344,7 @@ words:
 - id: w:red
   sr: red
   tr: ряд; очередь; порядок
-  rank: 48
+  rank: 50
   grp: 1
   pos: noun
   forms:
@@ -1315,8 +1372,8 @@ words:
 - id: w:placjati
   sr: plaćati
   tr: платить
-  rank: 49
-  grp: 1
+  rank: 51
+  grp: 2
   pos: verb
   forms:
     prs1: plaćam
@@ -1348,11 +1405,46 @@ words:
   zipf: 5.04
   pm: 110.91
   band: 2
+- id: w:primiti
+  sr: primiti
+  tr: принять, получить
+  rank: 52
+  grp: 2
+  pos: verb
+  forms:
+    prs1: primim
+    prs3: primi
+    prs3pl: prime
+    past: primio
+    imp: primi
+  src:
+  - base
+  - my
+  my:
+  - my.mup
+  sit:
+  - mup
+  - pekara
+  - stan
+  ex:
+  - sr: Poštovani, Vaš zahtev za odobrenje privremenog boravka je primljen.
+    tr: Уважаемый(ая), ваше заявление на временное пребывание принято.
+    about: my
+    from: my.mup
+  - sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
+    tr: Добрый день. Я пришёл подать заявление на временное пребывание.
+    about: sit
+    from: sit.mup
+  round: 1
+  score: 9.119
+  zipf: 5.14
+  pm: 138.61
+  band: 2
 - id: w:kucja
   sr: kuća
   tr: дом
-  rank: 50
-  grp: 1
+  rank: 53
+  grp: 2
   pos: noun
   gender: f
   forms:
@@ -1378,10 +1470,45 @@ words:
   zipf: 6.11
   pm: 1288.09
   band: 1
+- id: w:moliti
+  sr: moliti
+  tr: просить
+  rank: 54
+  grp: 2
+  pos: verb
+  forms:
+    prs1: molim
+    prs3: moli
+    prs3pl: mole
+    past: molio
+    imp: moli
+  src:
+  - base
+  - my
+  my:
+  - my.obavestenje
+  sit:
+  - mup
+  - pekara
+  - stan
+  ex:
+  - sr: Molimo Vas da ne ostavljate kese sa smećem ispred ulaza.
+    tr: Просим не оставлять пакеты с мусором перед подъездом.
+    about: my
+    from: my.obavestenje
+  - sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
+    tr: Добрый день. Я пришёл подать заявление на временное пребывание.
+    about: sit
+    from: sit.mup
+  round: 1
+  score: 9.089
+  zipf: 5.12
+  pm: 130.58
+  band: 2
 - id: w:gde
   sr: gde
   tr: где, куда
-  rank: 51
+  rank: 55
   grp: 2
   pos: adv
   src:
@@ -1402,7 +1529,7 @@ words:
 - id: w:docji
   sr: doći
   tr: прийти, приехать
-  rank: 52
+  rank: 56
   grp: 2
   pos: verb
   forms:
@@ -1430,7 +1557,7 @@ words:
 - id: w:preko
   sr: preko
   tr: через, поверх
-  rank: 53
+  rank: 57
   grp: 2
   pos: prep
   src:
@@ -1448,31 +1575,115 @@ words:
   zipf: 5.7
   pm: 298.28
   band: 1
-- id: w:treba
-  sr: treba
-  tr: нужно, надо
-  rank: 54
+- id: w:preuzeti
+  sr: preuzeti
+  tr: забрать, получить
+  rank: 58
   grp: 2
-  pos: adv
+  pos: verb
+  forms:
+    prs1: preuzmem
+    prs3: preuzme
+    prs3pl: preuzmu
+    past: preuzeo
+    imp: preuzmi
   src:
   - base
-  - sit
+  - my
+  my:
+  - my.banka
   sit:
-  - prodavnica
+  - mup
+  - pekara
+  - stan
   ex:
-  - sr: Treba li vam kesa?
-    tr: Пакет нужен?
+  - sr: Možete je preuzeti u ekspozituri banke uz ličnu kartu ili pasoš.
+    tr: Её можно забрать в отделении банка с удостоверением личности или паспортом.
+    about: my
+    from: my.banka
+  - sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
+    tr: Добрый день. Я пришёл подать заявление на временное пребывание.
     about: sit
-    from: sit.prodavnica
+    from: sit.mup
   round: 1
-  score: 8.901
-  zipf: 6.23
-  pm: 1683.82
-  band: 1
+  score: 8.924
+  zipf: 5.0
+  pm: 100.72
+  band: 2
+- id: w:popraviti
+  sr: popraviti
+  tr: починить
+  rank: 59
+  grp: 2
+  pos: verb
+  forms:
+    prs1: popravim
+    prs3: popravi
+    prs3pl: poprave
+    past: popravio
+    imp: popravi
+  src:
+  - base
+  - my
+  my:
+  - my.stanodavka
+  sit:
+  - mup
+  - pekara
+  - stan
+  ex:
+  - sr: Sutra u deset dolazi majstor da popravi bojler u kupatilu, da li ćete biti kod kuće?
+    tr: Завтра в десять придёт мастер починить бойлер в ванной — вы будете дома?
+    about: my
+    from: my.stanodavka
+  - sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
+    tr: Добрый день. Я пришёл подать заявление на временное пребывание.
+    about: sit
+    from: sit.mup
+  round: 1
+  score: 8.909
+  zipf: 4.99
+  pm: 97.41
+  band: 2
+- id: w:ostavljati
+  sr: ostavljati
+  tr: оставлять
+  rank: 60
+  grp: 2
+  pos: verb
+  forms:
+    prs1: ostavljam
+    prs3: ostavlja
+    prs3pl: ostavljaju
+    past: ostavljao
+    imp: ostavljaj
+  src:
+  - base
+  - my
+  my:
+  - my.obavestenje
+  sit:
+  - mup
+  - pekara
+  - stan
+  ex:
+  - sr: Molimo Vas da ne ostavljate kese sa smećem ispred ulaza.
+    tr: Просим не оставлять пакеты с мусором перед подъездом.
+    about: my
+    from: my.obavestenje
+  - sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
+    tr: Добрый день. Я пришёл подать заявление на временное пребывание.
+    about: sit
+    from: sit.mup
+  round: 1
+  score: 8.812
+  zipf: 4.92
+  pm: 83.4
+  band: 2
 - id: w:evo
   sr: evo
   tr: вот (здесь)
-  rank: 55
+  rank: 61
   grp: 2
   pos: interj
   src:
@@ -1493,7 +1704,7 @@ words:
 - id: w:kartica
   sr: kartica
   tr: банковская карта
-  rank: 56
+  rank: 62
   grp: 2
   pos: noun
   gender: f
@@ -1529,7 +1740,7 @@ words:
 - id: w:zahtev
   sr: zahtev
   tr: заявление, запрос
-  rank: 57
+  rank: 63
   grp: 2
   pos: noun
   gender: m
@@ -1564,7 +1775,7 @@ words:
 - id: w:koliko
   sr: koliko
   tr: сколько
-  rank: 58
+  rank: 64
   grp: 2
   pos: adv
   src:
@@ -1590,7 +1801,7 @@ words:
 - id: w:nacji
   sr: naći
   tr: найти
-  rank: 59
+  rank: 65
   grp: 2
   pos: verb
   forms:
@@ -1618,7 +1829,7 @@ words:
 - id: w:ostaviti
   sr: ostaviti
   tr: оставить
-  rank: 60
+  rank: 66
   grp: 2
   pos: verb
   forms:
@@ -1643,41 +1854,10 @@ words:
   zipf: 5.81
   pm: 649.04
   band: 1
-- id: w:dolaziti
-  sr: dolaziti
-  tr: приходить, приезжать
-  rank: 61
-  grp: 2
-  pos: verb
-  forms:
-    prs1: dolazim
-    prs3: dolazi
-    prs3pl: dolaze
-    past: dolazio
-    imp: dolazi
-  src:
-  - base
-  - my
-  my:
-  - my.stanodavka
-  ex:
-  - sr: Sutra u deset dolazi majstor da popravi bojler u kupatilu, da li ćete biti kod kuće?
-    tr: Завтра в десять придёт мастер починить бойлер в ванной — вы будете дома?
-    about: my
-    from: my.stanodavka
-  - sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
-    tr: Добрый день. Я пришёл подать заявление на временное пребывание.
-    about: sit
-    from: sit.mup
-  round: 1
-  score: 8.661
-  zipf: 5.8
-  pm: 629.41
-  band: 1
 - id: w:sprat
   sr: sprat
   tr: этаж
-  rank: 62
+  rank: 67
   grp: 2
   pos: noun
   forms:
@@ -1711,7 +1891,7 @@ words:
 - id: w:protiv
   sr: protiv
   tr: против
-  rank: 63
+  rank: 68
   grp: 2
   pos: prep
   src:
@@ -1729,10 +1909,41 @@ words:
   zipf: 5.77
   pm: 325.81
   band: 1
+- id: w:obavestiti
+  sr: obavestiti
+  tr: уведомить
+  rank: 69
+  grp: 2
+  pos: verb
+  forms:
+    prs1: obavestim
+    prs3: obavesti
+    prs3pl: obaveste
+    past: obavestio
+    imp: obavesti
+  src:
+  - base
+  - my
+  my:
+  - my.obavestenje
+  sit:
+  - mup
+  - pekara
+  - stan
+  ex:
+  - sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
+    tr: Добрый день. Я пришёл подать заявление на временное пребывание.
+    about: sit
+    from: sit.mup
+  round: 1
+  score: 8.645
+  zipf: 4.8
+  pm: 63.37
+  band: 2
 - id: w:posle
   sr: posle
   tr: после
-  rank: 64
+  rank: 70
   grp: 2
   pos: prep
   src:
@@ -1753,7 +1964,7 @@ words:
 - id: w:mesec
   sr: mesec
   tr: месяц
-  rank: 65
+  rank: 71
   grp: 2
   pos: noun
   gender: m
@@ -1782,7 +1993,7 @@ words:
 - id: w:struja
   sr: struja
   tr: электричество, ток
-  rank: 66
+  rank: 72
   grp: 2
   pos: noun
   forms:
@@ -1816,7 +2027,7 @@ words:
 - id: w:naravno
   sr: naravno
   tr: конечно
-  rank: 67
+  rank: 73
   grp: 2
   pos: adv
   src:
@@ -1837,7 +2048,7 @@ words:
 - id: w:spreman
   sr: spreman
   tr: готовый
-  rank: 68
+  rank: 74
   grp: 2
   pos: adj
   forms:
@@ -1862,7 +2073,7 @@ words:
 - id: w:izviniti
   sr: izviniti
   tr: извинить (izvinite — извините)
-  rank: 69
+  rank: 75
   grp: 2
   pos: verb
   asp: pf
@@ -1881,10 +2092,45 @@ words:
   zipf: 5.93
   pm: 852.27
   band: 1
+- id: w:predavati
+  sr: predavati
+  tr: сдавать, подавать
+  rank: 76
+  grp: 2
+  pos: verb
+  forms:
+    prs1: predajem
+    prs3: predaje
+    prs3pl: predaju
+    past: predavao
+    imp: predaj
+  src:
+  - base
+  - my
+  my:
+  - my.mup
+  sit:
+  - mup
+  - pekara
+  - stan
+  ex:
+  - sr: Dokumenta predajete lično na šalteru, uz zakazan termin.
+    tr: Документы вы подаёте лично в окошке, по записи.
+    about: my
+    from: my.mup
+  - sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
+    tr: Добрый день. Я пришёл подать заявление на временное пребывание.
+    about: sit
+    from: sit.mup
+  round: 1
+  score: 8.476
+  zipf: 4.68
+  pm: 47.45
+  band: 2
 - id: w:pogledati
   sr: pogledati
   tr: посмотреть
-  rank: 70
+  rank: 77
   grp: 2
   pos: verb
   forms:
@@ -1912,7 +2158,7 @@ words:
 - id: w:pet
   sr: pet
   tr: пять
-  rank: 71
+  rank: 78
   grp: 2
   pos: num
   src:
@@ -1933,7 +2179,7 @@ words:
 - id: w:ispred
   sr: ispred
   tr: перед
-  rank: 72
+  rank: 79
   grp: 2
   pos: prep
   src:
@@ -1951,10 +2197,44 @@ words:
   zipf: 5.23
   pm: 143.31
   band: 2
+- id: w:zakazati
+  sr: zakazati
+  tr: назначить, записаться
+  rank: 80
+  grp: 2
+  pos: verb
+  forms:
+    prs1: zakažem
+    prs3: zakaže
+    prs3pl: zakažu
+    past: zakazao
+    imp: zakaži
+  src:
+  - base
+  - my
+  - sit
+  sit:
+  - mup
+  my:
+  - my.mup
+  ex:
+  - sr: Termin možete zakazati preko portala eUprava.
+    tr: Записаться можно через портал eUprava.
+    about: my
+    from: my.mup
+  - sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
+    tr: Добрый день. Я пришёл подать заявление на временное пребывание.
+    about: sit
+    from: sit.mup
+  round: 1
+  score: 8.334
+  zipf: 4.5
+  pm: 25.89
+  band: 2
 - id: w:sat
   sr: sat
   tr: час; часы
-  rank: 73
+  rank: 81
   grp: 2
   pos: noun
   gender: m
@@ -1982,7 +2262,7 @@ words:
 - id: w:termin
   sr: termin
   tr: запись, назначенное время
-  rank: 74
+  rank: 82
   grp: 2
   pos: noun
   forms:
@@ -2014,73 +2294,10 @@ words:
   zipf: 4.58
   pm: 11.23
   band: 2
-- id: w:zakazati
-  sr: zakazati
-  tr: назначить, записаться
-  rank: 75
-  grp: 2
-  pos: verb
-  forms:
-    prs1: zakažem
-    prs3: zakaže
-    prs3pl: zakažu
-    past: zakazao
-    imp: zakaži
-  src:
-  - base
-  - my
-  - sit
-  sit:
-  - mup
-  my:
-  - my.mup
-  ex:
-  - sr: Termin možete zakazati preko portala eUprava.
-    tr: Записаться можно через портал eUprava.
-    about: my
-    from: my.mup
-  - sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
-    tr: Добрый день. Я пришёл подать заявление на временное пребывание.
-    about: sit
-    from: sit.mup
-  round: 1
-  score: 8.244
-  zipf: 4.41
-  pm: 25.89
-  band: 3
-- id: w:platiti
-  sr: platiti
-  tr: заплатить
-  rank: 76
-  grp: 2
-  pos: verb
-  forms:
-    prs1: platim
-    prs3: plati
-    prs3pl: plate
-    past: platio
-    imp: plati
-  asp: pf
-  src:
-  - base
-  - my
-  my:
-  - my.stanodavka
-  ex:
-  - sr: Molim Vas da platite do petog u mesecu.
-    tr: Прошу вас заплатить до пятого числа.
-    about: my
-    from: my.stanodavka
-  round: 1
-  pair: w:placjati
-  score: 8.157
-  zipf: 5.44
-  pm: 275.26
-  band: 1
 - id: w:lift
   sr: lift
   tr: лифт
-  rank: 77
+  rank: 83
   grp: 2
   pos: noun
   forms:
@@ -2108,40 +2325,45 @@ words:
     about: sit
     from: sit.stan
   round: 1
-  score: 8.144
-  zipf: 4.44
+  score: 8.204
+  zipf: 4.5
   pm: 27.52
-  band: 3
-- id: w:izvolite
-  sr: izvolite
-  tr: пожалуйста (вот, прошу)
-  rank: 78
+  band: 2
+- id: w:prijatan
+  sr: prijatan
+  tr: приятный
+  rank: 84
   grp: 2
-  pos: interj
+  pos: adj
+  forms:
+    f: prijatna
+    n: prijatno
+    cmp: prijatniji
   src:
   - base
-  - sit
+  - my
+  my:
+  - my.stanodavka
   sit:
-  - mup
   - pekara
   ex:
-  - sr: Sledeći! Izvolite.
-    tr: Следующий! Прошу.
-    about: sit
-    from: sit.mup
-  - sr: Dobar dan, izvolite.
-    tr: Добрый день, слушаю вас.
+  - sr: Hvala i prijatan dan!
+    tr: Спасибо и хорошего дня!
+    about: my
+    from: my.stanodavka
+  - sr: Može, naravno. Prijatno!
+    tr: Конечно. Всего доброго!
     about: sit
     from: sit.pekara
   round: 1
-  score: 8.095
-  zipf: 5.22
-  pm: 165.44
+  score: 8.202
+  zipf: 4.5
+  pm: 27.26
   band: 2
 - id: w:privremeni
   sr: privremeni
   tr: временный
-  rank: 79
+  rank: 85
   grp: 2
   lemma: privremen
   pos: adj
@@ -2166,14 +2388,14 @@ words:
     about: sit
     from: sit.mup
   round: 1
-  score: 8.059
-  zipf: 4.38
+  score: 8.179
+  zipf: 4.5
   pm: 23.73
-  band: 3
+  band: 2
 - id: w:kesa
   sr: kesa
   tr: пакет
-  rank: 80
+  rank: 86
   grp: 2
   pos: noun
   gender: f
@@ -2202,118 +2424,43 @@ words:
     about: sit
     from: sit.prodavnica
   round: 1
-  score: 8.048
-  zipf: 4.37
+  score: 8.178
+  zipf: 4.5
   pm: 23.63
-  band: 3
-- id: w:dokaz
-  sr: dokaz
-  tr: доказательство, подтверждение
-  rank: 81
-  grp: 2
-  pos: noun
-  forms:
-    gen: dokaza
-    loc: dokazu
-    ins: dokazom
-    pl: dokazi
-    gpl: dokaza
-  src:
-  - base
-  - my
-  my:
-  - my.mup
-  ex:
-  - sr: Potrebno je da dostavite dokaz o smeštaju i potvrdu o zdravstvenom osiguranju.
-    tr: Нужно предоставить подтверждение проживания и справку о медицинской страховке.
-    about: my
-    from: my.mup
-  round: 1
-  score: 7.989
-  zipf: 5.32
-  pm: 208.18
-  band: 1
-- id: w:sledecji
-  sr: sledeći
-  tr: следующий
-  rank: 82
-  grp: 2
-  pos: adj
-  forms:
-    f: sledeća
-    n: sledeće
-  src:
-  - base
-  - sit
-  sit:
-  - mup
-  ex:
-  - sr: Sledeći! Izvolite.
-    tr: Следующий! Прошу.
-    about: sit
-    from: sit.mup
-  round: 1
-  score: 7.98
-  zipf: 5.57
-  pm: 373.57
-  band: 1
-- id: w:lichan
-  sr: ličan
-  tr: личный (lična karta — удостоверение личности)
-  rank: 83
-  grp: 2
-  pos: adj
-  forms:
-    f: lična
-    n: lično
-  src:
-  - base
-  - my
-  my:
-  - my.banka
-  - my.mup
-  ex:
-  - sr: Možete je preuzeti u ekspozituri banke uz ličnu kartu ili pasoš.
-    tr: Её можно забрать в отделении банка с удостоверением личности или паспортом.
-    about: my
-    from: my.banka
-  round: 1
-  score: 7.947
-  zipf: 5.19
-  pm: 153.33
   band: 2
-- id: w:rad
-  sr: rad
-  tr: работа, труд; (radovi) ремонтные работы
-  rank: 84
+- id: w:platiti
+  sr: platiti
+  tr: заплатить
+  rank: 87
   grp: 2
-  pos: noun
-  gender: m
+  pos: verb
   forms:
-    gen: rada
-    loc: radu
-    ins: radom
-    pl: radovi
-    gpl: radova
+    prs1: platim
+    prs3: plati
+    prs3pl: plate
+    past: platio
+    imp: plati
+  asp: pf
   src:
   - base
   - my
   my:
-  - my.obavestenje
+  - my.stanodavka
   ex:
-  - sr: Poštovani stanari, u utorak od 9 do 14 časova neće biti vode zbog radova na vodovodnoj mreži.
-    tr: Уважаемые жильцы, во вторник с 9 до 14 часов не будет воды из-за работ на водопроводе.
+  - sr: Molim Vas da platite do petog u mesecu.
+    tr: Прошу вас заплатить до пятого числа.
     about: my
-    from: my.obavestenje
+    from: my.stanodavka
   round: 1
-  score: 7.937
-  zipf: 5.31
-  pm: 163.09
+  pair: w:placjati
+  score: 8.157
+  zipf: 5.44
+  pm: 275.26
   band: 1
 - id: w:pasosh
   sr: pasoš
   tr: паспорт (загран)
-  rank: 85
+  rank: 88
   grp: 2
   pos: noun
   gender: m
@@ -2341,43 +2488,14 @@ words:
     about: sit
     from: sit.mup
   round: 1
-  score: 7.924
-  zipf: 4.28
+  score: 8.144
+  zipf: 4.5
   pm: 19.24
-  band: 3
-- id: w:kljuch
-  sr: ključ
-  tr: ключ
-  rank: 86
-  grp: 2
-  pos: noun
-  gender: m
-  forms:
-    gen: ključa
-    acc: ključu
-    loc: ključu
-    ins: ključem
-    pl: ključevi
-    gpl: ključeva
-  src:
-  - base
-  - my
-  my:
-  - my.stanodavka
-  ex:
-  - sr: Ako niste, ostavite ključ kod komšinice na drugom spratu.
-    tr: Если вас не будет, оставьте ключ у соседки на втором этаже.
-    about: my
-    from: my.stanodavka
-  round: 1
-  score: 7.806
-  zipf: 5.19
-  pm: 153.45
   band: 2
 - id: w:boravak
   sr: boravak
   tr: пребывание; вид на жительство (privremeni boravak)
-  rank: 87
+  rank: 89
   grp: 2
   pos: noun
   gender: m
@@ -2406,45 +2524,14 @@ words:
     about: sit
     from: sit.mup
   round: 1
-  score: 7.798
-  zipf: 4.19
+  score: 8.108
+  zipf: 4.5
   pm: 15.47
-  band: 3
-- id: w:karta
-  sr: karta
-  tr: билет; карта
-  rank: 88
-  grp: 2
-  pos: noun
-  gender: f
-  forms:
-    gen: karte
-    acc: kartu
-    loc: karti
-    ins: kartom
-    pl: karte
-    gpl: karata
-  accent: kȃrta
-  note: 'Ложный друг: не «карта», а чаще билет (карта местности — mapa).'
-  src:
-  - base
-  - my
-  my:
-  - my.banka
-  ex:
-  - sr: Možete je preuzeti u ekspozituri banke uz ličnu kartu ili pasoš.
-    tr: Её можно забрать в отделении банка с удостоверением личности или паспортом.
-    about: my
-    from: my.banka
-  round: 1
-  score: 7.792
-  zipf: 5.18
-  pm: 149.76
   band: 2
 - id: w:potvrda
   sr: potvrda
   tr: справка, подтверждение
-  rank: 89
+  rank: 90
   grp: 2
   pos: noun
   forms:
@@ -2471,179 +2558,40 @@ words:
     about: sit
     from: sit.mup
   round: 1
-  score: 7.786
-  zipf: 4.18
+  score: 8.106
+  zipf: 4.5
   pm: 15.23
-  band: 3
-- id: w:chas
-  sr: čas
-  tr: час (в расписании); урок
-  rank: 90
-  grp: 2
-  pos: noun
-  forms:
-    gen: časa
-    loc: času
-    ins: časom
-    pl: časovi
-    gpl: časova
-  accent: čȁs
-  note: 'Ложный друг: не «час», а урок; момент (час — sat).'
-  src:
-  - base
-  - my
-  my:
-  - my.banka
-  - my.obavestenje
-  ex:
-  - sr: 'Radno vreme: radnim danima od 8 do 16 časova, subotom od 9 do 13.'
-    tr: 'Часы работы: в будни с 8 до 16, по субботам с 9 до 13.'
-    about: my
-    from: my.banka
-  round: 1
-  score: 7.755
-  zipf: 5.05
-  pm: 113.18
   band: 2
-- id: w:primiti
-  sr: primiti
-  tr: принять, получить
+- id: w:izvolite
+  sr: izvolite
+  tr: пожалуйста (вот, прошу)
   rank: 91
   grp: 2
-  pos: verb
-  forms:
-    prs1: primim
-    prs3: primi
-    prs3pl: prime
-    past: primio
-    imp: primi
-  src:
-  - base
-  - my
-  my:
-  - my.mup
-  ex:
-  - sr: Poštovani, Vaš zahtev za odobrenje privremenog boravka je primljen.
-    tr: Уважаемый(ая), ваше заявление на временное пребывание принято.
-    about: my
-    from: my.mup
-  - sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
-    tr: Добрый день. Я пришёл подать заявление на временное пребывание.
-    about: sit
-    from: sit.mup
-  round: 1
-  score: 7.739
-  zipf: 5.14
-  pm: 138.61
-  band: 2
-- id: w:moliti
-  sr: moliti
-  tr: просить
-  rank: 92
-  grp: 2
-  pos: verb
-  forms:
-    prs1: molim
-    prs3: moli
-    prs3pl: mole
-    past: molio
-    imp: moli
-  src:
-  - base
-  - my
-  my:
-  - my.obavestenje
-  ex:
-  - sr: Molimo Vas da ne ostavljate kese sa smećem ispred ulaza.
-    tr: Просим не оставлять пакеты с мусором перед подъездом.
-    about: my
-    from: my.obavestenje
-  - sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
-    tr: Добрый день. Я пришёл подать заявление на временное пребывание.
-    about: sit
-    from: sit.mup
-  round: 1
-  score: 7.708
-  zipf: 5.12
-  pm: 130.58
-  band: 2
-- id: w:ulaz
-  sr: ulaz
-  tr: вход; подъезд
-  rank: 93
-  grp: 2
-  pos: noun
-  gender: m
-  forms:
-    gen: ulaza
-    loc: ulazu
-    ins: ulazom
-    pl: ulazi
-    gpl: ulaza
-  src:
-  - base
-  - my
-  my:
-  - my.obavestenje
-  ex:
-  - sr: Molimo Vas da ne ostavljate kese sa smećem ispred ulaza.
-    tr: Просим не оставлять пакеты с мусором перед подъездом.
-    about: my
-    from: my.obavestenje
-  round: 1
-  score: 7.697
-  zipf: 5.11
-  pm: 129.53
-  band: 2
-- id: w:osam
-  sr: osam
-  tr: восемь
-  rank: 94
-  grp: 2
-  pos: num
+  pos: interj
   src:
   - base
   - sit
   sit:
-  - apoteka
+  - mup
+  - pekara
   ex:
-  - sr: Imamo, ovo ide bez recepta. Jedna tableta na osam sati.
-    tr: Есть, это без рецепта. Одна таблетка каждые восемь часов.
+  - sr: Sledeći! Izvolite.
+    tr: Следующий! Прошу.
     about: sit
-    from: sit.apoteka
+    from: sit.mup
+  - sr: Dobar dan, izvolite.
+    tr: Добрый день, слушаю вас.
+    about: sit
+    from: sit.pekara
   round: 1
-  score: 7.673
-  zipf: 5.02
-  pm: 84.2
+  score: 8.095
+  zipf: 5.22
+  pm: 165.44
   band: 2
-- id: w:poseban
-  sr: poseban
-  tr: отдельный, особый
-  rank: 95
-  grp: 2
-  pos: adj
-  forms:
-    f: posebna
-    n: posebno
-  src:
-  - base
-  - sit
-  sit:
-  - stan
-  ex:
-  - sr: Nisu, struju i vodu plaćate posebno.
-    tr: Нет, электричество и воду оплачиваете отдельно.
-    about: sit
-    from: sit.stan
-  round: 1
-  score: 7.629
-  zipf: 5.32
-  pm: 207.88
-  band: 1
 - id: w:kirija
   sr: kirija
   tr: аренда, квартплата
-  rank: 96
+  rank: 92
   grp: 2
   pos: noun
   gender: f
@@ -2672,106 +2620,14 @@ words:
     about: sit
     from: sit.stan
   round: 1
-  score: 7.553
-  zipf: 4.01
+  score: 8.043
+  zipf: 4.5
   pm: 10.34
-  band: 3
-- id: w:preuzeti
-  sr: preuzeti
-  tr: забрать, получить
-  rank: 97
-  grp: 2
-  pos: verb
-  forms:
-    prs1: preuzmem
-    prs3: preuzme
-    prs3pl: preuzmu
-    past: preuzeo
-    imp: preuzmi
-  src:
-  - base
-  - my
-  my:
-  - my.banka
-  ex:
-  - sr: Možete je preuzeti u ekspozituri banke uz ličnu kartu ili pasoš.
-    tr: Её можно забрать в отделении банка с удостоверением личности или паспортом.
-    about: my
-    from: my.banka
-  - sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
-    tr: Добрый день. Я пришёл подать заявление на временное пребывание.
-    about: sit
-    from: sit.mup
-  round: 1
-  score: 7.544
-  zipf: 5.0
-  pm: 100.72
-  band: 2
-- id: w:banka
-  sr: banka
-  tr: банк
-  rank: 98
-  grp: 2
-  pos: noun
-  gender: f
-  forms:
-    gen: banke
-    acc: banku
-    loc: banki
-    ins: bankom
-    pl: banke
-    gpl: banaka
-  accent: bànka
-  src:
-  - base
-  - my
-  my:
-  - my.banka
-  ex:
-  - sr: Možete je preuzeti u ekspozituri banke uz ličnu kartu ili pasoš.
-    tr: Её можно забрать в отделении банка с удостоверением личности или паспортом.
-    about: my
-    from: my.banka
-  round: 1
-  score: 7.53
-  zipf: 4.99
-  pm: 98.28
-  band: 2
-- id: w:popraviti
-  sr: popraviti
-  tr: починить
-  rank: 99
-  grp: 2
-  pos: verb
-  forms:
-    prs1: popravim
-    prs3: popravi
-    prs3pl: poprave
-    past: popravio
-    imp: popravi
-  src:
-  - base
-  - my
-  my:
-  - my.stanodavka
-  ex:
-  - sr: Sutra u deset dolazi majstor da popravi bojler u kupatilu, da li ćete biti kod kuće?
-    tr: Завтра в десять придёт мастер починить бойлер в ванной — вы будете дома?
-    about: my
-    from: my.stanodavka
-  - sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
-    tr: Добрый день. Я пришёл подать заявление на временное пребывание.
-    about: sit
-    from: sit.mup
-  round: 1
-  score: 7.528
-  zipf: 4.99
-  pm: 97.41
   band: 2
 - id: w:smeshtaj
   sr: smeštaj
   tr: жильё, проживание
-  rank: 100
+  rank: 93
   grp: 2
   pos: noun
   forms:
@@ -2798,14 +2654,311 @@ words:
     about: sit
     from: sit.mup
   round: 1
-  score: 7.525
-  zipf: 3.99
+  score: 8.035
+  zipf: 4.5
   pm: 9.82
-  band: 3
+  band: 2
+- id: w:dokaz
+  sr: dokaz
+  tr: доказательство, подтверждение
+  rank: 94
+  grp: 2
+  pos: noun
+  forms:
+    gen: dokaza
+    loc: dokazu
+    ins: dokazom
+    pl: dokazi
+    gpl: dokaza
+  src:
+  - base
+  - my
+  my:
+  - my.mup
+  ex:
+  - sr: Potrebno je da dostavite dokaz o smeštaju i potvrdu o zdravstvenom osiguranju.
+    tr: Нужно предоставить подтверждение проживания и справку о медицинской страховке.
+    about: my
+    from: my.mup
+  round: 1
+  score: 7.989
+  zipf: 5.32
+  pm: 208.18
+  band: 1
+- id: w:sledecji
+  sr: sledeći
+  tr: следующий
+  rank: 95
+  grp: 2
+  pos: adj
+  forms:
+    f: sledeća
+    n: sledeće
+  src:
+  - base
+  - sit
+  sit:
+  - mup
+  ex:
+  - sr: Sledeći! Izvolite.
+    tr: Следующий! Прошу.
+    about: sit
+    from: sit.mup
+  round: 1
+  score: 7.98
+  zipf: 5.57
+  pm: 373.57
+  band: 1
+- id: w:lichan
+  sr: ličan
+  tr: личный (lična karta — удостоверение личности)
+  rank: 96
+  grp: 2
+  pos: adj
+  forms:
+    f: lična
+    n: lično
+  src:
+  - base
+  - my
+  my:
+  - my.banka
+  - my.mup
+  ex:
+  - sr: Možete je preuzeti u ekspozituri banke uz ličnu kartu ili pasoš.
+    tr: Её можно забрать в отделении банка с удостоверением личности или паспортом.
+    about: my
+    from: my.banka
+  round: 1
+  score: 7.947
+  zipf: 5.19
+  pm: 153.33
+  band: 2
+- id: w:rad
+  sr: rad
+  tr: работа, труд; (radovi) ремонтные работы
+  rank: 97
+  grp: 2
+  pos: noun
+  gender: m
+  forms:
+    gen: rada
+    loc: radu
+    ins: radom
+    pl: radovi
+    gpl: radova
+  src:
+  - base
+  - my
+  my:
+  - my.obavestenje
+  ex:
+  - sr: Poštovani stanari, u utorak od 9 do 14 časova neće biti vode zbog radova na vodovodnoj mreži.
+    tr: Уважаемые жильцы, во вторник с 9 до 14 часов не будет воды из-за работ на водопроводе.
+    about: my
+    from: my.obavestenje
+  round: 1
+  score: 7.937
+  zipf: 5.31
+  pm: 163.09
+  band: 1
+- id: w:kljuch
+  sr: ključ
+  tr: ключ
+  rank: 98
+  grp: 2
+  pos: noun
+  gender: m
+  forms:
+    gen: ključa
+    acc: ključu
+    loc: ključu
+    ins: ključem
+    pl: ključevi
+    gpl: ključeva
+  src:
+  - base
+  - my
+  my:
+  - my.stanodavka
+  ex:
+  - sr: Ako niste, ostavite ključ kod komšinice na drugom spratu.
+    tr: Если вас не будет, оставьте ключ у соседки на втором этаже.
+    about: my
+    from: my.stanodavka
+  round: 1
+  score: 7.806
+  zipf: 5.19
+  pm: 153.45
+  band: 2
+- id: w:karta
+  sr: karta
+  tr: билет; карта
+  rank: 99
+  grp: 2
+  pos: noun
+  gender: f
+  forms:
+    gen: karte
+    acc: kartu
+    loc: karti
+    ins: kartom
+    pl: karte
+    gpl: karata
+  accent: kȃrta
+  note: 'Ложный друг: не «карта», а чаще билет (карта местности — mapa).'
+  src:
+  - base
+  - my
+  my:
+  - my.banka
+  ex:
+  - sr: Možete je preuzeti u ekspozituri banke uz ličnu kartu ili pasoš.
+    tr: Её можно забрать в отделении банка с удостоверением личности или паспортом.
+    about: my
+    from: my.banka
+  round: 1
+  score: 7.792
+  zipf: 5.18
+  pm: 149.76
+  band: 2
+- id: w:chas
+  sr: čas
+  tr: час (в расписании); урок
+  rank: 100
+  grp: 2
+  pos: noun
+  forms:
+    gen: časa
+    loc: času
+    ins: časom
+    pl: časovi
+    gpl: časova
+  accent: čȁs
+  note: 'Ложный друг: не «час», а урок; момент (час — sat).'
+  src:
+  - base
+  - my
+  my:
+  - my.banka
+  - my.obavestenje
+  ex:
+  - sr: 'Radno vreme: radnim danima od 8 do 16 časova, subotom od 9 do 13.'
+    tr: 'Часы работы: в будни с 8 до 16, по субботам с 9 до 13.'
+    about: my
+    from: my.banka
+  round: 1
+  score: 7.755
+  zipf: 5.05
+  pm: 113.18
+  band: 2
+- id: w:ulaz
+  sr: ulaz
+  tr: вход; подъезд
+  rank: 101
+  grp: 3
+  pos: noun
+  gender: m
+  forms:
+    gen: ulaza
+    loc: ulazu
+    ins: ulazom
+    pl: ulazi
+    gpl: ulaza
+  src:
+  - base
+  - my
+  my:
+  - my.obavestenje
+  ex:
+  - sr: Molimo Vas da ne ostavljate kese sa smećem ispred ulaza.
+    tr: Просим не оставлять пакеты с мусором перед подъездом.
+    about: my
+    from: my.obavestenje
+  round: 1
+  score: 7.697
+  zipf: 5.11
+  pm: 129.53
+  band: 2
+- id: w:osam
+  sr: osam
+  tr: восемь
+  rank: 102
+  grp: 3
+  pos: num
+  src:
+  - base
+  - sit
+  sit:
+  - apoteka
+  ex:
+  - sr: Imamo, ovo ide bez recepta. Jedna tableta na osam sati.
+    tr: Есть, это без рецепта. Одна таблетка каждые восемь часов.
+    about: sit
+    from: sit.apoteka
+  round: 1
+  score: 7.673
+  zipf: 5.02
+  pm: 84.2
+  band: 2
+- id: w:poseban
+  sr: poseban
+  tr: отдельный, особый
+  rank: 103
+  grp: 3
+  pos: adj
+  forms:
+    f: posebna
+    n: posebno
+  src:
+  - base
+  - sit
+  sit:
+  - stan
+  ex:
+  - sr: Nisu, struju i vodu plaćate posebno.
+    tr: Нет, электричество и воду оплачиваете отдельно.
+    about: sit
+    from: sit.stan
+  round: 1
+  score: 7.629
+  zipf: 5.32
+  pm: 207.88
+  band: 1
+- id: w:banka
+  sr: banka
+  tr: банк
+  rank: 104
+  grp: 3
+  pos: noun
+  gender: f
+  forms:
+    gen: banke
+    acc: banku
+    loc: banki
+    ins: bankom
+    pl: banke
+    gpl: banaka
+  accent: bànka
+  src:
+  - base
+  - my
+  my:
+  - my.banka
+  ex:
+  - sr: Možete je preuzeti u ekspozituri banke uz ličnu kartu ili pasoš.
+    tr: Её можно забрать в отделении банка с удостоверением личности или паспортом.
+    about: my
+    from: my.banka
+  round: 1
+  score: 7.53
+  zipf: 4.99
+  pm: 98.28
+  band: 2
 - id: w:stan
   sr: stan
   tr: квартира
-  rank: 101
+  rank: 105
   grp: 3
   pos: noun
   gender: m
@@ -2839,7 +2992,7 @@ words:
 - id: w:savet
   sr: savet
   tr: совет
-  rank: 102
+  rank: 106
   grp: 3
   pos: noun
   forms:
@@ -2858,41 +3011,10 @@ words:
   zipf: 4.94
   pm: 86.41
   band: 2
-- id: w:ostavljati
-  sr: ostavljati
-  tr: оставлять
-  rank: 103
-  grp: 3
-  pos: verb
-  forms:
-    prs1: ostavljam
-    prs3: ostavlja
-    prs3pl: ostavljaju
-    past: ostavljao
-    imp: ostavljaj
-  src:
-  - base
-  - my
-  my:
-  - my.obavestenje
-  ex:
-  - sr: Molimo Vas da ne ostavljate kese sa smećem ispred ulaza.
-    tr: Просим не оставлять пакеты с мусором перед подъездом.
-    about: my
-    from: my.obavestenje
-  - sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
-    tr: Добрый день. Я пришёл подать заявление на временное пребывание.
-    about: sit
-    from: sit.mup
-  round: 1
-  score: 7.431
-  zipf: 4.92
-  pm: 83.4
-  band: 2
 - id: w:odgovarati
   sr: odgovarati
   tr: подходить, устраивать; отвечать
-  rank: 104
+  rank: 107
   grp: 3
   pos: verb
   forms:
@@ -2923,7 +3045,7 @@ words:
 - id: w:radni
   sr: radni
   tr: рабочий
-  rank: 105
+  rank: 108
   grp: 3
   pos: adj
   src:
@@ -2941,37 +3063,10 @@ words:
   zipf: 4.72
   pm: 52.84
   band: 2
-- id: w:obavestiti
-  sr: obavestiti
-  tr: уведомить
-  rank: 106
-  grp: 3
-  pos: verb
-  forms:
-    prs1: obavestim
-    prs3: obavesti
-    prs3pl: obaveste
-    past: obavestio
-    imp: obavesti
-  src:
-  - base
-  - my
-  my:
-  - my.obavestenje
-  ex:
-  - sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
-    tr: Добрый день. Я пришёл подать заявление на временное пребывание.
-    about: sit
-    from: sit.mup
-  round: 1
-  score: 7.264
-  zipf: 4.8
-  pm: 63.37
-  band: 2
 - id: w:trecji
   sr: treći
   tr: третий
-  rank: 107
+  rank: 109
   grp: 3
   pos: adj
   src:
@@ -2992,7 +3087,7 @@ words:
 - id: w:osiguranje
   sr: osiguranje
   tr: страховка
-  rank: 108
+  rank: 110
   grp: 3
   pos: noun
   forms:
@@ -3019,7 +3114,7 @@ words:
 - id: w:petak
   sr: petak
   tr: пятница
-  rank: 109
+  rank: 111
   grp: 3
   pos: noun
   forms:
@@ -3047,7 +3142,7 @@ words:
 - id: w:dokument
   sr: dokument
   tr: документ
-  rank: 110
+  rank: 112
   grp: 3
   pos: noun
   gender: m
@@ -3076,7 +3171,7 @@ words:
 - id: w:predati
   sr: predati
   tr: сдать, подать (документы)
-  rank: 111
+  rank: 113
   grp: 3
   pos: verb
   forms:
@@ -3101,10 +3196,40 @@ words:
   zipf: 4.98
   pm: 95.16
   band: 2
+- id: w:poneti
+  sr: poneti
+  tr: взять с собой
+  rank: 114
+  grp: 3
+  pos: verb
+  forms:
+    prs1: ponesem
+    prs3: ponese
+    prs3pl: ponesu
+  asp: pf
+  src:
+  - base
+  - sit
+  sit:
+  - pekara
+  ex:
+  - sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
+    tr: Добрый день. Я пришёл подать заявление на временное пребывание.
+    about: sit
+    from: sit.mup
+  - sr: Potrebna je i potvrda o smeštaju.
+    tr: Нужна также справка о проживании.
+    about: sit
+    from: sit.mup
+  round: 1
+  score: 7.148
+  zipf: 4.9
+  pm: 79.45
+  band: 2
 - id: w:kupatilo
   sr: kupatilo
   tr: ванная
-  rank: 112
+  rank: 115
   grp: 3
   pos: noun
   forms:
@@ -3131,7 +3256,7 @@ words:
 - id: w:mrezha
   sr: mreža
   tr: сеть
-  rank: 113
+  rank: 116
   grp: 3
   pos: noun
   forms:
@@ -3156,39 +3281,10 @@ words:
   zipf: 4.71
   pm: 50.75
   band: 2
-- id: w:poneti
-  sr: poneti
-  tr: взять с собой
-  rank: 114
-  grp: 3
-  pos: verb
-  forms:
-    prs1: ponesem
-    prs3: ponese
-    prs3pl: ponesu
-  src:
-  - base
-  - sit
-  sit:
-  - pekara
-  ex:
-  - sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
-    tr: Добрый день. Я пришёл подать заявление на временное пребывание.
-    about: sit
-    from: sit.mup
-  - sr: Potrebna je i potvrda o smeštaju.
-    tr: Нужна также справка о проживании.
-    about: sit
-    from: sit.mup
-  round: 1
-  score: 7.12
-  zipf: 4.88
-  pm: 75.67
-  band: 2
 - id: w:koshtati
   sr: koštati
   tr: стоить
-  rank: 115
+  rank: 117
   grp: 3
   pos: verb
   forms:
@@ -3218,41 +3314,10 @@ words:
   zipf: 4.88
   pm: 75.09
   band: 2
-- id: w:predavati
-  sr: predavati
-  tr: сдавать, подавать
-  rank: 116
-  grp: 3
-  pos: verb
-  forms:
-    prs1: predajem
-    prs3: predaje
-    prs3pl: predaju
-    past: predavao
-    imp: predaj
-  src:
-  - base
-  - my
-  my:
-  - my.mup
-  ex:
-  - sr: Dokumenta predajete lično na šalteru, uz zakazan termin.
-    tr: Документы вы подаёте лично в окошке, по записи.
-    about: my
-    from: my.mup
-  - sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
-    tr: Добрый день. Я пришёл подать заявление на временное пребывание.
-    about: sit
-    from: sit.mup
-  round: 1
-  score: 7.095
-  zipf: 4.68
-  pm: 47.45
-  band: 2
 - id: w:dvadeset
   sr: dvadeset
   tr: двадцать
-  rank: 117
+  rank: 118
   grp: 3
   pos: num
   src:
@@ -3273,7 +3338,7 @@ words:
 - id: w:subota
   sr: subota
   tr: суббота
-  rank: 118
+  rank: 119
   grp: 3
   pos: noun
   forms:
@@ -3300,7 +3365,7 @@ words:
 - id: w:sir
   sr: sir
   tr: сыр
-  rank: 119
+  rank: 120
   grp: 3
   pos: noun
   forms:
@@ -3328,7 +3393,7 @@ words:
 - id: w:smecje
   sr: smeće
   tr: мусор
-  rank: 120
+  rank: 121
   grp: 3
   pos: noun
   forms:
@@ -3353,7 +3418,7 @@ words:
 - id: w:ukljuchiti
   sr: uključiti
   tr: включить
-  rank: 121
+  rank: 122
   grp: 3
   pos: verb
   forms:
@@ -3384,7 +3449,7 @@ words:
 - id: w:prijatno
   sr: prijatno
   tr: приятного аппетита; всего доброго
-  rank: 122
+  rank: 123
   grp: 3
   pos: interj
   src:
@@ -3405,7 +3470,7 @@ words:
 - id: w:ponoviti
   sr: ponoviti
   tr: повторить
-  rank: 123
+  rank: 124
   grp: 3
   pos: verb
   forms:
@@ -3430,10 +3495,38 @@ words:
   zipf: 4.84
   pm: 69.03
   band: 2
+- id: w:komshinica
+  sr: komšinica
+  tr: соседка
+  rank: 125
+  grp: 3
+  lemma: komšija
+  pos: noun
+  gender: f
+  forms:
+    gen: komšinice
+    acc: komšinicu
+    loc: komšinici
+    ins: komšinicom
+    pl: komšinice
+  src:
+  - my
+  my:
+  - my.stanodavka
+  ex:
+  - sr: Ako niste, ostavite ključ kod komšinice na drugom spratu.
+    tr: Если вас не будет, оставьте ключ у соседки на втором этаже.
+    about: my
+    from: my.stanodavka
+  round: 1
+  score: 6.901
+  zipf: 4.54
+  pm: 34.6
+  band: 2
 - id: w:levo
   sr: levo
   tr: налево
-  rank: 124
+  rank: 126
   grp: 3
   pos: adv
   src:
@@ -3454,7 +3547,7 @@ words:
 - id: w:kucjni
   sr: kućni
   tr: домашний (kućni savet — домсовет)
-  rank: 125
+  rank: 127
   grp: 3
   pos: adj
   src:
@@ -3470,7 +3563,7 @@ words:
 - id: w:mleko
   sr: mleko
   tr: молоко
-  rank: 126
+  rank: 128
   grp: 3
   pos: noun
   gender: n
@@ -3497,7 +3590,7 @@ words:
 - id: w:utorak
   sr: utorak
   tr: вторник
-  rank: 127
+  rank: 129
   grp: 3
   pos: noun
   forms:
@@ -3522,39 +3615,36 @@ words:
   zipf: 4.46
   pm: 28.91
   band: 3
-- id: w:prijatan
-  sr: prijatan
-  tr: приятный
-  rank: 128
+- id: w:prodavnica
+  sr: prodavnica
+  tr: магазин
+  rank: 130
   grp: 3
-  pos: adj
+  pos: noun
+  gender: f
   forms:
-    f: prijatna
-    n: prijatno
-    cmp: prijatniji
+    gen: prodavnice
+    acc: prodavnicu
+    loc: prodavnici
+    ins: prodavnicom
+    pl: prodavnice
   src:
-  - base
-  - my
-  my:
-  - my.stanodavka
+  - manual
+  sit:
+  - prodavnica
   ex:
-  - sr: Hvala i prijatan dan!
-    tr: Спасибо и хорошего дня!
-    about: my
-    from: my.stanodavka
-  - sr: Može, naravno. Prijatno!
-    tr: Конечно. Всего доброго!
-    about: sit
-    from: sit.pekara
+  - sr: Idem u prodavnicu po hleb.
+    tr: Иду в магазин за хлебом.
+    about: general
   round: 1
-  score: 6.761
-  zipf: 4.44
-  pm: 27.26
-  band: 3
+  score: 6.737
+  zipf: 4.68
+  pm: 48.13
+  band: 2
 - id: w:majstor
   sr: majstor
   tr: мастер
-  rank: 129
+  rank: 131
   grp: 3
   pos: noun
   forms:
@@ -3581,7 +3671,7 @@ words:
 - id: w:kupiti
   sr: kupiti
   tr: купить (один раз
-  rank: 130
+  rank: 132
   grp: 3
   pos: verb
   forms:
@@ -3605,7 +3695,7 @@ words:
 - id: w:portal
   sr: portal
   tr: портал
-  rank: 131
+  rank: 133
   grp: 3
   pos: noun
   forms:
@@ -3632,7 +3722,7 @@ words:
 - id: w:kupovati
   sr: kupovati
   tr: покупать (процесс
-  rank: 132
+  rank: 134
   grp: 3
   pos: verb
   forms:
@@ -3653,54 +3743,6 @@ words:
   score: 5.524
   zipf: 4.8
   pm: 63.58
-  band: 2
-- id: w:prodavnica
-  sr: prodavnica
-  tr: магазин
-  rank: 133
-  grp: 3
-  pos: noun
-  gender: f
-  forms:
-    gen: prodavnice
-    acc: prodavnicu
-    loc: prodavnici
-    ins: prodavnicom
-    pl: prodavnice
-  src:
-  - manual
-  sit:
-  - prodavnica
-  ex:
-  - sr: Idem u prodavnicu po hleb.
-    tr: Иду в магазин за хлебом.
-    about: general
-  round: 1
-  score: 5.357
-  zipf: 4.68
-  pm: 48.13
-  band: 2
-- id: w:komshinica
-  sr: komšinica
-  tr: соседка
-  rank: 134
-  grp: 3
-  lemma: komšija
-  pos: noun
-  gender: f
-  src:
-  - my
-  my:
-  - my.stanodavka
-  ex:
-  - sr: Ako niste, ostavite ključ kod komšinice na drugom spratu.
-    tr: Если вас не будет, оставьте ключ у соседки на втором этаже.
-    about: my
-    from: my.stanodavka
-  round: 1
-  score: 5.161
-  zipf: 4.54
-  pm: 34.6
   band: 2
 phrases:
 - id: p:dobar-dan-doshao-sam-da-predam-zahtev-za-privremeni-boravak

@@ -58,6 +58,10 @@ def compute(root: Path) -> dict:
         out.append(opt("situations", f"Написать ситуации ({len(missing)})", "Короткие живые диалоги и фразы: " + ", ".join(missing[:4]) + ".", "situations", "chosen without dialogs", {"ids": missing}))
     words = [w for w in deck.get("words", []) if not w.get("retired")]
     if prof and not words:
+        packs = sorted((Path(__file__).resolve().parent.parent / "data" / "packs").glob("*.yaml"))
+        for pk in packs[:1]:
+            title = (read_yaml(pk, {}) or {}).get("title", pk.stem)
+            out.append(opt("pack", f"Набор «{title}»", "Готовые диалоги, ~250 слов и фразы для этих ситуаций — сразу в тренажёр.", "pack", "no deck", {"name": pk.stem}))
         out.append(opt("round", "Собрать первые слова", "Частотный анализ + ваши ситуации и тексты → первая колода.", "vocab", "no deck"))
     if words:
         from words import known_ids

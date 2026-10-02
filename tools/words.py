@@ -255,6 +255,8 @@ def add(root: Path, draft_p: Path, kind: str, rnd: int | None, score: bool = Tru
         seen = {(norm(w["sr"]), w.get("pos", "")) for w in deck["words"]}
         nxt = max((w["rank"] for w in deck["words"]), default=0)
         pending_pairs = []
+        lines, _tat = _examples_index(root)
+        line_toks = [({norm(t) for t in tokens(a)}, norm(a), a, b, src) for a, b, src in lines]
         for x in items:
             sr = to_latin(str(x["sr"]).strip())
             d = det.get(sr, {})
@@ -288,6 +290,18 @@ def add(root: Path, draft_p: Path, kind: str, rnd: int | None, score: bool = Tru
                 if x.get(k):
                     w[k] = [slug(s) if k == "sit" else str(s) for s in x[k]]
             ex = _clean_ex(x.get("ex"), warn, sr)
+            # no examples given: take translated lines of the person's situations that use the word
+            # (its own situations first); a word without situations gets the ones it appears in
+            forms = set(lex.forms_of(key)) | {norm(sr)}
+            multi = " " in sr
+            hits = [(src, a, b) for toks, low, a, b, src in line_toks
+                    if ((norm(sr) in low) if multi else bool(forms & toks))]
+            if not w.get("sit") and hits:
+                w["sit"] = sorted({src.split(".", 1)[1] for src, _, _ in hits})
+            if not ex and hits:
+                own = set(w.get("sit") or [])
+                hits.sort(key=lambda h: (h[0].split(".", 1)[1] not in own, len(h[1])))
+                ex = [{"sr": a, "tr": b, "about": "sit", "from": src} for src, a, b in hits[:2]]
             if ex:
                 w["ex"] = ex
             w["round"] = rnd

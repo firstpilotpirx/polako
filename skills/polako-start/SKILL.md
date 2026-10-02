@@ -110,10 +110,11 @@ Read `modules/<module>.md` and run it with the option's `args`.
 | wizard | first-run questions; change one answer | [modules/wizard.md](modules/wizard.md) |
 | corpus | download corpora, spoken frequency, coverage table | [modules/corpus.md](modules/corpus.md) |
 | vocab | rounds of words: candidates → translation and examples → cards → "I know" check; grammar cards | [modules/vocab.md](modules/vocab.md) |
-| situations | the person's situations: dialogs, phrases | [modules/situations.md](modules/situations.md) |
+| situations | the person's situations: dialogs, phrases (a ready set: `run pack.py install`) | [modules/situations.md](modules/situations.md) |
 | text | "here is a text": analyse, keep it, add its new words | [modules/text.md](modules/text.md) |
 | trainer | how the trainer works; hard words (leeches); sessions before an appointment | [modules/trainer.md](modules/trainer.md) |
 | stats | statistics in the chat, personal FSRS fit | [modules/stats.md](modules/stats.md) |
+| pack | install a ready set: `run pack.py --dir <folder> install <args.name>`, then the page on «Словарь» | [modules/wizard.md](modules/wizard.md) |
 | page | open the page on a tab (`args.tab`) | step 1½ |
 | upgrade | new plugin version: backup, migration, rebuild, rollback | [modules/upgrade.md](modules/upgrade.md) |
 
@@ -146,6 +147,7 @@ scripts read.
 | Re-rank the deck | `run score_words.py` · `--explain <word>` |
 | Phrase candidates | `run phrases.py [--min 2]` |
 | Situations | `run situations.py catalog` · `add <draft>` · `list` · `set <id> pri=1` |
+| Ready-made sets (situations + words + phrases) | `run pack.py list` · `show <name>` · `install <name>` · `coverage <name>` |
 | A text: what is unknown, keep it, draft its words | `run unknown_in.py --file f | --text "…" | --inbox [--save "title"] [--draft]` |
 | Coverage, statistics, personal FSRS | `run coverage.py [--deck]` · `run stats.py [--json]` · `run fsrs_fit.py [--dry]` |
 | Transliteration | `run translit.py lat|cyr|fold|slug <text>` |

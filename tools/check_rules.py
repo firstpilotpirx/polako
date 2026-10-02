@@ -69,6 +69,17 @@ for f in ("core_lexicon.yaml", "variants.yaml", "false_friends.yaml", "situation
     except Exception as e:  # noqa: BLE001
         err(f"data/{f}: {e}")
 
+for pk in (ROOT / "data" / "packs").glob("*.yaml"):
+    d = yaml.safe_load(pk.read_text(encoding="utf-8"))
+    for w in d.get("words", []):
+        if not isinstance(w.get("sr"), str) or not isinstance(w.get("tr"), str):
+            err(f"{pk.name}: bad word {w}")
+    for s in d.get("situations", []):
+        for dl in s.get("dialogs", []):
+            for ln in dl["lines"]:
+                if not all(isinstance(ln.get(k), str) for k in ("sr", "tr")) or ln.get("who") not in ("me", "they"):
+                    err(f"{pk.name}: bad line {ln}")
+
 if errors:
     print("\n".join("✗ " + e for e in errors))
     sys.exit(1)

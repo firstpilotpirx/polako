@@ -15,6 +15,7 @@
   f_sit  occurrences in the person's situations; w_pri — the best priority among them (1 → 2, 2 → 1, 3 → 0.5)
   f_my   occurrences in the person's own texts (my/) — words they already need: a flat +1.5 lifts a
          rare word from a landlord's message (kirija, zipf ≈ 3) above common words nobody sent them
+  floor  a card tagged with situations gets zipf ≥ 4.5 / 4.0 / 3.5 by the best priority of its situations
   boost  prep/word-boosts.txt, one "word +N" per line (words for an upcoming appointment, say),
          plus +0.5 for function words at levels a0/a1: without ja, ti, u, na, da no sentence is possible
 
@@ -89,14 +90,22 @@ class Signals:
         m = self.my.get(key) or self.my_sr.get(norm(sr)) or {}
         return b, m
 
-    def score(self, key: str, sr: str, pos: str = "", explain: bool = False):
+    def score(self, key: str, sr: str, pos: str = "", explain: bool = False, sits: list | None = None):
         b, m = self.lookup(key, sr)
+        if sits and not m.get("sit"):
+            # a card tagged with situations (a pack, a hand-made card) counts as met in them at least once
+            m = {**m, "sit": 1, "src": list(m.get("src", [])) + [f"sit.{x}" for x in sits]}
         pm = b.get("pm", 0.0)
         z_text = b.get("z") if b.get("z") is not None else self.zipf(sr)
         # a lemma's frequency, not its dictionary form's: wordfreq counts only the infinitive of a verb
         # (hteti ≈ 3.4) and misses everyday words (kirija); subtitles count all forms of the lemma
         z_spoken = math.log10(pm) + 3 if pm > 0 else 0.0
         z = round(min(8.0, max(z_text, z_spoken)), 2)
+        if sits:
+            # a word the person needs in a situation is useful to THEM whatever its corpus frequency:
+            # a floor by the situation's priority (1 → 4.5, 2 → 4.0, 3 → 3.5) keeps «uplatnica» from the deck's tail
+            best = min((self.pri.get(x, 2) for x in sits), default=2)
+            z = max(z, {1: 4.5, 2: 4.0, 3: 3.5}.get(best, 4.0))
         f_my = m.get("my", 0)
         f_sit = m.get("sit", 0)
         w_pri = 0.0
@@ -124,7 +133,7 @@ def rescore(root: Path, quiet: bool = False) -> dict:
     gs = int(deck.get("group_size", 50))
     words = deck.get("words", [])
     for w in words:
-        s, extra = sig.score(w.get("lemma", norm(w["sr"])), w["sr"], w.get("pos", ""))
+        s, extra = sig.score(w.get("lemma", norm(w["sr"])), w["sr"], w.get("pos", ""), sits=w.get("sit"))
         w["score"] = s
         w["zipf"] = extra["zipf"]
         w["pm"] = extra["pm"]

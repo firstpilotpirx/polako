@@ -199,6 +199,8 @@ function:
   - {l: loše, pos: adv, ru: "плохо"}
   - {l: lepo, pos: adv, ru: "красиво, хорошо"}
   - {l: brzo, pos: adv, ru: "быстро"}
+  - {l: sporo, pos: adv, ru: "медленно", f: "sporije"}
+  - {l: otprilike, pos: adv, ru: "примерно"}
   - {l: polako, pos: adv, ru: "медленно, не спеша"}
   - {l: tačno, pos: adv, ru: "точно"}
   - {l: nazad, pos: adv, ru: "назад"}
@@ -217,7 +219,6 @@ function:
   - {l: žao, pos: adv, ru: "жаль (žao mi je — мне жаль)"}
   - {l: jel, pos: part, ru: "разве? правда? (je li)", f: "jel'"}
   - {l: poput, pos: prep, ru: "как, наподобие"}
-  - {l: treba, pos: adv, ru: "нужно, надо"}
   # interjections and formulas
   - {l: da, pos: interj, ru: "да"}
   - {l: zdravo, pos: interj, ru: "привет; здравствуйте"}
@@ -262,7 +263,7 @@ verbs:
   - {l: praviti, asp: ipf, pair: napraviti, ru: "делать, готовить", f: "pravim praviš pravi pravimo pravite prave pravio pravila pravilo pravili pravile"}
   - {l: napraviti, asp: pf, pair: praviti, ru: "сделать, приготовить", f: "napravim napraviš napravi napravimo napravite naprave napravio napravila napravilo napravili napravile"}
   - {l: misliti, asp: ipf, ru: "думать", f: "mislim misliš misli mislimo mislite misle mislio mislila mislilo mislili mislile"}
-  - {l: trebati, asp: ipf, ru: "нуждаться; (мне) нужно", f: "trebam trebaš trebamo trebate trebaju trebao trebala trebalo trebali trebale"}
+  - {l: trebati, asp: ipf, ru: "нуждаться; (мне) нужно", f: "trebam trebaš treba trebamo trebate trebaju trebao trebala trebalo trebali trebale"}
   - {l: želeti, asp: ipf, ru: "желать, хотеть", f: "želim želiš želi želimo želite žele želeo želela želelo želeli želele"}
   - {l: morati, asp: ipf, ru: "быть должным, приходиться", f: "moram moraš mora moramo morate moraju morao morala moralo morali morale"}
   - {l: smeti, asp: ipf, ru: "сметь, (можно ли)", f: "smem smeš sme smemo smete smeju smeo smela smelo smeli smele"}
@@ -331,7 +332,7 @@ verbs:
   - {l: izviniti, asp: pf, ru: "извинить (izvinite — извините)", f: "izvini izvinite izvinio izvinila izvinjavam izvinjavamo"}
   - {l: izgledati, asp: ipf, ru: "выглядеть, казаться", f: "izgledam izgledaš izgleda izgledamo izgledate izgledaju izgledao izgledala izgledalo izgledali"}
   - {l: zvučati, asp: ipf, ru: "звучать", f: "zvuči zvuče zvučao zvučala zvučalo"}
-  - {l: dobiti, asp: pf, ru: "получить", f: "dobijem dobiješ dobije dobijemo dobijete dobiju dobio dobila dobilo dobili dobile"}
+  - {l: dobiti, asp: pf, pair: dobijati, ru: "получить", f: "dobijem dobiješ dobije dobijemo dobijete dobiju dobio dobila dobilo dobili dobile"}
   - {l: poslati, asp: pf, ru: "отправить, послать", f: "pošaljem pošalješ pošalje pošaljemo pošaljete pošalju poslao poslala poslalo poslali poslale pošalji pošaljite"}
   - {l: javiti, asp: pf, ru: "сообщить; (javiti se) связаться", f: "javim javiš javi javimo javite jave javio javila javili"}
   - {l: stići, asp: pf, ru: "прибыть; успеть", f: "stignem stigneš stigne stignemo stignete stignu stigao stigla stiglo stigli stigle"}
@@ -352,6 +353,8 @@ verbs:
   - {l: preporučiti, asp: pf, ru: "порекомендовать", f: "preporučim preporučiš preporuči preporučimo preporučite preporuče preporučio preporučila"}
   - {l: boleti, asp: ipf, ru: "болеть (boli me — у меня болит)", f: "boli bole boleo bolela bolelo"}
   - {l: nedostajati, asp: ipf, ru: "не хватать; скучать по", f: "nedostaje nedostaju nedostajao nedostajala nedostajalo"}
+  - {l: dobijati, asp: ipf, pair: dobiti, ru: "получать", f: "dobijam dobijaš dobija dobijamo dobijate dobijaju dobijao dobijala dobijalo dobijali dobijale"}
+  - {l: poneti, asp: pf, ru: "взять с собой", f: "ponesem poneseš ponese ponesemo ponesete ponesu poneo ponela ponelo poneli ponele ponesi ponesite"}
   - {l: ubiti, asp: pf, ru: "убить", f: "ubijem ubiješ ubije ubijemo ubijete ubiju ubio ubila ubilo ubili ubile"}
 
 nouns:
@@ -477,6 +480,10 @@ nouns:
   - {l: aerodrom, g: m, ru: "аэропорт"}
   - {l: more, g: n, ru: "море"}
   - {l: reka, g: f, ru: "река", f: "reci"}
+  - {l: notar, g: m, ru: "нотариус (разг.)"}
+  - {l: kolega, g: m, ru: "коллега", gen: false, f: "kolege kolegi kolegu kolegom kolega kolegama koleginica"}
+  - {l: komšinica, g: f, ru: "соседка"}
+  - {l: uplata, g: f, ru: "оплата, платёж"}
   - {l: pas, g: m, ru: "собака", gen: false, f: "psa psu psom psi pasa psima pse"}
   - {l: mačka, g: f, ru: "кошка"}
 

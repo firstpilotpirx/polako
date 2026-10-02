@@ -33,7 +33,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from prepio import Fail, apply, parse_pairs, read_json, read_yaml, rebuild, write_json, write_yaml  # noqa: E402
 
-WIZARD = ["explain", "why", "level", "situations", "texts", "goal", "listening", "data", "first-round"]
+WIZARD = ["explain", "why", "level", "pack", "situations", "texts", "goal", "listening", "data", "first-round"]
 PROFILE_KEYS = {"explain", "level", "goal", "retention", "listening", "typing", "situations", "interests", "why", "started"}
 
 
