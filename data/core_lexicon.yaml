@@ -1,0 +1,523 @@
+# Core Serbian lexicon (ekavian, Latin) — the top of spoken frequency, where open lexicons are thin.
+# UniMorph (Wiktionary) has no biti, imati, znati, moći, ići, ja, moj, ovaj… — exactly the words a
+# beginner meets first. sr_lemma.py reads this file BEFORE UniMorph; on a clash the entry listed
+# earlier wins (closed class and adverbs → verbs → nouns → adjectives).
+#
+# Fields: l lemma · pos · ru translation (used when the explanation language is Russian) ·
+#   f  forms (space-separated, the lemma itself is implied) · asp ipf|pf · pair aspect partner ·
+#   g  gender for nouns (m f n; mp fp np for plural-only) · pl plural nominative · st oblique stem ·
+#   cmp comparative (adjectives) · gen false = no generated forms, only `f`.
+# Nouns and adjectives get their regular forms generated (sr_lemma.py, paradigm); `f` adds or
+# overrides irregular ones. Forms shared by two lemmas are listed under the more frequent one only.
+version: 1
+
+function:
+  # personal and reflexive pronouns
+  - {l: ja, pos: pron, ru: "я", f: "mene me meni mnom mnome"}
+  - {l: ti, pos: pron, ru: "ты", f: "tebe te tebi tobom"}
+  - {l: "on", pos: pron, ru: "он", f: "njega ga njemu mu njim njime"}
+  - {l: ona, pos: pron, ru: "она", f: "nje njoj joj nju ju njom njome"}
+  - {l: ono, pos: pron, ru: "оно"}
+  - {l: mi, pos: pron, ru: "мы (и «мне»)", f: "nas nama nam"}
+  - {l: vi, pos: pron, ru: "вы", f: "vas vama vam"}
+  - {l: oni, pos: pron, ru: "они", f: "one njih ih njima im"}
+  - {l: se, pos: pron, ru: "себя (возвратное)", f: "sebe sebi sobom"}
+  # interrogative, relative, indefinite
+  - {l: ko, pos: pron, ru: "кто", f: "koga kome komu kim kime"}
+  - {l: šta, pos: pron, ru: "что", f: "čega čemu čime"}
+  - {l: što, pos: conj, ru: "что, почему (книжн.)"}
+  - {l: niko, pos: pron, ru: "никто", f: "nikoga nikog nikome nikom nikim"}
+  - {l: ništa, pos: pron, ru: "ничего", f: "ničega ničemu ničim"}
+  - {l: neko, pos: pron, ru: "кто-то", f: "nekoga nekome"}
+  - {l: nešto, pos: pron, ru: "что-то", f: "nečega nečemu nečim"}
+  - {l: svako, pos: pron, ru: "каждый, всякий"}
+  - {l: to, pos: pron, ru: "это, то"}
+  - {l: ovo, pos: pron, ru: "это (здесь)"}
+  - {l: ovaj, pos: pron, ru: "этот", f: "ova ove ovi ovu ovog ovoga ovom ovome ovim ovoj ovih ovima"}
+  - {l: taj, pos: pron, ru: "тот, этот", f: "ta te tu tog toga tom tome tim toj tih tima"}
+  - {l: onaj, pos: pron, ru: "тот (там)", f: "onu onog onoga onom onome onim onoj onih onima"}
+  - {l: koji, pos: pron, ru: "который, какой", f: "koja koje koju kojeg kojega kojem kojemu kojim kojoj kojih kojima kojom"}
+  - {l: čiji, pos: pron, ru: "чей", f: "čija čije čiju čijeg čijem čijim čijoj čijih"}
+  - {l: kakav, pos: pron, ru: "какой", f: "kakva kakvo kakvi kakve kakvu kakvog kakvom kakvim kakvoj kakvih"}
+  - {l: takav, pos: pron, ru: "такой", f: "takva takvo takvi takve takvu takvog takvom takvim takvoj takvih"}
+  - {l: koliki, pos: pron, ru: "какой величины", f: "kolika kolike koliku"}
+  - {l: sav, pos: pron, ru: "весь", f: "sva sve svi svu svega svemu svim svih svima"}
+  - {l: svaki, pos: pron, ru: "каждый", f: "svaka svake svaku svakog svakoga svakom svakim svakoj svakih"}
+  - {l: neki, pos: pron, ru: "некоторый, какой-то", f: "neka neke neku nekog nekom nekim nekoj nekih nekima"}
+  - {l: nijedan, pos: pron, ru: "ни один", f: "nijedna nijedno nijednu nijednog nijednom"}
+  - {l: drugi, pos: adj, ru: "другой; второй", f: "druga drugo druge drugu drugog drugoga drugom drugim drugoj drugih drugima"}
+  - {l: isti, pos: adj, ru: "тот же, одинаковый", f: "ista isto iste istu istog istom istim istoj istih"}
+  # possessives
+  - {l: moj, pos: pron, ru: "мой", f: "moja moje moji moju mog moga mojeg mom mome mojem mojim mojoj mojih mojima mojom"}
+  - {l: tvoj, pos: pron, ru: "твой", f: "tvoja tvoje tvoji tvoju tvog tvoga tvojeg tvom tvome tvojem tvojim tvojoj tvojih tvojima tvojom"}
+  - {l: svoj, pos: pron, ru: "свой", f: "svoja svoje svoji svoju svog svoga svojeg svom svome svojem svojim svojoj svojih svojima svojom"}
+  - {l: naš, pos: pron, ru: "наш", f: "naša naše naši našu našeg našem našim našoj naših našima našom"}
+  - {l: vaš, pos: pron, ru: "ваш", f: "vaša vaše vaši vašu vašeg vašem vašim vašoj vaših vašima vašom"}
+  - {l: njegov, pos: pron, ru: "его", f: "njegova njegovo njegovi njegove njegovu njegovog njegovom njegovim njegovoj njegovih njegovima"}
+  - {l: njen, pos: pron, ru: "её", f: "njena njeno njeni njene njenu njenog njenom njenim njenoj njenih njenima njezin njezina"}
+  - {l: njihov, pos: pron, ru: "их", f: "njihova njihovo njihovi njihove njihovu njihovog njihovom njihovim njihovoj njihovih njihovima"}
+  # numerals
+  - {l: jedan, pos: num, ru: "один", f: "jedna jedno jednu jednog jednoga jednom jednim jednoj jedni jedne jednih"}
+  - {l: dva, pos: num, ru: "два", f: "dve dvoje dvojica dvaju"}
+  - {l: tri, pos: num, ru: "три", f: "troje trojica"}
+  - {l: četiri, pos: num, ru: "четыре"}
+  - {l: pet, pos: num, ru: "пять"}
+  - {l: šest, pos: num, ru: "шесть"}
+  - {l: sedam, pos: num, ru: "семь"}
+  - {l: osam, pos: num, ru: "восемь"}
+  - {l: devet, pos: num, ru: "девять"}
+  - {l: deset, pos: num, ru: "десять"}
+  - {l: dvadeset, pos: num, ru: "двадцать"}
+  - {l: sto, pos: num, ru: "сто", f: "stotinu stotine"}
+  - {l: hiljada, pos: num, ru: "тысяча", f: "hiljadu hiljade hiljada"}
+  - {l: prvi, pos: adj, ru: "первый", f: "prva prvo prve prvu prvog prvom prvim prvoj prvih"}
+  - {l: treći, pos: adj, ru: "третий", f: "treća treće treću trećeg trećem trećim trećoj"}
+  - {l: pola, pos: num, ru: "половина, пол-"}
+  # prepositions
+  - {l: u, pos: prep, ru: "в"}
+  - {l: na, pos: prep, ru: "на"}
+  - {l: za, pos: prep, ru: "для, за"}
+  - {l: od, pos: prep, ru: "от, из (материала)"}
+  - {l: do, pos: prep, ru: "до"}
+  - {l: iz, pos: prep, ru: "из"}
+  - {l: sa, pos: prep, ru: "с, со", f: "s"}
+  - {l: o, pos: prep, ru: "о, об"}
+  - {l: po, pos: prep, ru: "по"}
+  - {l: kod, pos: prep, ru: "у (кого-то), возле"}
+  - {l: bez, pos: prep, ru: "без"}
+  - {l: kroz, pos: prep, ru: "через, сквозь"}
+  - {l: prema, pos: prep, ru: "к, по направлению к; по отношению к"}
+  - {l: pod, pos: prep, ru: "под"}
+  - {l: pred, pos: prep, ru: "перед"}
+  - {l: ispred, pos: prep, ru: "перед"}
+  - {l: iznad, pos: prep, ru: "над"}
+  - {l: ispod, pos: prep, ru: "под, ниже"}
+  - {l: iza, pos: prep, ru: "за, позади"}
+  - {l: između, pos: prep, ru: "между"}
+  - {l: pored, pos: prep, ru: "рядом с, возле"}
+  - {l: posle, pos: prep, ru: "после"}
+  - {l: pre, pos: prep, ru: "до, перед; назад (две недели назад)"}
+  - {l: oko, pos: prep, ru: "около, вокруг"}
+  - {l: protiv, pos: prep, ru: "против"}
+  - {l: preko, pos: prep, ru: "через, поверх"}
+  - {l: zbog, pos: prep, ru: "из-за"}
+  - {l: osim, pos: prep, ru: "кроме"}
+  - {l: uz, pos: prep, ru: "вдоль; с, при"}
+  - {l: ka, pos: prep, ru: "к", f: "k"}
+  - {l: nakon, pos: prep, ru: "после"}
+  - {l: tokom, pos: prep, ru: "в течение"}
+  - {l: umesto, pos: prep, ru: "вместо"}
+  - {l: blizu, pos: prep, ru: "близко, рядом"}
+  # conjunctions
+  - {l: i, pos: conj, ru: "и"}
+  - {l: a, pos: conj, ru: "а"}
+  - {l: ali, pos: conj, ru: "но"}
+  - {l: ili, pos: conj, ru: "или"}
+  - {l: da, pos: conj, ru: "что, чтобы; да"}
+  - {l: jer, pos: conj, ru: "потому что"}
+  - {l: ako, pos: conj, ru: "если"}
+  - {l: kad, pos: conj, ru: "когда", f: "kada"}
+  - {l: dok, pos: conj, ru: "пока"}
+  - {l: pa, pos: conj, ru: "ну; и потом"}
+  - {l: nego, pos: conj, ru: "чем; а (не … а)"}
+  - {l: iako, pos: conj, ru: "хотя"}
+  - {l: čim, pos: conj, ru: "как только"}
+  - {l: kao, pos: conj, ru: "как, словно"}
+  - {l: ni, pos: conj, ru: "ни", f: "niti"}
+  - {l: zato, pos: conj, ru: "поэтому; затем"}
+  - {l: pošto, pos: conj, ru: "поскольку; почём"}
+  - {l: dakle, pos: conj, ru: "итак, значит"}
+  # particles and adverbs
+  - {l: ne, pos: part, ru: "не, нет"}
+  - {l: li, pos: part, ru: "ли"}
+  - {l: zar, pos: part, ru: "разве"}
+  - {l: baš, pos: part, ru: "именно; прямо, очень"}
+  - {l: čak, pos: part, ru: "даже"}
+  - {l: samo, pos: part, ru: "только"}
+  - {l: još, pos: adv, ru: "ещё"}
+  - {l: već, pos: adv, ru: "уже; а (не … а)"}
+  - {l: tek, pos: adv, ru: "только (что), лишь"}
+  - {l: možda, pos: adv, ru: "может быть"}
+  - {l: valjda, pos: adv, ru: "наверное"}
+  - {l: verovatno, pos: adv, ru: "вероятно"}
+  - {l: naravno, pos: adv, ru: "конечно"}
+  - {l: stvarno, pos: adv, ru: "правда, действительно"}
+  - {l: zaista, pos: adv, ru: "действительно"}
+  - {l: upravo, pos: adv, ru: "только что; именно"}
+  - {l: odmah, pos: adv, ru: "сразу"}
+  - {l: uvek, pos: adv, ru: "всегда"}
+  - {l: nikad, pos: adv, ru: "никогда", f: "nikada"}
+  - {l: ikad, pos: adv, ru: "когда-нибудь", f: "ikada"}
+  - {l: ponekad, pos: adv, ru: "иногда"}
+  - {l: često, pos: adv, ru: "часто"}
+  - {l: opet, pos: adv, ru: "опять"}
+  - {l: ponovo, pos: adv, ru: "снова"}
+  - {l: sad, pos: adv, ru: "сейчас", f: "sada"}
+  - {l: tada, pos: adv, ru: "тогда"}
+  - {l: onda, pos: adv, ru: "потом, тогда"}
+  - {l: danas, pos: adv, ru: "сегодня"}
+  - {l: sutra, pos: adv, ru: "завтра"}
+  - {l: juče, pos: adv, ru: "вчера"}
+  - {l: večeras, pos: adv, ru: "сегодня вечером"}
+  - {l: jutros, pos: adv, ru: "сегодня утром"}
+  - {l: uskoro, pos: adv, ru: "скоро"}
+  - {l: kasnije, pos: adv, ru: "позже"}
+  - {l: ranije, pos: adv, ru: "раньше"}
+  - {l: rano, pos: adv, ru: "рано"}
+  - {l: kasno, pos: adv, ru: "поздно"}
+  - {l: ovde, pos: adv, ru: "здесь"}
+  - {l: tamo, pos: adv, ru: "там"}
+  - {l: tu, pos: adv, ru: "тут"}
+  - {l: gde, pos: adv, ru: "где, куда"}
+  - {l: kuda, pos: adv, ru: "куда"}
+  - {l: odavde, pos: adv, ru: "отсюда"}
+  - {l: ovamo, pos: adv, ru: "сюда"}
+  - {l: unutra, pos: adv, ru: "внутри, внутрь"}
+  - {l: napolju, pos: adv, ru: "снаружи, на улице", f: "napolje"}
+  - {l: gore, pos: adv, ru: "наверху; хуже"}
+  - {l: dole, pos: adv, ru: "внизу"}
+  - {l: levo, pos: adv, ru: "налево"}
+  - {l: desno, pos: adv, ru: "направо"}
+  - {l: pravo, pos: adv, ru: "прямо"}
+  - {l: daleko, pos: adv, ru: "далеко"}
+  - {l: kako, pos: adv, ru: "как"}
+  - {l: zašto, pos: adv, ru: "почему"}
+  - {l: koliko, pos: adv, ru: "сколько"}
+  - {l: tako, pos: adv, ru: "так"}
+  - {l: ovako, pos: adv, ru: "вот так"}
+  - {l: mnogo, pos: adv, ru: "много"}
+  - {l: puno, pos: adv, ru: "много (разг.)"}
+  - {l: malo, pos: adv, ru: "мало; немного"}
+  - {l: dosta, pos: adv, ru: "достаточно; довольно много"}
+  - {l: previše, pos: adv, ru: "слишком много"}
+  - {l: vrlo, pos: adv, ru: "очень"}
+  - {l: veoma, pos: adv, ru: "очень"}
+  - {l: jako, pos: adv, ru: "очень, сильно"}
+  - {l: skoro, pos: adv, ru: "почти; недавно"}
+  - {l: zajedno, pos: adv, ru: "вместе"}
+  - {l: dobro, pos: adv, ru: "хорошо, ладно"}
+  - {l: loše, pos: adv, ru: "плохо"}
+  - {l: lepo, pos: adv, ru: "красиво, хорошо"}
+  - {l: brzo, pos: adv, ru: "быстро"}
+  - {l: polako, pos: adv, ru: "медленно, не спеша"}
+  - {l: tačno, pos: adv, ru: "точно"}
+  - {l: nazad, pos: adv, ru: "назад"}
+  - {l: inače, pos: adv, ru: "иначе; вообще-то"}
+  - {l: uopšte, pos: adv, ru: "вообще"}
+  - {l: takođe, pos: adv, ru: "также"}
+  - {l: zapravo, pos: adv, ru: "на самом деле"}
+  - {l: ipak, pos: adv, ru: "всё же"}
+  - {l: nekoliko, pos: adv, ru: "несколько"}
+  - {l: negde, pos: adv, ru: "где-то"}
+  - {l: odakle, pos: adv, ru: "откуда"}
+  - {l: odatle, pos: adv, ru: "оттуда"}
+  - {l: zatim, pos: adv, ru: "затем"}
+  - {l: bar, pos: part, ru: "хотя бы", f: "barem"}
+  - {l: rado, pos: adv, ru: "охотно, с удовольствием"}
+  - {l: žao, pos: adv, ru: "жаль (žao mi je — мне жаль)"}
+  - {l: jel, pos: part, ru: "разве? правда? (je li)", f: "jel'"}
+  - {l: poput, pos: prep, ru: "как, наподобие"}
+  - {l: treba, pos: adv, ru: "нужно, надо"}
+  # interjections and formulas
+  - {l: da, pos: interj, ru: "да"}
+  - {l: zdravo, pos: interj, ru: "привет; здравствуйте"}
+  - {l: ćao, pos: interj, ru: "привет; пока"}
+  - {l: hvala, pos: interj, ru: "спасибо"}
+  - {l: molim, pos: interj, ru: "пожалуйста; что-что?"}
+  - {l: izvolite, pos: interj, ru: "пожалуйста (вот, прошу)", f: "izvoli"}
+  - {l: hajde, pos: interj, ru: "давай, пойдём", f: "ajde hajdemo ajmo"}
+  - {l: evo, pos: interj, ru: "вот (здесь)"}
+  - {l: eto, pos: interj, ru: "вот (там), ну вот"}
+  - {l: eno, pos: interj, ru: "вон"}
+  - {l: hej, pos: interj, ru: "эй"}
+  - {l: halo, pos: interj, ru: "алло"}
+  - {l: važi, pos: interj, ru: "договорились, ладно"}
+  - {l: super, pos: interj, ru: "супер"}
+  - {l: prijatno, pos: interj, ru: "приятного аппетита; всего доброго"}
+  - {l: doviđenja, pos: interj, ru: "до свидания"}
+  - {l: živeli, pos: interj, ru: "будем здоровы (тост)"}
+  - {l: zbogom, pos: interj, ru: "прощай"}
+  - {l: ok, pos: interj, ru: "ок", f: "okej"}
+
+verbs:
+  - {l: biti, asp: ipf, ru: "быть", f: "sam si je smo ste su jesam jesi jeste jesmo jesu nisam nisi nije nismo niste nisu biću bićeš biće bićemo bićete budem budeš bude budemo budete budu bio bila bilo bili bile bih bi bismo biste budi budite"}
+  - {l: hteti, asp: ipf, ru: "хотеть; (будущее время)", f: "hoću hoćeš hoće hoćemo hoćete ću ćeš će ćemo ćete neću nećeš neće nećemo nećete hteo htela htelo hteli htele"}
+  - {l: moći, asp: ipf, ru: "мочь", f: "mogu možeš može možemo možete mogao mogla moglo mogli mogle"}
+  - {l: imati, asp: ipf, ru: "иметь, (у меня) есть", f: "imam imaš ima imamo imate imaju nemam nemaš nema nemamo nemate nemaju imao imala imalo imali imale imaj imajte"}
+  - {l: znati, asp: ipf, ru: "знать", f: "znam znaš zna znamo znate znaju znao znala znalo znali znale znaj znajte"}
+  - {l: ići, asp: ipf, ru: "идти, ехать", f: "idem ideš ide idemo idete idu išao išla išlo išli išle idi idite"}
+  - {l: doći, asp: pf, ru: "прийти, приехать", f: "dođem dođeš dođe dođemo dođete dođu došao došla došlo došli došle dođi dođite"}
+  - {l: otići, asp: pf, ru: "уйти, уехать", f: "odem odeš ode odemo odete odu otišao otišla otišlo otišli otišle"}
+  - {l: ući, asp: pf, ru: "войти", f: "uđem uđeš uđe uđemo uđete uđu ušao ušla ušlo ušli ušle uđi uđite"}
+  - {l: izaći, asp: pf, ru: "выйти", f: "izađem izađeš izađe izađemo izađete izađu izašao izašla izašlo izašli izašle izađi izađite"}
+  - {l: reći, asp: pf, ru: "сказать", f: "kažem kažeš kaže kažemo kažete kažu rekao rekla reklo rekli rekle reci recite"}
+  - {l: govoriti, asp: ipf, ru: "говорить", f: "govorim govoriš govori govorimo govorite govore govorio govorila govorilo govorili govorile"}
+  - {l: pričati, asp: ipf, ru: "рассказывать, разговаривать", f: "pričam pričaš priča pričamo pričate pričaju pričao pričala pričalo pričali pričale pričaj pričajte"}
+  - {l: videti, asp: ipf, ru: "видеть", f: "vidim vidiš vidi vidimo vidite vide video videla videlo videli videle"}
+  - {l: gledati, asp: ipf, pair: pogledati, ru: "смотреть", f: "gledam gledaš gleda gledamo gledate gledaju gledao gledala gledalo gledali gledale gledaj gledajte"}
+  - {l: pogledati, asp: pf, pair: gledati, ru: "посмотреть", f: "pogledam pogledaš pogleda pogledamo pogledate pogledaju pogledao pogledala pogledalo pogledali pogledale pogledaj pogledajte"}
+  - {l: voleti, asp: ipf, ru: "любить", f: "volim voliš voli volimo volite vole voleo volela volelo voleli volele"}
+  - {l: raditi, asp: ipf, pair: uraditi, ru: "работать; делать", f: "radim radiš radi radimo radite rade radio radila radilo radili radile"}
+  - {l: uraditi, asp: pf, pair: raditi, ru: "сделать", f: "uradim uradiš uradi uradimo uradite urade uradio uradila uradilo uradili uradile"}
+  - {l: praviti, asp: ipf, pair: napraviti, ru: "делать, готовить", f: "pravim praviš pravi pravimo pravite prave pravio pravila pravilo pravili pravile"}
+  - {l: napraviti, asp: pf, pair: praviti, ru: "сделать, приготовить", f: "napravim napraviš napravi napravimo napravite naprave napravio napravila napravilo napravili napravile"}
+  - {l: misliti, asp: ipf, ru: "думать", f: "mislim misliš misli mislimo mislite misle mislio mislila mislilo mislili mislile"}
+  - {l: trebati, asp: ipf, ru: "нуждаться; (мне) нужно", f: "trebam trebaš trebamo trebate trebaju trebao trebala trebalo trebali trebale"}
+  - {l: želeti, asp: ipf, ru: "желать, хотеть", f: "želim želiš želi želimo želite žele želeo želela želelo želeli želele"}
+  - {l: morati, asp: ipf, ru: "быть должным, приходиться", f: "moram moraš mora moramo morate moraju morao morala moralo morali morale"}
+  - {l: smeti, asp: ipf, ru: "сметь, (можно ли)", f: "smem smeš sme smemo smete smeju smeo smela smelo smeli smele"}
+  - {l: dati, asp: pf, pair: davati, ru: "дать", f: "dam daš damo date daju dao dala dalo dali dale daj dajte"}
+  - {l: davati, asp: ipf, pair: dati, ru: "давать", f: "dajem daješ daje dajemo dajete davao davala davalo davali davale"}
+  - {l: uzeti, asp: pf, ru: "взять", f: "uzmem uzmeš uzme uzmemo uzmete uzmu uzeo uzela uzelo uzeli uzele uzmi uzmite"}
+  - {l: staviti, asp: pf, ru: "положить, поставить", f: "stavim staviš stavi stavimo stavite stave stavio stavila stavilo stavili stavile"}
+  - {l: čuti, asp: pf, ru: "услышать, слышать", f: "čujem čuješ čuje čujemo čujete čuju čuo čula čulo čuli čule čuj čujte"}
+  - {l: slušati, asp: ipf, ru: "слушать", f: "slušam slušaš sluša slušamo slušate slušaju slušao slušala slušalo slušali slušale slušaj slušajte"}
+  - {l: čekati, asp: ipf, pair: sačekati, ru: "ждать", f: "čekam čekaš čeka čekamo čekate čekaju čekao čekala čekalo čekali čekale čekaj čekajte"}
+  - {l: sačekati, asp: pf, pair: čekati, ru: "подождать", f: "sačekam sačekaš sačeka sačekamo sačekate sačekaju sačekao sačekala sačekalo sačekali sačekale sačekaj sačekajte"}
+  - {l: živeti, asp: ipf, ru: "жить", f: "živim živiš živi živimo živite žive živeo živela živelo živeli živele"}
+  - {l: umreti, asp: pf, ru: "умереть", f: "umrem umreš umre umremo umrete umru umro umrla umrlo umrli umrle"}
+  - {l: ostati, asp: pf, ru: "остаться", f: "ostanem ostaneš ostane ostanemo ostanete ostanu ostao ostala ostali ostale ostani ostanite"}
+  - {l: ostaviti, asp: pf, ru: "оставить", f: "ostavim ostaviš ostavi ostavimo ostavite ostave ostavio ostavila ostavilo ostavili ostavile"}
+  - {l: vratiti, asp: pf, ru: "вернуть(ся)", f: "vratim vratiš vrati vratimo vratite vrate vratio vratila vratilo vratili vratile"}
+  - {l: kupiti, asp: pf, pair: kupovati, ru: "купить", f: "kupim kupiš kupi kupimo kupite kupe kupio kupila kupilo kupili kupile"}
+  - {l: kupovati, asp: ipf, pair: kupiti, ru: "покупать", f: "kupujem kupuješ kupuje kupujemo kupujete kupuju kupovao kupovala kupovalo kupovali kupovale kupuj kupujte"}
+  - {l: platiti, asp: pf, pair: plaćati, ru: "заплатить", f: "platim platiš plati platimo platite plate platio platila platilo platili platile"}
+  - {l: plaćati, asp: ipf, pair: platiti, ru: "платить", f: "plaćam plaćaš plaća plaćamo plaćate plaćaju plaćao plaćala plaćalo plaćali plaćale"}
+  - {l: koštati, asp: ipf, ru: "стоить", f: "košta koštaju koštao koštala koštalo koštali koštale"}
+  - {l: jesti, asp: ipf, ru: "есть (кушать)", f: "jedem jedeš jede jedemo jedete jedu jeo jela jeli jele jedi jedite"}
+  - {l: piti, asp: ipf, ru: "пить", f: "pijem piješ pije pijemo pijete piju pio pila pilo pili pile pij pijte"}
+  - {l: spavati, asp: ipf, ru: "спать", f: "spavam spavaš spava spavamo spavate spavaju spavao spavala spavalo spavali spavale spavaj spavajte"}
+  - {l: sedeti, asp: ipf, ru: "сидеть", f: "sedim sediš sedimo sedite sede sedeo sedela sedelo sedeli sedele"}
+  - {l: sesti, asp: pf, ru: "сесть", f: "sednem sedneš sedne sednemo sednete sednu seo sedi sedite"}
+  - {l: stati, asp: pf, ru: "встать; остановиться", f: "stanem staneš stane stanemo stanete stanu stao stala stalo stali stale stani stanite"}
+  - {l: početi, asp: pf, ru: "начать", f: "počnem počneš počne počnemo počnete počnu počeo počela počelo počeli počele počni počnite"}
+  - {l: završiti, asp: pf, ru: "закончить", f: "završim završiš završi završimo završite završe završio završila završilo završili završile"}
+  - {l: pomoći, asp: pf, ru: "помочь", f: "pomognem pomogneš pomogne pomognemo pomognete pomognu pomogao pomogla pomoglo pomogli pomogle pomozi pomozite"}
+  - {l: tražiti, asp: ipf, ru: "искать; просить", f: "tražim tražiš traži tražimo tražite traže tražio tražila tražilo tražili tražile"}
+  - {l: naći, asp: pf, ru: "найти", f: "nađem nađeš nađe nađemo nađete nađu našao našla našlo našli našle nađi nađite"}
+  - {l: izgubiti, asp: pf, ru: "потерять", f: "izgubim izgubiš izgubi izgubimo izgubite izgube izgubio izgubila izgubilo izgubili izgubile"}
+  - {l: razumeti, asp: ipf, ru: "понимать", f: "razumem razumeš razume razumemo razumete razumeju razumeo razumela razumelo razumeli razumele"}
+  - {l: zaboraviti, asp: pf, ru: "забыть", f: "zaboravim zaboraviš zaboravi zaboravimo zaboravite zaborave zaboravio zaboravila zaboravilo zaboravili zaboravile"}
+  - {l: sećati, asp: ipf, ru: "помнить (sećati se)", f: "sećam sećaš seća sećamo sećate sećaju sećao sećala sećalo sećali sećale"}
+  - {l: učiti, asp: ipf, ru: "учить(ся)", f: "učim učiš uči učimo učite uče učio učila učilo učili učile"}
+  - {l: pisati, asp: ipf, ru: "писать", f: "pišem pišeš piše pišemo pišete pišu pisao pisala pisalo pisali pisale piši pišite"}
+  - {l: čitati, asp: ipf, ru: "читать", f: "čitam čitaš čita čitamo čitate čitaju čitao čitala čitalo čitali čitale čitaj čitajte"}
+  - {l: zvati, asp: ipf, pair: pozvati, ru: "звать; звонить", f: "zovem zoveš zove zovemo zovete zovu zvao zvala zvalo zvali zvale zovi zovite"}
+  - {l: pozvati, asp: pf, pair: zvati, ru: "позвать, пригласить; позвонить", f: "pozovem pozoveš pozove pozovemo pozovete pozovu pozvao pozvala pozvalo pozvali pozvale pozovi pozovite"}
+  - {l: otvoriti, asp: pf, ru: "открыть", f: "otvorim otvoriš otvori otvorimo otvorite otvore otvorio otvorila otvorilo otvorili otvorile"}
+  - {l: zatvoriti, asp: pf, ru: "закрыть", f: "zatvorim zatvoriš zatvori zatvorimo zatvorite zatvore zatvorio zatvorila zatvorilo zatvorili zatvorile"}
+  - {l: nositi, asp: ipf, ru: "носить, нести", f: "nosim nosiš nosi nosimo nosite nose nosio nosila nosilo nosili nosile"}
+  - {l: doneti, asp: pf, ru: "принести", f: "donesem doneseš donese donesemo donesete donesu doneo donela donelo doneli donele donesi donesite"}
+  - {l: voziti, asp: ipf, ru: "водить (машину), везти", f: "vozim voziš vozi vozimo vozite voze vozio vozila vozili vozile"}
+  - {l: putovati, asp: ipf, ru: "путешествовать, ездить", f: "putujem putuješ putuje putujemo putujete putuju putovao putovala putovalo putovali putovale"}
+  - {l: upoznati, asp: pf, ru: "познакомиться, узнать", f: "upoznam upoznaš upozna upoznamo upoznate upoznaju upoznao upoznala upoznalo upoznali upoznale"}
+  - {l: osećati, asp: ipf, ru: "чувствовать", f: "osećam osećaš oseća osećamo osećate osećaju osećao osećala osećalo osećali osećale"}
+  - {l: bojati, asp: ipf, ru: "бояться (bojati se)", f: "bojim bojiš boji bojimo bojite boje bojao bojala bojalo bojali bojale"}
+  - {l: nadati, asp: ipf, ru: "надеяться (nadati se)", f: "nadam nadaš nadamo nadate nadaju nadao nadala nadali"}
+  - {l: verovati, asp: ipf, ru: "верить", f: "verujem veruješ veruje verujemo verujete veruju verovao verovala verovalo verovali verovale veruj verujte"}
+  - {l: desiti, asp: pf, ru: "случиться (desiti se)", f: "desi dese desio desila desilo desili desile"}
+  - {l: igrati, asp: ipf, ru: "играть", f: "igram igraš igramo igrate igraju igrao igrala igralo igrali igrale"}
+  - {l: svideti, asp: pf, ru: "понравиться (svideti se)", f: "svidim svidiš svidi svidimo svidite svide svideo svidela svidelo svideli svidele"}
+  - {l: pokušati, asp: pf, ru: "попытаться", f: "pokušam pokušaš pokuša pokušamo pokušate pokušaju pokušao pokušala pokušalo pokušali pokušale pokušaj pokušajte"}
+  - {l: probati, asp: pf, ru: "попробовать", f: "probam probaš proba probamo probate probaju probao probala probalo probali probale probaj probajte"}
+  - {l: kuvati, asp: ipf, ru: "готовить (еду), варить", f: "kuvam kuvaš kuva kuvamo kuvate kuvaju kuvao kuvala kuvali"}
+  - {l: prodati, asp: pf, pair: prodavati, ru: "продать", f: "prodam prodaš proda prodamo prodate prodao prodala prodalo prodali prodale"}
+  - {l: prodavati, asp: ipf, pair: prodati, ru: "продавать", f: "prodajem prodaješ prodaje prodajemo prodajete prodaju prodavao prodavala prodavali"}
+  - {l: pitati, asp: ipf, ru: "спрашивать", f: "pitam pitaš pita pitamo pitate pitaju pitao pitala pitalo pitali pitale pitaj pitajte"}
+  - {l: odgovoriti, asp: pf, ru: "ответить", f: "odgovorim odgovoriš odgovori odgovorimo odgovorite odgovore odgovorio odgovorila odgovorili"}
+  - {l: objasniti, asp: pf, ru: "объяснить", f: "objasnim objasniš objasni objasnimo objasnite objasne objasnio objasnila objasnili"}
+  - {l: pokazati, asp: pf, ru: "показать", f: "pokažem pokažeš pokaže pokažemo pokažete pokažu pokazao pokazala pokazali pokaži pokažite"}
+  - {l: ponoviti, asp: pf, ru: "повторить", f: "ponovim ponoviš ponovi ponovimo ponovite ponove ponovio ponovila ponovili"}
+  - {l: izviniti, asp: pf, ru: "извинить (izvinite — извините)", f: "izvini izvinite izvinio izvinila izvinjavam izvinjavamo"}
+  - {l: izgledati, asp: ipf, ru: "выглядеть, казаться", f: "izgledam izgledaš izgleda izgledamo izgledate izgledaju izgledao izgledala izgledalo izgledali"}
+  - {l: zvučati, asp: ipf, ru: "звучать", f: "zvuči zvuče zvučao zvučala zvučalo"}
+  - {l: dobiti, asp: pf, ru: "получить", f: "dobijem dobiješ dobije dobijemo dobijete dobiju dobio dobila dobilo dobili dobile"}
+  - {l: poslati, asp: pf, ru: "отправить, послать", f: "pošaljem pošalješ pošalje pošaljemo pošaljete pošalju poslao poslala poslalo poslali poslale pošalji pošaljite"}
+  - {l: javiti, asp: pf, ru: "сообщить; (javiti se) связаться", f: "javim javiš javi javimo javite jave javio javila javili"}
+  - {l: stići, asp: pf, ru: "прибыть; успеть", f: "stignem stigneš stigne stignemo stignete stignu stigao stigla stiglo stigli stigle"}
+  - {l: krenuti, asp: pf, ru: "тронуться, отправиться", f: "krenem kreneš krene krenemo krenete krenu krenuo krenula krenulo krenuli krenule kreni krenite"}
+  - {l: umeti, asp: ipf, ru: "уметь", f: "umem umeš ume umemo umete umeju umeo umela umeli"}
+  - {l: spremiti, asp: pf, ru: "приготовить, подготовить", f: "spremim spremiš spremi spremimo spremite spreme spremio spremila spremili"}
+  - {l: odmoriti, asp: pf, ru: "отдохнуть", f: "odmorim odmoriš odmori odmorimo odmorite odmore odmorio odmorila odmorili"}
+  - {l: šetati, asp: ipf, ru: "гулять", f: "šetam šetaš šeta šetamo šetate šetaju šetao šetala šetali"}
+  - {l: čuvati, asp: ipf, ru: "хранить, беречь; присматривать", f: "čuvam čuvaš čuva čuvamo čuvate čuvaju čuvao čuvala čuvali čuvaj čuvajte"}
+  - {l: plakati, asp: ipf, ru: "плакать", f: "plačem plačeš plače plačemo plačete plaču plakao plakala plakali"}
+  - {l: smejati, asp: ipf, ru: "смеяться (smejati se)", f: "smejem smeješ smeje smejemo smejete smeju smejao smejala smejali"}
+  - {l: dozvoliti, asp: pf, ru: "позволить, разрешить", f: "dozvolim dozvoliš dozvoli dozvolimo dozvolite dozvole dozvolio dozvolila"}
+  - {l: iznajmiti, asp: pf, ru: "снять / сдать (в аренду)", f: "iznajmim iznajmiš iznajmi iznajmimo iznajmite iznajme iznajmio iznajmila"}
+  - {l: popuniti, asp: pf, ru: "заполнить", f: "popunim popuniš popuni popunimo popunite popune popunio popunila"}
+  - {l: potpisati, asp: pf, ru: "подписать", f: "potpišem potpišeš potpiše potpišemo potpišete potpišu potpisao potpisala potpiši potpišite"}
+  - {l: predati, asp: pf, ru: "сдать, подать (документы)", f: "predam predaš preda predamo predate predaju predao predala"}
+  - {l: naručiti, asp: pf, ru: "заказать", f: "naručim naručiš naruči naručimo naručite naruče naručio naručila"}
+  - {l: preporučiti, asp: pf, ru: "порекомендовать", f: "preporučim preporučiš preporuči preporučimo preporučite preporuče preporučio preporučila"}
+  - {l: boleti, asp: ipf, ru: "болеть (boli me — у меня болит)", f: "boli bole boleo bolela bolelo"}
+  - {l: nedostajati, asp: ipf, ru: "не хватать; скучать по", f: "nedostaje nedostaju nedostajao nedostajala nedostajalo"}
+  - {l: ubiti, asp: pf, ru: "убить", f: "ubijem ubiješ ubije ubijemo ubijete ubiju ubio ubila ubilo ubili ubile"}
+
+nouns:
+  - {l: čovek, g: m, ru: "человек", gen: false, f: "čoveka čoveku čovekom čoveče ljudi ljudima ljude"}
+  - {l: žena, g: f, ru: "женщина; жена"}
+  - {l: dete, g: n, ru: "ребёнок", gen: false, f: "deteta detetu detetom deca dece deci decom"}
+  - {l: muškarac, g: m, st: muškarc, pl: muškarci, ru: "мужчина", f: "muškaraca"}
+  - {l: devojka, g: f, ru: "девушка", f: "devojaka"}
+  - {l: momak, g: m, st: momk, pl: momci, ru: "парень", f: "momaka"}
+  - {l: otac, g: m, st: oc, pl: očevi, ru: "отец", f: "oče ocem"}
+  - {l: majka, g: f, ru: "мать"}
+  - {l: mama, g: f, ru: "мама"}
+  - {l: tata, g: m, ru: "папа", gen: false, f: "tate tati tatu tato tatom"}
+  - {l: brat, g: m, ru: "брат", gen: false, f: "brata bratu bratom brate braća braće braći braćom"}
+  - {l: sestra, g: f, ru: "сестра"}
+  - {l: sin, g: m, pl: sinovi, ru: "сын"}
+  - {l: ćerka, g: f, ru: "дочь"}
+  - {l: muž, g: m, pl: muževi, ru: "муж"}
+  - {l: prijatelj, g: m, ru: "друг"}
+  - {l: drug, g: m, pl: drugovi, ru: "товарищ, друг"}
+  - {l: komšija, g: m, ru: "сосед", gen: false, f: "komšije komšiji komšiju komšijom komšijama komšinica"}
+  - {l: posao, g: m, st: posl, pl: poslovi, ru: "работа, дело"}
+  - {l: vreme, g: n, ru: "время; погода", gen: false, f: "vremena vremenu vremenom vremenima"}
+  - {l: dan, g: m, ru: "день", f: "dani dana danu danom dane danima"}
+  - {l: noć, g: f, ru: "ночь"}
+  - {l: jutro, g: n, ru: "утро"}
+  - {l: veče, g: n, ru: "вечер", gen: false, f: "večeri večer večerom"}
+  - {l: godina, g: f, ru: "год"}
+  - {l: mesec, g: m, ru: "месяц"}
+  - {l: nedelja, g: f, ru: "неделя; воскресенье"}
+  - {l: sat, g: m, ru: "час; часы", f: "sati satima"}
+  - {l: minut, g: m, ru: "минута", f: "minuta"}
+  - {l: put, g: m, pl: putevi, ru: "путь, дорога; раз", f: "puta putu putem"}
+  - {l: kuća, g: f, ru: "дом"}
+  - {l: stan, g: m, pl: stanovi, ru: "квартира"}
+  - {l: soba, g: f, ru: "комната"}
+  - {l: grad, g: m, pl: gradovi, ru: "город"}
+  - {l: selo, g: n, ru: "деревня, село"}
+  - {l: zemlja, g: f, ru: "земля; страна"}
+  - {l: svet, g: m, ru: "мир, свет"}
+  - {l: ruka, g: f, ru: "рука", f: "ruci rukama"}
+  - {l: noga, g: f, ru: "нога", f: "nozi nogama"}
+  - {l: oko, g: n, ru: "глаз", gen: false, f: "oka oku okom oči očiju očima"}
+  - {l: glava, g: f, ru: "голова"}
+  - {l: srce, g: n, ru: "сердце"}
+  - {l: novac, g: m, st: novc, ru: "деньги", gen: false, f: "novca novcu novcem"}
+  - {l: pare, g: fp, ru: "деньги (разг.)", gen: false, f: "para parama"}
+  - {l: problem, g: m, ru: "проблема"}
+  - {l: stvar, g: f, ru: "вещь, дело"}
+  - {l: reč, g: f, ru: "слово"}
+  - {l: ime, g: n, ru: "имя", gen: false, f: "imena imenu imenom imenima"}
+  - {l: mesto, g: n, ru: "место"}
+  - {l: voda, g: f, ru: "вода"}
+  - {l: hleb, g: m, ru: "хлеб"}
+  - {l: kafa, g: f, ru: "кофе"}
+  - {l: pivo, g: n, ru: "пиво"}
+  - {l: vino, g: n, ru: "вино"}
+  - {l: mleko, g: n, ru: "молоко"}
+  - {l: meso, g: n, ru: "мясо"}
+  - {l: jelo, g: n, ru: "блюдо, еда"}
+  - {l: doručak, g: m, st: doručk, ru: "завтрак"}
+  - {l: ručak, g: m, st: ručk, ru: "обед"}
+  - {l: večera, g: f, ru: "ужин"}
+  - {l: škola, g: f, ru: "школа"}
+  - {l: auto, g: m, ru: "машина, авто", gen: false, f: "auta autu autom automobil"}
+  - {l: autobus, g: m, ru: "автобус"}
+  - {l: ulica, g: f, ru: "улица"}
+  - {l: prodavnica, g: f, ru: "магазин"}
+  - {l: radnja, g: f, ru: "магазин, лавка"}
+  - {l: pijaca, g: f, ru: "рынок"}
+  - {l: pekara, g: f, ru: "пекарня"}
+  - {l: banka, g: f, ru: "банк"}
+  - {l: pošta, g: f, ru: "почта"}
+  - {l: lekar, g: m, ru: "врач"}
+  - {l: doktor, g: m, ru: "доктор"}
+  - {l: apoteka, g: f, ru: "аптека"}
+  - {l: bolnica, g: f, ru: "больница"}
+  - {l: policija, g: f, ru: "полиция"}
+  - {l: račun, g: m, ru: "счёт; чек"}
+  - {l: cena, g: f, ru: "цена"}
+  - {l: karta, g: f, ru: "билет; карта"}
+  - {l: kartica, g: f, ru: "банковская карта"}
+  - {l: broj, g: m, pl: brojevi, ru: "номер, число"}
+  - {l: telefon, g: m, ru: "телефон"}
+  - {l: poruka, g: f, ru: "сообщение"}
+  - {l: pitanje, g: n, ru: "вопрос"}
+  - {l: odgovor, g: m, ru: "ответ"}
+  - {l: jezik, g: m, pl: jezici, ru: "язык"}
+  - {l: dokument, g: m, ru: "документ"}
+  - {l: pasoš, g: m, ru: "паспорт (загран)"}
+  - {l: boravak, g: m, st: boravk, ru: "пребывание; вид на жительство (privremeni boravak)"}
+  - {l: dozvola, g: f, ru: "разрешение"}
+  - {l: zahtev, g: m, ru: "заявление, запрос"}
+  - {l: ugovor, g: m, ru: "договор"}
+  - {l: kirija, g: f, ru: "аренда, квартплата"}
+  - {l: vlasnik, g: m, pl: vlasnici, ru: "владелец, хозяин"}
+  - {l: prozor, g: m, ru: "окно"}
+  - {l: vrata, g: np, ru: "дверь", gen: false, f: "vratima"}
+  - {l: ključ, g: m, pl: ključevi, ru: "ключ"}
+  - {l: stolica, g: f, ru: "стул"}
+  - {l: krevet, g: m, ru: "кровать"}
+  - {l: kasa, g: f, ru: "касса"}
+  - {l: kesa, g: f, ru: "пакет"}
+  - {l: porodica, g: f, ru: "семья"}
+  - {l: rad, g: m, pl: radovi, ru: "работа, труд; (radovi) ремонтные работы"}
+  - {l: ljubav, g: f, ru: "любовь"}
+  - {l: život, g: m, ru: "жизнь"}
+  - {l: zdravlje, g: n, ru: "здоровье"}
+  - {l: istina, g: f, ru: "правда, истина"}
+  - {l: pomoć, g: f, ru: "помощь"}
+  - {l: greška, g: f, ru: "ошибка", f: "grešci"}
+  - {l: razlog, g: m, pl: razlozi, ru: "причина"}
+  - {l: trenutak, g: m, st: trenutk, pl: trenuci, ru: "момент", f: "trenutaka"}
+  - {l: sreća, g: f, ru: "счастье; удача"}
+  - {l: deo, g: m, ru: "часть", gen: false, f: "dela delu delom delovi delova delove"}
+  - {l: kraj, g: m, pl: krajevi, ru: "конец; край, район"}
+  - {l: početak, g: m, st: početk, ru: "начало"}
+  - {l: adresa, g: f, ru: "адрес"}
+  - {l: ulaz, g: m, ru: "вход; подъезд"}
+  - {l: izlaz, g: m, ru: "выход"}
+  - {l: stanica, g: f, ru: "остановка; станция"}
+  - {l: voz, g: m, pl: vozovi, ru: "поезд"}
+  - {l: aerodrom, g: m, ru: "аэропорт"}
+  - {l: more, g: n, ru: "море"}
+  - {l: reka, g: f, ru: "река", f: "reci"}
+  - {l: pas, g: m, ru: "собака", gen: false, f: "psa psu psom psi pasa psima pse"}
+  - {l: mačka, g: f, ru: "кошка"}
+
+adjectives:
+  - {l: dobar, st: dobr, cmp: bolji, ru: "хороший"}
+  - {l: loš, ru: "плохой", cmp: gori}
+  - {l: velik, ru: "большой", cmp: veći}
+  - {l: mali, st: mal, ru: "маленький", cmp: manji}
+  - {l: nov, ru: "новый", cmp: noviji}
+  - {l: star, ru: "старый", cmp: stariji}
+  - {l: mlad, ru: "молодой", cmp: mlađi}
+  - {l: lep, ru: "красивый", cmp: lepši}
+  - {l: skup, ru: "дорогой (по цене)", cmp: skuplji}
+  - {l: jeftin, ru: "дешёвый", cmp: jeftiniji}
+  - {l: težak, st: tešk, ru: "тяжёлый, трудный", cmp: teži}
+  - {l: lak, ru: "лёгкий", cmp: lakši}
+  - {l: siguran, st: sigurn, ru: "уверенный; безопасный"}
+  - {l: spreman, st: spremn, ru: "готовый"}
+  - {l: umoran, st: umorn, ru: "уставший"}
+  - {l: gladan, st: gladn, ru: "голодный"}
+  - {l: žedan, st: žedn, ru: "жаждущий (хочу пить)"}
+  - {l: srećan, st: srećn, ru: "счастливый"}
+  - {l: zauzet, ru: "занятый"}
+  - {l: slobodan, st: slobodn, ru: "свободный"}
+  - {l: važan, st: važn, ru: "важный"}
+  - {l: potreban, st: potrebn, ru: "нужный"}
+  - {l: moguć, ru: "возможный"}
+  - {l: dug, ru: "длинный, долгий", cmp: duži}
+  - {l: kratak, st: kratk, ru: "короткий", cmp: kraći}
+  - {l: brz, ru: "быстрый", cmp: brži}
+  - {l: topao, st: topl, ru: "тёплый", cmp: topliji}
+  - {l: hladan, st: hladn, ru: "холодный"}
+  - {l: pun, ru: "полный"}
+  - {l: prazan, st: prazn, ru: "пустой"}
+  - {l: otvoren, ru: "открытый"}
+  - {l: zatvoren, ru: "закрытый"}
+  - {l: ceo, st: cel, ru: "целый, весь"}
+  - {l: pravi, st: prav, ru: "настоящий"}
+  - {l: sledeći, st: sledeć, ru: "следующий"}
+  - {l: prošli, st: prošl, ru: "прошлый"}
+  - {l: poslednji, st: poslednj, ru: "последний"}
+  - {l: srpski, st: srpsk, ru: "сербский"}
+  - {l: ruski, st: rusk, ru: "русский"}
+  - {l: strani, st: stran, ru: "иностранный"}

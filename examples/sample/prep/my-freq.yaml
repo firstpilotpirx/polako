@@ -1,0 +1,1924 @@
+version: 1
+built: '2026-10-02'
+sources:
+- id: my.banka
+  kind: my
+  title: SMS из банка
+  tokens: 27
+  file: my/banka.txt
+- id: my.mup
+  kind: my
+  title: Письмо из МУП о боравке
+  tokens: 35
+  file: my/mup.txt
+- id: my.obavestenje
+  kind: my
+  title: Объявление в подъезде
+  tokens: 36
+  file: my/obavestenje.txt
+- id: my.stanodavka
+  kind: my
+  title: Сообщение от хозяйки квартиры
+  tokens: 60
+  file: my/stanodavka.txt
+- id: sit.apoteka
+  kind: sit
+  title: Аптека
+  tokens: 22
+- id: sit.mup
+  kind: sit
+  title: МУП, ВНЖ (боравак)
+  tokens: 36
+- id: sit.pekara
+  kind: sit
+  title: Пекарня
+  tokens: 32
+- id: sit.prodavnica
+  kind: sit
+  title: Магазин и касса
+  tokens: 22
+- id: sit.stan
+  kind: sit
+  title: Аренда квартиры
+  tokens: 34
+lemmas:
+- l: biti
+  sr: biti
+  n: 14
+  my: 8
+  sit: 6
+  src:
+  - my.banka
+  - my.mup
+  - my.obavestenje
+  - my.stanodavka
+  - sit.mup
+  - sit.pekara
+  - sit.stan
+  how: lex
+  pos: verb
+  ex:
+  - sr: Poštovani, Vaša platna kartica je spremna.
+    from: my.banka
+  - sr: Možete je preuzeti u ekspozituri banke uz ličnu kartu ili pasoš.
+    from: my.banka
+- l: da
+  sr: da
+  n: 13
+  my: 5
+  sit: 8
+  src:
+  - my.mup
+  - my.obavestenje
+  - my.stanodavka
+  - sit.mup
+  - sit.pekara
+  - sit.prodavnica
+  - sit.stan
+  how: lex
+  pos: conj
+  ex:
+  - sr: Potrebno je da dostavite dokaz o smeštaju i potvrdu o zdravstvenom osiguranju.
+    from: my.mup
+  - sr: Molimo Vas da ne ostavljate kese sa smećem ispred ulaza.
+    from: my.obavestenje
+- l: u
+  sr: u
+  n: 9
+  my: 5
+  sit: 4
+  src:
+  - my.banka
+  - my.obavestenje
+  - my.stanodavka
+  - sit.mup
+  - sit.prodavnica
+  - sit.stan
+  how: lex
+  pos: prep
+  ex:
+  - sr: Možete je preuzeti u ekspozituri banke uz ličnu kartu ili pasoš.
+    from: my.banka
+  - sr: Poštovani stanari, u utorak od 9 do 14 časova neće biti vode zbog radova na vodovodnoj mreži.
+    from: my.obavestenje
+- l: do
+  sr: do
+  n: 6
+  my: 6
+  sit: 0
+  src:
+  - my.banka
+  - my.obavestenje
+  - my.stanodavka
+  how: lex
+  pos: prep
+  ex:
+  - sr: 'Radno vreme: radnim danima od 8 do 16 časova, subotom od 9 do 13.'
+    from: my.banka
+  - sr: Lift ne radi do petka.
+    from: my.obavestenje
+- l: i
+  sr: i
+  n: 8
+  my: 4
+  sit: 4
+  src:
+  - my.mup
+  - my.stanodavka
+  - sit.mup
+  - sit.pekara
+  - sit.stan
+  how: lex
+  pos: conj
+  ex:
+  - sr: Potrebno je da dostavite dokaz o smeštaju i potvrdu o zdravstvenom osiguranju.
+    from: my.mup
+  - sr: Hvala i prijatan dan!
+    from: my.stanodavka
+- l: dan
+  sr: dan
+  n: 7
+  my: 3
+  sit: 4
+  src:
+  - my.banka
+  - my.stanodavka
+  - sit.apoteka
+  - sit.mup
+  - sit.pekara
+  how: lex
+  pos: noun
+  ex:
+  - sr: 'Radno vreme: radnim danima od 8 do 16 časova, subotom od 9 do 13.'
+    from: my.banka
+  - sr: Dobar dan!
+    from: my.stanodavka
+- l: li
+  sr: li
+  n: 9
+  my: 1
+  sit: 8
+  src:
+  - my.stanodavka
+  - sit.apoteka
+  - sit.mup
+  - sit.pekara
+  - sit.prodavnica
+  - sit.stan
+  how: lex
+  pos: part
+  ex:
+  - sr: Sutra u deset dolazi majstor da popravi bojler u kupatilu, da li ćete biti kod kuće?
+    from: my.stanodavka
+- l: moći
+  sr: moći
+  n: 8
+  my: 2
+  sit: 6
+  src:
+  - my.banka
+  - my.mup
+  - sit.mup
+  - sit.pekara
+  - sit.prodavnica
+  - sit.stan
+  how: lex
+  pos: verb
+  ex:
+  - sr: Možete je preuzeti u ekspozituri banke uz ličnu kartu ili pasoš.
+    from: my.banka
+  - sr: Termin možete zakazati preko portala eUprava.
+    from: my.mup
+- l: na
+  sr: na
+  n: 6
+  my: 4
+  sit: 2
+  src:
+  - my.mup
+  - my.obavestenje
+  - my.stanodavka
+  - sit.apoteka
+  - sit.stan
+  how: lex
+  pos: prep
+  ex:
+  - sr: Dokumenta predajete lično na šalteru, uz zakazan termin.
+    from: my.mup
+  - sr: Hvala na razumevanju.
+    from: my.obavestenje
+- l: za
+  sr: za
+  n: 7
+  my: 3
+  sit: 4
+  src:
+  - my.mup
+  - my.stanodavka
+  - sit.mup
+  - sit.pekara
+  how: lex
+  pos: prep
+  ex:
+  - sr: Poštovani, Vaš zahtev za odobrenje privremenog boravka je primljen.
+    from: my.mup
+  - sr: Kirija za ovaj mesec je 450 evra, kao i do sada.
+    from: my.stanodavka
+- l: vi
+  sr: vi
+  n: 5
+  my: 3
+  sit: 2
+  src:
+  - my.obavestenje
+  - my.stanodavka
+  - sit.prodavnica
+  - sit.stan
+  how: lex
+  pos: pron
+  ex:
+  - sr: Molimo Vas da ne ostavljate kese sa smećem ispred ulaza.
+    from: my.obavestenje
+  - sr: Molim Vas da platite do petog u mesecu.
+    from: my.stanodavka
+- l: dobar
+  sr: dobar
+  n: 5
+  my: 1
+  sit: 4
+  src:
+  - my.stanodavka
+  - sit.apoteka
+  - sit.mup
+  - sit.pekara
+  how: lex
+  pos: adj
+  ex:
+  - sr: Dobar dan!
+    from: my.stanodavka
+- l: imati
+  sr: imati
+  n: 6
+  my: 0
+  sit: 6
+  src:
+  - sit.apoteka
+  - sit.mup
+  - sit.prodavnica
+  how: lex
+  pos: verb
+- l: od
+  sr: od
+  n: 3
+  my: 3
+  sit: 0
+  src:
+  - my.banka
+  - my.obavestenje
+  how: lex
+  pos: prep
+  ex:
+  - sr: 'Radno vreme: radnim danima od 8 do 16 časova, subotom od 9 do 13.'
+    from: my.banka
+  - sr: Poštovani stanari, u utorak od 9 do 14 časova neće biti vode zbog radova na vodovodnoj mreži.
+    from: my.obavestenje
+- l: poštovan
+  sr: poštovan
+  n: 3
+  my: 3
+  sit: 0
+  src:
+  - my.banka
+  - my.mup
+  - my.obavestenje
+  how: lex
+  pos: adj
+  ex:
+  - sr: Poštovani, Vaša platna kartica je spremna.
+    from: my.banka
+  - sr: Poštovani, Vaš zahtev za odobrenje privremenog boravka je primljen.
+    from: my.mup
+- l: hvala
+  sr: hvala
+  n: 3
+  my: 2
+  sit: 1
+  src:
+  - my.obavestenje
+  - my.stanodavka
+  - sit.prodavnica
+  how: lex
+  pos: interj
+  ex:
+  - sr: Hvala na razumevanju.
+    from: my.obavestenje
+  - sr: Hvala i prijatan dan!
+    from: my.stanodavka
+- l: ne
+  sr: ne
+  n: 3
+  my: 2
+  sit: 1
+  src:
+  - my.obavestenje
+  - sit.prodavnica
+  how: lex
+  pos: part
+  ex:
+  - sr: Lift ne radi do petka.
+    from: my.obavestenje
+  - sr: Molimo Vas da ne ostavljate kese sa smećem ispred ulaza.
+    from: my.obavestenje
+- l: o
+  sr: o
+  n: 3
+  my: 2
+  sit: 1
+  src:
+  - my.mup
+  - sit.mup
+  how: lex
+  pos: prep
+  ex:
+  - sr: Potrebno je da dostavite dokaz o smeštaju i potvrdu o zdravstvenom osiguranju.
+    from: my.mup
+- l: plaćati
+  sr: plaćati
+  n: 3
+  my: 2
+  sit: 1
+  src:
+  - my.stanodavka
+  - sit.stan
+  how: lex
+  pos: verb
+  ex:
+  - sr: Račune za struju i vodu plaćate Vi, a infostan plaćam ja.
+    from: my.stanodavka
+- l: termin
+  sr: termin
+  n: 3
+  my: 2
+  sit: 1
+  src:
+  - my.mup
+  - sit.mup
+  how: lex
+  pos: noun
+  ex:
+  - sr: Termin možete zakazati preko portala eUprava.
+    from: my.mup
+  - sr: Dokumenta predajete lično na šalteru, uz zakazan termin.
+    from: my.mup
+- l: voda
+  sr: voda
+  n: 3
+  my: 2
+  sit: 1
+  src:
+  - my.obavestenje
+  - my.stanodavka
+  - sit.stan
+  how: lex
+  pos: noun
+  ex:
+  - sr: Poštovani stanari, u utorak od 9 do 14 časova neće biti vode zbog radova na vodovodnoj mreži.
+    from: my.obavestenje
+  - sr: Račune za struju i vodu plaćate Vi, a infostan plaćam ja.
+    from: my.stanodavka
+- l: zakazati
+  sr: zakazati
+  n: 3
+  my: 2
+  sit: 1
+  src:
+  - my.mup
+  - sit.mup
+  how: lex
+  pos: verb
+  ex:
+  - sr: Termin možete zakazati preko portala eUprava.
+    from: my.mup
+  - sr: Dokumenta predajete lično na šalteru, uz zakazan termin.
+    from: my.mup
+- l: hteti
+  sr: hteti
+  n: 2
+  my: 2
+  sit: 0
+  src:
+  - my.obavestenje
+  - my.stanodavka
+  how: lex
+  pos: verb
+  ex:
+  - sr: Poštovani stanari, u utorak od 9 do 14 časova neće biti vode zbog radova na vodovodnoj mreži.
+    from: my.obavestenje
+  - sr: Sutra u deset dolazi majstor da popravi bojler u kupatilu, da li ćete biti kod kuće?
+    from: my.stanodavka
+- l: kartica
+  sr: kartica
+  n: 3
+  my: 1
+  sit: 2
+  src:
+  - my.banka
+  - sit.pekara
+  - sit.prodavnica
+  how: lex
+  pos: noun
+  ex:
+  - sr: Poštovani, Vaša platna kartica je spremna.
+    from: my.banka
+- l: kod
+  sr: kod
+  n: 2
+  my: 2
+  sit: 0
+  src:
+  - my.stanodavka
+  how: lex
+  pos: prep
+  ex:
+  - sr: Ako niste, ostavite ključ kod komšinice na drugom spratu.
+    from: my.stanodavka
+  - sr: Sutra u deset dolazi majstor da popravi bojler u kupatilu, da li ćete biti kod kuće?
+    from: my.stanodavka
+- l: ličan
+  sr: ličan
+  n: 2
+  my: 2
+  sit: 0
+  src:
+  - my.banka
+  - my.mup
+  how: lex
+  pos: adj
+  ex:
+  - sr: Možete je preuzeti u ekspozituri banke uz ličnu kartu ili pasoš.
+    from: my.banka
+  - sr: Dokumenta predajete lično na šalteru, uz zakazan termin.
+    from: my.mup
+- l: mesec
+  sr: mesec
+  n: 2
+  my: 2
+  sit: 0
+  src:
+  - my.stanodavka
+  how: lex
+  pos: noun
+  ex:
+  - sr: Molim Vas da platite do petog u mesecu.
+    from: my.stanodavka
+  - sr: Kirija za ovaj mesec je 450 evra, kao i do sada.
+    from: my.stanodavka
+- l: radni
+  sr: radni
+  n: 2
+  my: 2
+  sit: 0
+  src:
+  - my.banka
+  how: lex
+  pos: adj
+  ex:
+  - sr: 'Radno vreme: radnim danima od 8 do 16 časova, subotom od 9 do 13.'
+    from: my.banka
+- l: uz
+  sr: uz
+  n: 2
+  my: 2
+  sit: 0
+  src:
+  - my.banka
+  - my.mup
+  how: lex
+  pos: prep
+  ex:
+  - sr: Možete je preuzeti u ekspozituri banke uz ličnu kartu ili pasoš.
+    from: my.banka
+  - sr: Dokumenta predajete lično na šalteru, uz zakazan termin.
+    from: my.mup
+- l: vaš
+  sr: vaš
+  n: 2
+  my: 2
+  sit: 0
+  src:
+  - my.banka
+  - my.mup
+  how: lex
+  pos: pron
+  ex:
+  - sr: Poštovani, Vaša platna kartica je spremna.
+    from: my.banka
+  - sr: Poštovani, Vaš zahtev za odobrenje privremenog boravka je primljen.
+    from: my.mup
+- l: čas
+  sr: čas
+  n: 2
+  my: 2
+  sit: 0
+  src:
+  - my.banka
+  - my.obavestenje
+  how: lex
+  pos: noun
+  ex:
+  - sr: 'Radno vreme: radnim danima od 8 do 16 časova, subotom od 9 do 13.'
+    from: my.banka
+  - sr: Poštovani stanari, u utorak od 9 do 14 časova neće biti vode zbog radova na vodovodnoj mreži.
+    from: my.obavestenje
+- l: boravak
+  sr: boravak
+  n: 2
+  my: 1
+  sit: 1
+  src:
+  - my.mup
+  - sit.mup
+  how: lex
+  pos: noun
+  ex:
+  - sr: Poštovani, Vaš zahtev za odobrenje privremenog boravka je primljen.
+    from: my.mup
+- l: deset
+  sr: deset
+  n: 2
+  my: 1
+  sit: 1
+  src:
+  - my.stanodavka
+  - sit.mup
+  how: lex
+  pos: num
+  ex:
+  - sr: Sutra u deset dolazi majstor da popravi bojler u kupatilu, da li ćete biti kod kuće?
+    from: my.stanodavka
+- l: drugi
+  sr: drugi
+  n: 2
+  my: 1
+  sit: 1
+  src:
+  - my.stanodavka
+  - sit.prodavnica
+  how: lex
+  pos: adj
+  ex:
+  - sr: Ako niste, ostavite ključ kod komšinice na drugom spratu.
+    from: my.stanodavka
+- l: ili
+  sr: ili
+  n: 2
+  my: 1
+  sit: 1
+  src:
+  - my.banka
+  - sit.pekara
+  how: lex
+  pos: conj
+  ex:
+  - sr: Možete je preuzeti u ekspozituri banke uz ličnu kartu ili pasoš.
+    from: my.banka
+- l: kesa
+  sr: kesa
+  n: 2
+  my: 1
+  sit: 1
+  src:
+  - my.obavestenje
+  - sit.prodavnica
+  how: lex
+  pos: noun
+  ex:
+  - sr: Molimo Vas da ne ostavljate kese sa smećem ispred ulaza.
+    from: my.obavestenje
+- l: kirija
+  sr: kirija
+  n: 2
+  my: 1
+  sit: 1
+  src:
+  - my.stanodavka
+  - sit.stan
+  how: lex
+  pos: noun
+  ex:
+  - sr: Kirija za ovaj mesec je 450 evra, kao i do sada.
+    from: my.stanodavka
+- l: lift
+  sr: lift
+  n: 2
+  my: 1
+  sit: 1
+  src:
+  - my.obavestenje
+  - sit.stan
+  how: lex
+  pos: noun
+  ex:
+  - sr: Lift ne radi do petka.
+    from: my.obavestenje
+- l: molim
+  sr: molim
+  n: 2
+  my: 1
+  sit: 1
+  src:
+  - my.stanodavka
+  - sit.pekara
+  how: lex
+  pos: interj
+  ex:
+  - sr: Molim Vas da platite do petog u mesecu.
+    from: my.stanodavka
+- l: pasoš
+  sr: pasoš
+  n: 2
+  my: 1
+  sit: 1
+  src:
+  - my.banka
+  - sit.mup
+  how: lex
+  pos: noun
+  ex:
+  - sr: Možete je preuzeti u ekspozituri banke uz ličnu kartu ili pasoš.
+    from: my.banka
+- l: potreban
+  sr: potreban
+  n: 2
+  my: 1
+  sit: 1
+  src:
+  - my.mup
+  - sit.mup
+  how: lex
+  pos: adj
+  ex:
+  - sr: Potrebno je da dostavite dokaz o smeštaju i potvrdu o zdravstvenom osiguranju.
+    from: my.mup
+- l: potvrda
+  sr: potvrda
+  n: 2
+  my: 1
+  sit: 1
+  src:
+  - my.mup
+  - sit.mup
+  how: lex
+  pos: noun
+  ex:
+  - sr: Potrebno je da dostavite dokaz o smeštaju i potvrdu o zdravstvenom osiguranju.
+    from: my.mup
+- l: privremen
+  sr: privremen
+  n: 2
+  my: 1
+  sit: 1
+  src:
+  - my.mup
+  - sit.mup
+  how: lex
+  pos: adj
+  ex:
+  - sr: Poštovani, Vaš zahtev za odobrenje privremenog boravka je primljen.
+    from: my.mup
+- l: račun
+  sr: račun
+  n: 2
+  my: 1
+  sit: 1
+  src:
+  - my.stanodavka
+  - sit.stan
+  how: lex
+  pos: noun
+  ex:
+  - sr: Račune za struju i vodu plaćate Vi, a infostan plaćam ja.
+    from: my.stanodavka
+- l: sa
+  sr: sa
+  n: 2
+  my: 1
+  sit: 1
+  src:
+  - my.obavestenje
+  - sit.pekara
+  how: lex
+  pos: prep
+  ex:
+  - sr: Molimo Vas da ne ostavljate kese sa smećem ispred ulaza.
+    from: my.obavestenje
+- l: smeštaj
+  sr: smeštaj
+  n: 2
+  my: 1
+  sit: 1
+  src:
+  - my.mup
+  - sit.mup
+  how: lex
+  pos: noun
+  ex:
+  - sr: Potrebno je da dostavite dokaz o smeštaju i potvrdu o zdravstvenom osiguranju.
+    from: my.mup
+- l: sprat
+  sr: sprat
+  n: 2
+  my: 1
+  sit: 1
+  src:
+  - my.stanodavka
+  - sit.stan
+  how: lex
+  pos: noun
+  ex:
+  - sr: Ako niste, ostavite ključ kod komšinice na drugom spratu.
+    from: my.stanodavka
+- l: struja
+  sr: struja
+  n: 2
+  my: 1
+  sit: 1
+  src:
+  - my.stanodavka
+  - sit.stan
+  how: lex
+  pos: noun
+  ex:
+  - sr: Račune za struju i vodu plaćate Vi, a infostan plaćam ja.
+    from: my.stanodavka
+- l: sutra
+  sr: sutra
+  n: 2
+  my: 1
+  sit: 1
+  src:
+  - my.stanodavka
+  - sit.stan
+  how: lex
+  pos: adv
+  ex:
+  - sr: Sutra u deset dolazi majstor da popravi bojler u kupatilu, da li ćete biti kod kuće?
+    from: my.stanodavka
+- l: zahtev
+  sr: zahtev
+  n: 2
+  my: 1
+  sit: 1
+  src:
+  - my.mup
+  - sit.mup
+  how: lex
+  pos: noun
+  ex:
+  - sr: Poštovani, Vaš zahtev za odobrenje privremenog boravka je primljen.
+    from: my.mup
+- l: a
+  sr: a
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.stanodavka
+  how: lex
+  pos: conj
+  ex:
+  - sr: Račune za struju i vodu plaćate Vi, a infostan plaćam ja.
+    from: my.stanodavka
+- l: ako
+  sr: ako
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.stanodavka
+  how: lex
+  pos: conj
+  ex:
+  - sr: Ako niste, ostavite ključ kod komšinice na drugom spratu.
+    from: my.stanodavka
+- l: banka
+  sr: banka
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.banka
+  how: lex
+  pos: noun
+  ex:
+  - sr: Možete je preuzeti u ekspozituri banke uz ličnu kartu ili pasoš.
+    from: my.banka
+- l: bez
+  sr: bez
+  n: 2
+  my: 0
+  sit: 2
+  src:
+  - sit.apoteka
+  - sit.stan
+  how: lex
+  pos: prep
+- l: bojler
+  sr: bojler
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.stanodavka
+  how: self
+  ex:
+  - sr: Sutra u deset dolazi majstor da popravi bojler u kupatilu, da li ćete biti kod kuće?
+    from: my.stanodavka
+- l: dinar
+  sr: dinar
+  n: 2
+  my: 0
+  sit: 2
+  src:
+  - sit.apoteka
+  - sit.pekara
+  how: lex
+  pos: noun
+- l: dokaz
+  sr: dokaz
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.mup
+  how: lex
+  pos: noun
+  ex:
+  - sr: Potrebno je da dostavite dokaz o smeštaju i potvrdu o zdravstvenom osiguranju.
+    from: my.mup
+- l: dokument
+  sr: dokument
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.mup
+  how: lex
+  pos: noun
+  ex:
+  - sr: Dokumenta predajete lično na šalteru, uz zakazan termin.
+    from: my.mup
+- l: dolaziti
+  sr: dolaziti
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.stanodavka
+  how: lex
+  pos: verb
+  ex:
+  - sr: Sutra u deset dolazi majstor da popravi bojler u kupatilu, da li ćete biti kod kuće?
+    from: my.stanodavka
+- l: dostaviti
+  sr: dostaviti
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.mup
+  how: lex
+  pos: verb
+  ex:
+  - sr: Potrebno je da dostavite dokaz o smeštaju i potvrdu o zdravstvenom osiguranju.
+    from: my.mup
+- l: ekspozituri
+  sr: ekspozituri
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.banka
+  how: self
+  ex:
+  - sr: Možete je preuzeti u ekspozituri banke uz ličnu kartu ili pasoš.
+    from: my.banka
+- l: euprava
+  sr: euprava
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.mup
+  how: self
+  ex:
+  - sr: Termin možete zakazati preko portala eUprava.
+    from: my.mup
+- l: evro
+  sr: evro
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.stanodavka
+  how: lex
+  pos: noun
+  ex:
+  - sr: Kirija za ovaj mesec je 450 evra, kao i do sada.
+    from: my.stanodavka
+- l: infostan
+  sr: infostan
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.stanodavka
+  how: self
+  ex:
+  - sr: Račune za struju i vodu plaćate Vi, a infostan plaćam ja.
+    from: my.stanodavka
+- l: ispred
+  sr: ispred
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.obavestenje
+  how: lex
+  pos: prep
+  ex:
+  - sr: Molimo Vas da ne ostavljate kese sa smećem ispred ulaza.
+    from: my.obavestenje
+- l: izvolite
+  sr: izvolite
+  n: 2
+  my: 0
+  sit: 2
+  src:
+  - sit.mup
+  - sit.pekara
+  how: lex
+  pos: interj
+- l: ja
+  sr: ja
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.stanodavka
+  how: lex
+  pos: pron
+  ex:
+  - sr: Račune za struju i vodu plaćate Vi, a infostan plaćam ja.
+    from: my.stanodavka
+- l: jedan
+  sr: jedan
+  n: 2
+  my: 0
+  sit: 2
+  src:
+  - sit.apoteka
+  - sit.pekara
+  how: lex
+  pos: num
+- l: kao
+  sr: kao
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.stanodavka
+  how: lex
+  pos: conj
+  ex:
+  - sr: Kirija za ovaj mesec je 450 evra, kao i do sada.
+    from: my.stanodavka
+- l: karta
+  sr: karta
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.banka
+  how: lex
+  pos: noun
+  ex:
+  - sr: Možete je preuzeti u ekspozituri banke uz ličnu kartu ili pasoš.
+    from: my.banka
+- l: ključ
+  sr: ključ
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.stanodavka
+  how: lex
+  pos: noun
+  ex:
+  - sr: Ako niste, ostavite ključ kod komšinice na drugom spratu.
+    from: my.stanodavka
+- l: koliko
+  sr: koliko
+  n: 2
+  my: 0
+  sit: 2
+  src:
+  - sit.apoteka
+  - sit.pekara
+  how: lex
+  pos: adv
+- l: komšinice
+  sr: komšinice
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.stanodavka
+  how: self
+  ex:
+  - sr: Ako niste, ostavite ključ kod komšinice na drugom spratu.
+    from: my.stanodavka
+- l: koštati
+  sr: koštati
+  n: 2
+  my: 0
+  sit: 2
+  src:
+  - sit.apoteka
+  - sit.pekara
+  how: lex
+  pos: verb
+- l: kupatilo
+  sr: kupatilo
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.stanodavka
+  how: lex
+  pos: noun
+  ex:
+  - sr: Sutra u deset dolazi majstor da popravi bojler u kupatilu, da li ćete biti kod kuće?
+    from: my.stanodavka
+- l: kuća
+  sr: kuća
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.stanodavka
+  how: lex
+  pos: noun
+  ex:
+  - sr: Sutra u deset dolazi majstor da popravi bojler u kupatilu, da li ćete biti kod kuće?
+    from: my.stanodavka
+- l: kućni
+  sr: kućni
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.obavestenje
+  how: lex
+  pos: adj
+  ex:
+  - sr: Kućni savet
+    from: my.obavestenje
+- l: majstor
+  sr: majstor
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.stanodavka
+  how: lex
+  pos: noun
+  ex:
+  - sr: Sutra u deset dolazi majstor da popravi bojler u kupatilu, da li ćete biti kod kuće?
+    from: my.stanodavka
+- l: moliti
+  sr: moliti
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.obavestenje
+  how: lex
+  pos: verb
+  ex:
+  - sr: Molimo Vas da ne ostavljate kese sa smećem ispred ulaza.
+    from: my.obavestenje
+- l: mreža
+  sr: mreža
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.obavestenje
+  how: lex
+  pos: noun
+  ex:
+  - sr: Poštovani stanari, u utorak od 9 do 14 časova neće biti vode zbog radova na vodovodnoj mreži.
+    from: my.obavestenje
+- l: obavestiti
+  sr: obavestiti
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.obavestenje
+  how: variant
+  pos: verb
+  ex:
+  - sr: OBAVEŠTENJE
+    from: my.obavestenje
+- l: odobrenje
+  sr: odobrenje
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.mup
+  how: lex
+  pos: noun
+  ex:
+  - sr: Poštovani, Vaš zahtev za odobrenje privremenog boravka je primljen.
+    from: my.mup
+- l: osiguranje
+  sr: osiguranje
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.mup
+  how: lex
+  pos: noun
+  ex:
+  - sr: Potrebno je da dostavite dokaz o smeštaju i potvrdu o zdravstvenom osiguranju.
+    from: my.mup
+- l: ostaviti
+  sr: ostaviti
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.stanodavka
+  how: lex
+  pos: verb
+  ex:
+  - sr: Ako niste, ostavite ključ kod komšinice na drugom spratu.
+    from: my.stanodavka
+- l: ostavljati
+  sr: ostavljati
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.obavestenje
+  how: lex
+  pos: verb
+  ex:
+  - sr: Molimo Vas da ne ostavljate kese sa smećem ispred ulaza.
+    from: my.obavestenje
+- l: ovaj
+  sr: ovaj
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.stanodavka
+  how: lex
+  pos: pron
+  ex:
+  - sr: Kirija za ovaj mesec je 450 evra, kao i do sada.
+    from: my.stanodavka
+- l: petak
+  sr: petak
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.obavestenje
+  how: lex
+  pos: noun
+  ex:
+  - sr: Lift ne radi do petka.
+    from: my.obavestenje
+- l: petog
+  sr: petog
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.stanodavka
+  how: self
+  ex:
+  - sr: Molim Vas da platite do petog u mesecu.
+    from: my.stanodavka
+- l: platiti
+  sr: platiti
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.stanodavka
+  how: lex
+  pos: verb
+  ex:
+  - sr: Molim Vas da platite do petog u mesecu.
+    from: my.stanodavka
+- l: platno
+  sr: platno
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.banka
+  how: lex
+  pos: noun
+  ex:
+  - sr: Poštovani, Vaša platna kartica je spremna.
+    from: my.banka
+- l: poneti
+  sr: poneti
+  n: 2
+  my: 0
+  sit: 2
+  src:
+  - sit.pekara
+  how: lex
+  pos: verb
+- l: popraviti
+  sr: popraviti
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.stanodavka
+  how: lex
+  pos: verb
+  ex:
+  - sr: Sutra u deset dolazi majstor da popravi bojler u kupatilu, da li ćete biti kod kuće?
+    from: my.stanodavka
+- l: portal
+  sr: portal
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.mup
+  how: lex
+  pos: noun
+  ex:
+  - sr: Termin možete zakazati preko portala eUprava.
+    from: my.mup
+- l: predavati
+  sr: predavati
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.mup
+  how: lex
+  pos: verb
+  ex:
+  - sr: Dokumenta predajete lično na šalteru, uz zakazan termin.
+    from: my.mup
+- l: preko
+  sr: preko
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.mup
+  how: lex
+  pos: prep
+  ex:
+  - sr: Termin možete zakazati preko portala eUprava.
+    from: my.mup
+- l: preuzeti
+  sr: preuzeti
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.banka
+  how: lex
+  pos: verb
+  ex:
+  - sr: Možete je preuzeti u ekspozituri banke uz ličnu kartu ili pasoš.
+    from: my.banka
+- l: prijatan
+  sr: prijatan
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.stanodavka
+  how: lex
+  pos: adj
+  ex:
+  - sr: Hvala i prijatan dan!
+    from: my.stanodavka
+- l: primiti
+  sr: primiti
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.mup
+  how: lex
+  pos: verb
+  ex:
+  - sr: Poštovani, Vaš zahtev za odobrenje privremenog boravka je primljen.
+    from: my.mup
+- l: rad
+  sr: rad
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.obavestenje
+  how: lex
+  pos: noun
+  ex:
+  - sr: Poštovani stanari, u utorak od 9 do 14 časova neće biti vode zbog radova na vodovodnoj mreži.
+    from: my.obavestenje
+- l: raditi
+  sr: raditi
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.obavestenje
+  how: lex
+  pos: verb
+  ex:
+  - sr: Lift ne radi do petka.
+    from: my.obavestenje
+- l: razumevanju
+  sr: razumevanju
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.obavestenje
+  how: self
+  ex:
+  - sr: Hvala na razumevanju.
+    from: my.obavestenje
+- l: sad
+  sr: sad
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.stanodavka
+  how: lex
+  pos: adv
+  ex:
+  - sr: Kirija za ovaj mesec je 450 evra, kao i do sada.
+    from: my.stanodavka
+- l: savet
+  sr: savet
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.obavestenje
+  how: lex
+  pos: noun
+  ex:
+  - sr: Kućni savet
+    from: my.obavestenje
+- l: smeće
+  sr: smeće
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.obavestenje
+  how: lex
+  pos: noun
+  ex:
+  - sr: Molimo Vas da ne ostavljate kese sa smećem ispred ulaza.
+    from: my.obavestenje
+- l: spreman
+  sr: spreman
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.banka
+  how: lex
+  pos: adj
+  ex:
+  - sr: Poštovani, Vaša platna kartica je spremna.
+    from: my.banka
+- l: stan
+  sr: stan
+  n: 2
+  my: 0
+  sit: 2
+  src:
+  - sit.stan
+  how: lex
+  pos: noun
+- l: stanar
+  sr: stanar
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.obavestenje
+  how: lex
+  pos: noun
+  ex:
+  - sr: Poštovani stanari, u utorak od 9 do 14 časova neće biti vode zbog radova na vodovodnoj mreži.
+    from: my.obavestenje
+- l: subota
+  sr: subota
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.banka
+  how: lex
+  pos: noun
+  ex:
+  - sr: 'Radno vreme: radnim danima od 8 do 16 časova, subotom od 9 do 13.'
+    from: my.banka
+- l: ulaz
+  sr: ulaz
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.obavestenje
+  how: lex
+  pos: noun
+  ex:
+  - sr: Molimo Vas da ne ostavljate kese sa smećem ispred ulaza.
+    from: my.obavestenje
+- l: utorak
+  sr: utorak
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.obavestenje
+  how: lex
+  pos: noun
+  ex:
+  - sr: Poštovani stanari, u utorak od 9 do 14 časova neće biti vode zbog radova na vodovodnoj mreži.
+    from: my.obavestenje
+- l: vodovodnoj
+  sr: vodovodnoj
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.obavestenje
+  how: self
+  ex:
+  - sr: Poštovani stanari, u utorak od 9 do 14 časova neće biti vode zbog radova na vodovodnoj mreži.
+    from: my.obavestenje
+- l: vreme
+  sr: vreme
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.banka
+  how: lex
+  pos: noun
+  ex:
+  - sr: 'Radno vreme: radnim danima od 8 do 16 časova, subotom od 9 do 13.'
+    from: my.banka
+- l: zbog
+  sr: zbog
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.obavestenje
+  how: lex
+  pos: prep
+  ex:
+  - sr: Poštovani stanari, u utorak od 9 do 14 časova neće biti vode zbog radova na vodovodnoj mreži.
+    from: my.obavestenje
+- l: zdravstveni
+  sr: zdravstveni
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.mup
+  how: lex
+  pos: adj
+  ex:
+  - sr: Potrebno je da dostavite dokaz o smeštaju i potvrdu o zdravstvenom osiguranju.
+    from: my.mup
+- l: šalter
+  sr: šalter
+  n: 1
+  my: 1
+  sit: 0
+  src:
+  - my.mup
+  how: lex
+  pos: noun
+  ex:
+  - sr: Dokumenta predajete lično na šalteru, uz zakazan termin.
+    from: my.mup
+- l: burek
+  sr: burek
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.pekara
+  how: lex
+  pos: noun
+- l: doći
+  sr: doći
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.mup
+  how: lex
+  pos: verb
+- l: dvadeset
+  sr: dvadeset
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.pekara
+  how: lex
+  pos: num
+- l: dvesta
+  sr: dvesta
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.apoteka
+  how: self
+- l: evo
+  sr: evo
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.mup
+  how: lex
+  pos: interj
+- l: gde
+  sr: gde
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.prodavnica
+  how: lex
+  pos: adv
+- l: glavobolja
+  sr: glavobolja
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.apoteka
+  how: lex
+  pos: noun
+- l: izviniti
+  sr: izviniti
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.mup
+  how: lex
+  pos: verb
+- l: ići
+  sr: ići
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.apoteka
+  how: lex
+  pos: verb
+- l: jogurt
+  sr: jogurt
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.pekara
+  how: lex
+  pos: noun
+- l: kad
+  sr: kad
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.stan
+  how: lex
+  pos: conj
+- l: levo
+  sr: levo
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.prodavnica
+  how: lex
+  pos: adv
+- l: lojalnost
+  sr: lojalnost
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.prodavnica
+  how: lex
+  pos: noun
+- l: mleko
+  sr: mleko
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.prodavnica
+  how: lex
+  pos: noun
+- l: naravno
+  sr: naravno
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.pekara
+  how: lex
+  pos: adv
+- l: naći
+  sr: naći
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.prodavnica
+  how: lex
+  pos: verb
+- l: nešto
+  sr: nešto
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.apoteka
+  how: lex
+  pos: pron
+- l: odgovarati
+  sr: odgovarati
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.stan
+  how: lex
+  pos: verb
+- l: osam
+  sr: osam
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.apoteka
+  how: lex
+  pos: num
+- l: ovde
+  sr: ovde
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.pekara
+  how: lex
+  pos: adv
+- l: ovo
+  sr: ovo
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.apoteka
+  how: lex
+  pos: pron
+- l: pedeset
+  sr: pedeset
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.apoteka
+  how: self
+- l: pet
+  sr: pet
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.stan
+  how: lex
+  pos: num
+- l: podne
+  sr: podne
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.stan
+  how: lex
+  pos: noun
+- l: pogledati
+  sr: pogledati
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.stan
+  how: lex
+  pos: verb
+- l: ponoviti
+  sr: ponoviti
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.mup
+  how: lex
+  pos: verb
+- l: poseban
+  sr: poseban
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.stan
+  how: lex
+  pos: adj
+- l: posle
+  sr: posle
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.stan
+  how: lex
+  pos: prep
+- l: predati
+  sr: predati
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.mup
+  how: lex
+  pos: verb
+- l: prijatno
+  sr: prijatno
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.pekara
+  how: lex
+  pos: interj
+- l: protiv
+  sr: protiv
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.apoteka
+  how: lex
+  pos: prep
+- l: recept
+  sr: recept
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.apoteka
+  how: lex
+  pos: noun
+- l: red
+  sr: red
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.prodavnica
+  how: lex
+  pos: noun
+- l: sat
+  sr: sat
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.apoteka
+  how: lex
+  pos: noun
+- l: sir
+  sr: sir
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.pekara
+  how: lex
+  pos: noun
+- l: sledeći
+  sr: sledeći
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.mup
+  how: lex
+  pos: adj
+- l: sporije
+  sr: sporije
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.mup
+  how: self
+- l: svoj
+  sr: svoj
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.prodavnica
+  how: lex
+  pos: pron
+- l: tableta
+  sr: tableta
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.apoteka
+  how: lex
+  pos: noun
+- l: treba
+  sr: treba
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.prodavnica
+  how: lex
+  pos: adv
+- l: treći
+  sr: treći
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.stan
+  how: lex
+  pos: adj
+- l: trideset
+  sr: trideset
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.mup
+  how: self
+- l: trista
+  sr: trista
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.pekara
+  how: self
+- l: uključiti
+  sr: uključiti
+  n: 1
+  my: 0
+  sit: 1
+  src:
+  - sit.stan
+  how: lex
+  pos: verb

@@ -1,0 +1,9 @@
+# Fixture: "fill the form" cards — the case or tense is the point, the options are the word's other forms.
+- {sr: "Idem u {prodavnicu}.", tr: "Иду в магазин.", word: prodavnica, case: acc, hint: "prodavnica — куда?"}
+- {sr: "Kupio sam hleb u {prodavnici}.", tr: "Я купил хлеб в магазине.", word: prodavnica, case: loc, hint: "prodavnica — где?"}
+- {sr: "Ostavite ključ kod {komšinice}.", tr: "Оставьте ключ у соседки.", word: komšinica, case: gen, hint: "komšinica — у кого?"}
+- {sr: "Platiću {kiriju} sutra.", tr: "Заплачу за аренду завтра.", word: kirija, case: acc, hint: "kirija — что?"}
+- {sr: "Stan je na trećem {spratu}.", tr: "Квартира на третьем этаже.", word: sprat, case: loc, hint: "sprat — где?"}
+- {sr: "Nemam {vremena}.", tr: "У меня нет времени.", word: vreme, case: gen, hint: "vreme — чего нет?"}
+- {sr: "Juče sam {kupio} mleko.", tr: "Вчера я купил молоко.", word: kupiti, case: aspect, hint: "kupiti / kupovati — один раз, результат", opts: ["kupovao", "kupujem", "kupim"]}
+- {sr: "Svaki dan {kupujem} hleb u pekari.", tr: "Каждый день я покупаю хлеб в пекарне.", word: kupiti, case: aspect, hint: "kupiti / kupovati — регулярно", opts: ["kupim", "kupio", "kupi"]}

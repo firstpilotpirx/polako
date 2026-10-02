@@ -1,0 +1,40 @@
+# Catalog of everyday situations for a newcomer in Serbia. The wizard offers these as buttons;
+# the agent writes the dialogs and phrases for the ones the person picks (situations module).
+# pri — default priority: 1 every week, 2 sometimes, 3 rare but important.
+version: 1
+groups:
+  - id: daily
+    title: Каждый день
+    items:
+      - {id: pekara, title: "Пекарня", title_sr: Pekara, pri: 1}
+      - {id: prodavnica, title: "Магазин и касса", title_sr: Prodavnica, pri: 1}
+      - {id: pijaca, title: "Рынок", title_sr: Pijaca, pri: 2}
+      - {id: kafic, title: "Кафе и ресторан", title_sr: Kafić i restoran, pri: 1}
+      - {id: prevoz, title: "Транспорт и такси", title_sr: Prevoz i taksi, pri: 1}
+      - {id: komsije, title: "Соседи и small talk", title_sr: Komšije, pri: 1}
+  - id: home
+    title: Жильё
+    items:
+      - {id: stan, title: "Аренда квартиры", title_sr: Iznajmljivanje stana, pri: 1}
+      - {id: majstor, title: "Мастер и ремонт", title_sr: Majstor, pri: 2}
+      - {id: racuni, title: "Счета (Infostan, EPS)", title_sr: Računi, pri: 2}
+  - id: papers
+    title: Документы
+    items:
+      - {id: mup, title: "МУП, ВНЖ (боравак)", title_sr: MUP i boravak, pri: 1}
+      - {id: banka, title: "Банк", title_sr: Banka, pri: 2}
+      - {id: posta, title: "Почта и посылки", title_sr: Pošta, pri: 2}
+      - {id: notar, title: "Нотариус и договоры", title_sr: Javni beležnik, pri: 3}
+  - id: health
+    title: Здоровье
+    items:
+      - {id: apoteka, title: "Аптека", title_sr: Apoteka, pri: 1}
+      - {id: lekar, title: "Врач и поликлиника", title_sr: Lekar i dom zdravlja, pri: 2}
+      - {id: hitna, title: "Экстренная помощь", title_sr: Hitna pomoć, pri: 3}
+  - id: life
+    title: Работа и жизнь
+    items:
+      - {id: posao, title: "Работа и коллеги", title_sr: Posao, pri: 2}
+      - {id: skola, title: "Школа и детский сад", title_sr: Škola i vrtić, pri: 2}
+      - {id: telefon, title: "Звонки и мессенджеры", title_sr: Telefon i poruke, pri: 1}
+      - {id: frizer, title: "Парикмахер и услуги", title_sr: Frizer, pri: 3}

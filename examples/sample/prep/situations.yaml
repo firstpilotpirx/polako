@@ -1,0 +1,123 @@
+version: 1
+situations:
+- id: apoteka
+  title: Аптека
+  pri: 1
+  title_sr: Apoteka
+  dialogs:
+  - id: apoteka-1
+    title: От головной боли
+    lines:
+    - who: me
+      sr: Dobar dan, imate li nešto protiv glavobolje?
+      tr: Добрый день, у вас есть что-нибудь от головной боли?
+    - who: they
+      sr: Imamo, ovo ide bez recepta. Jedna tableta na osam sati.
+      tr: Есть, это без рецепта. Одна таблетка каждые восемь часов.
+    - who: me
+      sr: Koliko košta?
+      tr: Сколько стоит?
+    - who: they
+      sr: Dvesta pedeset dinara.
+      tr: Двести пятьдесят динаров.
+- id: mup
+  title: МУП, ВНЖ (боравак)
+  pri: 1
+  title_sr: MUP i boravak
+  dialogs:
+  - id: mup-1
+    title: Подаю документы на боравак
+    lines:
+    - who: they
+      sr: Sledeći! Izvolite.
+      tr: Следующий! Прошу.
+    - who: me
+      sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
+      tr: Добрый день. Я пришёл подать заявление на временное пребывание.
+    - who: they
+      sr: Da li imate zakazan termin?
+      tr: У вас назначено?
+    - who: me
+      sr: Da, u deset i trideset. Evo pasoša.
+      tr: Да, на десять тридцать. Вот паспорт.
+    - who: they
+      sr: Potrebna je i potvrda o smeštaju.
+      tr: Нужна также справка о проживании.
+    - who: me
+      sr: Izvinite, možete li da ponovite sporije?
+      tr: Извините, можете повторить медленнее?
+- id: pekara
+  title: Пекарня
+  pri: 1
+  title_sr: Pekara
+  dialogs:
+  - id: pekara-1
+    title: Бурек с собой
+    lines:
+    - who: they
+      sr: Dobar dan, izvolite.
+      tr: Добрый день, слушаю вас.
+    - who: me
+      sr: Dobar dan. Jedan burek sa sirom i jogurt, molim.
+      tr: Добрый день. Один бурек с сыром и йогурт, пожалуйста.
+    - who: they
+      sr: Da li je za ovde ili za poneti?
+      tr: Здесь или с собой?
+    - who: me
+      sr: Za poneti. Koliko košta?
+      tr: С собой. Сколько стоит?
+    - who: they
+      sr: Trista dvadeset dinara.
+      tr: Триста двадцать динаров.
+    - who: me
+      sr: Može karticom?
+      tr: Можно картой?
+    - who: they
+      sr: Može, naravno. Prijatno!
+      tr: Конечно. Всего доброго!
+- id: prodavnica
+  title: Магазин и касса
+  pri: 1
+  title_sr: Prodavnica
+  dialogs:
+  - id: prodavnica-1
+    title: На кассе
+    lines:
+    - who: they
+      sr: Treba li vam kesa?
+      tr: Пакет нужен?
+    - who: me
+      sr: Ne, hvala, imam svoju.
+      tr: Нет, спасибо, у меня свой.
+    - who: they
+      sr: Imate li karticu lojalnosti?
+      tr: У вас есть карта лояльности?
+    - who: me
+      sr: Nemam. Gde mogu da nađem mleko?
+      tr: Нет. Где я могу найти молоко?
+    - who: they
+      sr: U drugom redu, levo.
+      tr: Во втором ряду, слева.
+- id: stan
+  title: Аренда квартиры
+  pri: 1
+  title_sr: Iznajmljivanje stana
+  dialogs:
+  - id: stan-1
+    title: Смотрю квартиру
+    lines:
+    - who: they
+      sr: Kada vam odgovara da pogledate stan?
+      tr: Когда вам удобно посмотреть квартиру?
+    - who: me
+      sr: Može li sutra posle podne?
+      tr: Можно завтра после обеда?
+    - who: they
+      sr: Može, u pet. Stan je na trećem spratu, bez lifta.
+      tr: Можно, в пять. Квартира на третьем этаже, без лифта.
+    - who: me
+      sr: Da li su računi uključeni u kiriju?
+      tr: Счета включены в аренду?
+    - who: they
+      sr: Nisu, struju i vodu plaćate posebno.
+      tr: Нет, электричество и воду оплачиваете отдельно.

@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "polako/words.schema.json",
+  "title": "Serbian deck",
+  "description": "prep/words.yaml — written only by words.py / forms.py / score_words.py. Card ids never change: progress is tied to them.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "words"],
+  "properties": {
+    "version": {"type": "integer", "minimum": 1},
+    "built": {"type": "string"},
+    "explain": {"type": "string", "description": "Language of the translations (tr), ISO 639-1: ru, uk, en…"},
+    "group_size": {"type": "integer", "minimum": 10, "default": 50},
+    "rounds": {"type": "integer", "minimum": 0},
+    "words": {"type": "array", "items": {"$ref": "#/$defs/word"}},
+    "phrases": {"type": "array", "items": {"$ref": "#/$defs/phrase"}},
+    "cloze": {"type": "array", "items": {"$ref": "#/$defs/cloze"}}
+  },
+  "$defs": {
+    "wid": {"type": "string", "pattern": "^w:[a-z0-9][a-z0-9-]*$"},
+    "sid": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*(\\.[a-z0-9][a-z0-9-]*)?$"},
+    "example": {
+      "type": "object", "additionalProperties": false, "required": ["sr", "tr"],
+      "properties": {
+        "sr": {"type": "string", "minLength": 1},
+        "tr": {"type": "string", "minLength": 1},
+        "about": {"enum": ["my", "sit", "general"], "description": "from my texts / from a situation / general"},
+        "from": {"type": "string", "description": "source id: my.<text>, sit.<situation>, tatoeba"}
+      }
+    },
+    "word": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "sr", "tr", "rank", "grp"],
+      "properties": {
+        "id": {"$ref": "#/$defs/wid"},
+        "sr": {"type": "string", "minLength": 1, "description": "Dictionary form, Latin with diacritics"},
+        "tr": {"type": "string", "minLength": 1, "description": "Translation into the explanation language"},
+        "lemma": {"type": "string", "description": "Lemmatizer key when it differs from sr (homonyms: oko~noun)"},
+        "pos": {"enum": ["noun", "verb", "adj", "adv", "pron", "prep", "conj", "part", "num", "interj", "phrase"]},
+        "gender": {"enum": ["m", "f", "n", "mp", "fp", "np"]},
+        "forms": {"type": "object", "additionalProperties": {"type": "string"},
+                  "description": "Key forms to show: gen, acc, loc, pl for nouns; prs1, prs3pl, past for verbs; f, n, cmp for adjectives"},
+        "accent": {"type": "string", "description": "Dictionary form with pitch-accent marks, only from a dictionary"},
+        "asp": {"enum": ["ipf", "pf", "bi"]},
+        "pair": {"$ref": "#/$defs/wid", "description": "Aspect partner card"},
+        "rank": {"type": "integer", "minimum": 1},
+        "grp": {"type": "integer", "minimum": 1, "description": "Importance group of group_size cards (1 = most needed)"},
+        "score": {"type": "number"},
+        "zipf": {"type": "number", "minimum": 0, "maximum": 8},
+        "band": {"type": "integer", "minimum": 1, "maximum": 4, "description": "Frequency band for the quick \"I know these\" check"},
+        "pm": {"type": "number", "description": "Per million in spoken Serbian (subtitles)"},
+        "src": {"type": "array", "items": {"enum": ["base", "my", "sit", "manual"]}},
+        "sit": {"type": "array", "items": {"$ref": "#/$defs/sid"}, "description": "Situations where the word is needed"},
+        "my": {"type": "array", "items": {"type": "string"}, "description": "Own texts where it occurs"},
+        "note": {"type": "string", "description": "False friends, government, typical mistakes"},
+        "round": {"type": "integer", "minimum": 1},
+        "retired": {"type": "boolean", "description": "Kept for progress, no longer offered"},
+        "ex": {"type": "array", "maxItems": 4, "items": {"$ref": "#/$defs/example"}}
+      }
+    },
+    "phrase": {
+      "type": "object", "additionalProperties": false, "required": ["id", "sr", "tr"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^p:[a-z0-9][a-z0-9-]*$"},
+        "sr": {"type": "string", "minLength": 1},
+        "tr": {"type": "string", "minLength": 1},
+        "sit": {"type": "array", "items": {"$ref": "#/$defs/sid"}},
+        "words": {"type": "array", "items": {"$ref": "#/$defs/wid"}},
+        "rank": {"type": "integer", "minimum": 1},
+        "grp": {"type": "integer", "minimum": 1},
+        "note": {"type": "string"},
+        "from": {"type": "string"},
+        "round": {"type": "integer", "minimum": 1},
+        "retired": {"type": "boolean"}
+      }
+    },
+    "cloze": {
+      "type": "object", "additionalProperties": false, "required": ["id", "sr", "tr", "word"],
+      "description": "Sentence with one form to fill: Idem u {prodavnicu}. The page offers the word's other forms as options.",
+      "properties": {
+        "id": {"type": "string", "pattern": "^c:[a-z0-9][a-z0-9-]*$"},
+        "sr": {"type": "string", "pattern": "\\{[^{}]+\\}"},
+        "tr": {"type": "string", "minLength": 1},
+        "word": {"$ref": "#/$defs/wid"},
+        "case": {"enum": ["nom", "gen", "dat", "acc", "voc", "ins", "loc", "prs", "past", "fut", "imp", "aspect"]},
+        "hint": {"type": "string", "description": "What to put: the dictionary form, sometimes with a case hint"},
+        "opts": {"type": "array", "items": {"type": "string"}, "description": "Wrong options; otherwise taken from the word's forms"},
+        "round": {"type": "integer", "minimum": 1},
+        "retired": {"type": "boolean"}
+      }
+    }
+  }
+}

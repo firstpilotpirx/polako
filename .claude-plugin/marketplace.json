@@ -1,0 +1,15 @@
+{
+  "name": "polako",
+  "description": "Polako — personal Serbian words and phrases trainer",
+  "owner": {
+    "name": "firstpilotpirx"
+  },
+  "plugins": [
+    {
+      "name": "polako-serbian",
+      "source": "./",
+      "description": "Personal Serbian vocabulary from frequency analysis, your situations and your own texts; FSRS trainer with listening and statistics. /polako-start, /polako-next, /polako-text, /polako-update",
+      "keywords": ["serbian", "vocabulary", "spaced-repetition", "language-learning"]
+    }
+  ]
+}

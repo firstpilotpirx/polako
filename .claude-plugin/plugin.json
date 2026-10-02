@@ -1,0 +1,14 @@
+{
+  "name": "polako-serbian",
+  "displayName": "Polako",
+  "version": "0.1.0",
+  "description": "Polako — Serbian words and phrases, built personally for you: frequency analysis of spoken Serbian and of the texts you actually receive, your situations (bakery, bank, MUP, doctor), and a spaced-repetition trainer (FSRS) with listening, phrases, cases and verb aspect, plus detailed statistics. Start with /polako-start.",
+  "author": {
+    "name": "firstpilotpirx",
+    "url": "https://github.com/firstpilotpirx"
+  },
+  "homepage": "https://github.com/firstpilotpirx/polako-serbian",
+  "repository": "https://github.com/firstpilotpirx/polako-serbian",
+  "license": "MIT",
+  "keywords": ["polako", "serbian", "srpski", "language-learning", "vocabulary", "flashcards", "spaced-repetition", "fsrs", "frequency"]
+}

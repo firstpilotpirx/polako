@@ -1,0 +1,6 @@
+---
+title: SMS из банка
+from: sms
+---
+Poštovani, Vaša platna kartica je spremna. Možete je preuzeti u ekspozituri banke uz ličnu kartu ili pasoš.
+Radno vreme: radnim danima od 8 do 16 časova, subotom od 9 do 13.

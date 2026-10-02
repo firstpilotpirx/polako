@@ -1,0 +1,19 @@
+version: 1
+explain: ru
+level: a1
+goal: 15
+retention: 0.9
+listening: true
+typing: false
+situations:
+- pekara
+- prodavnica
+- mup
+- apoteka
+- stan
+why: живу в Белграде
+started: '2026-09-20'
+wizard:
+  done: []
+  skipped: []
+  finished: true

@@ -1,0 +1,17 @@
+# What's new per version. The upgrade module reads entries newer than the folder's plugin_version.
+# actions: what the upgrade does after migrating (rebuild, new cards, …).
+- version: "0.1.0"
+  date: "2026-10-02"
+  data_version: 1
+  notes:
+    ru:
+      - "Первая версия: персональный словарь из частотности разговорного сербского, ваших ситуаций и ваших текстов."
+      - "Тренажёр FSRS: узнавание → вспоминание, карточки на слух, фразы, падежи, вид глагола, ответы в диалогах."
+      - "Статистика: покрытие речи, память по неделям, календарь, слабые места, нагрузка, трудные слова, прогноз."
+      - "Мои тексты: подсветка известного и разбор новых сообщений; латиница и кириллица."
+    en:
+      - "First version: a personal vocabulary from spoken-Serbian frequency, your situations and your own texts."
+      - "FSRS trainer: recognition → recall, listening cards, phrases, cases, verb aspect, dialog replies."
+      - "Statistics: coverage, recall by week, calendar, weak spots, load, hard words, forecast."
+      - "My texts: known words highlighted and new messages analysed; Latin and Cyrillic."
+  actions: [rebuild]

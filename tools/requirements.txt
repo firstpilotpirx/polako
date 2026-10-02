@@ -1,0 +1,4 @@
+# Pinned versions — everyone gets the same thing (tools/run installs them into a separate environment).
+pyyaml==6.0.3
+jsonschema==4.26.0
+wordfreq==3.1.1

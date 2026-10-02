@@ -1,0 +1,2563 @@
+# Fixture: round 1 as the agent leaves it after checking words.py candidates (translations filled, junk removed).
+- sr: biti
+  tr: быть
+  pos: verb
+  forms:
+    prs1: sam / jesam
+    prs3: je / jeste
+    prs3pl: su / jesu
+    past: bio
+  asp: ipf
+  src:
+  - base
+  - my
+  - sit
+  sit:
+  - mup
+  - pekara
+  - stan
+  my:
+  - my.banka
+  - my.mup
+  - my.obavestenje
+  - my.stanodavka
+  ex:
+  - sr: Poštovani, Vaša platna kartica je spremna.
+    tr: Уважаемый(ая), ваша платёжная карта готова.
+    about: my
+    from: my.banka
+  - sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
+    tr: Добрый день. Я пришёл подать заявление на временное пребывание.
+    about: sit
+    from: sit.mup
+- sr: da
+  tr: что, чтобы; да
+  pos: conj
+  src:
+  - base
+  - my
+  - sit
+  sit:
+  - mup
+  - pekara
+  - prodavnica
+  - stan
+  my:
+  - my.mup
+  - my.obavestenje
+  - my.stanodavka
+  ex:
+  - sr: Potrebno je da dostavite dokaz o smeštaju i potvrdu o zdravstvenom osiguranju.
+    tr: Нужно предоставить подтверждение проживания и справку о медицинской страховке.
+    about: my
+    from: my.mup
+  - sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
+    tr: Добрый день. Я пришёл подать заявление на временное пребывание.
+    about: sit
+    from: sit.mup
+- sr: u
+  tr: в
+  pos: prep
+  src:
+  - base
+  - my
+  - sit
+  sit:
+  - mup
+  - prodavnica
+  - stan
+  my:
+  - my.banka
+  - my.obavestenje
+  - my.stanodavka
+  ex:
+  - sr: Možete je preuzeti u ekspozituri banke uz ličnu kartu ili pasoš.
+    tr: Её можно забрать в отделении банка с удостоверением личности или паспортом.
+    about: my
+    from: my.banka
+  - sr: Da, u deset i trideset. Evo pasoša.
+    tr: Да, на десять тридцать. Вот паспорт.
+    about: sit
+    from: sit.mup
+- sr: i
+  tr: и
+  pos: conj
+  src:
+  - base
+  - my
+  - sit
+  sit:
+  - mup
+  - pekara
+  - stan
+  my:
+  - my.mup
+  - my.stanodavka
+  ex:
+  - sr: Potrebno je da dostavite dokaz o smeštaju i potvrdu o zdravstvenom osiguranju.
+    tr: Нужно предоставить подтверждение проживания и справку о медицинской страховке.
+    about: my
+    from: my.mup
+  - sr: Da, u deset i trideset. Evo pasoša.
+    tr: Да, на десять тридцать. Вот паспорт.
+    about: sit
+    from: sit.mup
+- sr: na
+  tr: на
+  pos: prep
+  src:
+  - base
+  - my
+  - sit
+  sit:
+  - apoteka
+  - stan
+  my:
+  - my.mup
+  - my.obavestenje
+  - my.stanodavka
+  ex:
+  - sr: Dokumenta predajete lično na šalteru, uz zakazan termin.
+    tr: Документы вы подаёте лично в окошке, по записи.
+    about: my
+    from: my.mup
+  - sr: Imamo, ovo ide bez recepta. Jedna tableta na osam sati.
+    tr: Есть, это без рецепта. Одна таблетка каждые восемь часов.
+    about: sit
+    from: sit.apoteka
+- sr: ne
+  tr: не, нет
+  pos: part
+  src:
+  - base
+  - my
+  - sit
+  sit:
+  - prodavnica
+  my:
+  - my.obavestenje
+  ex:
+  - sr: Lift ne radi do petka.
+    tr: Лифт не работает до пятницы.
+    about: my
+    from: my.obavestenje
+  - sr: Ne, hvala, imam svoju.
+    tr: Нет, спасибо, у меня свой.
+    about: sit
+    from: sit.prodavnica
+- sr: za
+  tr: для, за
+  pos: prep
+  src:
+  - base
+  - my
+  - sit
+  sit:
+  - mup
+  - pekara
+  my:
+  - my.mup
+  - my.stanodavka
+  ex:
+  - sr: Poštovani, Vaš zahtev za odobrenje privremenog boravka je primljen.
+    tr: Уважаемый(ая), ваше заявление на временное пребывание принято.
+    about: my
+    from: my.mup
+  - sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
+    tr: Добрый день. Я пришёл подать заявление на временное пребывание.
+    about: sit
+    from: sit.mup
+- sr: li
+  tr: ли
+  pos: part
+  src:
+  - base
+  - my
+  - sit
+  sit:
+  - apoteka
+  - mup
+  - pekara
+  - prodavnica
+  - stan
+  my:
+  - my.stanodavka
+  ex:
+  - sr: Sutra u deset dolazi majstor da popravi bojler u kupatilu, da li ćete biti kod kuće?
+    tr: Завтра в десять придёт мастер починить бойлер в ванной — вы будете дома?
+    about: my
+    from: my.stanodavka
+  - sr: Dobar dan, imate li nešto protiv glavobolje?
+    tr: Добрый день, у вас есть что-нибудь от головной боли?
+    about: sit
+    from: sit.apoteka
+- sr: vi
+  tr: вы
+  pos: pron
+  src:
+  - base
+  - my
+  - sit
+  sit:
+  - prodavnica
+  - stan
+  my:
+  - my.obavestenje
+  - my.stanodavka
+  ex:
+  - sr: Molimo Vas da ne ostavljate kese sa smećem ispred ulaza.
+    tr: Просим не оставлять пакеты с мусором перед подъездом.
+    about: my
+    from: my.obavestenje
+  - sr: Treba li vam kesa?
+    tr: Пакет нужен?
+    about: sit
+    from: sit.prodavnica
+- sr: sa
+  tr: с, со
+  pos: prep
+  src:
+  - base
+  - my
+  - sit
+  sit:
+  - pekara
+  my:
+  - my.obavestenje
+  ex:
+  - sr: Molimo Vas da ne ostavljate kese sa smećem ispred ulaza.
+    tr: Просим не оставлять пакеты с мусором перед подъездом.
+    about: my
+    from: my.obavestenje
+  - sr: Dobar dan. Jedan burek sa sirom i jogurt, molim.
+    tr: Добрый день. Один бурек с сыром и йогурт, пожалуйста.
+    about: sit
+    from: sit.pekara
+- sr: moći
+  tr: мочь
+  pos: verb
+  asp: ipf
+  src:
+  - base
+  - my
+  - sit
+  sit:
+  - mup
+  - pekara
+  - prodavnica
+  - stan
+  my:
+  - my.banka
+  - my.mup
+  ex:
+  - sr: Možete je preuzeti u ekspozituri banke uz ličnu kartu ili pasoš.
+    tr: Её можно забрать в отделении банка с удостоверением личности или паспортом.
+    about: my
+    from: my.banka
+  - sr: Izvinite, možete li da ponovite sporije?
+    tr: Извините, можете повторить медленнее?
+    about: sit
+    from: sit.mup
+- sr: o
+  tr: о, об
+  pos: prep
+  src:
+  - base
+  - my
+  - sit
+  sit:
+  - mup
+  my:
+  - my.mup
+  ex:
+  - sr: Potrebno je da dostavite dokaz o smeštaju i potvrdu o zdravstvenom osiguranju.
+    tr: Нужно предоставить подтверждение проживания и справку о медицинской страховке.
+    about: my
+    from: my.mup
+  - sr: Potrebna je i potvrda o smeštaju.
+    tr: Нужна также справка о проживании.
+    about: sit
+    from: sit.mup
+- sr: hvala
+  tr: спасибо
+  pos: interj
+  src:
+  - base
+  - my
+  - sit
+  sit:
+  - prodavnica
+  my:
+  - my.obavestenje
+  - my.stanodavka
+  ex:
+  - sr: Hvala na razumevanju.
+    tr: Спасибо за понимание.
+    about: my
+    from: my.obavestenje
+  - sr: Ne, hvala, imam svoju.
+    tr: Нет, спасибо, у меня свой.
+    about: sit
+    from: sit.prodavnica
+- sr: ili
+  tr: или
+  pos: conj
+  src:
+  - base
+  - my
+  - sit
+  sit:
+  - pekara
+  my:
+  - my.banka
+  ex:
+  - sr: Možete je preuzeti u ekspozituri banke uz ličnu kartu ili pasoš.
+    tr: Её можно забрать в отделении банка с удостоверением личности или паспортом.
+    about: my
+    from: my.banka
+  - sr: Da li je za ovde ili za poneti?
+    tr: Здесь или с собой?
+    about: sit
+    from: sit.pekara
+- sr: dobar
+  tr: хороший
+  pos: adj
+  forms:
+    f: dobra
+    n: dobro
+    cmp: bolji
+  src:
+  - base
+  - my
+  - sit
+  sit:
+  - apoteka
+  - mup
+  - pekara
+  my:
+  - my.stanodavka
+  ex:
+  - sr: Dobar dan, imate li nešto protiv glavobolje?
+    tr: Добрый день, у вас есть что-нибудь от головной боли?
+    about: sit
+    from: sit.apoteka
+- sr: dan
+  tr: день
+  pos: noun
+  gender: m
+  forms:
+    gen: dana
+    loc: danu
+    ins: danom
+    pl: dani
+    gpl: dana
+  accent: dȃn
+  src:
+  - base
+  - my
+  - sit
+  sit:
+  - apoteka
+  - mup
+  - pekara
+  my:
+  - my.banka
+  - my.stanodavka
+  ex:
+  - sr: 'Radno vreme: radnim danima od 8 do 16 časova, subotom od 9 do 13.'
+    tr: 'Часы работы: в будни с 8 до 16, по субботам с 9 до 13.'
+    about: my
+    from: my.banka
+  - sr: Dobar dan, imate li nešto protiv glavobolje?
+    tr: Добрый день, у вас есть что-нибудь от головной боли?
+    about: sit
+    from: sit.apoteka
+- sr: ja
+  tr: я
+  pos: pron
+  src:
+  - base
+  - my
+  my:
+  - my.stanodavka
+  ex:
+  - sr: Račune za struju i vodu plaćate Vi, a infostan plaćam ja.
+    tr: Счета за электричество и воду оплачиваете вы, а Infostan — я.
+    about: my
+    from: my.stanodavka
+- sr: molim
+  tr: пожалуйста; что-что?
+  pos: interj
+  src:
+  - base
+  - my
+  - sit
+  sit:
+  - pekara
+  my:
+  - my.stanodavka
+  ex:
+  - sr: Molim Vas da platite do petog u mesecu.
+    tr: Прошу вас заплатить до пятого числа.
+    about: my
+    from: my.stanodavka
+  - sr: Dobar dan. Jedan burek sa sirom i jogurt, molim.
+    tr: Добрый день. Один бурек с сыром и йогурт, пожалуйста.
+    about: sit
+    from: sit.pekara
+- sr: od
+  tr: от, из (материала)
+  pos: prep
+  src:
+  - base
+  - my
+  my:
+  - my.banka
+  - my.obavestenje
+  ex:
+  - sr: 'Radno vreme: radnim danima od 8 do 16 časova, subotom od 9 do 13.'
+    tr: 'Часы работы: в будни с 8 до 16, по субботам с 9 до 13.'
+    about: my
+    from: my.banka
+- sr: hteti
+  tr: хотеть; (будущее время)
+  pos: verb
+  forms:
+    prs1: hoću / ću
+    prs3: hoće / će
+    prs3pl: hoće / će
+    past: hteo
+  asp: ipf
+  src:
+  - base
+  - my
+  my:
+  - my.obavestenje
+  - my.stanodavka
+  ex:
+  - sr: Poštovani stanari, u utorak od 9 do 14 časova neće biti vode zbog radova na vodovodnoj mreži.
+    tr: Уважаемые жильцы, во вторник с 9 до 14 часов не будет воды из-за работ на водопроводе.
+    about: my
+    from: my.obavestenje
+- sr: drugi
+  tr: другой; второй
+  pos: adj
+  src:
+  - base
+  - my
+  - sit
+  sit:
+  - prodavnica
+  my:
+  - my.stanodavka
+  ex:
+  - sr: Ako niste, ostavite ključ kod komšinice na drugom spratu.
+    tr: Если вас не будет, оставьте ключ у соседки на втором этаже.
+    about: my
+    from: my.stanodavka
+  - sr: U drugom redu, levo.
+    tr: Во втором ряду, слева.
+    about: sit
+    from: sit.prodavnica
+- sr: a
+  tr: а
+  pos: conj
+  src:
+  - base
+  - my
+  my:
+  - my.stanodavka
+  ex:
+  - sr: Račune za struju i vodu plaćate Vi, a infostan plaćam ja.
+    tr: Счета за электричество и воду оплачиваете вы, а Infostan — я.
+    about: my
+    from: my.stanodavka
+- sr: do
+  tr: до
+  pos: prep
+  src:
+  - base
+  - my
+  my:
+  - my.banka
+  - my.obavestenje
+  - my.stanodavka
+  ex:
+  - sr: 'Radno vreme: radnim danima od 8 do 16 časova, subotom od 9 do 13.'
+    tr: 'Часы работы: в будни с 8 до 16, по субботам с 9 до 13.'
+    about: my
+    from: my.banka
+- sr: kao
+  tr: как, словно
+  pos: conj
+  src:
+  - base
+  - my
+  my:
+  - my.stanodavka
+  ex:
+  - sr: Kirija za ovaj mesec je 450 evra, kao i do sada.
+    tr: Аренда за этот месяц — 450 евро, как и раньше.
+    about: my
+    from: my.stanodavka
+- sr: imati
+  tr: иметь, (у меня) есть
+  pos: verb
+  forms:
+    prs1: imam / nemam
+    prs3: ima / nema
+    prs3pl: imaju
+    past: imao
+    imp: imaj
+  asp: ipf
+  src:
+  - base
+  - sit
+  sit:
+  - apoteka
+  - mup
+  - prodavnica
+  ex:
+  - sr: Dobar dan, imate li nešto protiv glavobolje?
+    tr: Добрый день, у вас есть что-нибудь от головной боли?
+    about: sit
+    from: sit.apoteka
+  - sr: Imamo, ovo ide bez recepta. Jedna tableta na osam sati.
+    tr: Есть, это без рецепта. Одна таблетка каждые восемь часов.
+    about: sit
+    from: sit.apoteka
+- sr: ovaj
+  tr: этот
+  pos: pron
+  src:
+  - base
+  - my
+  my:
+  - my.stanodavka
+  ex:
+  - sr: Kirija za ovaj mesec je 450 evra, kao i do sada.
+    tr: Аренда за этот месяц — 450 евро, как и раньше.
+    about: my
+    from: my.stanodavka
+- sr: ako
+  tr: если
+  pos: conj
+  src:
+  - base
+  - my
+  my:
+  - my.stanodavka
+  ex:
+  - sr: Ako niste, ostavite ključ kod komšinice na drugom spratu.
+    tr: Если вас не будет, оставьте ключ у соседки на втором этаже.
+    about: my
+    from: my.stanodavka
+- sr: voda
+  tr: вода
+  pos: noun
+  gender: f
+  forms:
+    gen: vode
+    acc: vodu
+    loc: vodi
+    ins: vodom
+    pl: vode
+  accent: vòda
+  src:
+  - base
+  - my
+  - sit
+  sit:
+  - stan
+  my:
+  - my.obavestenje
+  - my.stanodavka
+  ex:
+  - sr: Poštovani stanari, u utorak od 9 do 14 časova neće biti vode zbog radova na vodovodnoj mreži.
+    tr: Уважаемые жильцы, во вторник с 9 до 14 часов не будет воды из-за работ на водопроводе.
+    about: my
+    from: my.obavestenje
+  - sr: Nisu, struju i vodu plaćate posebno.
+    tr: Нет, электричество и воду оплачиваете отдельно.
+    about: sit
+    from: sit.stan
+- sr: ovo
+  tr: это (здесь)
+  pos: pron
+  src:
+  - base
+  - sit
+  sit:
+  - apoteka
+  ex:
+  - sr: Imamo, ovo ide bez recepta. Jedna tableta na osam sati.
+    tr: Есть, это без рецепта. Одна таблетка каждые восемь часов.
+    about: sit
+    from: sit.apoteka
+- sr: kad
+  tr: когда
+  pos: conj
+  src:
+  - base
+  - sit
+  sit:
+  - stan
+  ex:
+  - sr: Kada vam odgovara da pogledate stan?
+    tr: Когда вам удобно посмотреть квартиру?
+    about: sit
+    from: sit.stan
+- sr: jedan
+  tr: один
+  pos: num
+  src:
+  - base
+  - sit
+  sit:
+  - apoteka
+  - pekara
+  ex:
+  - sr: Imamo, ovo ide bez recepta. Jedna tableta na osam sati.
+    tr: Есть, это без рецепта. Одна таблетка каждые восемь часов.
+    about: sit
+    from: sit.apoteka
+  - sr: Dobar dan. Jedan burek sa sirom i jogurt, molim.
+    tr: Добрый день. Один бурек с сыром и йогурт, пожалуйста.
+    about: sit
+    from: sit.pekara
+- sr: sutra
+  tr: завтра
+  pos: adv
+  src:
+  - base
+  - my
+  - sit
+  sit:
+  - stan
+  my:
+  - my.stanodavka
+  ex:
+  - sr: Sutra u deset dolazi majstor da popravi bojler u kupatilu, da li ćete biti kod kuće?
+    tr: Завтра в десять придёт мастер починить бойлер в ванной — вы будете дома?
+    about: my
+    from: my.stanodavka
+  - sr: Može li sutra posle podne?
+    tr: Можно завтра после обеда?
+    about: sit
+    from: sit.stan
+- sr: vaš
+  tr: ваш
+  pos: pron
+  src:
+  - base
+  - my
+  my:
+  - my.banka
+  - my.mup
+  ex:
+  - sr: Poštovani, Vaša platna kartica je spremna.
+    tr: Уважаемый(ая), ваша платёжная карта готова.
+    about: my
+    from: my.banka
+- sr: potreban
+  tr: нужный
+  pos: adj
+  forms:
+    f: potrebna
+    n: potrebno
+    cmp: potrebniji
+  src:
+  - base
+  - my
+  - sit
+  sit:
+  - mup
+  my:
+  - my.mup
+  ex:
+  - sr: Potrebno je da dostavite dokaz o smeštaju i potvrdu o zdravstvenom osiguranju.
+    tr: Нужно предоставить подтверждение проживания и справку о медицинской страховке.
+    about: my
+    from: my.mup
+  - sr: Potrebna je i potvrda o smeštaju.
+    tr: Нужна также справка о проживании.
+    about: sit
+    from: sit.mup
+- sr: svoj
+  tr: свой
+  pos: pron
+  src:
+  - base
+  - sit
+  sit:
+  - prodavnica
+  ex:
+  - sr: Ne, hvala, imam svoju.
+    tr: Нет, спасибо, у меня свой.
+    about: sit
+    from: sit.prodavnica
+- sr: deset
+  tr: десять
+  pos: num
+  src:
+  - base
+  - my
+  - sit
+  sit:
+  - mup
+  my:
+  - my.stanodavka
+  ex:
+  - sr: Sutra u deset dolazi majstor da popravi bojler u kupatilu, da li ćete biti kod kuće?
+    tr: Завтра в десять придёт мастер починить бойлер в ванной — вы будете дома?
+    about: my
+    from: my.stanodavka
+  - sr: Da, u deset i trideset. Evo pasoša.
+    tr: Да, на десять тридцать. Вот паспорт.
+    about: sit
+    from: sit.mup
+- sr: nešto
+  tr: что-то
+  pos: pron
+  src:
+  - base
+  - sit
+  sit:
+  - apoteka
+  ex:
+  - sr: Dobar dan, imate li nešto protiv glavobolje?
+    tr: Добрый день, у вас есть что-нибудь от головной боли?
+    about: sit
+    from: sit.apoteka
+- sr: raditi
+  tr: работать; делать
+  pos: verb
+  forms:
+    prs1: radim
+    prs3: radi
+    prs3pl: rade
+    past: radio
+    imp: radi
+  asp: ipf
+  pair_sr: uraditi
+  src:
+  - base
+  - my
+  my:
+  - my.obavestenje
+  ex:
+  - sr: Lift ne radi do petka.
+    tr: Лифт не работает до пятницы.
+    about: my
+    from: my.obavestenje
+- sr: sad
+  tr: сейчас
+  pos: adv
+  src:
+  - base
+  - my
+  my:
+  - my.stanodavka
+  ex:
+  - sr: Kirija za ovaj mesec je 450 evra, kao i do sada.
+    tr: Аренда за этот месяц — 450 евро, как и раньше.
+    about: my
+    from: my.stanodavka
+- sr: kod
+  tr: у (кого-то), возле
+  pos: prep
+  src:
+  - base
+  - my
+  my:
+  - my.stanodavka
+  ex:
+  - sr: Ako niste, ostavite ključ kod komšinice na drugom spratu.
+    tr: Если вас не будет, оставьте ключ у соседки на втором этаже.
+    about: my
+    from: my.stanodavka
+- sr: zbog
+  tr: из-за
+  pos: prep
+  src:
+  - base
+  - my
+  my:
+  - my.obavestenje
+  ex:
+  - sr: Poštovani stanari, u utorak od 9 do 14 časova neće biti vode zbog radova na vodovodnoj mreži.
+    tr: Уважаемые жильцы, во вторник с 9 до 14 часов не будет воды из-за работ на водопроводе.
+    about: my
+    from: my.obavestenje
+- sr: ići
+  tr: идти, ехать
+  pos: verb
+  forms:
+    prs1: idem
+    prs3: ide
+    prs3pl: idu
+    past: išao
+    imp: idi
+  asp: ipf
+  src:
+  - base
+  - sit
+  sit:
+  - apoteka
+  ex:
+  - sr: Imamo, ovo ide bez recepta. Jedna tableta na osam sati.
+    tr: Есть, это без рецепта. Одна таблетка каждые восемь часов.
+    about: sit
+    from: sit.apoteka
+- sr: ovde
+  tr: здесь
+  pos: adv
+  src:
+  - base
+  - sit
+  sit:
+  - pekara
+  ex:
+  - sr: Da li je za ovde ili za poneti?
+    tr: Здесь или с собой?
+    about: sit
+    from: sit.pekara
+- sr: vreme
+  tr: время; погода
+  pos: noun
+  gender: n
+  forms:
+    gen: vremena
+    loc: vremenu
+    ins: vremenom
+    pl: vremena
+    gpl: vremena
+  accent: vréme
+  note: 'Ложный друг: не «время», а время И погода.'
+  src:
+  - base
+  - my
+  my:
+  - my.banka
+  ex:
+  - sr: 'Radno vreme: radnim danima od 8 do 16 časova, subotom od 9 do 13.'
+    tr: 'Часы работы: в будни с 8 до 16, по субботам с 9 до 13.'
+    about: my
+    from: my.banka
+- sr: bez
+  tr: без
+  pos: prep
+  src:
+  - base
+  - sit
+  sit:
+  - apoteka
+  - stan
+  ex:
+  - sr: Imamo, ovo ide bez recepta. Jedna tableta na osam sati.
+    tr: Есть, это без рецепта. Одна таблетка каждые восемь часов.
+    about: sit
+    from: sit.apoteka
+  - sr: Može, u pet. Stan je na trećem spratu, bez lifta.
+    tr: Можно, в пять. Квартира на третьем этаже, без лифта.
+    about: sit
+    from: sit.stan
+- sr: račun
+  tr: счёт; чек
+  pos: noun
+  gender: m
+  forms:
+    gen: računa
+    loc: računu
+    ins: računom
+    pl: računi
+    gpl: računa
+  accent: ràčūn
+  src:
+  - base
+  - my
+  - sit
+  sit:
+  - stan
+  my:
+  - my.stanodavka
+  ex:
+  - sr: Račune za struju i vodu plaćate Vi, a infostan plaćam ja.
+    tr: Счета за электричество и воду оплачиваете вы, а Infostan — я.
+    about: my
+    from: my.stanodavka
+  - sr: Da li su računi uključeni u kiriju?
+    tr: Счета включены в аренду?
+    about: sit
+    from: sit.stan
+- sr: uz
+  tr: вдоль; с, при
+  pos: prep
+  src:
+  - base
+  - my
+  my:
+  - my.banka
+  - my.mup
+  ex:
+  - sr: Možete je preuzeti u ekspozituri banke uz ličnu kartu ili pasoš.
+    tr: Её можно забрать в отделении банка с удостоверением личности или паспортом.
+    about: my
+    from: my.banka
+- sr: red
+  tr: ряд; очередь; порядок
+  pos: noun
+  forms:
+    gen: reda
+    loc: redu
+    ins: redom
+    pl: redovi
+    gpl: redova
+  accent: rȇd
+  src:
+  - base
+  - sit
+  sit:
+  - prodavnica
+  ex:
+  - sr: U drugom redu, levo.
+    tr: Во втором ряду, слева.
+    about: sit
+    from: sit.prodavnica
+- sr: plaćati
+  tr: платить
+  pos: verb
+  forms:
+    prs1: plaćam
+    prs3: plaća
+    prs3pl: plaćaju
+    past: plaćao
+    imp: plaćaj
+  asp: ipf
+  pair_sr: platiti
+  src:
+  - base
+  - my
+  - sit
+  sit:
+  - stan
+  my:
+  - my.stanodavka
+  ex:
+  - sr: Račune za struju i vodu plaćate Vi, a infostan plaćam ja.
+    tr: Счета за электричество и воду оплачиваете вы, а Infostan — я.
+    about: my
+    from: my.stanodavka
+  - sr: Nisu, struju i vodu plaćate posebno.
+    tr: Нет, электричество и воду оплачиваете отдельно.
+    about: sit
+    from: sit.stan
+- sr: kuća
+  tr: дом
+  pos: noun
+  gender: f
+  forms:
+    gen: kuće
+    acc: kuću
+    loc: kući
+    ins: kućom
+    pl: kuće
+  accent: kȕća
+  note: 'Ложный друг: не «куча», а дом (куча — gomila).'
+  src:
+  - base
+  - my
+  my:
+  - my.stanodavka
+  ex:
+  - sr: Sutra u deset dolazi majstor da popravi bojler u kupatilu, da li ćete biti kod kuće?
+    tr: Завтра в десять придёт мастер починить бойлер в ванной — вы будете дома?
+    about: my
+    from: my.stanodavka
+- sr: gde
+  tr: где, куда
+  pos: adv
+  src:
+  - base
+  - sit
+  sit:
+  - prodavnica
+  ex:
+  - sr: Nemam. Gde mogu da nađem mleko?
+    tr: Нет. Где я могу найти молоко?
+    about: sit
+    from: sit.prodavnica
+- sr: doći
+  tr: прийти, приехать
+  pos: verb
+  forms:
+    prs1: dođem
+    prs3: dođe
+    prs3pl: dođu
+    past: došao
+    imp: dođi
+  asp: pf
+  src:
+  - base
+  - sit
+  sit:
+  - mup
+  ex:
+  - sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
+    tr: Добрый день. Я пришёл подать заявление на временное пребывание.
+    about: sit
+    from: sit.mup
+- sr: preko
+  tr: через, поверх
+  pos: prep
+  src:
+  - base
+  - my
+  my:
+  - my.mup
+  ex:
+  - sr: Termin možete zakazati preko portala eUprava.
+    tr: Записаться можно через портал eUprava.
+    about: my
+    from: my.mup
+- sr: treba
+  tr: нужно, надо
+  pos: adv
+  src:
+  - base
+  - sit
+  sit:
+  - prodavnica
+  ex:
+  - sr: Treba li vam kesa?
+    tr: Пакет нужен?
+    about: sit
+    from: sit.prodavnica
+- sr: evo
+  tr: вот (здесь)
+  pos: interj
+  src:
+  - base
+  - sit
+  sit:
+  - mup
+  ex:
+  - sr: Da, u deset i trideset. Evo pasoša.
+    tr: Да, на десять тридцать. Вот паспорт.
+    about: sit
+    from: sit.mup
+- sr: kartica
+  tr: банковская карта
+  pos: noun
+  gender: f
+  forms:
+    gen: kartice
+    acc: karticu
+    loc: kartici
+    ins: karticom
+    pl: kartice
+  src:
+  - base
+  - my
+  - sit
+  sit:
+  - pekara
+  - prodavnica
+  my:
+  - my.banka
+  ex:
+  - sr: Poštovani, Vaša platna kartica je spremna.
+    tr: Уважаемый(ая), ваша платёжная карта готова.
+    about: my
+    from: my.banka
+  - sr: Može karticom?
+    tr: Можно картой?
+    about: sit
+    from: sit.pekara
+- sr: zahtev
+  tr: заявление, запрос
+  pos: noun
+  gender: m
+  forms:
+    gen: zahteva
+    loc: zahtevu
+    ins: zahtevom
+    pl: zahtevi
+    gpl: zahteva
+  src:
+  - base
+  - my
+  - sit
+  sit:
+  - mup
+  my:
+  - my.mup
+  ex:
+  - sr: Poštovani, Vaš zahtev za odobrenje privremenog boravka je primljen.
+    tr: Уважаемый(ая), ваше заявление на временное пребывание принято.
+    about: my
+    from: my.mup
+  - sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
+    tr: Добрый день. Я пришёл подать заявление на временное пребывание.
+    about: sit
+    from: sit.mup
+- sr: koliko
+  tr: сколько
+  pos: adv
+  src:
+  - base
+  - sit
+  sit:
+  - apoteka
+  - pekara
+  ex:
+  - sr: Koliko košta?
+    tr: Сколько стоит?
+    about: sit
+    from: sit.apoteka
+  - sr: Za poneti. Koliko košta?
+    tr: С собой. Сколько стоит?
+    about: sit
+    from: sit.pekara
+- sr: naći
+  tr: найти
+  pos: verb
+  forms:
+    prs1: nađem
+    prs3: nađe
+    prs3pl: nađu
+    past: našao
+    imp: nađi
+  asp: pf
+  src:
+  - base
+  - sit
+  sit:
+  - prodavnica
+  ex:
+  - sr: Nemam. Gde mogu da nađem mleko?
+    tr: Нет. Где я могу найти молоко?
+    about: sit
+    from: sit.prodavnica
+- sr: ostaviti
+  tr: оставить
+  pos: verb
+  forms:
+    prs1: ostavim
+    prs3: ostavi
+    prs3pl: ostave
+    past: ostavio
+    imp: ostavi
+  asp: pf
+  src:
+  - base
+  - my
+  my:
+  - my.stanodavka
+  ex:
+  - sr: Ako niste, ostavite ključ kod komšinice na drugom spratu.
+    tr: Если вас не будет, оставьте ключ у соседки на втором этаже.
+    about: my
+    from: my.stanodavka
+- sr: dolaziti
+  tr: приходить, приезжать
+  pos: verb
+  forms:
+    prs1: dolazim
+    prs3: dolazi
+    prs3pl: dolaze
+    past: dolazio
+    imp: dolazi
+  src:
+  - base
+  - my
+  my:
+  - my.stanodavka
+  ex:
+  - sr: Sutra u deset dolazi majstor da popravi bojler u kupatilu, da li ćete biti kod kuće?
+    tr: Завтра в десять придёт мастер починить бойлер в ванной — вы будете дома?
+    about: my
+    from: my.stanodavka
+  - sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
+    tr: Добрый день. Я пришёл подать заявление на временное пребывание.
+    about: sit
+    from: sit.mup
+- sr: sprat
+  tr: этаж
+  pos: noun
+  forms:
+    gen: sprata
+    loc: spratu
+    ins: spratom
+    pl: spratovi
+    gpl: spratova
+  src:
+  - base
+  - my
+  - sit
+  sit:
+  - stan
+  my:
+  - my.stanodavka
+  ex:
+  - sr: Ako niste, ostavite ključ kod komšinice na drugom spratu.
+    tr: Если вас не будет, оставьте ключ у соседки на втором этаже.
+    about: my
+    from: my.stanodavka
+  - sr: Može, u pet. Stan je na trećem spratu, bez lifta.
+    tr: Можно, в пять. Квартира на третьем этаже, без лифта.
+    about: sit
+    from: sit.stan
+- sr: protiv
+  tr: против
+  pos: prep
+  src:
+  - base
+  - sit
+  sit:
+  - apoteka
+  ex:
+  - sr: Dobar dan, imate li nešto protiv glavobolje?
+    tr: Добрый день, у вас есть что-нибудь от головной боли?
+    about: sit
+    from: sit.apoteka
+- sr: posle
+  tr: после
+  pos: prep
+  src:
+  - base
+  - sit
+  sit:
+  - stan
+  ex:
+  - sr: Može li sutra posle podne?
+    tr: Можно завтра после обеда?
+    about: sit
+    from: sit.stan
+- sr: mesec
+  tr: месяц
+  pos: noun
+  gender: m
+  forms:
+    gen: meseca
+    loc: mesecu
+    ins: mesecem
+    pl: meseci
+    gpl: meseca
+  accent: mȅsēc
+  src:
+  - base
+  - my
+  my:
+  - my.stanodavka
+  ex:
+  - sr: Molim Vas da platite do petog u mesecu.
+    tr: Прошу вас заплатить до пятого числа.
+    about: my
+    from: my.stanodavka
+- sr: struja
+  tr: электричество, ток
+  pos: noun
+  forms:
+    gen: struje
+    acc: struju
+    loc: struji
+    ins: strujom
+    pl: struje
+  src:
+  - base
+  - my
+  - sit
+  sit:
+  - stan
+  my:
+  - my.stanodavka
+  ex:
+  - sr: Račune za struju i vodu plaćate Vi, a infostan plaćam ja.
+    tr: Счета за электричество и воду оплачиваете вы, а Infostan — я.
+    about: my
+    from: my.stanodavka
+  - sr: Nisu, struju i vodu plaćate posebno.
+    tr: Нет, электричество и воду оплачиваете отдельно.
+    about: sit
+    from: sit.stan
+- sr: naravno
+  tr: конечно
+  pos: adv
+  src:
+  - base
+  - sit
+  sit:
+  - pekara
+  ex:
+  - sr: Može, naravno. Prijatno!
+    tr: Конечно. Всего доброго!
+    about: sit
+    from: sit.pekara
+- sr: spreman
+  tr: готовый
+  pos: adj
+  forms:
+    f: spremna
+    n: spremno
+    cmp: spremniji
+  src:
+  - base
+  - my
+  my:
+  - my.banka
+  ex:
+  - sr: Poštovani, Vaša platna kartica je spremna.
+    tr: Уважаемый(ая), ваша платёжная карта готова.
+    about: my
+    from: my.banka
+- sr: izviniti
+  tr: извинить (izvinite — извините)
+  pos: verb
+  asp: pf
+  src:
+  - base
+  - sit
+  sit:
+  - mup
+  ex:
+  - sr: Izvinite, možete li da ponovite sporije?
+    tr: Извините, можете повторить медленнее?
+    about: sit
+    from: sit.mup
+- sr: pogledati
+  tr: посмотреть
+  pos: verb
+  forms:
+    prs1: pogledam
+    prs3: pogleda
+    prs3pl: pogledaju
+    past: pogledao
+    imp: pogledaj
+  asp: pf
+  pair_sr: gledati
+  src:
+  - base
+  - sit
+  sit:
+  - stan
+  ex:
+  - sr: Kada vam odgovara da pogledate stan?
+    tr: Когда вам удобно посмотреть квартиру?
+    about: sit
+    from: sit.stan
+- sr: pet
+  tr: пять
+  pos: num
+  src:
+  - base
+  - sit
+  sit:
+  - stan
+  ex:
+  - sr: Može, u pet. Stan je na trećem spratu, bez lifta.
+    tr: Можно, в пять. Квартира на третьем этаже, без лифта.
+    about: sit
+    from: sit.stan
+- sr: sat
+  tr: час; часы
+  pos: noun
+  gender: m
+  forms:
+    gen: sata
+    loc: satu
+    ins: satom
+    pl: sati
+    gpl: sata
+  src:
+  - base
+  - sit
+  sit:
+  - apoteka
+  ex:
+  - sr: Imamo, ovo ide bez recepta. Jedna tableta na osam sati.
+    tr: Есть, это без рецепта. Одна таблетка каждые восемь часов.
+    about: sit
+    from: sit.apoteka
+- sr: termin
+  tr: запись, назначенное время
+  pos: noun
+  forms:
+    gen: termina
+    loc: terminu
+    ins: terminom
+    pl: termini
+    gpl: termina
+  accent: tèrmīn
+  src:
+  - base
+  - my
+  - sit
+  sit:
+  - mup
+  my:
+  - my.mup
+  ex:
+  - sr: Termin možete zakazati preko portala eUprava.
+    tr: Записаться можно через портал eUprava.
+    about: my
+    from: my.mup
+  - sr: Da li imate zakazan termin?
+    tr: У вас назначено?
+    about: sit
+    from: sit.mup
+- sr: zakazati
+  tr: назначить, записаться
+  pos: verb
+  forms:
+    prs1: zakažem
+    prs3: zakaže
+    prs3pl: zakažu
+    past: zakazao
+    imp: zakaži
+  src:
+  - base
+  - my
+  - sit
+  sit:
+  - mup
+  my:
+  - my.mup
+  ex:
+  - sr: Termin možete zakazati preko portala eUprava.
+    tr: Записаться можно через портал eUprava.
+    about: my
+    from: my.mup
+  - sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
+    tr: Добрый день. Я пришёл подать заявление на временное пребывание.
+    about: sit
+    from: sit.mup
+- sr: platiti
+  tr: заплатить
+  pos: verb
+  forms:
+    prs1: platim
+    prs3: plati
+    prs3pl: plate
+    past: platio
+    imp: plati
+  asp: pf
+  pair_sr: plaćati
+  src:
+  - base
+  - my
+  my:
+  - my.stanodavka
+  ex:
+  - sr: Molim Vas da platite do petog u mesecu.
+    tr: Прошу вас заплатить до пятого числа.
+    about: my
+    from: my.stanodavka
+- sr: lift
+  tr: лифт
+  pos: noun
+  forms:
+    gen: lifta
+    loc: liftu
+    ins: liftom
+    pl: liftovi
+    gpl: liftova
+  accent: lȉft
+  src:
+  - base
+  - my
+  - sit
+  sit:
+  - stan
+  my:
+  - my.obavestenje
+  ex:
+  - sr: Lift ne radi do petka.
+    tr: Лифт не работает до пятницы.
+    about: my
+    from: my.obavestenje
+  - sr: Može, u pet. Stan je na trećem spratu, bez lifta.
+    tr: Можно, в пять. Квартира на третьем этаже, без лифта.
+    about: sit
+    from: sit.stan
+- sr: izvolite
+  tr: пожалуйста (вот, прошу)
+  pos: interj
+  src:
+  - base
+  - sit
+  sit:
+  - mup
+  - pekara
+  ex:
+  - sr: Sledeći! Izvolite.
+    tr: Следующий! Прошу.
+    about: sit
+    from: sit.mup
+  - sr: Dobar dan, izvolite.
+    tr: Добрый день, слушаю вас.
+    about: sit
+    from: sit.pekara
+- sr: privremeni
+  tr: временный
+  pos: adj
+  forms:
+    f: privremena
+    n: privremeno
+  src:
+  - base
+  - my
+  - sit
+  sit:
+  - mup
+  my:
+  - my.mup
+  ex:
+  - sr: Poštovani, Vaš zahtev za odobrenje privremenog boravka je primljen.
+    tr: Уважаемый(ая), ваше заявление на временное пребывание принято.
+    about: my
+    from: my.mup
+  - sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
+    tr: Добрый день. Я пришёл подать заявление на временное пребывание.
+    about: sit
+    from: sit.mup
+- sr: kesa
+  tr: пакет
+  pos: noun
+  gender: f
+  forms:
+    gen: kese
+    acc: kesu
+    loc: kesi
+    ins: kesom
+    pl: kese
+  accent: kȅsa
+  src:
+  - base
+  - my
+  - sit
+  sit:
+  - prodavnica
+  my:
+  - my.obavestenje
+  ex:
+  - sr: Molimo Vas da ne ostavljate kese sa smećem ispred ulaza.
+    tr: Просим не оставлять пакеты с мусором перед подъездом.
+    about: my
+    from: my.obavestenje
+  - sr: Treba li vam kesa?
+    tr: Пакет нужен?
+    about: sit
+    from: sit.prodavnica
+- sr: dokaz
+  tr: доказательство, подтверждение
+  pos: noun
+  forms:
+    gen: dokaza
+    loc: dokazu
+    ins: dokazom
+    pl: dokazi
+    gpl: dokaza
+  src:
+  - base
+  - my
+  my:
+  - my.mup
+  ex:
+  - sr: Potrebno je da dostavite dokaz o smeštaju i potvrdu o zdravstvenom osiguranju.
+    tr: Нужно предоставить подтверждение проживания и справку о медицинской страховке.
+    about: my
+    from: my.mup
+- sr: sledeći
+  tr: следующий
+  pos: adj
+  forms:
+    f: sledeća
+    n: sledeće
+  src:
+  - base
+  - sit
+  sit:
+  - mup
+  ex:
+  - sr: Sledeći! Izvolite.
+    tr: Следующий! Прошу.
+    about: sit
+    from: sit.mup
+- sr: ličan
+  tr: личный (lična karta — удостоверение личности)
+  pos: adj
+  forms:
+    f: lična
+    n: lično
+  src:
+  - base
+  - my
+  my:
+  - my.banka
+  - my.mup
+  ex:
+  - sr: Možete je preuzeti u ekspozituri banke uz ličnu kartu ili pasoš.
+    tr: Её можно забрать в отделении банка с удостоверением личности или паспортом.
+    about: my
+    from: my.banka
+- sr: pasoš
+  tr: паспорт (загран)
+  pos: noun
+  gender: m
+  forms:
+    gen: pasoša
+    loc: pasošu
+    ins: pasošem
+    pl: pasoši
+    gpl: pasoša
+  src:
+  - base
+  - my
+  - sit
+  sit:
+  - mup
+  my:
+  - my.banka
+  ex:
+  - sr: Možete je preuzeti u ekspozituri banke uz ličnu kartu ili pasoš.
+    tr: Её можно забрать в отделении банка с удостоверением личности или паспортом.
+    about: my
+    from: my.banka
+  - sr: Da, u deset i trideset. Evo pasoša.
+    tr: Да, на десять тридцать. Вот паспорт.
+    about: sit
+    from: sit.mup
+- sr: ispred
+  tr: перед
+  pos: prep
+  src:
+  - base
+  - my
+  my:
+  - my.obavestenje
+  ex:
+  - sr: Molimo Vas da ne ostavljate kese sa smećem ispred ulaza.
+    tr: Просим не оставлять пакеты с мусором перед подъездом.
+    about: my
+    from: my.obavestenje
+- sr: rad
+  tr: работа, труд; (radovi) ремонтные работы
+  pos: noun
+  gender: m
+  forms:
+    gen: rada
+    loc: radu
+    ins: radom
+    pl: radovi
+    gpl: radova
+  src:
+  - base
+  - my
+  my:
+  - my.obavestenje
+  ex:
+  - sr: Poštovani stanari, u utorak od 9 do 14 časova neće biti vode zbog radova na vodovodnoj mreži.
+    tr: Уважаемые жильцы, во вторник с 9 до 14 часов не будет воды из-за работ на водопроводе.
+    about: my
+    from: my.obavestenje
+- sr: ključ
+  tr: ключ
+  pos: noun
+  gender: m
+  forms:
+    gen: ključa
+    acc: ključu
+    loc: ključu
+    ins: ključem
+    pl: ključevi
+    gpl: ključeva
+  src:
+  - base
+  - my
+  my:
+  - my.stanodavka
+  ex:
+  - sr: Ako niste, ostavite ključ kod komšinice na drugom spratu.
+    tr: Если вас не будет, оставьте ключ у соседки на втором этаже.
+    about: my
+    from: my.stanodavka
+- sr: boravak
+  tr: пребывание; вид на жительство (privremeni boravak)
+  pos: noun
+  gender: m
+  forms:
+    gen: boravka
+    loc: boravku
+    ins: boravkom
+    pl: boravci
+    gpl: boravka
+  accent: bòravak
+  src:
+  - base
+  - my
+  - sit
+  sit:
+  - mup
+  my:
+  - my.mup
+  ex:
+  - sr: Poštovani, Vaš zahtev za odobrenje privremenog boravka je primljen.
+    tr: Уважаемый(ая), ваше заявление на временное пребывание принято.
+    about: my
+    from: my.mup
+  - sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
+    tr: Добрый день. Я пришёл подать заявление на временное пребывание.
+    about: sit
+    from: sit.mup
+- sr: karta
+  tr: билет; карта
+  pos: noun
+  gender: f
+  forms:
+    gen: karte
+    acc: kartu
+    loc: karti
+    ins: kartom
+    pl: karte
+    gpl: karata
+  accent: kȃrta
+  note: 'Ложный друг: не «карта», а чаще билет (карта местности — mapa).'
+  src:
+  - base
+  - my
+  my:
+  - my.banka
+  ex:
+  - sr: Možete je preuzeti u ekspozituri banke uz ličnu kartu ili pasoš.
+    tr: Её можно забрать в отделении банка с удостоверением личности или паспортом.
+    about: my
+    from: my.banka
+- sr: potvrda
+  tr: справка, подтверждение
+  pos: noun
+  forms:
+    gen: potvrde
+    acc: potvrdu
+    loc: potvrdi
+    ins: potvrdom
+    pl: potvrde
+  src:
+  - base
+  - my
+  - sit
+  sit:
+  - mup
+  my:
+  - my.mup
+  ex:
+  - sr: Potrebno je da dostavite dokaz o smeštaju i potvrdu o zdravstvenom osiguranju.
+    tr: Нужно предоставить подтверждение проживания и справку о медицинской страховке.
+    about: my
+    from: my.mup
+  - sr: Potrebna je i potvrda o smeštaju.
+    tr: Нужна также справка о проживании.
+    about: sit
+    from: sit.mup
+- sr: čas
+  tr: час (в расписании); урок
+  pos: noun
+  forms:
+    gen: časa
+    loc: času
+    ins: časom
+    pl: časovi
+    gpl: časova
+  accent: čȁs
+  note: 'Ложный друг: не «час», а урок; момент (час — sat).'
+  src:
+  - base
+  - my
+  my:
+  - my.banka
+  - my.obavestenje
+  ex:
+  - sr: 'Radno vreme: radnim danima od 8 do 16 časova, subotom od 9 do 13.'
+    tr: 'Часы работы: в будни с 8 до 16, по субботам с 9 до 13.'
+    about: my
+    from: my.banka
+- sr: primiti
+  tr: принять, получить
+  pos: verb
+  forms:
+    prs1: primim
+    prs3: primi
+    prs3pl: prime
+    past: primio
+    imp: primi
+  src:
+  - base
+  - my
+  my:
+  - my.mup
+  ex:
+  - sr: Poštovani, Vaš zahtev za odobrenje privremenog boravka je primljen.
+    tr: Уважаемый(ая), ваше заявление на временное пребывание принято.
+    about: my
+    from: my.mup
+  - sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
+    tr: Добрый день. Я пришёл подать заявление на временное пребывание.
+    about: sit
+    from: sit.mup
+- sr: moliti
+  tr: просить
+  pos: verb
+  forms:
+    prs1: molim
+    prs3: moli
+    prs3pl: mole
+    past: molio
+    imp: moli
+  src:
+  - base
+  - my
+  my:
+  - my.obavestenje
+  ex:
+  - sr: Molimo Vas da ne ostavljate kese sa smećem ispred ulaza.
+    tr: Просим не оставлять пакеты с мусором перед подъездом.
+    about: my
+    from: my.obavestenje
+  - sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
+    tr: Добрый день. Я пришёл подать заявление на временное пребывание.
+    about: sit
+    from: sit.mup
+- sr: ulaz
+  tr: вход; подъезд
+  pos: noun
+  gender: m
+  forms:
+    gen: ulaza
+    loc: ulazu
+    ins: ulazom
+    pl: ulazi
+    gpl: ulaza
+  src:
+  - base
+  - my
+  my:
+  - my.obavestenje
+  ex:
+  - sr: Molimo Vas da ne ostavljate kese sa smećem ispred ulaza.
+    tr: Просим не оставлять пакеты с мусором перед подъездом.
+    about: my
+    from: my.obavestenje
+- sr: osam
+  tr: восемь
+  pos: num
+  src:
+  - base
+  - sit
+  sit:
+  - apoteka
+  ex:
+  - sr: Imamo, ovo ide bez recepta. Jedna tableta na osam sati.
+    tr: Есть, это без рецепта. Одна таблетка каждые восемь часов.
+    about: sit
+    from: sit.apoteka
+- sr: poseban
+  tr: отдельный, особый
+  pos: adj
+  forms:
+    f: posebna
+    n: posebno
+  src:
+  - base
+  - sit
+  sit:
+  - stan
+  ex:
+  - sr: Nisu, struju i vodu plaćate posebno.
+    tr: Нет, электричество и воду оплачиваете отдельно.
+    about: sit
+    from: sit.stan
+- sr: kirija
+  tr: аренда, квартплата
+  pos: noun
+  gender: f
+  forms:
+    gen: kirije
+    acc: kiriju
+    loc: kiriji
+    ins: kirijom
+    pl: kirije
+  accent: kìrija
+  src:
+  - base
+  - my
+  - sit
+  sit:
+  - stan
+  my:
+  - my.stanodavka
+  ex:
+  - sr: Kirija za ovaj mesec je 450 evra, kao i do sada.
+    tr: Аренда за этот месяц — 450 евро, как и раньше.
+    about: my
+    from: my.stanodavka
+  - sr: Da li su računi uključeni u kiriju?
+    tr: Счета включены в аренду?
+    about: sit
+    from: sit.stan
+- sr: preuzeti
+  tr: забрать, получить
+  pos: verb
+  forms:
+    prs1: preuzmem
+    prs3: preuzme
+    prs3pl: preuzmu
+    past: preuzeo
+    imp: preuzmi
+  src:
+  - base
+  - my
+  my:
+  - my.banka
+  ex:
+  - sr: Možete je preuzeti u ekspozituri banke uz ličnu kartu ili pasoš.
+    tr: Её можно забрать в отделении банка с удостоверением личности или паспортом.
+    about: my
+    from: my.banka
+  - sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
+    tr: Добрый день. Я пришёл подать заявление на временное пребывание.
+    about: sit
+    from: sit.mup
+- sr: banka
+  tr: банк
+  pos: noun
+  gender: f
+  forms:
+    gen: banke
+    acc: banku
+    loc: banki
+    ins: bankom
+    pl: banke
+    gpl: banaka
+  accent: bànka
+  src:
+  - base
+  - my
+  my:
+  - my.banka
+  ex:
+  - sr: Možete je preuzeti u ekspozituri banke uz ličnu kartu ili pasoš.
+    tr: Её можно забрать в отделении банка с удостоверением личности или паспортом.
+    about: my
+    from: my.banka
+- sr: popraviti
+  tr: починить
+  pos: verb
+  forms:
+    prs1: popravim
+    prs3: popravi
+    prs3pl: poprave
+    past: popravio
+    imp: popravi
+  src:
+  - base
+  - my
+  my:
+  - my.stanodavka
+  ex:
+  - sr: Sutra u deset dolazi majstor da popravi bojler u kupatilu, da li ćete biti kod kuće?
+    tr: Завтра в десять придёт мастер починить бойлер в ванной — вы будете дома?
+    about: my
+    from: my.stanodavka
+  - sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
+    tr: Добрый день. Я пришёл подать заявление на временное пребывание.
+    about: sit
+    from: sit.mup
+- sr: smeštaj
+  tr: жильё, проживание
+  pos: noun
+  forms:
+    gen: smeštaja
+    loc: smeštaju
+    ins: smeštajem
+    pl: smeštaji
+    gpl: smeštaja
+  src:
+  - base
+  - my
+  - sit
+  sit:
+  - mup
+  my:
+  - my.mup
+  ex:
+  - sr: Potrebno je da dostavite dokaz o smeštaju i potvrdu o zdravstvenom osiguranju.
+    tr: Нужно предоставить подтверждение проживания и справку о медицинской страховке.
+    about: my
+    from: my.mup
+  - sr: Potrebna je i potvrda o smeštaju.
+    tr: Нужна также справка о проживании.
+    about: sit
+    from: sit.mup
+- sr: stan
+  tr: квартира
+  pos: noun
+  gender: m
+  forms:
+    gen: stana
+    loc: stanu
+    ins: stanom
+    pl: stanovi
+    gpl: stanova
+  accent: stȃn
+  note: 'Ложный друг: не «стан», а квартира.'
+  src:
+  - base
+  - sit
+  sit:
+  - stan
+  ex:
+  - sr: Kada vam odgovara da pogledate stan?
+    tr: Когда вам удобно посмотреть квартиру?
+    about: sit
+    from: sit.stan
+  - sr: Može, u pet. Stan je na trećem spratu, bez lifta.
+    tr: Можно, в пять. Квартира на третьем этаже, без лифта.
+    about: sit
+    from: sit.stan
+- sr: savet
+  tr: совет
+  pos: noun
+  forms:
+    gen: saveta
+    loc: savetu
+    ins: savetom
+    pl: saveti
+    gpl: saveta
+  src:
+  - base
+  - my
+  my:
+  - my.obavestenje
+- sr: ostavljati
+  tr: оставлять
+  pos: verb
+  forms:
+    prs1: ostavljam
+    prs3: ostavlja
+    prs3pl: ostavljaju
+    past: ostavljao
+    imp: ostavljaj
+  src:
+  - base
+  - my
+  my:
+  - my.obavestenje
+  ex:
+  - sr: Molimo Vas da ne ostavljate kese sa smećem ispred ulaza.
+    tr: Просим не оставлять пакеты с мусором перед подъездом.
+    about: my
+    from: my.obavestenje
+  - sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
+    tr: Добрый день. Я пришёл подать заявление на временное пребывание.
+    about: sit
+    from: sit.mup
+- sr: odgovarati
+  tr: подходить, устраивать; отвечать
+  pos: verb
+  forms:
+    prs1: odgovaram
+    prs3: odgovara
+    prs3pl: odgovaraju
+    past: odgovarao
+    imp: odgovaraj
+  src:
+  - base
+  - sit
+  sit:
+  - stan
+  ex:
+  - sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
+    tr: Добрый день. Я пришёл подать заявление на временное пребывание.
+    about: sit
+    from: sit.mup
+  - sr: Potrebna je i potvrda o smeštaju.
+    tr: Нужна также справка о проживании.
+    about: sit
+    from: sit.mup
+- sr: radni
+  tr: рабочий
+  pos: adj
+  src:
+  - base
+  - my
+  my:
+  - my.banka
+  ex:
+  - sr: 'Radno vreme: radnim danima od 8 do 16 časova, subotom od 9 do 13.'
+    tr: 'Часы работы: в будни с 8 до 16, по субботам с 9 до 13.'
+    about: my
+    from: my.banka
+- sr: obavestiti
+  tr: уведомить
+  pos: verb
+  forms:
+    prs1: obavestim
+    prs3: obavesti
+    prs3pl: obaveste
+    past: obavestio
+    imp: obavesti
+  src:
+  - base
+  - my
+  my:
+  - my.obavestenje
+  ex:
+  - sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
+    tr: Добрый день. Я пришёл подать заявление на временное пребывание.
+    about: sit
+    from: sit.mup
+- sr: treći
+  tr: третий
+  pos: adj
+  src:
+  - base
+  - sit
+  sit:
+  - stan
+  ex:
+  - sr: Može, u pet. Stan je na trećem spratu, bez lifta.
+    tr: Можно, в пять. Квартира на третьем этаже, без лифта.
+    about: sit
+    from: sit.stan
+- sr: osiguranje
+  tr: страховка
+  pos: noun
+  forms:
+    gen: osiguranja
+    loc: osiguranju
+    ins: osiguranjem
+    pl: osiguranja
+    gpl: osiguranja
+  src:
+  - base
+  - my
+  my:
+  - my.mup
+  ex:
+  - sr: Potrebno je da dostavite dokaz o smeštaju i potvrdu o zdravstvenom osiguranju.
+    tr: Нужно предоставить подтверждение проживания и справку о медицинской страховке.
+    about: my
+    from: my.mup
+- sr: petak
+  tr: пятница
+  pos: noun
+  forms:
+    gen: petka
+    loc: petku
+    ins: petkom
+    pl: peci
+    gpl: petaka
+  accent: pétak
+  src:
+  - base
+  - my
+  my:
+  - my.obavestenje
+  ex:
+  - sr: Lift ne radi do petka.
+    tr: Лифт не работает до пятницы.
+    about: my
+    from: my.obavestenje
+- sr: dokument
+  tr: документ
+  pos: noun
+  gender: m
+  forms:
+    gen: dokumenta
+    loc: dokumentu
+    ins: dokumentom
+    pl: dokumenti
+    gpl: dokumenta
+  accent: dokùment
+  src:
+  - base
+  - my
+  my:
+  - my.mup
+  ex:
+  - sr: Dokumenta predajete lično na šalteru, uz zakazan termin.
+    tr: Документы вы подаёте лично в окошке, по записи.
+    about: my
+    from: my.mup
+- sr: predati
+  tr: сдать, подать (документы)
+  pos: verb
+  forms:
+    prs1: predam
+    prs3: preda
+    prs3pl: predaju
+    past: predao
+    imp: predaj
+  asp: pf
+  src:
+  - base
+  - sit
+  sit:
+  - mup
+  ex:
+  - sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
+    tr: Добрый день. Я пришёл подать заявление на временное пребывание.
+    about: sit
+    from: sit.mup
+- sr: kupatilo
+  tr: ванная
+  pos: noun
+  forms:
+    gen: kupatila
+    loc: kupatilu
+    ins: kupatilom
+    pl: kupatila
+    gpl: kupatila
+  src:
+  - base
+  - my
+  my:
+  - my.stanodavka
+  ex:
+  - sr: Sutra u deset dolazi majstor da popravi bojler u kupatilu, da li ćete biti kod kuće?
+    tr: Завтра в десять придёт мастер починить бойлер в ванной — вы будете дома?
+    about: my
+    from: my.stanodavka
+- sr: mreža
+  tr: сеть
+  pos: noun
+  forms:
+    gen: mreže
+    acc: mrežu
+    loc: mreži
+    ins: mrežom
+    pl: mreže
+  accent: mrȅža
+  src:
+  - base
+  - my
+  my:
+  - my.obavestenje
+  ex:
+  - sr: Poštovani stanari, u utorak od 9 do 14 časova neće biti vode zbog radova na vodovodnoj mreži.
+    tr: Уважаемые жильцы, во вторник с 9 до 14 часов не будет воды из-за работ на водопроводе.
+    about: my
+    from: my.obavestenje
+- sr: poneti
+  tr: взять с собой
+  pos: verb
+  forms:
+    prs1: ponesem
+    prs3: ponese
+    prs3pl: ponesu
+  src:
+  - base
+  - sit
+  sit:
+  - pekara
+  ex:
+  - sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
+    tr: Добрый день. Я пришёл подать заявление на временное пребывание.
+    about: sit
+    from: sit.mup
+  - sr: Potrebna je i potvrda o smeštaju.
+    tr: Нужна также справка о проживании.
+    about: sit
+    from: sit.mup
+- sr: koštati
+  tr: стоить
+  pos: verb
+  forms:
+    prs1: koštam
+    prs3: košta
+    prs3pl: koštaju
+    past: koštao
+    imp: koštaj
+  asp: ipf
+  src:
+  - base
+  - sit
+  sit:
+  - apoteka
+  - pekara
+  ex:
+  - sr: Koliko košta?
+    tr: Сколько стоит?
+    about: sit
+    from: sit.apoteka
+  - sr: Za poneti. Koliko košta?
+    tr: С собой. Сколько стоит?
+    about: sit
+    from: sit.pekara
+- sr: predavati
+  tr: сдавать, подавать
+  pos: verb
+  forms:
+    prs1: predajem
+    prs3: predaje
+    prs3pl: predaju
+    past: predavao
+    imp: predaj
+  src:
+  - base
+  - my
+  my:
+  - my.mup
+  ex:
+  - sr: Dokumenta predajete lično na šalteru, uz zakazan termin.
+    tr: Документы вы подаёте лично в окошке, по записи.
+    about: my
+    from: my.mup
+  - sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
+    tr: Добрый день. Я пришёл подать заявление на временное пребывание.
+    about: sit
+    from: sit.mup
+- sr: dvadeset
+  tr: двадцать
+  pos: num
+  src:
+  - base
+  - sit
+  sit:
+  - pekara
+  ex:
+  - sr: Trista dvadeset dinara.
+    tr: Триста двадцать динаров.
+    about: sit
+    from: sit.pekara
+- sr: subota
+  tr: суббота
+  pos: noun
+  forms:
+    gen: subote
+    acc: subotu
+    loc: suboti
+    ins: subotom
+    pl: subote
+  src:
+  - base
+  - my
+  my:
+  - my.banka
+  ex:
+  - sr: 'Radno vreme: radnim danima od 8 do 16 časova, subotom od 9 do 13.'
+    tr: 'Часы работы: в будни с 8 до 16, по субботам с 9 до 13.'
+    about: my
+    from: my.banka
+- sr: sir
+  tr: сыр
+  pos: noun
+  forms:
+    gen: sira
+    loc: siru
+    ins: sirom
+    pl: sirevi
+    gpl: sireva
+  accent: sȉr
+  src:
+  - base
+  - sit
+  sit:
+  - pekara
+  ex:
+  - sr: Dobar dan. Jedan burek sa sirom i jogurt, molim.
+    tr: Добрый день. Один бурек с сыром и йогурт, пожалуйста.
+    about: sit
+    from: sit.pekara
+- sr: smeće
+  tr: мусор
+  pos: noun
+  forms:
+    gen: smeća
+    loc: smeću
+    ins: smećem
+  src:
+  - base
+  - my
+  my:
+  - my.obavestenje
+  ex:
+  - sr: Molimo Vas da ne ostavljate kese sa smećem ispred ulaza.
+    tr: Просим не оставлять пакеты с мусором перед подъездом.
+    about: my
+    from: my.obavestenje
+- sr: uključiti
+  tr: включить
+  pos: verb
+  forms:
+    prs1: uključim
+    prs3: uključi
+    prs3pl: uključe
+    past: uključio
+    imp: uključi
+  src:
+  - base
+  - sit
+  sit:
+  - stan
+  ex:
+  - sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
+    tr: Добрый день. Я пришёл подать заявление на временное пребывание.
+    about: sit
+    from: sit.mup
+  - sr: Potrebna je i potvrda o smeštaju.
+    tr: Нужна также справка о проживании.
+    about: sit
+    from: sit.mup
+- sr: prijatno
+  tr: приятного аппетита; всего доброго
+  pos: interj
+  src:
+  - base
+  - sit
+  sit:
+  - pekara
+  ex:
+  - sr: Može, naravno. Prijatno!
+    tr: Конечно. Всего доброго!
+    about: sit
+    from: sit.pekara
+- sr: ponoviti
+  tr: повторить
+  pos: verb
+  forms:
+    prs1: ponovim
+    prs3: ponovi
+    prs3pl: ponove
+    past: ponovio
+    imp: ponovi
+  asp: pf
+  src:
+  - base
+  - sit
+  sit:
+  - mup
+  ex:
+  - sr: Izvinite, možete li da ponovite sporije?
+    tr: Извините, можете повторить медленнее?
+    about: sit
+    from: sit.mup
+- sr: levo
+  tr: налево
+  pos: adv
+  src:
+  - base
+  - sit
+  sit:
+  - prodavnica
+  ex:
+  - sr: U drugom redu, levo.
+    tr: Во втором ряду, слева.
+    about: sit
+    from: sit.prodavnica
+- sr: kućni
+  tr: домашний (kućni savet — домсовет)
+  pos: adj
+  src:
+  - base
+  - my
+  my:
+  - my.obavestenje
+- sr: mleko
+  tr: молоко
+  pos: noun
+  gender: n
+  forms:
+    gen: mleka
+    loc: mleku
+    ins: mlekom
+    pl: mleka
+  src:
+  - base
+  - sit
+  sit:
+  - prodavnica
+  ex:
+  - sr: Nemam. Gde mogu da nađem mleko?
+    tr: Нет. Где я могу найти молоко?
+    about: sit
+    from: sit.prodavnica
+- sr: utorak
+  tr: вторник
+  pos: noun
+  forms:
+    gen: utorka
+    loc: utorku
+    ins: utorkom
+    pl: utorci
+    gpl: utoraka
+  accent: útorak
+  src:
+  - base
+  - my
+  my:
+  - my.obavestenje
+  ex:
+  - sr: Poštovani stanari, u utorak od 9 do 14 časova neće biti vode zbog radova na vodovodnoj mreži.
+    tr: Уважаемые жильцы, во вторник с 9 до 14 часов не будет воды из-за работ на водопроводе.
+    about: my
+    from: my.obavestenje
+- sr: prijatan
+  tr: приятный
+  pos: adj
+  forms:
+    f: prijatna
+    n: prijatno
+    cmp: prijatniji
+  src:
+  - base
+  - my
+  my:
+  - my.stanodavka
+  ex:
+  - sr: Hvala i prijatan dan!
+    tr: Спасибо и хорошего дня!
+    about: my
+    from: my.stanodavka
+  - sr: Može, naravno. Prijatno!
+    tr: Конечно. Всего доброго!
+    about: sit
+    from: sit.pekara
+- sr: majstor
+  tr: мастер
+  pos: noun
+  forms:
+    gen: majstora
+    loc: majstoru
+    ins: majstorom
+    pl: majstori
+    gpl: majstora
+  src:
+  - base
+  - my
+  my:
+  - my.stanodavka
+  ex:
+  - sr: Sutra u deset dolazi majstor da popravi bojler u kupatilu, da li ćete biti kod kuće?
+    tr: Завтра в десять придёт мастер починить бойлер в ванной — вы будете дома?
+    about: my
+    from: my.stanodavka
+- sr: portal
+  tr: портал
+  pos: noun
+  forms:
+    gen: portala
+    loc: portalu
+    ins: portalom
+    pl: portali
+    gpl: portala
+  src:
+  - base
+  - my
+  my:
+  - my.mup
+  ex:
+  - sr: Termin možete zakazati preko portala eUprava.
+    tr: Записаться можно через портал eUprava.
+    about: my
+    from: my.mup

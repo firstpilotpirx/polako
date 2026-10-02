@@ -1,0 +1,5 @@
+# Fixture: words the person asked to add by hand ("добавь kupiti / kupovati и prodavnica").
+- {sr: prodavnica, tr: магазин, sit: [prodavnica], src: [manual], ex: [{sr: "Idem u prodavnicu po hleb.", tr: "Иду в магазин за хлебом.", about: general}]}
+- {sr: kupiti, tr: купить (один раз, с результатом), src: [manual], ex: [{sr: "Juče sam kupio novi telefon.", tr: "Вчера я купил новый телефон.", about: general}]}
+- {sr: kupovati, tr: покупать (процесс, регулярно), src: [manual], ex: [{sr: "Hleb uvek kupujem u pekari.", tr: "Хлеб я всегда покупаю в пекарне.", about: general}]}
+- {sr: komšinica, tr: соседка, pos: noun, gender: f, src: [my], my: [my.stanodavka], ex: [{sr: "Ako niste, ostavite ključ kod komšinice na drugom spratu.", tr: "Если вас не будет, оставьте ключ у соседки на втором этаже.", about: my, from: my.stanodavka}]}

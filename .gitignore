@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.DS_Store
+dist/
+examples/sample/dist/
+examples/sample/prep/backups/
+examples/sample/prep/*.part
+_to_delete/

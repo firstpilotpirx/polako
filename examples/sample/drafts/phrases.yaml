@@ -1,0 +1,144 @@
+- sr: Dobar dan, imate li nešto protiv glavobolje?
+  tr: Добрый день, у вас есть что-нибудь от головной боли?
+  sit:
+  - apoteka
+  from: sit.apoteka
+  note: говорю я
+- sr: Koliko košta?
+  tr: Сколько стоит?
+  sit:
+  - apoteka
+  from: sit.apoteka
+  note: говорю я
+- sr: Dvesta pedeset dinara.
+  tr: Двести пятьдесят динаров.
+  sit:
+  - apoteka
+  from: sit.apoteka
+  note: слышу
+- sr: Sledeći! Izvolite.
+  tr: Следующий! Прошу.
+  sit:
+  - mup
+  from: sit.mup
+  note: слышу
+- sr: Dobar dan. Došao sam da predam zahtev za privremeni boravak.
+  tr: Добрый день. Я пришёл подать заявление на временное пребывание.
+  sit:
+  - mup
+  from: sit.mup
+  note: говорю я
+- sr: Da li imate zakazan termin?
+  tr: У вас назначено?
+  sit:
+  - mup
+  from: sit.mup
+  note: слышу
+- sr: Da, u deset i trideset. Evo pasoša.
+  tr: Да, на десять тридцать. Вот паспорт.
+  sit:
+  - mup
+  from: sit.mup
+  note: говорю я
+- sr: Potrebna je i potvrda o smeštaju.
+  tr: Нужна также справка о проживании.
+  sit:
+  - mup
+  from: sit.mup
+  note: слышу
+- sr: Izvinite, možete li da ponovite sporije?
+  tr: Извините, можете повторить медленнее?
+  sit:
+  - mup
+  from: sit.mup
+  note: говорю я
+- sr: Dobar dan, izvolite.
+  tr: Добрый день, слушаю вас.
+  sit:
+  - pekara
+  from: sit.pekara
+  note: слышу
+- sr: Dobar dan. Jedan burek sa sirom i jogurt, molim.
+  tr: Добрый день. Один бурек с сыром и йогурт, пожалуйста.
+  sit:
+  - pekara
+  from: sit.pekara
+  note: говорю я
+- sr: Za poneti. Koliko košta?
+  tr: С собой. Сколько стоит?
+  sit:
+  - pekara
+  from: sit.pekara
+  note: говорю я
+- sr: Trista dvadeset dinara.
+  tr: Триста двадцать динаров.
+  sit:
+  - pekara
+  from: sit.pekara
+  note: слышу
+- sr: Može karticom?
+  tr: Можно картой?
+  sit:
+  - pekara
+  from: sit.pekara
+  note: говорю я
+- sr: Može, naravno. Prijatno!
+  tr: Конечно. Всего доброго!
+  sit:
+  - pekara
+  from: sit.pekara
+  note: слышу
+- sr: Treba li vam kesa?
+  tr: Пакет нужен?
+  sit:
+  - prodavnica
+  from: sit.prodavnica
+  note: слышу
+- sr: Ne, hvala, imam svoju.
+  tr: Нет, спасибо, у меня свой.
+  sit:
+  - prodavnica
+  from: sit.prodavnica
+  note: говорю я
+- sr: Imate li karticu lojalnosti?
+  tr: У вас есть карта лояльности?
+  sit:
+  - prodavnica
+  from: sit.prodavnica
+  note: слышу
+- sr: Nemam. Gde mogu da nađem mleko?
+  tr: Нет. Где я могу найти молоко?
+  sit:
+  - prodavnica
+  from: sit.prodavnica
+  note: говорю я
+- sr: U drugom redu, levo.
+  tr: Во втором ряду, слева.
+  sit:
+  - prodavnica
+  from: sit.prodavnica
+  note: слышу
+- sr: Kada vam odgovara da pogledate stan?
+  tr: Когда вам удобно посмотреть квартиру?
+  sit:
+  - stan
+  from: sit.stan
+  note: слышу
+- sr: Može li sutra posle podne?
+  tr: Можно завтра после обеда?
+  sit:
+  - stan
+  from: sit.stan
+  note: говорю я
+- sr: Da li su računi uključeni u kiriju?
+  tr: Счета включены в аренду?
+  sit:
+  - stan
+  from: sit.stan
+  note: говорю я
+- sr: Nisu, struju i vodu plaćate posebno.
+  tr: Нет, электричество и воду оплачиваете отдельно.
+  sit:
+  - stan
+  from: sit.stan
+  note: слышу

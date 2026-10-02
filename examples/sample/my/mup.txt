@@ -1,0 +1,7 @@
+---
+title: Письмо из МУП о боравке
+from: email
+---
+Poštovani, Vaš zahtev za odobrenje privremenog boravka je primljen.
+Potrebno je da dostavite dokaz o smeštaju i potvrdu o zdravstvenom osiguranju.
+Dokumenta predajete lično na šalteru, uz zakazan termin. Termin možete zakazati preko portala eUprava.

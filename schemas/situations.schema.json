@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "polako/situations.schema.json",
+  "title": "Life situations",
+  "description": "prep/situations.yaml — situations the person really meets, with short dialogs. Written by situations.py.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "situations"],
+  "properties": {
+    "version": {"type": "integer", "minimum": 1},
+    "situations": {"type": "array", "items": {"$ref": "#/$defs/situation"}}
+  },
+  "$defs": {
+    "line": {
+      "type": "object", "additionalProperties": false, "required": ["who", "sr", "tr"],
+      "properties": {
+        "who": {"enum": ["they", "me"]},
+        "sr": {"type": "string", "minLength": 1},
+        "tr": {"type": "string", "minLength": 1}
+      }
+    },
+    "dialog": {
+      "type": "object", "additionalProperties": false, "required": ["id", "lines"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
+        "title": {"type": "string"},
+        "lines": {"type": "array", "minItems": 2, "items": {"$ref": "#/$defs/line"}}
+      }
+    },
+    "situation": {
+      "type": "object", "additionalProperties": false, "required": ["id", "title", "pri"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
+        "title": {"type": "string", "description": "In the explanation language"},
+        "title_sr": {"type": "string"},
+        "pri": {"type": "integer", "minimum": 1, "maximum": 3, "description": "1 — every week, 2 — sometimes, 3 — rare but important"},
+        "desc": {"type": "string"},
+        "dialogs": {"type": "array", "items": {"$ref": "#/$defs/dialog"}},
+        "phrases": {"type": "array", "items": {"type": "string"}, "description": "Ids of phrase cards (p:…) for this situation"}
+      }
+    }
+  }
+}

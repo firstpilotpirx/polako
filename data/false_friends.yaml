@@ -1,0 +1,35 @@
+# False friends for Russian speakers: the card's `note` gets the warning automatically
+# (words.py add / forms.py). trap — the Russian word it sounds like; means — what it really means.
+version: 1
+lang: ru
+items:
+  - {sr: pozorište, trap: позорище, means: театр}
+  - {sr: jagoda, trap: ягода, means: "клубника (ягода — bobica)"}
+  - {sr: kruška, trap: кружка, means: "груша (кружка — šolja)"}
+  - {sr: stan, trap: стан, means: квартира}
+  - {sr: grad, trap: град, means: "город (град — grad тоже, но редко)"}
+  - {sr: slovo, trap: слово, means: "буква (слово — reč)"}
+  - {sr: život, trap: живот, means: "жизнь (живот — stomak, trbuh)"}
+  - {sr: ponos, trap: понос, means: "гордость (понос — proliv)"}
+  - {sr: čas, trap: час, means: "урок; момент (час — sat)"}
+  - {sr: godina, trap: година, means: год}
+  - {sr: nedelja, trap: неделя, means: "неделя И воскресенье"}
+  - {sr: ručak, trap: ручка, means: "обед (ручка — olovka)"}
+  - {sr: vredan, trap: вредный, means: "трудолюбивый; ценный"}
+  - {sr: divan, trap: диван, means: "чудесный (диван — kauč)"}
+  - {sr: strana, trap: страна, means: "сторона; страница (страна — zemlja, država)"}
+  - {sr: ličiti, trap: лечить, means: "быть похожим (лечить — lečiti)"}
+  - {sr: trudna, trap: трудная, means: "беременная (трудная — teška)"}
+  - {sr: ludi, trap: люди, means: "сумасшедшие (люди — ljudi)"}
+  - {sr: pažnja, trap: пашня, means: внимание}
+  - {sr: otkaz, trap: отказ, means: "увольнение (отказ — odbijanje)"}
+  - {sr: magacin, trap: магазин, means: "склад (магазин — prodavnica)"}
+  - {sr: karta, trap: карта, means: "чаще билет (карта местности — mapa)"}
+  - {sr: ljut, trap: лютый, means: "сердитый; острый (о еде)"}
+  - {sr: kosa, trap: коса, means: "волосы"}
+  - {sr: banja, trap: баня, means: "курорт с минеральными водами"}
+  - {sr: deva, trap: дева, means: "верблюд (девушка — devojka)"}
+  - {sr: odelo, trap: одело, means: "костюм"}
+  - {sr: kuća, trap: куча, means: "дом (куча — gomila)"}
+  - {sr: vreme, trap: время, means: "время И погода"}
+  - {sr: mir, trap: мир, means: "покой, тишина (мир-свет — svet)"}
