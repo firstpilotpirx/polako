@@ -33,7 +33,7 @@ function renderQuick(main, bands){
     sec.appendChild(el('p', 'meta', L('band') + ' ' + open.b + ' · ' + L('band' + open.b) + ' — ' + L('qHint')));
     sec.appendChild(box);
     var acts = el('div', 'acts');
-    acts.appendChild(btn('btn primary', L('qCheck') + ' ' + open.b, async function(){
+    acts.appendChild(btn('btn primary', L('qCheck'), async function(){
       var ids = Object.keys(marks), kn = ids.filter(function(id){ return marks[id].checked; });
       var pass = kn.length >= Math.ceil(ids.length * QPASS);
       var known = pass ? open.words.map(function(w){ return w.id; }).filter(function(id){ return !marks[id] || marks[id].checked; }) : kn;
