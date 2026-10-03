@@ -21,6 +21,16 @@ setTimeout(function(){ if (TTS.ok){ ttsLoad(); if (!play) render(); } }, 700);  
       }
     } catch (e){}
   }
+  if (typeof GH !== 'undefined' && GH.on()){   // the public site with the person's own repository
+    try {
+      setSync(L('ghLoading')); await ghPull(); store.mode = 'gh'; render(); setSync(L('ghSaved'));
+      document.addEventListener('visibilitychange', function(){
+        if (document.visibilityState === 'hidden') flush();
+        else if (!play) ghPull().then(function(){ render(); setSync(L('ghSaved')); }).catch(function(){});
+      });
+    } catch (e){ store.mode = 'local'; setSync(L('ghFail') + ' (' + (e.status || e.message) + ')'); }
+    return;
+  }
   try {
     var h = window.claude && window.claude.use ? await window.claude.use('db') : null;
     if (!h){ setSync(L('savedLocal')); return; }
@@ -46,3 +56,6 @@ function liveReload(){
   }, 2500);
 }
 window.addEventListener('beforeunload', function(){ if (store.mode === 'api' && (store.dirtyT || LOGNEW.length)){ try { navigator.sendBeacon('/api/trainer', new Blob([JSON.stringify(T)], {type: 'application/json'})); if (LOGNEW.length) navigator.sendBeacon('/api/log', new Blob([JSON.stringify({items: LOGNEW})], {type: 'application/json'})); } catch (e){} } });
+/* for the page's own tests and the site's loader: save now, read the current state */
+window.polakoFlush = function(){ return flush(); };
+window.polakoState = function(){ return {cards: Object.keys(T.cards || {}).length, log: LOG.length, mode: store.mode}; };

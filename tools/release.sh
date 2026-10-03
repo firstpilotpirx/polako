@@ -21,7 +21,7 @@ body=m.group(1) if m else ""
 en=re.search(r'^    en:\n((?:      - .*\n?)+)', body, re.M)
 lines=[re.sub(r'^      - "?(.*?)"?$', r'- \1', l) for l in (en.group(1).splitlines() if en else [])]
 print("\n".join(lines) or "Polako "+v)
-print("\nInstall: `claude plugin marketplace add firstpilotpirx/polako-serbian` then `claude plugin install polako-serbian@polako`, or upload the attached zip in Claude: Customize -> Plugins.")
+print("\nInstall: `claude plugin marketplace add firstpilotpirx/polako` then `claude plugin install polako-serbian@polako`, or upload the attached zip in Claude: Customize -> Plugins.")
 PY
 )
   if ! command -v gh >/dev/null; then

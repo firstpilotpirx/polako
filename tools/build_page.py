@@ -16,7 +16,9 @@ Reads (relative to --dir; everything is optional — an empty folder gives a pag
 Embedded for the page: the deck (only the fields the page uses), situations, own texts as tokens linked
 to card ids, coverage shares per card (spoken: the lemma's share of all subtitle words; own texts: its
 count), and a form → card map for checking a pasted text right on the page. Progress is NOT in the
-page: it lives in prep/trainer-state.json (local server) or the artifact's db, so a rebuild never loses it.
+page: it lives in prep/trainer-state.json (local server), the artifact's db or the person's GitHub repository,
+so a rebuild never loses it. A folder with polako.json is a data repository for the public site: the build
+also writes deck.json there (the same data, read by https://<owner>.github.io/polako).
 The template is never edited for one person: everything personal is data.
 """
 from __future__ import annotations
@@ -34,7 +36,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from prepio import REPO, data_dir, read_json, read_yaml, write_json, write_text  # noqa: E402
 
 PORTAL = REPO / "templates" / "portal"
-JS_ORDER = ["core.js", "fsrs.js", "tts.js", "trainer.js", "trainer_ui.js", "views.js", "stats.js", "boot.js"]
+JS_ORDER = ["core.js", "fsrs.js", "tts.js", "trainer.js", "trainer_ui.js", "views.js", "stats.js", "ghstore.js", "boot.js"]
 WORD_FIELDS = ("id", "sr", "tr", "pos", "gender", "forms", "accent", "asp", "pair", "rank", "grp", "zipf", "band", "sit", "note", "ex", "retired", "round")
 TOKEN = re.compile(r"([^\W\d_]+)|([\W\d_]+)", re.U)
 
@@ -146,6 +148,27 @@ def build_data(root: Path) -> dict:
     return data
 
 
+def app_js() -> str:
+    js = "\n".join(f"/* ===== {f} ===== */\n" + (PORTAL / f).read_text(encoding="utf-8") for f in JS_ORDER)
+    return js.replace("if (typeof module !== 'undefined' && module.exports) module.exports = FSRS;", "")
+
+
+def render_page(payload: str, js: str, lang: str, title: str, head: str = "") -> str:
+    page = (PORTAL / "template.html").read_text(encoding="utf-8")
+    page = page.replace("{{TITLE}}", html.escape(title)).replace("{{CSS}}", (PORTAL / "page.css").read_text(encoding="utf-8"))
+    page = page.replace("{{DATA}}", payload).replace("{{JS}}", js)
+    return ("<!doctype html>\n<html lang=\"" + html.escape(lang) + "\">\n<head>\n<meta charset=\"utf-8\">\n" + head
+            + page.replace("<header>", "</head>\n<body>\n<header>", 1) + "\n</body>\n</html>\n")
+
+
+def deck_json(root: Path) -> dict:
+    """The page data for the public site (deck.json in the person's data repository): no UI strings — the site has them."""
+    data = build_data(root)
+    payload = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
+    data["build"] = {"id": hashlib.sha1(payload.encode()).hexdigest()[:12], "at": dt.datetime.now().isoformat(timespec="seconds"), "version": plugin_version()}
+    return data
+
+
 def build(root: Path, out: Path | None = None) -> Path:
     data = build_data(root)
     lang = data["profile"].get("explain", "ru")
@@ -154,15 +177,13 @@ def build(root: Path, out: Path | None = None) -> Path:
     bid = hashlib.sha1((payload + "".join((PORTAL / f).read_text() for f in JS_ORDER + ["page.css", "template.html"])).encode()).hexdigest()[:12]
     data["build"] = {"id": bid, "at": dt.datetime.now().isoformat(timespec="seconds"), "version": plugin_version()}
     payload = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
-    js = "\n".join(f"/* ===== {f} ===== */\n" + (PORTAL / f).read_text(encoding="utf-8") for f in JS_ORDER)
-    js = js.replace("if (typeof module !== 'undefined' && module.exports) module.exports = FSRS;", "")
-    page = (PORTAL / "template.html").read_text(encoding="utf-8")
-    page = page.replace("{{TITLE}}", html.escape(data["title"])).replace("{{CSS}}", (PORTAL / "page.css").read_text(encoding="utf-8"))
-    page = page.replace("{{DATA}}", payload).replace("{{JS}}", js)
-    page = "<!doctype html>\n<html lang=\"" + html.escape(lang) + "\">\n<head>\n<meta charset=\"utf-8\">\n" + page.replace("<header>", "</head>\n<body>\n<header>", 1) + "\n</body>\n</html>\n"
+    page = render_page(payload, app_js(), lang, data["title"])
     dist = root / "dist"
     target = out or dist / "index.html"
     write_text(target, page)
+    if out is None and (root / "polako.json").exists():   # a data repository for the public site: refresh deck.json too
+        write_text(root / "deck.json", json.dumps(deck_json(root), ensure_ascii=False, separators=(",", ":")) + "\n")
+        print(f"DECK {root / 'deck.json'}")
     if out is None:
         write_text(dist / "artifact.html", page)
         write_json(dist / "version.json", data["build"])

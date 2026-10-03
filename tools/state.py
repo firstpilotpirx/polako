@@ -31,7 +31,7 @@ import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from prepio import Fail, apply, parse_pairs, read_json, read_yaml, rebuild, write_json, write_yaml  # noqa: E402
+from prepio import Fail, apply, parse_pairs, read_json, read_log, read_yaml, rebuild, write_json, write_yaml  # noqa: E402
 
 WIZARD = ["explain", "why", "level", "pack", "situations", "texts", "goal", "listening", "data", "first-round"]
 PROFILE_KEYS = {"explain", "level", "goal", "retention", "listening", "typing", "situations", "interests", "why", "started"}
@@ -121,7 +121,7 @@ def counts(root: Path) -> dict:
     prep = root / "prep"
     t = read_json(prep / "trainer-state.json", {}) or {}
     v = read_json(prep / "vocab-state.json", {}) or {}
-    log = read_json(prep / "review-log.json", []) or []
+    log = read_log(root)
     checked = set()
     for rec in v.values():
         if isinstance(rec, dict) and not rec.get("reset"):

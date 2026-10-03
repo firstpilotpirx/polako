@@ -128,3 +128,21 @@ def rebuild(root: Path) -> None:
     import sys
     subprocess.run([sys.executable, str(REPO / "tools" / "build_page.py"), "--dir", str(root)],
                    check=False, stdout=subprocess.DEVNULL)
+
+
+def read_log(root: Path) -> list:
+    """Every answer: prep/review-log.json (local server, artifact) plus prep/log/*.json (the public site writes one
+    file per month into the person's repository); duplicates dropped, sorted by time."""
+    prep = Path(root) / "prep"
+    items = list(read_json(prep / "review-log.json", []) or [])
+    for f in sorted((prep / "log").glob("*.json")) if (prep / "log").is_dir() else []:
+        part = read_json(f, []) or []
+        if isinstance(part, list):
+            items += part
+    seen, out = set(), []
+    for x in items:
+        k = (x[0], x[1])
+        if k not in seen:
+            seen.add(k)
+            out.append(x)
+    return sorted(out, key=lambda x: x[0])

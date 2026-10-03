@@ -256,3 +256,12 @@ table{border-collapse:collapse}
   .goal-days .ring{width:36px;height:36px}
   .goal-ring{gap:12px}
 }
+
+/* public site: connecting the person's own data repository */
+.setup{max-width:560px;margin:24px auto;display:flex;flex-direction:column;gap:12px}
+.setup h2{margin:0;font-size:24px}.setup h3{margin:12px 0 0;font-size:17px}
+.setup-form{display:flex;flex-direction:column;gap:12px}
+.setup-form label{display:flex;flex-direction:column;gap:6px;font-weight:600;font-size:15px}
+.setup-form input{font-size:16px;padding:10px 12px;border:1px solid var(--line-strong);border-radius:9px;background:var(--surface);color:var(--ink)}
+.setup-err{color:var(--bad, #b3261e);font-weight:600}
+.setup-packs{display:flex;flex-direction:column;gap:8px}.setup-packs .btn{text-align:left}

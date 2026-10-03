@@ -76,11 +76,14 @@ and reloads itself after every rebuild.
 `run state.py --dir <folder> session set mode=artifact page_url=<link>`. Republish to the same artifact
 after every rebuild.
 
-**On the phone's home screen:** a home-screen shortcut to a claude.ai link opens the Claude app (an empty
-chat), not the page. For a phone app build `run pwa.py --dir <folder> [--out <site folder>]` (own icon,
-full screen, offline) and host the folder over https — e.g. a GitHub repo `<user>.github.io` publishes
-itself with no settings. Progress there lives in the phone's browser and does not sync with the other
-modes; say so. `run state.py session set pwa_url=<link>`; after every rebuild run pwa.py again and upload.
+**Public site + the person's GitHub (mode `github`):** the trainer at https://firstpilotpirx.github.io/polako
+(built by `run site.py --out docs` in the polako repository) keeps words and progress in the person's private
+repository (e.g. `polako-data`), shared by all their devices. That repository is a learner folder with a
+`polako.json` marker: work in its clone like in any folder — `run build_page.py --dir <clone>` also writes
+`deck.json`, then commit and push (`git -C <clone> add -A && git commit -m … && git push`). Pull first: the
+site commits progress there (`prep/trainer-state.json`, `prep/vocab-state.json`, `prep/log/YYYY-MM.json`).
+`run state.py session set mode=github page_url=https://<owner>.github.io/polako/`. Never ask for the token —
+the person pastes it on the site themselves.
 
 ## 2. Syncing with the page
 
@@ -157,7 +160,7 @@ scripts read.
 | A text: what is unknown, keep it, draft its words | `run unknown_in.py --file f | --text "…" | --inbox [--save "title"] [--draft]` |
 | Coverage, statistics, personal FSRS | `run coverage.py [--deck]` · `run stats.py [--json]` · `run fsrs_fit.py [--dry]` |
 | Transliteration | `run translit.py lat|cyr|fold|slug <text>` |
-| Page, server, checks | `run build_page.py` · `run pwa.py [--out <dir>]` (phone app) · `run serve.py [--stop]` · `run validate.py [--update-lock]` |
+| Page, server, checks | `run build_page.py` · `run site.py --out docs` (the public site) · `run serve.py [--stop]` · `run validate.py [--update-lock]` |
 | Versions, backup, migration | `run migrate.py [--init|--check]` · `run backup.py make|list|restore` |
 | Hub menu | `run next_steps.py --json` |
 

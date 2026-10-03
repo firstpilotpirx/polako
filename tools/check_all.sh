@@ -46,7 +46,7 @@ step "hub menu";          "$PY" tools/next_steps.py --dir "$S"
 step "pack";              mkdir -p "$OUT/pack" && "$PY" tools/pack.py --dir "$OUT/pack" install belgrade-basics | tail -1 \
                        && "$PY" tools/next_steps.py --dir "$OUT/pack" | sed -n '1,2p'
 step "page";              "$PY" tools/build_page.py --dir "$S"
-step "phone app (pwa)";   "$PY" tools/pwa.py --dir "$S" && test -s "$S/dist/pwa/sw.js" && test -s "$S/dist/pwa/icon-180.png" && grep -q manifest.webmanifest "$S/dist/pwa/index.html"
+step "public site";       "$PY" tools/site.py --out "$OUT/site" && grep -q __polakoStart "$OUT/site/index.html" && test -s "$OUT/site/packs/belgrade-basics.json"
 if command -v node >/dev/null && node -e "require('jsdom')" 2>/dev/null; then
   step "page in jsdom";   node tests/page_smoke.js "$S/dist/index.html"
 else printf '\n(jsdom not installed: skipped the page test — npm i -g jsdom)\n'; fi

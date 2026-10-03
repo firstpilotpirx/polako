@@ -11,7 +11,7 @@
 var D = JSON.parse(document.getElementById('pl-data').textContent);
 var DAY = 86400000, NOW = function(){ return Date.now(); };
 var PROF = D.profile || {}, DECK = D.deck || {words: [], phrases: [], cloze: []}, SITS = D.situations || [], TEXTS = D.texts || [];
-var COV = D.cov || {}, UI = D.ui || {}, TRL = PROF.explain || 'ru';
+var COV = D.cov || {}, UI = Object.assign({}, D.ui || {}, window.POLAKO_UI || {}), TRL = PROF.explain || 'ru';   // the site's own strings win over a stale data file
 ['words', 'phrases', 'cloze'].forEach(function(k){ DECK[k] = (DECK[k] || []).filter(function(x){ return !x.retired; }); });
 
 function L(k){ return UI[k] != null ? UI[k] : k; }
@@ -60,7 +60,7 @@ var T = {cards: {}, goal: PROF.goal || 15, retention: PROF.retention || 0.9, lis
 var LOG = [];      // [ts, key, grade, ms, elapsedDays, stabilityBefore] — every answer, the basis of statistics
 var LOGNEW = [];   // answers not yet written to storage
 var V = {};        // "I know" check: batchKey → {known:[ids], unknown:[ids], at}
-var store = {mode: 'local', db: null, timer: null, dirtyT: false};
+var store = {mode: 'local', db: null, timer: null, dirtyT: false, dirtyV: false, first: 0};
 
 function setSync(msg){ var s = $('sync'); if (s) s.textContent = msg || ''; }
 function post(path, body){ return fetch(path, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body)}).then(function(r){ if (!r.ok) throw new Error(r.status); return r.json(); }); }
@@ -68,7 +68,12 @@ function save(){
   store.dirtyT = true;
   lsSet('pl.fallback', {T: T, LOG: LOG.slice(-6000), V: V});
   if (store.mode === 'local') return;
-  clearTimeout(store.timer); store.timer = setTimeout(flush, 900);
+  clearTimeout(store.timer);
+  if (store.mode === 'gh'){   // one commit per pause, at most every 2 minutes while answering
+    if (!store.first) store.first = NOW();
+    store.timer = setTimeout(flush, NOW() - store.first > 120000 ? 0 : 45000); return;
+  }
+  store.timer = setTimeout(flush, 900);
 }
 async function flush(){
   if (store.mode === 'local') return;
@@ -78,6 +83,10 @@ async function flush(){
     if (store.mode === 'api'){
       if (store.dirtyT) await post('/api/trainer', T);
       if (items.length) await post('/api/log', {items: items});
+    } else if (store.mode === 'gh'){
+      if (!store.dirtyT && !store.dirtyV && !items.length) return;
+      clearTimeout(store.timer); store.first = 0; setSync(L('ghSaving'));
+      await ghPush(items); store.dirtyV = false;
     } else {
       if (store.dirtyT) await store.db.doc('trainer/state').set(clone(T));
       var byDay = {};
@@ -87,12 +96,13 @@ async function flush(){
         await store.db.collection('log').doc(k).set({day: k, items: all});
       }
     }
-    store.dirtyT = false; delete T.reset; setSync(L('saved'));
+    store.dirtyT = false; delete T.reset; setSync(L(store.mode === 'gh' ? 'ghSaved' : 'saved'));
   } catch (e){ LOGNEW = items.concat(LOGNEW); setSync(L('savedLocal')); }
 }
 async function saveVocab(key, rec){
   V[key] = rec; lsSet('pl.fallback', {T: T, LOG: LOG.slice(-6000), V: V});
   try {
+    if (store.mode === 'gh'){ store.dirtyV = true; save(); return; }
     if (store.mode === 'api') await post('/api/vocab', V);
     else if (store.mode === 'db') await store.db.collection('vocab').doc(key).set(rec);
     setSync(L('saved'));

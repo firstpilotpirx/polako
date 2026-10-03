@@ -27,3 +27,6 @@ do anything by hand: you install and run everything.
 - Every release: a CHANGELOG.yaml entry with the version of `.claude-plugin/plugin.json`; a data format
   change bumps `DATA_VERSION` and adds a step in `tools/migrate.py`. Card ids never change.
 - `claude plugin validate .` checks the manifests; `bash tools/release.sh patch` makes the zip.
+- The public site (https://firstpilotpirx.github.io/polako/) is built from `templates/` by `tools/site.py`;
+  after a change in `templates/` or `data/packs/` publish it with `bash tools/publish_site.sh` (branch gh-pages).
+  Personal data never goes into this repository: it lives in each person's private data repository.

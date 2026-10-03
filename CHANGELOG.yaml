@@ -1,6 +1,6 @@
 # What's new per version. The upgrade module reads entries newer than the folder's plugin_version.
 # actions: what the upgrade does after migrating (rebuild, new cards, …).
-- version: "0.2.1"
+- version: "0.3.0"
   date: "2026-10-03"
   data_version: 1
   notes:
@@ -8,13 +8,13 @@
       - "Телефон: вкладки отдельной строкой с прокруткой, неделя целиком в одну строку."
       - "Варианты ответа без примеров в скобках — короче и не подсказывают ответ."
       - "Набор «Белград»: добавлены детская площадка, булочная и врач."
-      - "pwa.py: сборка страницы для своего сайта (иконка на экране «Домой»)."
+      - "Публичный сайт (site.py → GitHub Pages): слова и прогресс в вашем закрытом репозитории на GitHub, общие для всех устройств; иконка на экране «Домой»."
       - "Ревью 80/20: 270 слов в трёх уровнях важности (база → ключевые для ситуаций → полезные), учатся по важности, а не по темам; 50 узких слов убраны (прогресс по ним сохраняется)."
     en:
       - "Phone layout: tabs on their own scrollable row, the week fits on one line."
       - "Answer choices drop the bracketed examples — shorter, and they no longer give the answer away."
       - "Pack «Belgrade»: playground, bakery and doctor added."
-      - "pwa.py: builds the page for one's own site (a home-screen icon)."
+      - "Public site (site.py → GitHub Pages): words and progress in your private GitHub repository, shared by all your devices; a home-screen icon."
       - "80/20 review: 270 words in three tiers (base → key for the situations → useful), learned by importance, not by topic; 50 narrow words removed (their progress is kept)."
   actions: [rebuild]
 - version: "0.2.0"

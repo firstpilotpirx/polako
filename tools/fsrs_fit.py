@@ -23,7 +23,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import fsrs  # noqa: E402
-from prepio import read_json, write_json  # noqa: E402
+from prepio import read_json, write_json, read_log  # noqa: E402
 
 MIN_TOTAL, MIN_GRADE = 300, 50
 
@@ -83,7 +83,7 @@ def main() -> int:
     ap.add_argument("--dry", action="store_true")
     a = ap.parse_args()
     root = Path(a.dir).expanduser().resolve()
-    log = read_json(root / "prep" / "review-log.json", []) or []
+    log = read_log(root)
     ps = pairs(log)
     print(f"answers: {len(log)} · second reviews: {len(ps)}")
     for row in calibration(log):

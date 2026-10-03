@@ -22,7 +22,7 @@ import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from prepio import data_dir, read_json, read_yaml  # noqa: E402
+from prepio import data_dir, read_json, read_yaml, read_log  # noqa: E402
 
 
 def opt(i, label, desc, module, why, args=None):
@@ -35,7 +35,7 @@ def compute(root: Path) -> dict:
     deck = read_yaml(prep / "words.yaml", {}) or {}
     sits = (read_yaml(prep / "situations.yaml", {}) or {}).get("situations", [])
     st = read_json(prep / "trainer-state.json", {}) or {}
-    log = read_json(prep / "review-log.json", []) or []
+    log = read_log(root)
     inbox = [x for x in (read_json(prep / "inbox.json", []) or []) if not x.get("done")]
     sess = read_yaml(prep / "session.yaml", {}) or {}
     now = int(time.time() * 1000)

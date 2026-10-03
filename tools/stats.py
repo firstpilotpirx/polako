@@ -25,7 +25,7 @@ from collections import Counter, defaultdict
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from prepio import read_json, read_yaml  # noqa: E402
+from prepio import read_json, read_yaml, read_log  # noqa: E402
 
 DAY = 86_400_000
 LEARNED_S, FIRM_S, LEECH = 21, 7, 6
@@ -40,7 +40,7 @@ def compute(root: Path, now: int | None = None) -> dict:
     now = now or int(time.time() * 1000)
     st = read_json(root / "prep" / "trainer-state.json", {}) or {}
     cards = st.get("cards") or {}
-    log = read_json(root / "prep" / "review-log.json", []) or []
+    log = read_log(root)
     deck = read_yaml(root / "prep" / "words.yaml", {}) or {}
     target = st.get("retention") or (read_yaml(root / "prep" / "profile.yaml", {}) or {}).get("retention", 0.9)
     from words import known_ids
