@@ -1,3 +1,4 @@
+function cap(t){ t = String(t || ''); return t.charAt(0).toUpperCase() + t.slice(1); }
 /* ---------- Vocabulary tab: the "I know it" check ----------
    First a quick check by frequency band: 10 words of a band, spread evenly by rank, WITHOUT the
    translation (it is a check, not a hint); knows ≥ 9 of 10 → the whole band is known except the
@@ -16,7 +17,7 @@ function renderQuick(main, bands){
   var open = bands.filter(function(x){ return !qDone(x.b); })[0];
   bands.forEach(function(x){
     var r = V['q' + x.b], row = el('div', 'qrow');
-    row.appendChild(el('b', null, L('band') + ' ' + x.b + ' · ' + L('band' + x.b)));
+    row.appendChild(el('b', null, cap(L('band' + x.b))));
     row.appendChild(el('span', 'meta', nWord(x.words.length, 'wordsN3')));
     if (qDone(x.b)){
       row.appendChild(el('span', r.pass ? 'tag ok' : 'tag', r.skipped ? L('qSkipped') : r.pass ? L('qPass') : L('qFail')));
@@ -30,7 +31,7 @@ function renderQuick(main, bands){
       var r = el('label', 'vrow'), c = el('input'); c.type = 'checkbox'; marks[w.id] = c;
       r.appendChild(c); r.appendChild(el('span', 'sr', srx(w.sr))); r.appendChild(spk(w.sr, 'sr')); box.appendChild(r);
     });
-    sec.appendChild(el('p', 'meta', L('band') + ' ' + open.b + ' · ' + L('band' + open.b) + ' — ' + L('qHint')));
+    sec.appendChild(el('p', 'meta', cap(L('band' + open.b)) + ' — ' + L('qHint')));
     sec.appendChild(box);
     var acts = el('div', 'acts');
     acts.appendChild(btn('btn primary', L('qCheck'), async function(){
@@ -61,7 +62,7 @@ function renderVocab(main){
   if (!batches.length){ main.appendChild(el('p', 'meta', L('vocabAllChecked'))); return; }
   var cur = batches.findIndex(function(_, i){ return !V['b' + (i + 1)]; }); if (cur < 0) cur = 0; if (ui.vb != null && ui.vb < batches.length) cur = ui.vb;
   var nav = el('div', 'toolbar');
-  batches.forEach(function(_, i){ var c = btn('chip', L('batch') + ' ' + (i + 1) + (V['b' + (i + 1)] ? ' ✓' : ''), function(){ ui.vb = i; render(); }); c.setAttribute('aria-pressed', String(i === cur)); nav.appendChild(c); });
+  batches.forEach(function(_, i){ var from = batches.slice(0, i).reduce(function(n, b){ return n + b.length; }, 0); var c = btn('chip', L('batch') + ' ' + (from + 1) + '–' + (from + batches[i].length) + (V['b' + (i + 1)] ? ' ✓' : ''), function(){ ui.vb = i; render(); }); c.setAttribute('aria-pressed', String(i === cur)); nav.appendChild(c); });
   main.appendChild(nav);
   var box = el('div', 'card'), marks = {};
   batches[cur].forEach(function(w){
