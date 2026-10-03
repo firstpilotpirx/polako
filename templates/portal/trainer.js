@@ -13,7 +13,8 @@
    is a "leech": it leaves the rounds and waits on the statistics tab for a mnemonic. */
 var LEARNED_S = 21, FIRM_S = 7, KNOWN_S = 7, LEECH = 6, TRB = 50;
 var play = null;
-function listenOn(){ return T.listening && canSpeak('sr'); }
+/* no sound-only cards: every card shows the word in writing (the voice plays along on its own) */
+function listenOn(){ return false; }
 var ITEMS_CACHE = null;
 function allItems(){
   if (ITEMS_CACHE) return ITEMS_CACHE;

@@ -92,7 +92,7 @@ function trainerOptions(){
   [[0.85, '85%'], [0.9, '90%'], [0.95, '95%']].forEach(function(x){ var o = el('option', null, x[1] + ' — ' + L('ret_' + Math.round(x[0] * 100))); o.value = x[0]; o.selected = Math.abs(T.retention - x[0]) < 0.001; rs.appendChild(o); });
   rs.onchange = function(){ T.retention = +rs.value; save(); }; rl.appendChild(rs); row.appendChild(rl);
   opts.appendChild(row);
-  [['listening', L('optListening')], ['typing', L('optTyping')]].forEach(function(x){
+  [['typing', L('optTyping')]].forEach(function(x){
     var lb = el('label', 'opt-check'), c = el('input'); c.type = 'checkbox'; c.checked = !!T[x[0]];
     c.onchange = function(){ T[x[0]] = c.checked; save(); rerenderKeepScroll(); }; lb.appendChild(c); lb.appendChild(document.createTextNode(' ' + x[1])); opts.appendChild(lb);
   });

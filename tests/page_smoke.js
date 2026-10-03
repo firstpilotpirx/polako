@@ -57,7 +57,7 @@ function tab(doc, i){ doc.querySelectorAll('#tabs button')[i].click(); }
   const fb = JSON.parse(win.localStorage.getItem('pl.fallback'));
   assert(Object.keys(fb.T.cards).length >= 10, 'cards graded: ' + Object.keys(fb.T.cards).length);
   assert(fb.LOG.length >= steps * 0.5, 'answers logged: ' + fb.LOG.length);
-  assert(Object.keys(kinds).some(k => /послушайте/i.test(k)), 'a listening card appears with a Croatian voice: ' + JSON.stringify(kinds));
+  assert(!Object.keys(kinds).some(k => /послушайте/i.test(k)), 'no sound-only cards: ' + JSON.stringify(kinds));
   console.log('round:', steps, 'cards, sides seen', JSON.stringify(kinds));
   for (let i = 0; i < 6; i++){ tab(doc, i); await sleep(5); assert(doc.querySelector('#main').children.length, 'tab ' + i + ' renders'); }
   tab(doc, 3); await sleep(5);
