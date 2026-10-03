@@ -44,7 +44,7 @@ function tab(doc, i){ doc.querySelectorAll('#tabs button')[i].click(); }
   let steps = 0, kinds = {};
   while (doc.querySelector('.tr-play') && !doc.querySelector('.tr-done') && steps < 200){
     steps++;
-    const lbl = (doc.querySelector('.tr-lbl') || {}).textContent || '';
+    const lbl = (doc.querySelector('.tr-flag') || {}).title || '';   // the card's side: the flag carries its description
     kinds[lbl.split(' · ')[0]] = (kinds[lbl.split(' · ')[0]] || 0) + 1;
     const opt = doc.querySelector('.tr-choice:not([disabled])');
     if (opt){ opt.click(); await sleep(5); const nx = doc.querySelector('[data-key="next"]'); if (nx) nx.click(); await sleep(5); continue; }
@@ -57,7 +57,7 @@ function tab(doc, i){ doc.querySelectorAll('#tabs button')[i].click(); }
   const fb = JSON.parse(win.localStorage.getItem('pl.fallback'));
   assert(Object.keys(fb.T.cards).length >= 10, 'cards graded: ' + Object.keys(fb.T.cards).length);
   assert(fb.LOG.length >= steps * 0.5, 'answers logged: ' + fb.LOG.length);
-  assert(Object.keys(kinds).some(k => /Послушайте/.test(k)), 'a listening card appears with a Croatian voice: ' + JSON.stringify(kinds));
+  assert(Object.keys(kinds).some(k => /послушайте/i.test(k)), 'a listening card appears with a Croatian voice: ' + JSON.stringify(kinds));
   console.log('round:', steps, 'cards, sides seen', JSON.stringify(kinds));
   for (let i = 0; i < 6; i++){ tab(doc, i); await sleep(5); assert(doc.querySelector('#main').children.length, 'tab ' + i + ' renders'); }
   tab(doc, 3); await sleep(5);
