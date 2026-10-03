@@ -278,9 +278,13 @@ function choicesOf(e){
     var field = f === 'pick-sr' ? 'sr' : 'tr';
     var cut = field === 'tr' ? shortTr : function(x){ return x; };
     right = cut(w[field]);
-    var same = DECK.words.filter(function(o){ return o.id !== w.id && o.pos === w.pos && o[field] !== right; });
+    // no near-synonyms among the options: a distractor whose meaning shares a word with the answer's (ovo / to — «это») is skipped
+    var wordsOf = function(t){ return shortTr(t).toLowerCase().split(/[^а-яёa-zčćšžđ]+/i).filter(function(x){ return x.length > 1; }); };
+    var mine = wordsOf(w.tr);
+    var clash = function(o){ return wordsOf(o.tr).some(function(x){ return mine.indexOf(x) >= 0; }); };
+    var same = DECK.words.filter(function(o){ return o.id !== w.id && o.pos === w.pos && o[field] !== right && !clash(o); });
     var near = same.filter(function(o){ return Math.abs(o.rank - w.rank) < 120; });
-    pool = shuffle((near.length >= 5 ? near : same.length >= 5 ? same : DECK.words.filter(function(o){ return o.id !== w.id; })).slice()).map(function(o){ return cut(o[field]); });
+    pool = shuffle((near.length >= 5 ? near : same.length >= 5 ? same : DECK.words.filter(function(o){ return o.id !== w.id && !clash(o); })).slice()).map(function(o){ return cut(o[field]); });
   } else if (f === 'listen-ph' || f === 'read-ph'){
     right = w.tr; pool = shuffle(DECK.phrases.filter(function(o){ return o.id !== w.id; }).map(function(o){ return o.tr; }));
   } else if (f === 'cloze'){

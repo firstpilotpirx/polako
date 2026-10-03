@@ -275,12 +275,12 @@ words:
   - {tier: 1, sr: ona, tr: "она (её — je, nju; ей — joj)", ex: [{sr: "Ona radi u banci.", tr: "Она работает в банке.", about: general}]}
   - {tier: 1, sr: moj, tr: "мой", ex: [{sr: "Ovo je moj stan.", tr: "Это моя квартира.", about: general}]}
   - {tier: 1, sr: vaš, tr: "ваш"}
-  - {tier: 1, sr: ovo, tr: "это (здесь)"}
-  - {tier: 1, sr: to, tr: "это, то"}
+  - {tier: 1, sr: ovo, tr: "вот это (рядом со мной)", note: "ovo — это (здесь, у меня), to — это / то (о чём говорим, у собеседника), ono — вон то (далеко)."}
+  - {tier: 1, sr: to, tr: "это / то (о чём речь)", note: "Самое частое: Šta je to? — Что это? To je dobro — Это хорошо. Рядом с собой — ovo, далеко — ono."}
   - {tier: 1, sr: šta, tr: "что"}
   - {tier: 1, sr: ko, tr: "кто", ex: [{sr: "Ko je poslednji u redu?", tr: "Кто последний в очереди?", about: general}]}
   - {tier: 1, sr: nešto, tr: "что-то, что-нибудь"}
-  - {tier: 1, sr: taj, tr: "тот, этот (ta, to)"}
+  - {tier: 1, sr: taj, tr: "этот, тот (перед словом: taj čovek — этот человек)"}
   - {tier: 1, sr: se, tr: "себя; частица возвратных глаголов", note: "Vidimo se — увидимся; sviđa mi se — мне нравится; zovem se — меня зовут."}
   - {tier: 1, sr: ništa, tr: "ничего", note: "Ništa posebno — ничего особенного."}
   # глаголы-основа
