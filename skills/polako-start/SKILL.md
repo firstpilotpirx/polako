@@ -76,6 +76,12 @@ and reloads itself after every rebuild.
 `run state.py --dir <folder> session set mode=artifact page_url=<link>`. Republish to the same artifact
 after every rebuild.
 
+**On the phone's home screen:** a home-screen shortcut to a claude.ai link opens the Claude app (an empty
+chat), not the page. For a phone app build `run pwa.py --dir <folder> [--out <site folder>]` (own icon,
+full screen, offline) and host the folder over https — e.g. a GitHub repo `<user>.github.io` publishes
+itself with no settings. Progress there lives in the phone's browser and does not sync with the other
+modes; say so. `run state.py session set pwa_url=<link>`; after every rebuild run pwa.py again and upload.
+
 ## 2. Syncing with the page
 
 `mode: local` — nothing to do; check the server is alive with `run serve.py --dir <folder>`.
@@ -151,7 +157,7 @@ scripts read.
 | A text: what is unknown, keep it, draft its words | `run unknown_in.py --file f | --text "…" | --inbox [--save "title"] [--draft]` |
 | Coverage, statistics, personal FSRS | `run coverage.py [--deck]` · `run stats.py [--json]` · `run fsrs_fit.py [--dry]` |
 | Transliteration | `run translit.py lat|cyr|fold|slug <text>` |
-| Page, server, checks | `run build_page.py` · `run serve.py [--stop]` · `run validate.py [--update-lock]` |
+| Page, server, checks | `run build_page.py` · `run pwa.py [--out <dir>]` (phone app) · `run serve.py [--stop]` · `run validate.py [--update-lock]` |
 | Versions, backup, migration | `run migrate.py [--init|--check]` · `run backup.py make|list|restore` |
 | Hub menu | `run next_steps.py --json` |
 
