@@ -275,7 +275,7 @@ words:
   - {tier: 1, sr: ona, tr: "она (её — je, nju; ей — joj)", ex: [{sr: "Ona radi u banci.", tr: "Она работает в банке.", about: general}]}
   - {tier: 1, sr: moj, tr: "мой", ex: [{sr: "Ovo je moj stan.", tr: "Это моя квартира.", about: general}]}
   - {tier: 1, sr: vaš, tr: "ваш"}
-  - {tier: 1, sr: ovo, tr: "вот это (рядом со мной)", note: "ovo — это (здесь, у меня), to — это / то (о чём говорим, у собеседника), ono — вон то (далеко)."}
+  - {tier: 1, sr: ovo, tr: "это (рядом со мной)", note: "ovo — это (здесь, у меня), to — это / то (о чём говорим, у собеседника), ono — вон то (далеко)."}
   - {tier: 1, sr: to, tr: "это / то (о чём речь)", note: "Самое частое: Šta je to? — Что это? To je dobro — Это хорошо. Рядом с собой — ovo, далеко — ono."}
   - {tier: 1, sr: šta, tr: "что"}
   - {tier: 1, sr: ko, tr: "кто", ex: [{sr: "Ko je poslednji u redu?", tr: "Кто последний в очереди?", about: general}]}
@@ -288,7 +288,7 @@ words:
   - {tier: 1, sr: imati, tr: "иметь, (у меня) есть; nemam — у меня нет", note: "Nema — «нет, нету»: Nema problema."}
   - {tier: 1, sr: hteti, tr: "хотеть (hoću, hoćeš); будущее: ću, ćeš, će"}
   - {tier: 1, sr: moći, tr: "мочь (mogu, možeš, može); može — можно, давай", note: "«Može?» — «Можно?», ответ «Može!» — «Можно / давай»."}
-  - {tier: 1, sr: trebati, tr: "быть нужным: treba mi — мне нужно", note: "Treba mi kesa — мне нужен пакет (буквально «нужен мне»)."}
+  - {tier: 1, sr: trebati, tr: "нужно, надо (treba mi — мне нужно)", note: "Treba mi kesa — мне нужен пакет (буквально «нужен мне»)."}
   - {tier: 1, sr: znati, tr: "знать (znam, ne znam)", ex: [{sr: "Ne znam gde je pošta.", tr: "Не знаю, где почта.", about: general}]}
   - {tier: 1, sr: razumeti, tr: "понимать (razumem, ne razumem)"}
   - {tier: 1, sr: govoriti, tr: "говорить (govorim)", ex: [{sr: "Govorim malo srpski.", tr: "Я немного говорю по-сербски.", about: general}]}
@@ -304,7 +304,7 @@ words:
   - {tier: 1, sr: reći, tr: "сказать (kažem, kažete)"}
   - {tier: 3, sr: ponoviti, tr: "повторить (ponovite)"}
   - {tier: 1, sr: izviniti, tr: "извинить; izvinite — извините (вежливо), izvini — извини"}
-  - {tier: 1, sr: želeti, tr: "желать, хотеть (želim, želite)", note: "«Šta želite?» — «Что желаете?» у прилавка."}
+  - {tier: 1, sr: želeti, tr: "желать (вежливо: želim — я хотел бы)", note: "«Šta želite?» — «Что желаете?» у прилавка."}
   - {tier: 1, sr: dobiti, tr: "получить (dobijem; dobijate — получаете)"}
   - {tier: 3, sr: ostaviti, tr: "оставить (ostavite — оставьте)"}
   - {tier: 3, sr: tražiti, tr: "искать; просить", ex: [{sr: "Tražim pekaru.", tr: "Я ищу пекарню.", about: general}]}
@@ -316,7 +316,7 @@ words:
   - {tier: 1, sr: kako, tr: "как"}
   - {tier: 1, sr: zašto, tr: "почему, зачем", ex: [{sr: "Zašto lift ne radi?", tr: "Почему лифт не работает?", about: general}]}
   - {tier: 1, sr: koji, tr: "который, какой (koja, koje)"}
-  - {tier: 1, sr: li, tr: "ли — вопрос: Imate li…? / Da li imate…? — У вас есть…?"}
+  - {tier: 1, sr: li, tr: "ли (вопросительная частица): Imate li…? — У вас есть…?"}
   # наречия и частицы
   - {tier: 1, sr: da, tr: "да; что, чтобы", note: "«Mogu da platim» — «могу заплатить»: после moći, želeti, morati часто da + настоящее время."}
   - {tier: 1, sr: ne, tr: "не; нет"}
@@ -330,12 +330,12 @@ words:
   - {tier: 1, sr: još, tr: "ещё"}
   - {tier: 1, sr: samo, tr: "только", ex: [{sr: "Samo malo, molim.", tr: "Только немного, пожалуйста.", about: general}]}
   - {tier: 1, sr: malo, tr: "немного, мало"}
-  - {tier: 1, sr: mnogo, tr: "много; очень"}
-  - {tier: 1, sr: jako, tr: "очень"}
+  - {tier: 1, sr: mnogo, tr: "много (разг. тж. «очень»: mnogo lepo)"}
+  - {tier: 1, sr: jako, tr: "очень, сильно"}
   - {tier: 1, sr: dobro, tr: "хорошо, ладно"}
   - {tier: 1, sr: dobar, tr: "хороший (dobar dan — добрый день, dobro jutro — доброе утро, dobro veče — добрый вечер)"}
   - {tier: 1, sr: više, tr: "больше; более"}
-  - {tier: 1, sr: evo, tr: "вот (здесь, держите)", note: "Evo pasoša — вот паспорт; «Evo, polako» — да вот, потихоньку."}
+  - {tier: 1, sr: evo, tr: "вот (когда даёте или показываете: evo — вот, держите)", note: "Evo pasoša — вот паспорт; «Evo, polako» — да вот, потихоньку."}
   - {tier: 3, sr: otprilike, tr: "примерно"}
   - {tier: 1, sr: naravno, tr: "конечно"}
   - {tier: 1, sr: nažalost, tr: "к сожалению"}
@@ -353,7 +353,7 @@ words:
   - {tier: 1, sr: iz, tr: "из (Ja sam iz Rusije — я из России)"}
   - {tier: 1, sr: pored, tr: "рядом с, возле"}
   - {tier: 1, sr: do, tr: "до"}
-  - {tier: 1, sr: kod, tr: "у (кого-то), возле: kod notara — у нотариуса"}
+  - {tier: 1, sr: kod, tr: "у (кого-то): kod notara — у нотариуса"}
   - {tier: 1, sr: bez, tr: "без"}
   - {tier: 1, sr: o, tr: "о (potvrda o uplati — подтверждение об оплате)"}
   - {tier: 1, sr: i, tr: "и"}
@@ -364,10 +364,10 @@ words:
   - {tier: 1, sr: jer, tr: "потому что", ex: [{sr: "Žurim jer imam termin.", tr: "Спешу, потому что у меня запись.", about: general}]}
   # вежливость
   - {tier: 1, sr: hvala, tr: "спасибо (hvala puno — большое спасибо)"}
-  - {tier: 1, sr: molim, tr: "пожалуйста (прошу); что-что?", note: "Переспросить: «Molim?» — «Простите, что?»"}
-  - {tier: 1, sr: izvolite, tr: "пожалуйста (вот, прошу; слушаю вас)", note: "Говорят, протягивая что-то или приглашая сказать, что нужно."}
-  - {tier: 1, sr: zdravo, tr: "привет; здравствуйте", ex: [{sr: "Zdravo, kako si?", tr: "Привет, как ты?", about: general}]}
-  - {tier: 1, sr: ćao, tr: "привет; пока (с друзьями, коллегами)"}
+  - {tier: 1, sr: molim, tr: "пожалуйста (когда просите); простите, что? (переспросить)", note: "Переспросить: «Molim?» — «Простите, что?»"}
+  - {tier: 1, sr: izvolite, tr: "пожалуйста, держите / проходите (когда предлагают); слушаю вас", note: "Говорят, протягивая что-то или приглашая сказать, что нужно."}
+  - {tier: 1, sr: zdravo, tr: "здравствуй(те)", ex: [{sr: "Zdravo, kako si?", tr: "Привет, как ты?", about: general}]}
+  - {tier: 1, sr: ćao, tr: "пока; привет (на «ты», с друзьями)"}
   - {tier: 1, sr: prijatno, tr: "всего доброго (при прощании); приятного аппетита"}
   - {tier: 1, sr: doviđenja, tr: "до свидания", ex: [{sr: "Hvala, doviđenja!", tr: "Спасибо, до свидания!", about: general}]}
   # числа и время
@@ -405,7 +405,7 @@ words:
   - {tier: 3, sr: paket, tr: "посылка", sit: [komsije]}
   - {tier: 3, sr: kurir, tr: "курьер", sit: [komsije]}
   - {tier: 1, sr: vreme, tr: "погода; время", sit: [komsije], note: "Kakvo je vreme? — Какая погода?"}
-  - {tier: 3, sr: lep, tr: "красивый; хороший (о погоде, дне)", sit: [komsije]}
+  - {tier: 3, sr: lep, tr: "красивый (тж. «хороший» о дне, погоде)", sit: [komsije]}
   - {tier: 1, sr: videti, tr: "видеть; vidimo se — увидимся", sit: [komsije]}
   - {tier: 3, sr: ljubazan, tr: "любезный, приветливый", sit: [komsije, kolega]}
   - {tier: 2, sr: ćerka, tr: "дочь", sit: [komsije]}
@@ -440,22 +440,22 @@ words:
   - {tier: 2, sr: pasoš, tr: "паспорт (заграничный)", sit: [mup, notar]}
   - {tier: 2, sr: lična karta, tr: "удостоверение личности (ID-карта)", pos: phrase, sit: [mup], ex: [{sr: "Ponesite ličnu kartu.", tr: "Возьмите удостоверение личности.", about: general}]}
   - {tier: 2, sr: dokument, tr: "документ (dokumenta — документы)", sit: [mup, notar]}
-  - {tier: 3, sr: dokaz, tr: "доказательство, подтверждение", sit: [mup]}
-  - {tier: 3, sr: smeštaj, tr: "жильё, проживание (dokaz o smeštaju — подтверждение жилья)", sit: [mup]}
+  - {tier: 3, sr: dokaz, tr: "доказательство (dokaz o smeštaju — подтверждение жилья)", sit: [mup]}
+  - {tier: 3, sr: smeštaj, tr: "жильё (где живёте): dokaz o smeštaju — подтверждение жилья", sit: [mup]}
   - {tier: 2, sr: osiguranje, tr: "страховка (zdravstveno osiguranje — медицинская)", sit: [mup]}
   - {tier: 2, sr: ugovor, tr: "договор (ugovor o zakupu — договор аренды)", sit: [mup, notar]}
   - {tier: 3, sr: zakup, tr: "аренда (официально); в быту — kirija", sit: [mup]}
   - {tier: 2, sr: taksa, tr: "госпошлина", sit: [mup]}
   - {tier: 2, sr: uplatnica, tr: "квитанция для оплаты", sit: [mup]}
-  - {tier: 2, sr: potvrda, tr: "справка, подтверждение", sit: [mup]}
+  - {tier: 2, sr: potvrda, tr: "справка, подтверждение (potvrda o prijavi — справка о регистрации)", sit: [mup]}
   - {tier: 2, sr: prijava, tr: "регистрация (prijava adrese — регистрация адреса)", sit: [mup]}
   - {tier: 2, sr: adresa, tr: "адрес", sit: [mup, kolega]}
   - {tier: 2, sr: šalter, tr: "окошко (в учреждении)", sit: [mup]}
-  - {tier: 2, sr: termin, tr: "запись, назначенное время", sit: [mup], note: "Zakazan termin — назначенная запись."}
+  - {tier: 2, sr: termin, tr: "запись (на приём), назначенное время", sit: [mup], note: "Zakazan termin — назначенная запись."}
   - {tier: 2, sr: zakazati, tr: "записаться, назначить (zakazan — назначенный)", sit: [mup]}
   - {tier: 2, sr: rešenje, tr: "решение (официальное)", sit: [mup]}
   - {tier: 3, sr: trajati, tr: "длиться (traje — длится)", sit: [mup, notar]}
-  - {tier: 1, sr: morati, tr: "быть должным: moram — я должен", sit: [mup]}
+  - {tier: 1, sr: morati, tr: "быть обязанным, должен (moram — я должен)", sit: [mup]}
   - {tier: 3, sr: potreban, tr: "нужный (potrebna su dokumenta — нужны документы)", sit: [mup]}
   - {tier: 1, sr: doneti, tr: "принести (donesite — принесите)", sit: [mup]}
   - {tier: 3, sr: poneti, tr: "взять с собой (ponesite — возьмите)", sit: [mup]}
@@ -480,7 +480,7 @@ words:
   - {tier: 2, sr: apostil, tr: "апостиль", sit: [notar]}
   - {tier: 3, sr: izvod, tr: "выписка (izvod iz banke — банковская выписка)", sit: [notar], ex: [{sr: "Pošaljite mi izvod iz banke.", tr: "Пришлите мне выписку из банка.", about: general}]}
   - {tier: 2, sr: izvod iz matične knjige rođenih, tr: "свидетельство о рождении (выписка из книги рождений)", pos: phrase, sit: [notar], ex: [{sr: "Donesite izvod iz matične knjige rođenih.", tr: "Принесите свидетельство о рождении.", about: general}]}
-  - {tier: 2, sr: uverenje, tr: "справка, удостоверение (официальное)", sit: [notar], ex: [{sr: "Gde mogu da dobijem uverenje?", tr: "Где можно получить справку?", about: general}]}
+  - {tier: 2, sr: uverenje, tr: "свидетельство (официальная справка от госоргана): uverenje o državljanstvu", sit: [notar], ex: [{sr: "Gde mogu da dobijem uverenje?", tr: "Где можно получить справку?", about: general}]}
   - {tier: 2, sr: original, tr: "оригинал", sit: [notar]}
   - {tier: 2, sr: kopija, tr: "копия", sit: [notar]}
   - {tier: 3, sr: podaci, tr: "данные (личные)", sit: [notar]}
@@ -516,7 +516,7 @@ words:
   - {tier: 3, sr: park, tr: "парк", sit: [igraliste]}
   - {tier: 2, sr: pažljivo, tr: "осторожно", sit: [igraliste]}
   - {tier: 2, sr: nemoj, tr: "не надо, не (запрет): nemoj da… — не делай…", sit: [igraliste]}
-  - {tier: 3, sr: baš, tr: "очень, прямо; как раз", sit: [igraliste]}
+  - {tier: 3, sr: baš, tr: "именно, прямо; как раз", sit: [igraliste]}
 
   # ---------- булочная ----------
   - {tier: 3, sr: pekara, tr: "булочная, пекарня", sit: [pekara]}
@@ -527,8 +527,8 @@ words:
   - {tier: 3, sr: crn, tr: "чёрный (crni hleb — чёрный хлеб)", sit: [pekara]}
   - {tier: 2, sr: svež, tr: "свежий (sveže — свежее)", sit: [pekara]}
   - {tier: 3, sr: parče, tr: "кусок", sit: [pekara]}
-  - {tier: 2, sr: za poneti, tr: "с собой (на вынос)", pos: phrase, sit: [pekara]}
-  - {tier: 3, sr: posle podne, tr: "после обеда, днём", pos: phrase, sit: [pekara]}
+  - {tier: 2, sr: za poneti, tr: "на вынос (с собой)", pos: phrase, sit: [pekara]}
+  - {tier: 3, sr: posle podne, tr: "после обеда, во второй половине дня", pos: phrase, sit: [pekara]}
   - {tier: 1, sr: onda, tr: "тогда", sit: [pekara]}
 
   # ---------- врач ----------
@@ -554,7 +554,7 @@ words:
   - {tier: 2, sr: apoteka, tr: "аптека", sit: [lekar]}
   - {tier: 3, sr: uzimati, tr: "принимать (лекарство): uzimajte — принимайте", sit: [lekar]}
   - {tier: 3, sr: put, tr: "раз (tri puta dnevno — три раза в день); дорога", sit: [lekar]}
-  - {tier: 3, sr: dnevno, tr: "в день, ежедневно", sit: [lekar]}
+  - {tier: 3, sr: dnevno, tr: "ежедневно, в день (tri puta dnevno — три раза в день)", sit: [lekar]}
   - {tier: 3, sr: jelo, tr: "еда, блюдо (pre jela / posle jela — до / после еды)", sit: [lekar]}
   - {tier: 3, sr: ponovo, tr: "снова", sit: [lekar, pekara]}
   - {tier: 2, sr: hitna pomoć, tr: "скорая помощь (hitno — срочно)", pos: phrase, sit: [lekar]}

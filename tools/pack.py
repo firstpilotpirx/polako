@@ -62,6 +62,23 @@ def write_tier_boosts(root: Path, name: str, pack: dict) -> None:
     p.write_text("\n".join(keep + block) + "\n", encoding="utf-8")
 
 
+def sync_translations(root: Path, pack: dict) -> None:
+    """A corrected translation or note in the pack reaches words already in the deck (ids and progress stay)."""
+    deck = read_yaml(root / "prep" / "words.yaml", {}) or {}
+    by = {norm(w["sr"]): w for w in deck.get("words", [])}
+    n = 0
+    for pw in pack["words"]:
+        w = by.get(norm(pw["sr"]))
+        if not w:
+            continue
+        pairs = [f"{k}={pw[k]}" for k in ("tr", "note") if pw.get(k) and pw[k] != w.get(k)]
+        if pairs:
+            run("words.py", "--dir", str(root), "set", w["id"], *pairs)
+            n += 1
+    if n:
+        print(f"translations updated: {n}")
+
+
 def retire_removed(root: Path, pack: dict) -> None:
     """Words the pack dropped in a review (`removed:`) are retired in the deck: no longer offered,
     progress kept (words.py retire)."""
@@ -190,6 +207,7 @@ def main() -> int:
             write_yaml(t / "cloze.yaml", pack["cloze"])
             print("case cards:")
             run("words.py", "--dir", str(root), "add", str(t / "cloze.yaml"), "--kind", "cloze", "--round", str(rnd))
+    sync_translations(root, pack)
     retire_removed(root, pack)
     run("score_words.py", "--dir", str(root))
     run("validate.py", "--dir", str(root), "--update-lock")
