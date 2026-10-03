@@ -249,23 +249,29 @@ function questionOf(e){
   switch (f){
     case 'pick-tr': return {lbl: L('qPickTr'), q: srx(w.sr), sr: w.sr, hint: wordTag(w), pick: 'tr'};
     case 'listen': return {lbl: L('qListen'), q: '🔊', sr: w.sr, listen: true, pick: 'tr'};
-    case 'pick-sr': return {lbl: L('qPickSr'), q: w.tr, hint: wordTag(w), pick: 'sr', say: [w.tr, TRL]};
+    case 'pick-sr': return {lbl: L('qPickSr'), q: shortTr(w.tr), hint: wordTag(w), pick: 'sr', say: [shortTr(w.tr), TRL]};
     case 'say-tr': return {lbl: L('qSayTr'), q: srx(w.sr), sr: w.sr, hint: wordTag(w)};
-    case 'say-sr': return {lbl: L('qSaySr'), q: w.tr, hint: wordTag(w), say: [w.tr, TRL]};
-    case 'type': return {lbl: L('qType'), q: w.tr, hint: wordTag(w), type: w.sr, say: [w.tr, TRL]};
+    case 'say-sr': return {lbl: L('qSaySr'), q: shortTr(w.tr), hint: wordTag(w), say: [shortTr(w.tr), TRL]};
+    case 'type': return {lbl: L('qType'), q: shortTr(w.tr), hint: wordTag(w), type: w.sr, say: [shortTr(w.tr), TRL]};
     case 'listen-ph': return {lbl: L('qListenPh'), q: '🔊', sr: w.sr, listen: true, pick: 'tr', small: true};
     case 'read-ph': return {lbl: L('qReadPh'), q: srx(w.sr), sr: w.sr, pick: 'tr', small: true};
     case 'say-ph': return {lbl: L('qSayPh'), q: w.tr, small: true, say: [w.tr, TRL]};
     case 'type-ph': return {lbl: L('qTypePh'), q: w.tr, small: true, type: w.sr, say: [w.tr, TRL]};
     case 'cloze': return {lbl: L('qCloze'), q: srx(w.sr.replace(/\{[^}]*\}/, '____')), small: true, hint: (w.hint ? srx(w.hint) + ' · ' : '') + w.tr, pick: 'form'};
-    case 'aspect': return {lbl: L('qAspect'), q: it.a.tr + '  /  ' + it.b.tr, small: true, hint: L('aspectHint')};
+    case 'aspect': return {lbl: L('qAspect'), q: shortTr(it.a.tr) + '  /  ' + shortTr(it.b.tr), small: true, hint: L('aspectHint')};
     case 'reply': return {lbl: L('qReply') + ' · ' + ((SIT_BY_ID[it.sit] || {}).title || ''), q: srx(it.they.sr), sr: it.they.sr, small: true, pick: 'reply'};
   }
   return {lbl: '', q: ''};
 }
 /* a translation as a choice: without the example in brackets ("из (Ja sam iz Rusije — …)" → "из"),
    so options stay short and do not give the answer away; the full text is on the answer side */
-function shortTr(t){ var s = String(t || '').replace(/\s*\([^()]*[a-zčćšžđ][^()]*\)/gi, function(m){ return /[a-zčćšžđ]/i.test(m.replace(/[а-яё]/gi, '')) ? '' : m; }).trim(); var d = s.search(/\s[—–-]\s|:\s/); if (d > 0 && /[a-zčćšžđ]/i.test(s.slice(d))) s = s.slice(0, d).replace(/[,;:\s]+$/, '').trim(); return s || String(t || ''); }
+function shortTr(t){
+  // only the Russian part: cut at the first Latin letter (a Serbian example), drop the dangling bracket / dash
+  var full = String(t || ''), m = full.search(/[a-zčćšžđ]/i), s = m < 0 ? full : full.slice(0, m);
+  if ((s.match(/\(/g) || []).length > (s.match(/\)/g) || []).length) s = s.slice(0, s.lastIndexOf('('));
+  s = s.replace(/[\s,;:—–\-\/(]+$/, '').trim();
+  return s || full;
+}
 function choicesOf(e){
   var it = e.it, f = e.f, w = it.it, right, pool = [];
   if (f === 'pick-tr' || f === 'listen' || f === 'pick-sr'){
