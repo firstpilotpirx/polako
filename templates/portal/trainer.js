@@ -215,7 +215,7 @@ function grade(g){
   LOG.push(entry); LOGNEW.push(entry);
   if (g === 1){ play.wrong++; play.queue.push({it: e.it, f: e.f, again: true}); } else play.right++;
   save();
-  play.idx++; play.shown = false; play.picked = null; play.pickedOk = null; play.ch = null; play.typed = null; play.typedNote = null; play.t0 = NOW(); render();
+  play.idx++; play.shown = false; play.picked = null; play.pickedOk = null; play.ch = null; play.typed = null; play.typedNote = null; play.peek = false; play.hold = false; clearTimeout(play.timer); play.t0 = NOW(); render();
 }
 function previewIvl(e, g){
   var r = FSRS.review(T.cards[key(e.it, e.f)], g, NOW(), T.retention).card, m = (r.due - NOW()) / 60000;

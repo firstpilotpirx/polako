@@ -147,6 +147,9 @@ table{border-collapse:collapse}
 @keyframes tr-shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
 @media (prefers-reduced-motion:reduce){.tr-box.bad{animation:none}}
 .tr-lbl{font-family:var(--mono);font-size:12.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--faint)}
+.tr-lbl.long{text-transform:none;letter-spacing:0;font-family:var(--sans);font-size:15px;line-height:1.4;color:var(--muted);text-align:center}
+.tr-opts-lang{margin:14px 2px 6px;font-size:14px;font-weight:600;color:var(--muted)}
+.tr-q.listen .peek{display:block;margin:12px auto 0;font-size:15px}
 .tr-q{font-size:clamp(26px,5vw,36px);font-weight:600;line-height:1.25;overflow-wrap:break-word}
 .tr-q.small{font-size:clamp(19px,3.4vw,24px);font-weight:500;line-height:1.4}
 .tr-q .spk{font-size:.55em}
