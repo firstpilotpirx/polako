@@ -109,7 +109,7 @@ bash tools/check_all.sh >/tmp/polako-check.log 2>&1 || { tail -20 /tmp/polako-ch
 echo "• building zip…"
 find . -name __pycache__ -type d -prune -exec rm -rf {} + 2>/dev/null || true
 mkdir -p dist; rm -f dist/polako-serbian.zip
-zip -qr dist/polako-serbian.zip . -x ".git/*" "dist/*" "_to_delete/*" "*/__pycache__/*" ".DS_Store"
+git ls-files -co --exclude-standard | zip -q dist/polako-serbian.zip -@   # working tree minus .gitignore: no build output or caches
 echo "  dist/polako-serbian.zip ($(du -h dist/polako-serbian.zip | cut -f1))"
 
 trap - ERR
