@@ -131,7 +131,10 @@ function renderPlay(main){
   var e = p.queue[p.idx], it = e.it, q = questionOf(e), ch = q.pick ? (p.ch || (p.ch = choicesOf(e))) : null;
   if (q.pick && !ch) q.pick = null;   // too few options: fall back to self-grading
   var c2 = el('div', 'tr-box' + (p.picked ? (p.pickedOk ? ' ok' : ' bad') : ''));
-  c2.appendChild(el('div', 'tr-lbl long', q.lbl + (e.again ? ' · ' + L('againMark') : '')));
+  var lg = cardLangs(e.f);
+  // only a big flag: the language of what is shown (the answer's flag is above the options)
+  var fl = el('div', 'tr-flag', FLAG[lg[0]] || ''); fl.title = q.lbl; fl.setAttribute('aria-label', q.lbl); c2.appendChild(fl);
+  if (e.again) c2.appendChild(el('div', 'tr-lbl', L('againMark')));
   var qEl = el('div', 'tr-q' + (q.small ? ' small' : '') + (q.listen ? ' listen' : ''));
   if (q.listen){ var lb = btn('listen-btn', '🔊', function(){ speak(q.sr, 'sr'); }); lb.setAttribute('aria-label', L('ttsPlay')); qEl.appendChild(lb);
     // the written word: after the answer, or on request (no voice, nothing heard)
@@ -143,9 +146,10 @@ function renderPlay(main){
   if (p.shown) c2.appendChild(answerBlock(e));
   box.appendChild(c2);
   var below = el('div');
+  below.appendChild(el('div', 'tr-flag ans', '↓ ' + (FLAG[lg[1]] || '')));
   if (q.pick){
     var chs = el('div', 'tr-choices' + (q.small || q.pick === 'form' ? ' wide' : ''));
-    below.appendChild(el('div', 'tr-opts-lang', L('optsIn') + ' ' + (q.pick === 'tr' ? L('langRu') : L('langSr')) + ':'));
+
     ch.opts.forEach(function(o, i){
       var b = btn('tr-choice', (i + 1) + '. ' + (q.pick === 'tr' ? o : srx(o)), null, 'opt' + (i + 1));
       if (p.picked){ b.disabled = true; if (o === ch.right) b.className = 'tr-choice ok'; else if (o === p.picked) b.className = 'tr-choice no'; }

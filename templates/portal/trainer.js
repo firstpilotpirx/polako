@@ -235,6 +235,14 @@ function formsLine(w){
   if (!w.forms) return '';
   return Object.keys(w.forms).map(function(k){ return L('f_' + k) + ' ' + srx(w.forms[k]); }).join(' · ');
 }
+/* which language a card shows and which it is answered in: [shown, answer] */
+var FLAG = {sr: '🇷🇸', ru: '🇷🇺', uk: '🇺🇦', en: '🇬🇧'};
+function cardLangs(f){
+  var tr = TRL;
+  if (f === 'pick-sr' || f === 'say-sr' || f === 'type' || f === 'say-ph' || f === 'type-ph' || f === 'aspect') return [tr, 'sr'];
+  if (f === 'cloze' || f === 'reply') return ['sr', 'sr'];
+  return ['sr', tr];
+}
 function questionOf(e){
   var it = e.it, f = e.f, w = it.it;
   switch (f){
@@ -256,7 +264,7 @@ function questionOf(e){
 }
 /* a translation as a choice: without the example in brackets ("из (Ja sam iz Rusije — …)" → "из"),
    so options stay short and do not give the answer away; the full text is on the answer side */
-function shortTr(t){ var s = String(t || '').replace(/\s*\([^()]*[a-zčćšžđ][^()]*\)/gi, function(m){ return /[a-zčćšžđ]/i.test(m.replace(/[а-яё]/gi, '')) ? '' : m; }).trim(); var d = s.search(/\s[—–-]\s/); if (d > 0 && /[a-zčćšžđ]/i.test(s.slice(d))) s = s.slice(0, d).trim(); return s || String(t || ''); }
+function shortTr(t){ var s = String(t || '').replace(/\s*\([^()]*[a-zčćšžđ][^()]*\)/gi, function(m){ return /[a-zčćšžđ]/i.test(m.replace(/[а-яё]/gi, '')) ? '' : m; }).trim(); var d = s.search(/\s[—–-]\s|:\s/); if (d > 0 && /[a-zčćšžđ]/i.test(s.slice(d))) s = s.slice(0, d).replace(/[,;:\s]+$/, '').trim(); return s || String(t || ''); }
 function choicesOf(e){
   var it = e.it, f = e.f, w = it.it, right, pool = [];
   if (f === 'pick-tr' || f === 'listen' || f === 'pick-sr'){
