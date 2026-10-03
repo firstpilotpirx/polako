@@ -29,7 +29,7 @@ function renderQuick(main, bands){
     var marks = {}, box = el('div', 'qbox');
     qSample(open.words).forEach(function(w){
       var r = el('label', 'vrow'), c = el('input'); c.type = 'checkbox'; marks[w.id] = c;
-      r.appendChild(c); r.appendChild(el('span', 'sr', srx(w.sr))); r.appendChild(spk(w.sr, 'sr')); box.appendChild(r);
+      r.appendChild(c); r.appendChild(el('span', 'sr', srx(w.sr))); r.appendChild(spkPair(w.sr, w.tr)); r.appendChild(el('span', 'tr', w.tr)); box.appendChild(r);
     });
     sec.appendChild(el('p', 'meta', cap(L('band' + open.b)) + ' — ' + L('qHint')));
     sec.appendChild(box);
@@ -67,7 +67,7 @@ function renderVocab(main){
   var box = el('div', 'card'), marks = {};
   batches[cur].forEach(function(w){
     var r = el('label', 'vrow'), c = el('input'); c.type = 'checkbox'; c.checked = !!known[w.id]; marks[w.id] = c;
-    r.appendChild(c); r.appendChild(el('span', 'sr', srx(w.sr))); r.appendChild(spk(w.sr, 'sr')); r.appendChild(el('span', 'tr', w.tr)); box.appendChild(r);
+    r.appendChild(c); r.appendChild(el('span', 'sr', srx(w.sr))); r.appendChild(spkPair(w.sr, w.tr)); r.appendChild(el('span', 'tr', w.tr)); box.appendChild(r);
   });
   main.appendChild(box);
   var acts = el('div', 'acts');
@@ -142,7 +142,7 @@ function drawTokens(toks, host){
 }
 function popWord(w, anchor){
   var pop = $('pop'); pop.innerHTML = '';
-  var h = el('h4', null, srx(w.sr)); h.appendChild(spk(w.sr, 'sr')); pop.appendChild(h);
+  var h = el('h4', null, srx(w.sr)); h.appendChild(spkPair(w.sr, w.tr)); pop.appendChild(h);
   pop.appendChild(el('div', null, w.tr)); var tg = wordTag(w); if (tg) pop.appendChild(el('div', 'hint', tg));
   var fl = formsLine(w); if (fl) pop.appendChild(el('div', 'hint', fl)); if (w.note) pop.appendChild(el('div', 'note', w.note));
   var r = anchor.getBoundingClientRect(); pop.hidden = false;
@@ -205,7 +205,7 @@ function renderDeck(main){
   rows.slice(0, 400).forEach(function(r){
     var x = r.it.it, tr = el('tr', 'st-' + r.st), nxt = null;
     sidesOf(r.it).forEach(function(sd){ var c = cardOf(r.it, sd); if (c && (nxt == null || c.due < nxt)) nxt = c.due; });
-    tr.appendChild(el('td', 'num', x.rank || '')); var s = el('td', 'sr'); s.appendChild(document.createTextNode(srx(x.sr))); s.appendChild(spk(x.sr, 'sr')); tr.appendChild(s);
+    tr.appendChild(el('td', 'num', x.rank || '')); var s = el('td', 'sr'); s.appendChild(document.createTextNode(srx(x.sr))); s.appendChild(spkPair(x.sr, x.tr)); tr.appendChild(s);
     tr.appendChild(el('td', null, x.tr)); tr.appendChild(el('td', null, L(r.st === 'fresh' ? 'notStarted' : r.st === 'known' ? 'fKnown' : r.st === 'leech' ? 'fLeech' : r.st)));
     tr.appendChild(el('td', 'num', nxt ? (nxt <= NOW() ? L('now') : fmtShort(nxt)) : ''));
     var a = el('td');

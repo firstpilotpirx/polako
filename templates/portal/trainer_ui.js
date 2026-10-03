@@ -151,10 +151,10 @@ function renderPlay(main){
         p.picked = o; p.pickedOk = ok; p.shown = true; p.spoken = idx + ':1'; p.g = gradeChoice(ok, ms, it.kind);
         render(); sfx(ok ? 'ok' : 'bad');
         function next(){
-          if (!TTS_CFG.next || play !== p || p.idx !== idx || !p.picked) return;
+          if (!TTS_CFG.next || play !== p || p.idx !== idx || !p.picked || p.hold) return;
           var nb = document.querySelector('.tr-play [data-key="next"]'), wait = Math.round((ok ? TTS_CFG.pauseOk : TTS_CFG.pauseBad) * 1000);
           if (nb){ nb.style.setProperty('--auto', wait + 'ms'); nb.classList.add('counting'); }
-          setTimeout(function(){ if (play === p && p.idx === idx && p.picked){ p.ch = null; grade(p.g); } }, wait);
+          p.timer = setTimeout(function(){ if (play === p && p.idx === idx && p.picked && !p.hold){ p.ch = null; grade(p.g); } }, wait);
         }
         var sa = answerSpeech(e);
         setTimeout(function(){ if (TTS_CFG.auto && sa) speak(sa[0], sa[1], next); else next(); }, ok ? 150 : 380);
@@ -162,8 +162,19 @@ function renderPlay(main){
       chs.appendChild(b);
     });
     below.appendChild(chs);
-    if (p.shown){ var a1 = el('div', 'tr-acts'); a1.appendChild(btn('btn primary wide', L('next'), function(){ p.ch = null; grade(p.g); }, 'next')); below.appendChild(a1); }
+    if (p.shown){
+      var a1 = el('div', 'tr-acts'); a1.appendChild(btn('btn primary wide', L('next'), function(){ p.ch = null; p.hold = false; clearTimeout(p.timer); grade(p.g); }, 'next'));
+      // stay on this card: stops the countdown (and the voice) until "Next"
+      if (TTS_CFG.next && !p.hold) a1.appendChild(btn('btn', '⏸ ' + L('holdCard'), function(){ p.hold = true; clearTimeout(p.timer); try { speechSynthesis.cancel(); } catch (e){} render(); }, 'hold'));
+      below.appendChild(a1);
+    }
     below.appendChild(el('p', 'tr-keys', p.shown ? L('keysNext') : L('keysPick')));
+    // the pause before the next card, adjustable without leaving the round
+    var ap = el('div', 'tr-auto'), tg = el('label', 'opt-check'), cb = el('input'); cb.type = 'checkbox'; cb.checked = TTS_CFG.next;
+    cb.onchange = function(){ TTS_CFG.next = cb.checked; ttsSave(); if (!cb.checked){ clearTimeout(p.timer); p.hold = true; } render(); };
+    tg.appendChild(cb); tg.appendChild(document.createTextNode(' ' + L('ttsNext'))); ap.appendChild(tg);
+    if (TTS_CFG.next){ ap.appendChild(pauseSlider('pauseOk', L('ttsPauseOk'))); ap.appendChild(pauseSlider('pauseBad', L('ttsPauseBad'))); }
+    below.appendChild(ap);
   } else if (q.type && !p.shown){
     var form = el('form', 'tr-type'), inp = el('input'); inp.type = 'text'; inp.autocomplete = 'off'; inp.spellcheck = false; inp.setAttribute('autocapitalize', 'off'); inp.placeholder = L('typeHere');
     form.appendChild(inp); form.appendChild(btn('btn primary', L('check')));

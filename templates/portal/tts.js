@@ -65,6 +65,14 @@ function spk(text, lang){
   b.title = L('ttsPlay'); b.setAttribute('aria-label', L('ttsPlay') + ': ' + text);
   return b;
 }
+/* 🔊 for a word with its meaning: Serbian first, then the translation in the person's language */
+function spkPair(sr, tr){
+  if (!sr || !canSpeak('sr')) return document.createTextNode('');
+  var b = btn('spk', '🔊', function(e){ e.preventDefault(); e.stopPropagation();
+    speak(sr, 'sr', function(){ if (tr && canSpeak(TRL)) setTimeout(function(){ speak(shortTr(tr), TRL); }, 250); }); });
+  b.title = L('ttsPlay'); b.setAttribute('aria-label', L('ttsPlay') + ': ' + sr);
+  return b;
+}
 function ttsSave(){ lsSet('pl.tts', TTS_CFG); }
 function pauseSlider(key, label){
   var lb = el('label', 'tts-pause'), v = el('b', null, TTS_CFG[key].toFixed(1) + ' ' + L('sec')), r = el('input');

@@ -309,8 +309,9 @@ function answerBlock(e){
 }
 function answerSpeech(e){
   var it = e.it;
-  if (it.kind === 'word') return e.f === 'pick-tr' || e.f === 'say-tr' || e.f === 'listen' ? [it.it.sr, 'sr'] : [it.it.sr, 'sr'];
-  if (it.kind === 'phrase') return [it.it.sr, 'sr'];
+  // the answer is spoken in its own language: Serbian shown → the Russian meaning; Russian shown → Serbian
+  if (it.kind === 'word') return e.f === 'pick-tr' || e.f === 'say-tr' || e.f === 'listen' ? [shortTr(it.it.tr), TRL] : [it.it.sr, 'sr'];
+  if (it.kind === 'phrase') return e.f === 'listen-ph' || e.f === 'read-ph' ? [it.it.tr, TRL] : [it.it.sr, 'sr'];
   if (it.kind === 'cloze') return [it.it.sr.replace(/[{}]/g, ''), 'sr'];
   if (it.kind === 'pair') return [it.a.sr + ', ' + it.b.sr, 'sr'];
   if (it.kind === 'dialog') return [it.me.sr, 'sr'];
