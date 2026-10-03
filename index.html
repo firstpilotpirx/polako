@@ -1,0 +1,2138 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<meta name="theme-color" content="#f3f5f4">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Polako">
+<title>Polako</title>
+<meta name="description" content="Polako — personal Serbian words and phrases">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* ============================================================
+   Polako page. Structure is fixed:
+   header (brand · tabs · Lat|Ћир · theme) + summary line (coverage, due, streak)
+   main   (one tab: Тренажёр · Словарь · Ситуации · Мои тексты · Статистика · Колода)
+   Colours are tokens with light and dark values; chart series use the validated
+   categorical palette (--c1 blue, --c2 orange) and a one-hue sequential blue ramp.
+   ============================================================ */
+:root{
+  --bg:#f3f5f4;--surface:#fff;--surface-2:#f6f8f7;--ink:#17242b;--muted:#566770;--faint:#85949b;
+  --line:#dbe3e1;--line-strong:#c3cfcc;--accent:#1f5f74;--accent-soft:#e2eef1;--code-bg:#eaf0ef;
+  --done:#2f7d4f;--learning:#b8821f;--consolidating:#3f88ad;--notstarted:#dde5e3;--bad:#b4432f;--hard:#a0661a;--easy:#2a6db0;
+  --c1:#2a78d6;--c2:#eb6834;--grid:#e1e0d9;--axis:#c3c2b7;--tick:#77756f;
+  --h0:#edf0ef;--h1:#b7d3f6;--h2:#6da7ec;--h3:#2a78d6;--h4:#184f95;
+  --sans:'Golos Text',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f1517;--surface:#162024;--surface-2:#1b272c;--ink:#e3eaec;--muted:#9cadb3;--faint:#6f8188;
+  --line:#243238;--line-strong:#34464d;--accent:#6fb6cb;--accent-soft:#1c3640;--code-bg:#0c1214;
+  --done:#5cb783;--learning:#d7a64a;--consolidating:#6cb3c8;--notstarted:#2a3a40;--bad:#e07b66;--hard:#d7a64a;--easy:#6aa8e8;
+  --c1:#3987e5;--c2:#d95926;--grid:#2c2c2a;--axis:#383835;--tick:#898781;
+  --h0:#1e2a2e;--h1:#184f95;--h2:#256abf;--h3:#3987e5;--h4:#86b6ef;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1517;--surface:#162024;--surface-2:#1b272c;--ink:#e3eaec;--muted:#9cadb3;--faint:#6f8188;
+  --line:#243238;--line-strong:#34464d;--accent:#6fb6cb;--accent-soft:#1c3640;--code-bg:#0c1214;
+  --done:#5cb783;--learning:#d7a64a;--consolidating:#6cb3c8;--notstarted:#2a3a40;--bad:#e07b66;--hard:#d7a64a;--easy:#6aa8e8;
+  --c1:#3987e5;--c2:#d95926;--grid:#2c2c2a;--axis:#383835;--tick:#898781;
+  --h0:#1e2a2e;--h1:#184f95;--h2:#256abf;--h3:#3987e5;--h4:#86b6ef;
+  color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--sans);-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.meta{color:var(--muted);font-size:14px}
+
+/* header */
+header{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.bar-top{display:flex;align-items:center;gap:16px;min-height:56px;flex-wrap:wrap}
+.brand{font-weight:700;font-size:17px;white-space:nowrap;letter-spacing:.01em}
+.brand::before{content:'';display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--accent);margin-right:8px;vertical-align:1px}
+nav.tabs{display:flex;gap:2px;overflow-x:auto;align-self:stretch;align-items:stretch;scrollbar-width:none}
+nav.tabs button{border:0;background:none;padding:10px 12px;border-bottom:2px solid transparent;color:var(--muted);font-weight:600;white-space:nowrap}
+nav.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+.head-tools{display:flex;gap:8px;align-items:center;margin-left:auto}
+.seg{display:inline-flex;border:1px solid var(--line-strong);border-radius:8px;overflow:hidden}
+.seg button{border:0;background:none;padding:4px 10px;font-size:13px;font-weight:600;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--surface)}
+.iconbtn{border:1px solid var(--line-strong);background:none;border-radius:8px;padding:4px 9px;font-size:13px;color:var(--muted);display:inline-flex;align-items:center;justify-content:center;min-height:30px}
+.summary{display:flex;gap:6px 18px;align-items:center;font-size:13px;color:var(--muted);padding:6px 24px 8px;flex-wrap:wrap}
+.sync{font-size:12px;color:var(--faint);margin-left:auto}
+main{padding:24px 24px 96px}
+
+/* basics */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:12px}
+.ph{text-align:center;color:var(--muted);padding:28px 20px;border-style:dashed}.ph .ph-icon{font-size:28px;color:var(--faint)}
+.bar{height:6px;background:var(--notstarted);border-radius:3px;overflow:hidden;display:flex}
+.bar i{display:block;height:100%}
+.bar .d{background:var(--done)}.bar .c{background:var(--consolidating)}.bar .l{background:var(--learning)}
+.btn{border:1px solid var(--line-strong);background:var(--surface);border-radius:10px;padding:9px 14px;text-align:center}
+.btn:hover{background:var(--surface-2)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--surface);font-weight:600}
+.btn.primary:hover{filter:brightness(1.08)}
+.linkbtn{background:none;border:0;color:var(--accent);text-decoration:underline;cursor:pointer;font:inherit;font-size:14px;padding:0}
+.acts{display:flex;gap:8px;justify-content:flex-start;margin-top:12px;flex-wrap:wrap}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0 14px}
+.inp{width:100%;padding:8px 10px;border:1px solid var(--line-strong);border-radius:8px;background:var(--surface);margin:4px 0}
+.toolbar .inp{flex:1 1 220px;width:auto;margin:0}
+.chip{border:1px solid var(--line-strong);background:var(--surface);border-radius:999px;padding:3px 11px;font-size:13px}
+.chip[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-weight:600}
+.chips{display:flex;gap:6px;flex-wrap:wrap}.chips .chip{font-size:12px}
+.tag{font-size:12px;padding:2px 8px;border-radius:999px;background:var(--accent-soft);color:var(--accent)}
+.tag.ok{color:var(--done)}.tag.pri1{background:color-mix(in srgb,var(--bad) 14%,transparent);color:var(--bad)}.tag.pri3{background:var(--surface-2);color:var(--faint)}
+.pop{position:fixed;z-index:20;max-width:340px;background:var(--surface);border:1px solid var(--line-strong);border-radius:10px;padding:12px 14px;box-shadow:0 8px 24px rgba(0,0,0,.15);font-size:14px}
+.pop h4{margin:0 0 2px;font-size:17px}.pop .hint{color:var(--muted);font-size:13px}.pop .note{color:var(--learning);font-size:13px;margin-top:4px}
+.spk{border:0;background:none;padding:0 4px;margin-left:6px;font-size:.8em;line-height:1;cursor:pointer;opacity:.7;vertical-align:middle}
+.spk:hover,.spk:focus-visible{opacity:1}
+.progress-line{display:flex;justify-content:space-between;font:13px var(--mono);color:var(--muted);margin:14px 0 6px}
+table{border-collapse:collapse}
+.table-wrap{overflow-x:auto}
+.deck-t{width:100%;font-size:14px}.deck-t th{text-align:left;font-weight:600;color:var(--muted);border-bottom:1px solid var(--line-strong);padding:6px 8px}
+.deck-t td{border-bottom:1px solid var(--line);padding:6px 8px;vertical-align:top}.deck-t td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.deck-t td.sr{font-weight:600;white-space:nowrap}.deck-t tr.st-leech td{background:color-mix(in srgb,var(--bad) 7%,transparent)}
+.deck-t tr.st-known td.sr{color:var(--done)}
+
+/* trainer overview */
+.tr-h{margin:6px 0 4px;font-size:23px}.tr-intro{max-width:66ch;margin:0}
+.tr-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:16px 0 4px}
+.tr-stat{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.tr-stat b{display:block;font-size:24px;font-weight:600}
+.tr-stat span{font-size:14px;color:var(--muted)}
+.goal{display:grid;grid-template-columns:auto 1fr;gap:14px 28px;align-items:center;margin-top:16px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.goal-ring{display:flex;align-items:center;gap:16px}
+.goal-cap{display:flex;flex-direction:column;gap:3px;font-size:15px}
+.goal-streak{font-size:14px;color:var(--learning)}
+.ring .ring-bg{stroke:var(--notstarted)}.ring .ring-fg{stroke:var(--accent);transition:stroke-dashoffset .4s}.ring.full .ring-fg{stroke:var(--done)}
+.ring .ring-t{fill:var(--ink);font:600 22px var(--sans)}
+.goal-days .ring .ring-t{font-size:12px;font-weight:500}
+.goal-wk-h{font:500 12px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:6px}
+.goal-days{display:flex;gap:8px;flex-wrap:wrap}
+.goal-day{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:12px;color:var(--muted)}
+.goal-day.today span{color:var(--accent);font-weight:600}
+.goal-adj{grid-column:1/-1;display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:15px;color:var(--muted)}
+.goal-adj b{color:var(--ink);min-width:130px}
+.goal-adj input[type=range]{flex:1 1 200px;max-width:360px;accent-color:var(--accent)}
+.tr-smart{display:block;width:100%;text-align:left;margin-top:16px;background:var(--accent-soft);border:1px solid var(--accent);border-radius:12px;padding:16px 18px}
+.tr-smart.extra{background:var(--surface);border-style:dashed}
+.tr-smart .row,.tr-deck .row{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:12px}
+.tr-smart h3{margin:0 0 3px;font-size:20px;color:var(--accent)}.tr-smart p{margin:0;font-size:15px;color:var(--muted)}
+.tr-smart .go,.tr-deck .go{font-family:var(--mono);font-size:13px;color:var(--accent);text-align:right;white-space:nowrap}
+.tr-smart .go b,.tr-deck .go b{display:block;font-size:24px;font-weight:500;color:var(--ink)}.tr-deck .go.zero b{color:var(--faint)}
+.tr-modes{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.tr-overall{margin-top:14px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:grid;gap:6px}
+.tr-ov-h{font-weight:600;font-size:16px}.tr-ov-bar{height:8px}
+.tr-note-s{font-size:13px;color:var(--faint)}
+.tr-eta{margin-top:6px;font-size:14px;color:var(--muted)}
+.tr-decks{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:10px;margin-top:16px}
+.tr-grp{grid-column:1/-1;font-family:var(--mono);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);margin:14px 2px 0}
+.tr-deck{display:block;width:100%;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.tr-deck:hover{border-color:var(--line-strong);background:var(--surface-2)}.tr-deck.done{border-color:var(--done)}
+.tr-deck h3{font-size:18px;margin:0 0 2px}.tr-deck p{margin:0;font-size:14px;color:var(--muted)}
+.tr-deck .bar{height:8px;margin-top:12px}
+.tr-legend{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:8px;font-size:13px;color:var(--muted)}
+.tr-legend span{display:flex;align-items:center;gap:6px}.tr-legend em{width:8px;height:8px;border-radius:2px;flex:none}
+.tr-legend b{color:var(--ink);font-family:var(--mono);font-weight:500}
+.tr-opts{margin-top:20px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 16px;color:var(--muted);display:block}
+.tr-opts summary{cursor:pointer;font-weight:600;color:var(--ink)}
+.tr-opts[open]{display:grid;gap:12px}
+.opt-row{display:flex;gap:10px 22px;flex-wrap:wrap;align-items:center}
+.tr-opts select{background:var(--surface);border:1px solid var(--line-strong);border-radius:7px;padding:5px 8px}
+.opt-check{display:flex;gap:6px;align-items:center}
+.tts-opts{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center}.tts-opts .meta{flex-basis:100%;margin:0}
+.tts-pauses{display:flex;flex-wrap:wrap;gap:6px 22px}
+.tts-pause{display:flex;align-items:center;gap:8px}.tts-pause input{width:150px;accent-color:var(--accent)}.tts-pause b{min-width:44px;font-family:var(--mono);color:var(--ink)}
+.tr-auto{display:flex;flex-direction:column;gap:8px;margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}.tr-auto .tts-pause{flex-wrap:wrap}.tr-auto .tts-pause input{flex:1 1 140px}
+
+/* a round */
+.tr-play{max-width:720px;margin:0 auto}
+.tr-hud{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.tr-pill{font-family:var(--mono);font-size:13.5px;padding:3px 9px;border-radius:999px;background:var(--accent-soft);color:var(--accent)}
+.tr-pill.g{color:var(--done)}.tr-pill.r{color:var(--bad)}
+.tr-box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:26px 20px;text-align:center;min-height:190px;display:flex;flex-direction:column;justify-content:center;gap:10px;margin-top:14px}
+.tr-box.ok{border-color:var(--done);box-shadow:0 0 0 2px color-mix(in srgb,var(--done) 35%,transparent)}
+.tr-box.bad{border-color:var(--bad);box-shadow:0 0 0 2px color-mix(in srgb,var(--bad) 35%,transparent);animation:tr-shake .3s}
+@keyframes tr-shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+@media (prefers-reduced-motion:reduce){.tr-box.bad{animation:none}}
+.tr-lbl{font-family:var(--mono);font-size:12.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--faint)}
+.tr-lbl.long{text-transform:none;letter-spacing:0;font-family:var(--sans);font-size:15px;line-height:1.4;color:var(--muted);text-align:center}
+.tr-flag{font-size:44px;line-height:1;text-align:center;margin:0 0 8px}.tr-flag.ans{font-size:36px;margin:14px 0 6px;color:var(--muted)}
+.tr-q.listen .peek{display:block;margin:12px auto 0;font-size:15px}
+.tr-q{font-size:clamp(26px,5vw,36px);font-weight:600;line-height:1.25;overflow-wrap:break-word}
+.tr-q.small{font-size:clamp(19px,3.4vw,24px);font-weight:500;line-height:1.4}
+.tr-q .spk{font-size:.55em}
+.listen-btn{font-size:44px;border:2px solid var(--accent);background:var(--accent-soft);border-radius:50%;width:96px;height:96px;margin:0 auto;display:grid;place-items:center}
+.tr-hint{font-size:15px;color:var(--muted)}
+.tr-ans{margin-top:10px;border-top:1px solid var(--line);padding-top:14px;display:grid;gap:8px;text-align:left}
+.tr-a{font-size:26px;font-weight:600;color:var(--done);text-align:center}.tr-a.small{font-size:20px}
+.tr-tr{font-size:19px;text-align:center}
+.tr-tag{font-size:13px;color:var(--faint);text-align:center;font-family:var(--mono)}
+.tr-forms{font-family:var(--mono);font-size:14.5px;text-align:center;color:var(--muted)}
+.tr-note{font-size:15px;color:var(--learning);border-left:3px solid var(--learning);padding:6px 10px}
+.tr-ex{font-size:15.5px;color:var(--muted);background:var(--surface-2);border-radius:8px;padding:8px 10px}.tr-ex b{color:var(--ink);font-weight:600}
+.tr-src{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint)}
+.tr-choices{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.tr-choices.wide{grid-template-columns:1fr}
+.tr-choice{text-align:left;background:var(--surface);border:1px solid var(--line-strong);border-radius:9px;padding:11px 14px;font-size:17px}
+.tr-choice:hover{background:var(--surface-2)}
+.tr-choice.ok{border-color:var(--done);color:var(--done);font-weight:600}.tr-choice.no{border-color:var(--bad);color:var(--bad)}
+.tr-acts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.tr-acts .btn{padding:13px 14px;font-size:17px}.tr-acts .wide{grid-column:1/-1}
+.tr-acts .btn[data-key="next"]{position:relative;overflow:hidden}
+.tr-acts .btn[data-key="next"].counting::after{content:'';position:absolute;left:0;bottom:0;height:4px;width:100%;background:currentColor;opacity:.45;transform-origin:left;animation:tr-count var(--auto,2000ms) linear forwards}
+@keyframes tr-count{from{transform:scaleX(1)}to{transform:scaleX(0)}}
+.tr-grades{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
+.btn.grade{display:flex;flex-direction:column;gap:2px;padding:10px 6px}.btn.grade b{font-size:15px}.btn.grade span{font:12px var(--mono);color:var(--faint)}
+.btn.grade.bad{border-color:var(--bad);color:var(--bad)}.btn.grade.hard{border-color:var(--hard);color:var(--hard)}
+.btn.grade.good{border-color:var(--done);color:var(--done)}.btn.grade.easy{border-color:var(--easy);color:var(--easy)}
+.tr-type{display:flex;gap:8px;margin-top:14px}.tr-type input{flex:1;font-size:20px;padding:10px 12px;border:1px solid var(--line-strong);border-radius:9px;background:var(--surface)}
+.tr-typed{text-align:center;margin-top:12px;font-family:var(--mono)}.tr-typed.ok{color:var(--done)}.tr-typed.no{color:var(--bad)}
+.tr-keys{margin-top:12px;font-size:13px;color:var(--faint);text-align:center}
+.tr-done{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:26px 20px;text-align:center;display:grid;gap:10px}
+.tr-done .tr-acts{max-width:460px;margin:0 auto;width:100%}
+.dl-line{padding:6px 10px;border-radius:10px;max-width:88%}
+.dl-line.they{background:var(--surface-2);justify-self:start}
+.dl-line.me{background:var(--accent-soft);justify-self:end;margin-left:auto}
+.dl-line > div{font-size:14px;color:var(--muted)}
+
+/* vocabulary check */
+.qcheck h3{margin:0 0 6px}
+.qrow{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:6px 0;border-bottom:1px solid var(--line)}
+.qbox{margin-top:10px}
+.vrow{display:flex;gap:10px;align-items:center;padding:7px 4px;border-bottom:1px solid var(--line)}
+.vrow input{width:18px;height:18px;accent-color:var(--done)}
+.vrow .sr{font-weight:600;min-width:170px}.vrow .tr{color:var(--muted)}
+
+/* situations */
+.sit-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:12px;margin-top:14px;align-items:start}
+.sit.open{grid-column:1/-1}
+.sit-h{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}.sit-h h3{margin:0}.sit-h .tag{margin-left:auto}
+.sit-ready{font-size:14px;color:var(--muted);margin:8px 0 4px}
+.dialog{display:grid;gap:6px;margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.dialog h4{margin:0 0 4px}
+.dl-tr summary{font-size:12px;color:var(--faint);cursor:pointer}.dl-tr{font-size:14px;color:var(--muted)}
+.sit-ph{margin:14px 0 0;padding-left:18px}.sit-ph li{margin:4px 0}.sit-ph span{color:var(--muted)}
+
+/* my texts */
+.tok-key{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 14px;font-size:14px}
+.text-body{white-space:pre-wrap;line-height:1.9;margin-top:12px;font-size:17px}
+.tok{border-radius:3px;padding:0 1px}
+.tok.known{color:inherit}
+.tok.learning{background:color-mix(in srgb,var(--learning) 22%,transparent)}
+.tok.deck{background:color-mix(in srgb,var(--consolidating) 20%,transparent)}
+.tok.out{text-decoration:underline dotted var(--bad);text-underline-offset:4px;text-decoration-thickness:2px}
+.text-body .tok[tabindex]{cursor:pointer}
+.paste textarea{resize:vertical}
+
+/* statistics */
+.hero-stat{margin:12px 0 4px}.hero-v{font-size:56px;font-weight:600;line-height:1.05}.hero-l{font-size:17px;font-weight:600}
+.viz-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(440px,1fr));gap:12px;margin-top:14px}
+.viz h3{margin:0 0 2px;font-size:17px}.viz > .meta{margin:0 0 8px}
+.viz-svg{width:100%;height:auto;display:block;overflow:visible}
+.viz-svg .grid{stroke:var(--grid);stroke-width:1}.viz-svg .axis{stroke:var(--axis);stroke-width:1}
+.viz-svg .tick{fill:var(--tick);font:11px var(--sans);font-variant-numeric:tabular-nums}
+.viz-svg .bar{transition:opacity .1s}.viz-svg .mark:hover .bar,.viz-svg .mark:focus .bar{opacity:.78}
+.viz-svg .hit{fill:transparent}
+.viz-svg .ref{stroke:var(--muted);stroke-width:1;stroke-dasharray:4 3}.viz-svg .ref-t{fill:var(--muted)}
+.viz-svg .line{fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.viz-svg .dot{stroke:var(--surface);stroke-width:2}
+.viz-svg .end-l{fill:var(--ink);font:600 12px var(--sans)}
+.viz-svg .cross{stroke:var(--axis);stroke-width:1}
+.viz-svg.heat .hc{stroke:var(--surface);stroke-width:1}
+.hc.l0{fill:var(--h0);background:var(--h0)}.hc.l1{fill:var(--h1);background:var(--h1)}.hc.l2{fill:var(--h2);background:var(--h2)}.hc.l3{fill:var(--h3);background:var(--h3)}.hc.l4{fill:var(--h4);background:var(--h4)}
+.heat-key{display:flex;gap:4px;align-items:center;margin-top:6px}.heat-key i{width:12px;height:12px;border-radius:3px;display:inline-block}
+.viz-legend{display:flex;gap:14px;font-size:13px;color:var(--muted);margin-bottom:4px}.viz-legend span{display:flex;align-items:center;gap:6px}
+.viz-legend .lk{width:14px;height:2px;border-radius:1px;display:inline-block}
+.viz-tip{position:fixed;z-index:30;pointer-events:none;background:var(--surface);border:1px solid var(--line-strong);border-radius:8px;padding:6px 10px;box-shadow:0 6px 18px rgba(0,0,0,.14);font-size:13px}
+.viz-tip .tv{font-weight:600;display:flex;align-items:center;gap:6px}.viz-tip .tl{color:var(--muted);display:flex;align-items:center;gap:6px}
+.viz-tip .tk{width:12px;height:2px;display:inline-block}
+.viz-table{margin-top:8px;font-size:13px}.viz-table summary{cursor:pointer;color:var(--muted)}
+.viz-table table{margin-top:6px;width:100%}.viz-table th,.viz-table td{border-bottom:1px solid var(--line);padding:4px 6px;text-align:left}.viz-table td.num{text-align:right;font-variant-numeric:tabular-nums}
+
+@media (max-width:720px){
+  .wrap{padding:0 14px}main{padding:16px 14px 80px}.summary{padding:6px 14px 8px}
+  .goal{grid-template-columns:1fr}.tr-choices{grid-template-columns:1fr}.tr-grades{grid-template-columns:1fr 1fr}
+  .viz-grid,.tr-decks,.sit-grid{grid-template-columns:1fr}.hero-v{font-size:44px}
+  .vrow .sr{min-width:120px}
+  main{padding-bottom:calc(80px + env(safe-area-inset-bottom))}.wrap{padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}
+  input[type=text],input[type=search],input:not([type]),textarea,select{font-size:16px}
+  .vrow input{width:24px;height:24px}.seg button{padding:7px 12px}
+  .bar-top{gap:6px 10px}.brand{order:1}.head-tools{order:2}
+  nav.tabs{order:3;flex:1 1 100%;margin:0 -14px;padding:0 6px;-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent);mask-image:linear-gradient(90deg,#000 88%,transparent)}
+  nav.tabs button{padding:10px 9px;font-size:15px}
+  .goal-days{flex-wrap:nowrap;gap:2px;justify-content:space-between}
+  .goal-days .ring{width:36px;height:36px}
+  .goal-ring{gap:12px}
+}
+
+/* public site: connecting the person's own data repository */
+.setup{max-width:560px;margin:24px auto;display:flex;flex-direction:column;gap:12px}
+.setup h2{margin:0;font-size:24px}.setup h3{margin:12px 0 0;font-size:17px}
+.setup-form{display:flex;flex-direction:column;gap:12px}
+.setup-form label{display:flex;flex-direction:column;gap:6px;font-weight:600;font-size:15px}
+.setup-form input{font-size:16px;padding:10px 12px;border:1px solid var(--line-strong);border-radius:9px;background:var(--surface);color:var(--ink)}
+.setup-err{color:var(--bad, #b3261e);font-weight:600}
+.setup-packs{display:flex;flex-direction:column;gap:8px}.setup-packs .btn{text-align:left}
+.gh-help summary{cursor:pointer;font-weight:600;color:var(--accent)}.gh-steps{margin:8px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:15px}
+.gh-steps a{word-break:break-all}
+.storage{margin-top:16px;padding-top:12px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:10px}.storage h3{margin:0;font-size:17px}
+.st-opt{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:1px solid var(--line-strong);border-radius:10px;cursor:pointer}
+.st-opt.on{border-color:var(--accent);background:var(--accent-soft)}.st-opt input{margin-top:4px;accent-color:var(--accent)}
+.st-opt span{display:flex;flex-direction:column;gap:2px}.st-confirm{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.st-confirm p{flex:1 1 100%;margin:0}
+.storage .gh-setup{display:flex;flex-direction:column;gap:10px}
+[hidden]{display:none !important}
+
+</style>
+
+</head>
+<body>
+<header>
+  <div class="wrap bar-top">
+    <div class="brand" id="title"></div>
+    <nav class="tabs" role="tablist" id="tabs"></nav>
+    <div class="head-tools">
+      <div class="seg" role="group" aria-label="Lat / Ћир" id="script"></div>
+      <button type="button" class="iconbtn" id="theme" aria-label="Theme"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg></button>
+    </div>
+  </div>
+  <div id="summary" hidden></div>
+</header>
+<main class="wrap" id="main"></main>
+<div class="pop" id="pop" hidden></div>
+
+<script id="pl-data" type="application/json"></script>
+<script>
+(function(){
+window.POLAKO_UI = {"tabTrain": "Тренажёр", "tabVocab": "Словарь", "tabSit": "Ситуации", "tabTexts": "Мои тексты", "tabStats": "Статистика", "tabDeck": "Колода", "scriptToggle": "Латиница / кириллица", "saved": "сохранено", "savedLocal": "прогресс хранится только в этом браузере", "live": "сохраняется в папку", "phEmpty": "Колода появится после первого раунда слов. Скажите в чате: «собери мне слова».", "phSit": "Ситуаций пока нет. Скажите в чате, где вам нужен сербский: магазин, МУП, врач, аренда…", "covSpoken": "разговорная речь", "covSpokenLong": "понимаю разговорную речь", "covMy": "мои тексты", "covMyLong": "понимаю свои тексты", "dueNow": "к повторению", "days": "день|дня|дней", "cards": "карточка|карточки|карточек", "answersN": "ответ|ответа|ответов", "wordsN3": "слово|слова|слов", "wordsPerDay": "новое слово в день|новых слова в день|новых слов в день", "trTitle": "Тренажёр", "trIntro": "Сначала узнавание (выбрать перевод, на слух, выбрать сербское), со следующего дня — вспоминание. Интервалы считает FSRS: чем лучше помните, тем реже карточка.", "goalToday": "Новых слов сегодня", "goalDone": "Цель на сегодня выполнена", "goalLeft": "осталось", "goalWeek": "Неделя", "goalLabel": "Цель", "streak": "Дней подряд", "trLearned": "выучено", "trInProgress": "в процессе", "smart": "Учить по важности", "smartDesc": "Сначала повторения, потом новые слова сверху списка — до дневной цели.", "extraRound": "ещё раунд", "extraDesc": "Повторять нечего — можно взять новые слова сверх цели.", "cardsGo": "карточек", "listenOnly": "Только на слух", "sayOnly": "Только вспоминать", "overall": "Освоено", "wordsN": "Слова", "etaNote": "Прогноз FSRS: «выучено» — когда каждая сторона держится в памяти 21+ день. Реалистичный учитывает ваши ошибки за 30 дней.", "etaUnknown": "прогноз появится после первых раундов", "allLearned": "всё выучено", "startIn": "начнёте через", "learnBy": "выучите к", "realistic": "реалистично к", "byImportance": "Слова по важности", "group": "Группа", "of": "из", "other": "Другое", "phrases": "Фразы", "phrasesDesc": "что говорю и что слышу в ситуациях", "grammar": "Падежи и вид", "grammarDesc": "нужная форма в предложении, пары купить/покупать", "dialogs": "Диалоги", "dialogsDesc": "реплика собеседника → ваш ответ", "due": "к повторению", "nothingDue": "всё повторено", "progress": "Прогресс", "learned": "выучено", "firm": "закрепляю", "learning": "учу", "notStarted": "не начато", "settings": "Настройки", "size": "Карточек в раунде", "retention": "Цель памяти", "ret_85": "меньше повторов", "ret_90": "баланс", "ret_95": "перед важной встречей", "optListening": "Сторона «на слух» (нужен сербский, хорватский или боснийский голос)", "optTyping": "Набирать слова на клавиатуре", "reset": "Сбросить прогресс", "resetSure": "Точно? Нажмите ещё раз", "toDecks": "К колодам", "againMark": "ещё раз", "next": "Дальше", "show": "Показать ответ", "check": "Проверить", "endTitle": "Раунд закончен", "right": "Верно", "wrong": "Ошибок", "allDoneTomorrow": "На сегодня всё повторено", "again": "Ещё раунд", "qPickTr": "🇷🇸 Сербское слово → выберите перевод на 🇷🇺 русский", "qListen": "🔊 Нажмите и послушайте 🇷🇸 сербское слово → выберите перевод на 🇷🇺 русский", "qPickSr": "🇷🇺 Русское слово → выберите, как это по-🇷🇸 сербски", "qSayTr": "🇷🇸 Сербское слово → вспомните перевод на 🇷🇺 русский", "qSaySr": "🇷🇺 Русское слово → скажите вслух по-🇷🇸 сербски", "qType": "🇷🇺 Русское слово → напишите по-🇷🇸 сербски", "qListenPh": "🔊 Нажмите и послушайте 🇷🇸 сербскую фразу → выберите перевод на 🇷🇺 русский", "qReadPh": "🇷🇸 Сербская фраза → выберите перевод на 🇷🇺 русский", "qSayPh": "🇷🇺 Русская фраза → скажите вслух по-🇷🇸 сербски", "qTypePh": "🇷🇺 Русская фраза → напишите по-🇷🇸 сербски", "qCloze": "🇷🇸 Сербское предложение → выберите слово в нужной форме", "qAspect": "🇷🇺 Два русских глагола → назовите оба по-🇷🇸 сербски", "qReply": "🇷🇸 Вам говорят по-сербски → выберите ваш ответ", "aspectHint": "совершенный / несовершенный", "pairWith": "Пара по виду:", "gAgain": "Забыл", "gHard": "Трудно", "gGood": "Помню", "gEasy": "Легко", "min": "мин", "hrs": "ч", "dShort": "дн", "sec": "с", "keysPick": "1–6 — вариант · V — повторить звук · Esc — к колодам", "keysNext": "Пробел — дальше", "keysShow": "Пробел — показать ответ", "keysGrade": "1 забыл · 2 трудно · 3 помню · 4 легко", "keysSpeak": "V — произнести ещё раз", "keysType": "Enter — проверить; без диакритики тоже засчитаю как «трудно»", "typeHere": "по-сербски…", "youTyped": "Вы написали", "typeDiacritics": "диакритика: č ć š ž đ", "typeAlmost": "почти — одна буква", "posNoun": "сущ.", "posVerb": "глагол", "posAdj": "прил.", "posAdv": "нареч.", "posPron": "местоим.", "posPrep": "предлог", "posConj": "союз", "posPart": "частица", "posNum": "числит.", "posInterj": "междом.", "posPhrase": "фраза", "g_m": "м. р.", "g_f": "ж. р.", "g_n": "ср. р.", "g_mp": "мн. ч.", "g_fp": "мн. ч.", "g_np": "мн. ч.", "asp_pf": "соверш.", "asp_ipf": "несоверш.", "asp_bi": "двувид.", "asp_": "", "f_gen": "род.", "f_acc": "вин.", "f_loc": "мест.", "f_ins": "твор.", "f_pl": "мн.", "f_gpl": "род. мн.", "f_prs1": "я", "f_prs3": "он", "f_prs3pl": "они", "f_past": "прош.", "f_imp": "повел.", "f_f": "ж.", "f_n": "ср.", "f_cmp": "сравн.", "ex_my": "из моих текстов", "ex_sit": "из ситуации", "ex_general": "пример", "case_nom": "именительный", "case_gen": "родительный", "case_dat": "дательный", "case_acc": "винительный", "case_voc": "звательный", "case_ins": "творительный", "case_loc": "местный", "case_prs": "настоящее время", "case_past": "прошедшее", "case_fut": "будущее", "case_imp": "повелительное", "case_aspect": "вид глагола", "case_other": "другое", "vocabTitle": "Что я уже знаю", "vocabIntro": "Отметьте галочкой слова, которые уже знаете, и нажмите «Отметить как изученные» — они не попадут в тренажёр. Остальные будете учить.", "qTitle": "Самые частые слова", "qIntro": "Отметьте галочкой слова, которые уже знаете, и нажмите кнопку внизу. Если знаете 9 из 10 — все слова этого уровня отметятся как изученные.", "band": "Полоса", "band1": "самые частые", "band2": "частые", "band3": "средние", "band4": "редкие", "qPass": "все знаю", "qFail": "дальше по одному слову", "qSkipped": "пропущено", "qRedo": "отметить заново", "qHint": "поставьте галочки у слов, которые знаете", "qCheck": "Отметить как изученные", "qSkip": "Отмечать по одному слову", "checked": "Отмечено", "know": "знаю", "toLearn": "учить", "batch": "Слова", "saveBatch": "Отметить как изученные", "vocabAllChecked": "Все слова отмечены. Новые появятся позже.", "sitTitle": "Ситуации", "sitIntro": "Где вам нужен сербский. Готовность — сколько слов, фраз и ответов этой ситуации уже держится в памяти.", "pri1": "каждую неделю", "pri2": "иногда", "pri3": "редко, но важно", "ready": "Готовность", "trainSit": "Тренировать", "showDialogs": "Диалоги и фразы", "hide": "Свернуть", "translation": "перевод", "playDialog": "Проиграть диалог", "textsTitle": "Мои тексты", "textsIntro": "То, что вам реально пишут. Подсвечено: учу — жёлтым, в колоде — голубым, нет в колоде — пунктиром. Нажмите на слово — карточка.", "tokKnown": "знаю", "tokLearning": "учу", "tokDeck": "в колоде", "tokOut": "нет в колоде", "youKnow": "Понимаю", "pasteTitle": "Новый текст", "pasteIntro": "Вставьте сообщение, письмо или объявление — проверю по колоде. «Отправить на разбор» — Claude добавит незнакомые слова в колоду.", "pasteName": "Название (например: письмо от хозяйки)", "pasteHere": "Текст на сербском, латиница или кириллица", "pasteCheck": "Проверить по колоде", "pasteSend": "Отправить на разбор", "pasteDefault": "Текст со страницы", "pasteSent": "Сохранено. Скажите в чате: «разбери присланный текст».", "pasteOffline": "Нет связи с хранилищем — скопируйте текст в чат.", "deckTitle": "Колода", "search": "поиск по-сербски или по переводу", "fAll": "все", "fKnown": "знаю", "fLeech": "трудные", "colSr": "Сербский", "colTr": "Перевод", "colState": "Статус", "colNext": "Повтор", "now": "сейчас", "iKnow": "знаю", "backToTrainer": "вернуть в тренажёр", "first400": "Показаны первые 400 — уточните поиск.", "exportCsv": "Скачать CSV", "statsTitle": "Статистика", "statsEmpty": "Графики наполнятся после первых раундов.", "heroCov": "слов обычной разговорной речи вы уже понимаете", "heroCovNote": "Доля всех слов в сербских диалогах (субтитры), которые покрывают известные вам леммы.", "heroCeil": "Если выучить всю колоду — {x}.", "wordsLearned": "слов выучено", "retention30": "помню на повторах (30 дн)", "minsWeek": "за 7 дней", "covTime": "Покрытие со временем", "covTimeSub": "Сколько слов разговорной речи и ваших текстов вы понимаете — по дням.", "sitReady": "Готовность к ситуациям", "sitReadySub": "Средняя прочность карточек ситуации: 100% — всё держится 21+ день.", "retWeeks": "Помню на повторах — по неделям", "retWeeksSub": "Доля верных ответов на настоящих повторах (через день и больше). Цель — {t}; оранжевые недели заметно ниже.", "curve": "Сколько помню через N дней", "curveSub": "Верные ответы в зависимости от того, сколько дней прошло с прошлого повтора.", "heatTitle": "Календарь занятий", "heatSub": "Ответы по дням за полгода.", "less": "меньше", "more": "больше", "timeDay": "Минут в день", "timeDaySub": "Время ответов за 30 дней (одна карточка — не больше минуты).", "bySide": "Где слабое место", "bySideSub": "Точность по типу карточки за 30 дней; в подсказке — среднее время ответа.", "sd_pick-tr": "выбор", "sd_listen": "слух", "sd_pick-sr": "выбор сер.", "sd_say-tr": "перевод", "sd_say-sr": "сказать", "sd_type": "набор", "sd_listen-ph": "фраза слух", "sd_read-ph": "фраза", "sd_say-ph": "сказать фразу", "sd_cloze": "форма", "sd_aspect": "вид", "sd_reply": "ответ", "sdl_pick-tr": "сербское → выбрать перевод", "sdl_listen": "на слух → выбрать перевод", "sdl_pick-sr": "перевод → выбрать сербское", "sdl_say-tr": "сербское → вспомнить перевод", "sdl_say-sr": "перевод → сказать по-сербски", "sdl_type": "перевод → написать", "sdl_listen-ph": "фраза на слух", "sdl_read-ph": "фраза → перевод", "sdl_say-ph": "сказать фразу", "sdl_cloze": "нужная форма", "sdl_aspect": "пара по виду", "sdl_reply": "ответ в диалоге", "load": "Нагрузка на 30 дней", "loadSub": "Сколько карточек придёт на повтор в каждый день (просроченные — сегодня).", "today": "сег.", "cases": "Падежи и вид глагола", "casesSub": "Точность в карточках «нужная форма» по падежам.", "hardTitle": "Трудные слова", "hardSub": "Чаще всего забываемые. 🐛 — «пиявка»: забыто 6+ раз, убрана из раундов до разбора.", "hardNone": "Пока ничего не забывалось — отлично.", "hardAsk": "Разобрать с Claude", "hardSent": "Отправлено. Скажите в чате: «разберём трудные слова» — придумаем ассоциации и примеры.", "fcTitle": "Прогноз по группам", "fcSub": "Когда группа будет выучена при текущей цели в день.", "fcWhen": "Когда", "colGroup": "Группа", "asTable": "Таблица", "colDay": "День", "colSit": "Ситуация", "colSide": "Тип карточки", "colCase": "Падеж", "answers": "ответов", "remembered": "помню", "avgTime": "время", "cardsDue": "карточек", "target": "цель", "noData": "нет данных", "weekOf": "неделя с", "afterDays": "через, дней", "lapses": "забыто", "stability": "прочность", "exportLog": "Скачать журнал повторов", "ttsPlay": "Произнести", "ttsAuto": "Автоозвучка", "ttsSfx": "Звуки ✓/✗", "ttsNext": "Автопереход к следующей карточке", "ttsPauseOk": "Ждать после верного ответа", "ttsPauseBad": "Ждать после ошибки", "ttsVoice": "Голос", "ttsAny": "лучший доступный", "ttsRate": "Скорость", "ttsNoVoice": "В этом браузере нет сербского, хорватского или боснийского голоса: озвучки и карточек «на слух» не будет. В Edge есть онлайн-голоса sr-RS.", "ttsFallback": "Сербского голоса нет — читает {v}. Произношение близкое, ударения могут отличаться.", "ttsVoiceOk": "Голос: {v}", "holdCard": "Остановить автопереход", "showWord": "показать слово", "langSr": "🇷🇸 по-сербски", "langRu": "🇷🇺 по-русски", "optsIn": "Варианты", "ghLoading": "загружаю из GitHub…", "ghSaving": "сохраняю в GitHub…", "ghSaved": "сохранено в GitHub", "ghFail": "нет связи с GitHub — сохраняю на этом устройстве", "ghAnswers": "ответов:", "ghProgress": "прогресс", "ghConnected": "Слова и прогресс:", "ghDisconnect": "отключить на этом устройстве", "setupTitle": "Polako — сербские слова и фразы", "setupIntro": "Тренажёр сербских слов и фраз для тех, кто говорит по-русски. Начните сразу — прогресс сохранится в этом браузере. Синхронизацию между устройствами через GitHub можно включить в любой момент, прогресс перенесётся.", "setupRepo": "Репозиторий с данными", "setupToken": "Ключ доступа (fine-grained token)", "setupConnect": "Подключить", "setupHelp": "Как создать репозиторий и ключ — пошагово", "setupTry": "Или попробовать без входа", "setupTryNote": "Прогресс сохранится только в этом браузере.", "setupWords": "слов", "setupEmpty": "Репозиторий пустой", "setupEmptyNote": "В {repo} ещё нет слов. Выберите набор — я положу его туда, и можно начинать.", "setupCreating": "создаю…", "setupOther": "подключить другой репозиторий", "setupFail": "Не получилось подключиться", "setupBadToken": "Ключ не подошёл: проверьте, что скопировали его целиком и он не истёк.", "setupNoAccess": "Репозиторий не найден или у ключа нет к нему доступа: проверьте имя (владелец/название) и что ключ выдан на этот репозиторий с правом Contents: Read and write.", "loading": "загружаю…", "savedBrowser": "сохранено в этом браузере", "setupStartBrowser": "Начать сразу", "setupStartBrowserNote": "Выберите набор. Слова и прогресс хранятся в этом браузере — ничего настраивать не нужно.", "setupStartGithub": "Или сразу с синхронизацией через GitHub", "setupStartGithubNote": "Слова и прогресс в вашем закрытом репозитории — общие для телефона и компьютера.", "setupRepoPh": "логин/polako-data", "stTitle": "Где хранить прогресс", "stBrowser": "В этом браузере", "stBrowserNote": "Ничего настраивать не нужно. Только это устройство; если очистить данные браузера — прогресс пропадёт.", "stGithub": "GitHub — синхронизация между устройствами", "stGithubNote": "Ваш закрытый репозиторий: один прогресс на телефоне и компьютере, история всех занятий. Прогресс из браузера перенесётся туда.", "stConnectGithub": "Подключить GitHub", "stToBrowserSure": "Хранить дальше только в этом браузере? Текущий прогресс скопируется сюда, ключ GitHub на этом устройстве забудется. В репозитории всё останется.", "yes": "Да", "cancel": "Отмена", "ghSyncNow": "синхронизировать сейчас", "ghConnecting": "подключаю и переношу прогресс…", "ghConnected2": "готово — прогресс в GitHub", "ghFirstCommit": "слова и прогресс из браузера", "ghHowTo": "Как создать репозиторий и ключ (5 минут)", "ghStep1": "Создайте закрытый репозиторий: имя polako-data, Private, больше ничего не отмечайте →", "ghStep2": "Создайте ключ: Repository access → Only select repositories → polako-data; Permissions → Contents → Read and write; Generate token и скопируйте его →", "ghStep3": "Вставьте ниже логин/polako-data и ключ, нажмите «Подключить». На другом устройстве — только этот шаг."};
+window.POLAKO_PACKS = [{"name": "belgrade-basics", "title": "Белград: первые разговоры", "file": "packs/belgrade-basics.json", "words": 270}];
+/* ---------- browser storage for the public site: IndexedDB key-value (database "polako", store "kv") ----------
+   Holds the chosen set ("deck") and the progress ("progress": {T, V, LOG}). IndexedDB keeps much more than
+   localStorage and the browser is asked to keep it persistent (navigator.storage.persist). */
+window.PolakoIDB = (function(){
+  if (!window.indexedDB) return null;
+  var dbp = null;
+  function open(){
+    if (!dbp) dbp = new Promise(function(res, rej){
+      var r = indexedDB.open('polako', 1);
+      r.onupgradeneeded = function(){ r.result.createObjectStore('kv'); };
+      r.onsuccess = function(){ res(r.result); }; r.onerror = function(){ rej(r.error); };
+    });
+    return dbp;
+  }
+  function tx(mode, fn){
+    return open().then(function(db){ return new Promise(function(res, rej){
+      var t = db.transaction('kv', mode), req = fn(t.objectStore('kv'));
+      t.oncomplete = function(){ res(req && 'result' in req ? req.result : undefined); };
+      t.onerror = function(){ rej(t.error); }; t.onabort = function(){ rej(t.error); };
+    }); });
+  }
+  try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch (e){}
+  return {
+    get: function(k){ return tx('readonly', function(s){ return s.get(k); }); },
+    set: function(k, v){ return tx('readwrite', function(s){ return s.put(v, k); }); },
+    del: function(k){ return tx('readwrite', function(s){ return s.delete(k); }); }
+  };
+})();
+
+window.__polakoStart = function(){
+/* ===== core.js ===== */
+/* ============================================================
+   Polako page — core: data, storage, tabs, helpers.
+   Built by tools/build_page.py from templates/portal/*.js in this order:
+   core.js · fsrs.js · tts.js · trainer.js · vocab.js · situations.js · texts.js · deck.js · stats.js · boot.js
+   Data comes from <script id="pl-data"> (deck, situations, own texts, coverage shares, UI strings).
+   Progress lives apart from content, so a rebuild never loses it:
+     local server (tools/serve.py)  → prep/trainer-state.json, prep/review-log.json, prep/vocab-state.json
+     artifact db                    → doc trainer/state, collection log (one doc per day), collection vocab
+     neither                        → this browser only (localStorage), with a note
+   ============================================================ */
+var D = JSON.parse(document.getElementById('pl-data').textContent);
+var DAY = 86400000, NOW = function(){ return Date.now(); };
+var PROF = D.profile || {}, DECK = D.deck || {words: [], phrases: [], cloze: []}, SITS = D.situations || [], TEXTS = D.texts || [];
+var COV = D.cov || {}, UI = Object.assign({}, D.ui || {}, window.POLAKO_UI || {}), TRL = PROF.explain || 'ru';   // the site's own strings win over a stale data file
+['words', 'phrases', 'cloze'].forEach(function(k){ DECK[k] = (DECK[k] || []).filter(function(x){ return !x.retired; }); });
+
+function L(k){ return UI[k] != null ? UI[k] : k; }
+function $(id){ return document.getElementById(id); }
+function el(tag, cls, text){ var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+function btn(cls, text, fn, key){ var b = el('button', cls, text); b.type = 'button'; if (fn) b.onclick = fn; if (key) b.dataset.key = key; return b; }
+function shuffle(a){ for (var i = a.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+function lsGet(k, d){ try { var v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch (e){ return d; } }
+function lsSet(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch (e){} }
+function clone(x){ return x == null ? x : JSON.parse(JSON.stringify(x)); }
+function pct(x){ return x == null || isNaN(x) ? '—' : Math.round(x * 100) + '%'; }
+function plural(n, one, few, many){ var a = n % 10, b = n % 100; return a === 1 && b !== 11 ? one : a >= 2 && a <= 4 && (b < 12 || b > 14) ? few : many; }
+function nWord(n, key){ var f = L(key).split('|'); return n + ' ' + (f.length === 3 ? plural(n, f[0], f[1], f[2]) : f[0]); }
+function today0(){ var d = new Date(); d.setHours(0, 0, 0, 0); return d.getTime(); }
+function day0(ts){ var d = new Date(ts); d.setHours(0, 0, 0, 0); return d.getTime(); }
+function dayKey(ts){ var d = new Date(ts); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+function fmtDay(ts){ return new Date(ts).toLocaleDateString(TRL === 'en' ? 'en-GB' : TRL, {day: 'numeric', month: 'long'}); }
+function fmtShort(ts){ return new Date(ts).toLocaleDateString(TRL === 'en' ? 'en-GB' : TRL, {day: 'numeric', month: 'short'}); }
+function bar(parts){ var b = el('div', 'bar'); parts.forEach(function(p){ if (p[1] > 0){ var i = el('i', p[0]); i.style.width = (p[1] * 100) + '%'; b.appendChild(i); } }); return b; }
+
+/* ---------- Serbian script: Latin is stored, Cyrillic is a display option ---------- */
+var CYR = {a: 'а', b: 'б', v: 'в', g: 'г', d: 'д', 'đ': 'ђ', e: 'е', 'ž': 'ж', z: 'з', i: 'и', j: 'ј', k: 'к', l: 'л', m: 'м', n: 'н', o: 'о', p: 'п', r: 'р', s: 'с', t: 'т', 'ć': 'ћ', u: 'у', f: 'ф', h: 'х', c: 'ц', 'č': 'ч', 'š': 'ш'};
+var DIG = {lj: 'љ', nj: 'њ', 'dž': 'џ'};
+var SPLIT = /^(?:in(?=jek)|kon(?=junk)|nad(?=ž)|pod(?=ž)|od(?=ž))/i;
+function cyrWord(w){
+  var lw = w.toLowerCase(), m = SPLIT.exec(lw), guard = m ? m[0].length : -1, out = '', i = 0;
+  while (i < w.length){
+    var pair = lw.substr(i, 2);
+    if (DIG[pair] && i + 1 !== guard){ var c2 = DIG[pair]; out += w[i] !== lw[i] ? c2.toUpperCase() : c2; i += 2; continue; }
+    var ch = w[i], c = CYR[ch.toLowerCase()];
+    out += c ? (ch !== ch.toLowerCase() ? c.toUpperCase() : c) : ch; i++;
+  }
+  return out;
+}
+function toCyr(t){ return String(t).replace(/[A-Za-zČĆŽŠĐčćžšđ]+/g, cyrWord); }
+function srx(t){ return ui.cyr ? toCyr(t) : t; }   // every Serbian text on screen goes through this
+function fold(s){ return String(s).toLowerCase().replace(/[čć]/g, 'c').replace(/š/g, 's').replace(/ž/g, 'z').replace(/đ/g, 'dj'); }
+function normSr(s){ return String(s).toLowerCase().normalize('NFD').replace(/(?![̌́])[̀-ͯ]/g, '').normalize('NFC').trim(); }
+
+/* ---------- ui state ---------- */
+var ui = {tab: lsGet('pl.tab', 'train'), theme: lsGet('pl.theme', ''), size: lsGet('pl.size', 20), cyr: !!lsGet('pl.cyr', false), q: '', filter: 'all', open: null};
+var TABS = [['train', 'tabTrain'], ['vocab', 'tabVocab'], ['sit', 'tabSit'], ['texts', 'tabTexts'], ['stats', 'tabStats'], ['deck', 'tabDeck']];
+
+/* ---------- progress state ---------- */
+var T = {cards: {}, goal: PROF.goal || 15, retention: PROF.retention || 0.9, listening: PROF.listening !== false, typing: !!PROF.typing, hist: {}, updated: 0};
+var LOG = [];      // [ts, key, grade, ms, elapsedDays, stabilityBefore] — every answer, the basis of statistics
+var LOGNEW = [];   // answers not yet written to storage
+var V = {};        // "I know" check: batchKey → {known:[ids], unknown:[ids], at}
+var store = {mode: 'local', db: null, timer: null, dirtyT: false, dirtyV: false, first: 0};
+
+function setSync(msg){ store.syncMsg = msg || ''; var s = $('sync'); if (s) s.textContent = store.syncMsg; }   // kept across re-renders
+function post(path, body){ return fetch(path, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body)}).then(function(r){ if (!r.ok) throw new Error(r.status); return r.json(); }); }
+function save(){
+  store.dirtyT = true;
+  lsSet('pl.fallback', {T: T, LOG: LOG.slice(-6000), V: V});
+  if (typeof idbSave === 'function') idbSave();
+  if (store.mode === 'local') return;
+  clearTimeout(store.timer);
+  if (store.mode === 'gh'){   // one commit per pause, at most every 2 minutes while answering
+    if (!store.first) store.first = NOW();
+    store.timer = setTimeout(flush, NOW() - store.first > 120000 ? 0 : 45000); return;
+  }
+  store.timer = setTimeout(flush, 900);
+}
+async function flush(){
+  if (store.mode === 'local') return;
+  var items = LOGNEW; LOGNEW = [];
+  try {
+    T.updated = NOW();
+    if (store.mode === 'api'){
+      if (store.dirtyT) await post('/api/trainer', T);
+      if (items.length) await post('/api/log', {items: items});
+    } else if (store.mode === 'gh'){
+      if (!store.dirtyT && !store.dirtyV && !items.length) return;
+      clearTimeout(store.timer); store.first = 0; setSync(L('ghSaving'));
+      await ghPush(items); store.dirtyV = false;
+    } else {
+      if (store.dirtyT) await store.db.doc('trainer/state').set(clone(T));
+      var byDay = {};
+      items.forEach(function(x){ (byDay[dayKey(x[0])] = byDay[dayKey(x[0])] || []).push(x); });
+      for (var k in byDay){
+        var all = LOG.filter(function(x){ return dayKey(x[0]) === k; });
+        await store.db.collection('log').doc(k).set({day: k, items: all});
+      }
+    }
+    store.dirtyT = false; delete T.reset; setSync(L(store.mode === 'gh' ? 'ghSaved' : 'saved'));
+  } catch (e){ LOGNEW = items.concat(LOGNEW); setSync(L('savedLocal')); }
+}
+async function saveVocab(key, rec){
+  V[key] = rec; lsSet('pl.fallback', {T: T, LOG: LOG.slice(-6000), V: V}); if (typeof idbSave === 'function') idbSave();
+  try {
+    if (store.mode === 'gh'){ store.dirtyV = true; save(); return; }
+    if (store.mode === 'api') await post('/api/vocab', V);
+    else if (store.mode === 'db') await store.db.collection('vocab').doc(key).set(rec);
+    setSync(L('saved'));
+  } catch (e){ setSync(L('savedLocal')); }
+}
+async function sendInbox(rec){
+  if (store.mode === 'api') return post('/api/inbox', rec);
+  if (store.mode === 'db') return store.db.collection('inbox').add(rec);
+  throw new Error('offline');
+}
+async function download(filename, data, type){
+  try { var dl = window.claude && window.claude.use ? await window.claude.use('downloads') : null; if (dl){ await dl.save({filename: filename, data: data}); return; } } catch (e){}
+  var url = URL.createObjectURL(new Blob([data], {type: type || 'text/plain;charset=utf-8'}));
+  var a = el('a'); a.href = url; a.download = filename; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 2000);
+}
+
+/* ---------- what is known ---------- */
+function knownSet(){
+  var k = {}, back = {};
+  Object.keys(V).forEach(function(b){ var r = V[b]; if (!r || r.reset) return; (r.known || []).forEach(function(id){ k[id] = true; }); (r.back || []).forEach(function(id){ back[id] = true; }); });
+  Object.keys(back).forEach(function(id){ delete k[id]; });   // "back to the trainer" wins over any earlier "I know"
+  return k;
+}
+function checkedSet(){
+  var k = {};
+  Object.keys(V).forEach(function(b){ var r = V[b]; if (!r || r.reset) return; (r.known || []).concat(r.unknown || []).forEach(function(id){ k[id] = true; }); });
+  return k;
+}
+var WORD_BY_ID = {}; DECK.words.forEach(function(w){ WORD_BY_ID[w.id] = w; });
+var PHRASE_BY_ID = {}; DECK.phrases.forEach(function(p){ PHRASE_BY_ID[p.id] = p; });
+var SIT_BY_ID = {}; SITS.forEach(function(s){ SIT_BY_ID[s.id] = s; });
+
+/* ---------- header and tabs ---------- */
+function renderHead(){
+  $('title').textContent = D.title || 'Polako';
+  var nav = $('tabs'); nav.innerHTML = '';
+  TABS.forEach(function(t){
+    var b = btn(null, L(t[1]), function(){ ui.tab = t[0]; ui.open = null; lsSet('pl.tab', ui.tab); if (play) { play = null; flush(); } render(); scrollTo(0, 0); });
+    b.setAttribute('role', 'tab'); b.setAttribute('aria-selected', String(ui.tab === t[0])); nav.appendChild(b);
+  });
+  var sc = $('script'); sc.innerHTML = '';
+  [['lat', 'Lat'], ['cyr', 'Ћир']].forEach(function(x){
+    var b = btn(null, x[1], function(){ ui.cyr = x[0] === 'cyr'; lsSet('pl.cyr', ui.cyr); render(); });
+    b.setAttribute('aria-pressed', String((x[0] === 'cyr') === ui.cyr)); b.title = L('scriptToggle'); sc.appendChild(b);
+  });
+  var sum = $('summary'); sum.innerHTML = '';
+  if (DECK.words.length && typeof coverageNow === 'function'){
+    var c = coverageNow(), due = dueCount();
+    var line = el('div', 'wrap summary');
+    line.appendChild(el('span', null, L('covSpoken') + ' ' + pct(c.spoken)));
+    if (c.my != null) line.appendChild(el('span', null, L('covMy') + ' ' + pct(c.my)));
+    line.appendChild(el('span', null, L('dueNow') + ': ' + due));
+    var st = streak(); if (st) line.appendChild(el('span', null, '🔥 ' + nWord(st, 'days')));
+    line.appendChild(el('span', 'sync', store.syncMsg || '')).id = 'sync';
+    sum.appendChild(line); sum.hidden = false;
+  } else sum.hidden = true;
+}
+function placeholder(main, text){ var c = el('div', 'card ph'); c.appendChild(el('div', 'ph-icon', '◌')); c.appendChild(el('p', null, text)); main.appendChild(c); }
+function render(){
+  renderHead();
+  var main = $('main'); main.innerHTML = '';
+  if (!DECK.words.length && ui.tab !== 'sit' && ui.tab !== 'texts'){ placeholder(main, L('phEmpty')); return; }
+  if (ui.tab === 'vocab') renderVocab(main);
+  else if (ui.tab === 'sit') renderSituations(main);
+  else if (ui.tab === 'texts') renderTexts(main);
+  else if (ui.tab === 'stats') renderStats(main);
+  else if (ui.tab === 'deck') renderDeck(main);
+  else renderTrainer(main);
+}
+function rerenderKeepScroll(){ var y = scrollY; render(); scrollTo(0, y); }
+function applyTheme(){ if (ui.theme) document.documentElement.setAttribute('data-theme', ui.theme); else document.documentElement.removeAttribute('data-theme'); }
+
+/* ===== fsrs.js ===== */
+/* ---------- FSRS-5 scheduler ----------
+   Free Spaced Repetition Scheduler (open-spaced-repetition/fsrs4anki, FSRS-5 default weights).
+   A card side keeps: s — stability (days until recall drops to 90%), d — difficulty 1..10,
+   due (ms), last (ms), reps, lapses. Grades: 1 Again, 2 Hard, 3 Good, 4 Easy.
+   The same formulas live in tools/fsrs.py; tests/test_fsrs.py runs both on one script of answers.
+   Exported as FSRS (also usable from node: module.exports). */
+var FSRS = (function(){
+  var W = [0.40255, 1.18385, 3.173, 15.69105, 7.1949, 0.5345, 1.4604, 0.0046, 1.54575, 0.1192,
+           1.01925, 1.9395, 0.11, 0.29605, 2.2698, 0.2315, 2.9898, 0.51655, 0.6621];
+  var DECAY = -0.5, FACTOR = 19 / 81, DAYMS = 86400000, MAX_IVL = 3650, RELEARN_MS = 10 * 60000;
+  function clamp(x, a, b){ return Math.min(b, Math.max(a, x)); }
+  function r4(x){ return Math.round(x * 10000) / 10000; }
+  function retrievability(elapsedDays, s){ return Math.pow(1 + FACTOR * elapsedDays / s, DECAY); }
+  function interval(s, retention){ return s / FACTOR * (Math.pow(retention, 1 / DECAY) - 1); }
+  function d0(g){ return clamp(W[4] - Math.exp(W[5] * (g - 1)) + 1, 1, 10); }
+  function s0(g){ return Math.max(0.1, W[g - 1]); }
+  function nextD(d, g){
+    var dd = -W[6] * (g - 3), d1 = d + dd * (10 - d) / 9;
+    return clamp(W[7] * d0(4) + (1 - W[7]) * d1, 1, 10);
+  }
+  function sRecall(d, s, r, g){
+    var hard = g === 2 ? W[15] : 1, easy = g === 4 ? W[16] : 1;
+    return s * (1 + Math.exp(W[8]) * (11 - d) * Math.pow(s, -W[9]) * (Math.exp(W[10] * (1 - r)) - 1) * hard * easy);
+  }
+  function sForget(d, s, r){
+    return Math.min(s, W[11] * Math.pow(d, -W[12]) * (Math.pow(s + 1, W[13]) - 1) * Math.exp(W[14] * (1 - r)));
+  }
+  function sShort(s, g){ return s * Math.exp(W[17] * (g - 3 + W[18])); }
+  /* review(card or null, grade, now ms, target retention) → new card + log fields */
+  function review(c, g, now, retention){
+    retention = retention || 0.9;
+    var n = {reps: 0, lapses: 0}, elapsed = 0, sBefore = 0, rBefore = 1;
+    if (!c || !c.s){
+      n.s = s0(g); n.d = d0(g);
+    } else {
+      elapsed = Math.max(0, (now - (c.last || now)) / DAYMS);
+      sBefore = c.s; rBefore = retrievability(elapsed, c.s);
+      n.reps = c.reps || 0; n.lapses = c.lapses || 0; n.f = c.f;
+      n.d = nextD(c.d || d0(3), g);
+      if (elapsed < 1) n.s = sShort(c.s, g);
+      else if (g === 1){ n.s = sForget(c.d || d0(3), c.s, rBefore); n.lapses++; }
+      else n.s = sRecall(c.d || d0(3), c.s, rBefore, g);
+    }
+    n.s = clamp(n.s, 0.1, 36500);
+    n.reps++;
+    n.last = now; if (!n.f) n.f = now;
+    if (g === 1) n.due = now + RELEARN_MS;
+    else n.due = now + clamp(Math.round(interval(n.s, retention)), 1, MAX_IVL) * DAYMS;
+    n.s = r4(n.s); n.d = r4(n.d);
+    return {card: n, elapsed: r4(elapsed), sBefore: r4(sBefore), r: r4(rBefore)};
+  }
+  /* days from now until the side reaches stability `target` if every answer is Good at its due date */
+  function daysToStable(c, now, retention, target){
+    var s = c && c.s ? c.s : 0, d = c && c.d ? c.d : d0(3), t = 0, guard = 0;
+    if (!s){ s = s0(3); d = d0(3); t = 1; }
+    else t = Math.max(0, ((c.due || now) - now) / DAYMS);
+    while (s < target && guard++ < 40){
+      var ivl = clamp(Math.round(interval(s, retention)), 1, MAX_IVL);
+      s = sRecall(d, s, retrievability(ivl, s), 3); d = nextD(d, 3);
+      if (s < target) t += clamp(Math.round(interval(s, retention)), 1, MAX_IVL);
+    }
+    return t;
+  }
+  function setW(w){ if (w && w.length === 19 && w.every(function(x){ return typeof x === 'number' && isFinite(x); })) W = w.slice(); }
+  return {setW: setW, weights: function(){ return W.slice(); }, review: review, retrievability: retrievability, interval: interval, daysToStable: daysToStable, DAYMS: DAYMS};
+})();
+
+
+/* ===== tts.js ===== */
+/* ---------- pronunciation: Web Speech API (speechSynthesis) ----------
+   Built into the browser: no keys, no network for system voices. A Serbian voice is not on every
+   system, so the chain is sr → hr → bs (Croatian and Bosnian voices read Serbian Latin text well;
+   the page says which voice it uses). Edge has online sr-RS voices; macOS/iOS have a Croatian one.
+   Settings per device (localStorage pl.tts). No voice at all → no 🔊 buttons and no listening side. */
+var TTS = {ok: typeof window.speechSynthesis !== 'undefined' && typeof window.SpeechSynthesisUtterance !== 'undefined', voices: []};
+function secs(v, d){ v = parseFloat(v); return v >= 0 && v <= 5 ? Math.round(v * 10) / 10 : d; }
+var TTS_CFG = (function(c){ c = c && typeof c === 'object' ? c : {}; return {auto: c.auto !== false, sfx: c.sfx !== false, next: c.next !== false, pauseOk: secs(c.pauseOk, 1.6), pauseBad: secs(c.pauseBad, 3), voice: c.voice || '', rate: +c.rate > 0 ? +c.rate : 0.85}; })(lsGet('pl.tts', null));
+var SR_CHAIN = ['sr', 'hr', 'bs'];
+function ttsLoad(){ try { TTS.voices = speechSynthesis.getVoices() || []; } catch (e){ TTS.voices = []; } }
+if (TTS.ok){ ttsLoad(); try { speechSynthesis.addEventListener('voiceschanged', function(){ ttsLoad(); }); } catch (e){} }
+function voicesFor(lang){ return TTS.voices.filter(function(v){ return (v.lang || '').toLowerCase().replace('_', '-').indexOf(lang) === 0; }); }
+function bestOf(vs){
+  function score(v){ var n = v.name || '', s = 0; if (/enhanced|premium|natural|neural|online|google/i.test(n)) s += 4; if (v.default) s += 1; return s; }
+  return vs.slice().sort(function(a, b){ return score(b) - score(a); })[0] || null;
+}
+function ttsVoice(lang){
+  if (lang === 'sr'){
+    if (TTS_CFG.voice){ var ch = TTS.voices.filter(function(v){ return v.name === TTS_CFG.voice; })[0]; if (ch) return ch; }
+    for (var i = 0; i < SR_CHAIN.length; i++){ var v = bestOf(voicesFor(SR_CHAIN[i])); if (v) return v; }
+    return null;
+  }
+  return bestOf(voicesFor(lang));
+}
+function srVoiceInfo(){ var v = ttsVoice('sr'); if (!v) return null; var l = (v.lang || '').slice(0, 2).toLowerCase(); return {name: v.name, lang: v.lang, fallback: l !== 'sr'}; }
+function canSpeak(lang){ return TTS.ok && (!TTS.voices.length ? false : !!ttsVoice(lang)); }
+function speak(text, lang, done){
+  var fired = false; function fin(){ if (!fired){ fired = true; if (done) done(); } }
+  if (!TTS.ok || !text){ fin(); return false; }
+  if (!TTS.voices.length) ttsLoad();
+  var v = ttsVoice(lang);
+  if (!v){ fin(); return false; }
+  try {
+    speechSynthesis.cancel();
+    var s = String(text).replace(/\s*\(.*?\)\s*/g, ' ').replace(/[{}]/g, '').trim();
+    var u = new SpeechSynthesisUtterance(s);
+    u.lang = v.lang; u.voice = v; u.rate = lang === 'sr' ? TTS_CFG.rate : 1;
+    u.onend = fin; u.onerror = fin;
+    var t0 = Date.now();
+    setTimeout(function wait(){ var busy = false; try { busy = speechSynthesis.speaking; } catch (e){}
+      if (busy && Date.now() - t0 < 20000) setTimeout(wait, 200); else fin(); }, (900 + 85 * s.length) / (u.rate || 1));
+    speechSynthesis.speak(u); return true;
+  } catch (e){ fin(); return false; }
+}
+var SFX = null;
+function sfx(kind){
+  if (!TTS_CFG.sfx) return;
+  try {
+    var AC = window.AudioContext || window.webkitAudioContext; if (!AC) return;
+    SFX = SFX || new AC(); if (SFX.state === 'suspended') SFX.resume();
+    var t0 = SFX.currentTime + 0.01;
+    function tone(type, f1, f2, start, dur, vol){
+      var o = SFX.createOscillator(), g = SFX.createGain();
+      o.type = type; o.frequency.setValueAtTime(f1, start); if (f2) o.frequency.linearRampToValueAtTime(f2, start + dur);
+      g.gain.setValueAtTime(0.0001, start); g.gain.exponentialRampToValueAtTime(vol, start + 0.015); g.gain.exponentialRampToValueAtTime(0.0001, start + dur);
+      o.connect(g); g.connect(SFX.destination); o.start(start); o.stop(start + dur + 0.02);
+    }
+    if (kind === 'ok'){ tone('sine', 880, 0, t0, 0.12, 0.12); tone('sine', 1320, 0, t0 + 0.1, 0.18, 0.12); }
+    else { tone('sawtooth', 150, 110, t0, 0.32, 0.09); tone('square', 75, 0, t0, 0.32, 0.04); }
+  } catch (e){}
+}
+function spk(text, lang){
+  if (!text || !canSpeak(lang)) return document.createTextNode('');
+  var b = btn('spk', '🔊', function(e){ e.preventDefault(); e.stopPropagation(); speak(text, lang); });
+  b.title = L('ttsPlay'); b.setAttribute('aria-label', L('ttsPlay') + ': ' + text);
+  return b;
+}
+/* 🔊 for a word with its meaning: Serbian first, then the translation in the person's language */
+function spkPair(sr, tr){
+  if (!sr || !canSpeak('sr')) return document.createTextNode('');
+  var b = btn('spk', '🔊', function(e){ e.preventDefault(); e.stopPropagation();
+    speak(sr, 'sr', function(){ if (tr && canSpeak(TRL)) setTimeout(function(){ speak(shortTr(tr), TRL); }, 250); }); });
+  b.title = L('ttsPlay'); b.setAttribute('aria-label', L('ttsPlay') + ': ' + sr);
+  return b;
+}
+function ttsSave(){ lsSet('pl.tts', TTS_CFG); }
+function pauseSlider(key, label){
+  var lb = el('label', 'tts-pause'), v = el('b', null, TTS_CFG[key].toFixed(1) + ' ' + L('sec')), r = el('input');
+  r.type = 'range'; r.min = 0; r.max = 5; r.step = 0.1; r.value = TTS_CFG[key]; r.setAttribute('aria-label', label);
+  r.oninput = function(){ TTS_CFG[key] = +r.value; v.textContent = TTS_CFG[key].toFixed(1) + ' ' + L('sec'); ttsSave(); };
+  lb.appendChild(document.createTextNode(label + ' ')); lb.appendChild(r); lb.appendChild(v); return lb;
+}
+function ttsControls(){
+  var box = el('div', 'tts-opts');
+  var info = srVoiceInfo();
+  box.appendChild(el('p', 'meta', !TTS.ok || !info ? L('ttsNoVoice') : info.fallback ? L('ttsFallback').replace('{v}', info.name + ' · ' + info.lang) : L('ttsVoiceOk').replace('{v}', info.name)));
+  [['auto', L('ttsAuto')], ['sfx', L('ttsSfx')], ['next', L('ttsNext')]].forEach(function(x){
+    var lb = el('label'), c = el('input'); c.type = 'checkbox'; c.checked = TTS_CFG[x[0]];
+    c.onchange = function(){ TTS_CFG[x[0]] = c.checked; ttsSave(); if (x[0] === 'sfx' && c.checked) sfx('ok'); };
+    lb.appendChild(c); lb.appendChild(document.createTextNode(' ' + x[1])); box.appendChild(lb);
+  });
+  var pl = el('div', 'tts-pauses'); pl.appendChild(pauseSlider('pauseOk', L('ttsPauseOk'))); pl.appendChild(pauseSlider('pauseBad', L('ttsPauseBad'))); box.appendChild(pl);
+  var vl = el('label', null, L('ttsVoice') + ' '), vs = el('select');
+  function fill(){ vs.innerHTML = ''; var o0 = el('option', null, L('ttsAny')); o0.value = ''; vs.appendChild(o0);
+    TTS.voices.filter(function(v){ return /^(sr|hr|bs)/i.test(v.lang || ''); }).forEach(function(v){ var o = el('option', null, v.name + ' · ' + v.lang); o.value = v.name; o.selected = v.name === TTS_CFG.voice; vs.appendChild(o); }); }
+  fill(); try { speechSynthesis.addEventListener('voiceschanged', fill); } catch (e){}
+  vs.onchange = function(){ TTS_CFG.voice = vs.value; ttsSave(); speak('Dobar dan, kako ste?', 'sr'); }; vl.appendChild(vs); box.appendChild(vl);
+  var rl = el('label', null, L('ttsRate') + ' '), rs = el('select');
+  [[0.7, '0.7×'], [0.85, '0.85×'], [1, '1×'], [1.15, '1.15×']].forEach(function(x){ var o = el('option', null, x[1]); o.value = x[0]; o.selected = Math.abs(x[0] - TTS_CFG.rate) < 0.01; rs.appendChild(o); });
+  rs.onchange = function(){ TTS_CFG.rate = +rs.value; ttsSave(); speak('Polako, polako.', 'sr'); }; rl.appendChild(rs); box.appendChild(rl);
+  return box;
+}
+
+/* ===== trainer.js ===== */
+/* ---------- Trainer ----------
+   Learning items: words, phrases, cloze (a form in a sentence), aspect pairs (kupiti / kupovati),
+   dialog replies (they say → I answer). Each item is asked from several SIDES, each side with its own
+   FSRS card (key "<id>|<side>"):
+     word    stage 1 (recognition): pick-tr (sr → choose the meaning of 6), listen (hear → choose the
+             meaning; when a Serbian/Croatian/Bosnian voice exists), pick-sr (meaning → choose sr of 6)
+             stage 2 (recall, from the next day once stage 1 is answered): say-tr, say-sr, type (if on)
+     phrase  listen-ph (or read-ph without a voice) → then say-ph (meaning → say it, self-grade)
+     cloze   choose the right form · pair: name both aspects · dialog: choose my reply
+   A choice answer is graded by itself: right and fast → Good, right but slow → Hard, wrong → Again.
+   Recall sides are self-graded with four buttons (Again · Hard · Good · Easy), each showing its next
+   interval. A wrong answer returns the side to the end of the same round. A side forgotten 6+ times
+   is a "leech": it leaves the rounds and waits on the statistics tab for a mnemonic. */
+var LEARNED_S = 21, FIRM_S = 7, KNOWN_S = 7, LEECH = 6, TRB = 50;
+var play = null;
+/* no sound-only cards: every card shows the word in writing (the voice plays along on its own) */
+function listenOn(){ return false; }
+var ITEMS_CACHE = null;
+function allItems(){
+  if (ITEMS_CACHE) return ITEMS_CACHE;
+  var out = [], ids = {};
+  DECK.words.forEach(function(w){ out.push({kind: 'word', id: w.id, it: w, rank: w.rank}); ids[w.id] = w; });
+  DECK.phrases.forEach(function(p){ out.push({kind: 'phrase', id: p.id, it: p, rank: (p.rank || 1) * 2 + 20, words: p.words || []}); });
+  DECK.cloze.forEach(function(c){ var w = ids[c.word]; if (w) out.push({kind: 'cloze', id: c.id, it: c, w: w, rank: w.rank + 0.5, words: [w.id]}); });
+  var done = {};
+  DECK.words.forEach(function(w){ var o = w.pair && ids[w.pair]; if (!o) return;
+    var a = w.asp === 'pf' ? w : o, b = a === w ? o : w, id = 'v:' + a.id.slice(2) + '--' + b.id.slice(2);
+    if (done[id]) return; done[id] = 1; out.push({kind: 'pair', id: id, a: a, b: b, rank: Math.max(a.rank, b.rank) + 0.5, words: [a.id, b.id]}); });
+  SITS.forEach(function(s){ (s.dialogs || []).forEach(function(d){ (d.lines || []).forEach(function(ln, i){
+    if (ln.who === 'me' && i > 0 && d.lines[i - 1].who === 'they')
+      out.push({kind: 'dialog', id: 'd:' + d.id + ':' + i, they: d.lines[i - 1], me: ln, sit: s.id, rank: 30 + (s.pri || 2) * 20 + i}); }); }); });
+  ITEMS_CACHE = out; return out;
+}
+function itemsOfKind(k){ return allItems().filter(function(x){ return x.kind === k; }); }
+function key(item, side){ return item.id + '|' + side; }
+function cardOf(item, side){ return T.cards[key(item, side)]; }
+function stage1(item){
+  if (item.kind === 'word') return listenOn() ? ['pick-tr', 'listen', 'pick-sr'] : ['pick-tr', 'pick-sr'];
+  if (item.kind === 'phrase') return [listenOn() ? 'listen-ph' : 'read-ph'];
+  return [item.kind === 'cloze' ? 'cloze' : item.kind === 'pair' ? 'aspect' : 'reply'];
+}
+function stage2(item){
+  if (item.kind === 'word') return T.typing ? ['say-tr', 'say-sr', 'type'] : ['say-tr', 'say-sr'];
+  if (item.kind === 'phrase') return T.typing ? ['say-ph', 'type-ph'] : ['say-ph'];
+  return [];
+}
+function unlocked(item){
+  var t0 = today0();
+  return stage1(item).every(function(sd){ var c = cardOf(item, sd); return c && c.s >= 1 && c.f < t0; });
+}
+function sidesOf(item){ var s1 = stage1(item); return unlocked(item) ? s1.concat(stage2(item)) : s1; }
+function seen(item){ return stage1(item).concat(stage2(item)).some(function(sd){ return !!cardOf(item, sd); }); }
+function sideDue(item, sd){ var c = cardOf(item, sd); return !c || c.due <= NOW(); }
+function isLeech(item){ return sidesOf(item).some(function(sd){ var c = cardOf(item, sd); return c && c.lapses >= LEECH; }); }
+function minS(item){ var m = Infinity; sidesOf(item).forEach(function(sd){ var c = cardOf(item, sd); m = Math.min(m, c ? c.s : 0); }); return m === Infinity ? 0 : m; }
+function itemState(item){ if (!seen(item)) return 'fresh'; var m = minS(item); return m >= LEARNED_S ? 'learned' : m >= FIRM_S ? 'firm' : 'learning'; }
+function itemDue(item){ return seen(item) && sidesOf(item).some(function(sd){ return sideDue(item, sd); }); }
+function itemPct(item){ var ss = stage1(item).concat(stage2(item)), sum = 0; ss.forEach(function(sd){ var c = cardOf(item, sd); if (c) sum += Math.min(1, c.s / LEARNED_S); }); return sum / ss.length; }
+function firstSeen(item){ var m = null; stage1(item).forEach(function(sd){ var c = cardOf(item, sd); if (c && c.f && (m == null || c.f < m)) m = c.f; }); return m; }
+function learnWords(){ var k = knownSet(); return DECK.words.filter(function(w){ return !k[w.id]; }).sort(function(a, b){ return a.rank - b.rank; }); }
+function newWordsByDay(){ var m = {}; itemsOfKind('word').forEach(function(it){ var f = firstSeen(it); if (f == null) return; var d = day0(f); m[d] = (m[d] || 0) + 1; }); return m; }
+function newToday(kind){ var t0 = today0(), n = 0; itemsOfKind(kind).forEach(function(it){ var f = firstSeen(it); if (f != null && f >= t0) n++; }); return n; }
+function dueCount(){ var k = knownSet(), n = 0; allItems().forEach(function(it){ if (it.kind === 'word' && k[it.id]) return; if (!isLeech(it) && itemDue(it)) n++; }); return n; }
+function stats(items){
+  var s = {learned: 0, firm: 0, learning: 0, fresh: 0, total: 0, due: 0};
+  items.forEach(function(it){ s.total++; var st = itemState(it); s[st]++; if (itemDue(it)) s.due++; });
+  return s;
+}
+function mix(items){ var s = stats(items), n = s.total || 1; return [['d', s.learned / n], ['c', s.firm / n], ['l', s.learning / n]]; }
+function legend(s){
+  var lg = el('div', 'tr-legend');
+  [['--done', 'learned', s.learned], ['--consolidating', 'firm', s.firm], ['--learning', 'learning', s.learning], ['--notstarted', 'notStarted', s.fresh]].forEach(function(x){
+    var w = el('span'), i = el('em'); i.style.background = 'var(' + x[0] + ')'; w.appendChild(i); w.appendChild(document.createTextNode(L(x[1]) + ' ')); w.appendChild(el('b', null, x[2])); lg.appendChild(w);
+  });
+  return lg;
+}
+
+/* ---------- coverage, streak, history ---------- */
+function understood(){
+  var k = knownSet();
+  itemsOfKind('word').forEach(function(it){
+    var best = 0; ['say-tr', 'pick-tr', 'listen'].forEach(function(sd){ var c = cardOf(it, sd); if (c && c.s > best) best = c.s; });
+    if (best >= KNOWN_S) k[it.id] = true;
+  });
+  return k;
+}
+function coverageNow(){
+  var k = understood(), sp = 0, my = 0;
+  Object.keys(k).forEach(function(id){ sp += (COV.sp || {})[id] || 0; my += (COV.my || {})[id] || 0; });
+  return {spoken: sp, my: COV.myTotal ? my / COV.myTotal : null, known: Object.keys(k).length};
+}
+function activeDays(){ var d = {}; LOG.forEach(function(x){ d[day0(x[0])] = (d[day0(x[0])] || 0) + 1; }); return d; }
+function streak(){
+  var by = activeDays(), n = 0, d = today0();
+  if (!by[d]) d -= DAY;
+  while (by[d]){ n++; d -= DAY; }
+  return n;
+}
+function snapshot(){
+  if (!DECK.words.length) return;
+  var c = coverageNow(), s = stats(itemsOfKind('word')), k = dayKey(NOW());
+  var rec = {sp: Math.round(c.spoken * 1000) / 1000, my: c.my == null ? null : Math.round(c.my * 1000) / 1000, kn: c.known, lr: s.learned};
+  var old = T.hist[k];
+  if (!old || old.sp !== rec.sp || old.my !== rec.my || old.kn !== rec.kn || old.lr !== rec.lr){ T.hist[k] = rec; save(); }
+}
+
+/* ---------- forecast: FSRS says how many days each side needs to reach 21 days of stability ---------- */
+function againRate(){
+  var from = NOW() - 30 * DAY, n = 0, bad = 0;
+  LOG.forEach(function(x){ if (x[0] >= from && x[4] >= 1){ n++; if (x[2] === 1) bad++; } });
+  return n >= 30 ? bad / n : null;
+}
+function itemDaysLeft(item){
+  var mx = 0, now = NOW();
+  stage1(item).concat(stage2(item)).forEach(function(sd){
+    var c = cardOf(item, sd), d = c && c.s >= LEARNED_S ? 0 : FSRS.daysToStable(c, now, T.retention, LEARNED_S) + (c || stage1(item).indexOf(sd) >= 0 ? 0 : 1);
+    if (d > mx) mx = d;
+  });
+  return mx;
+}
+function etaOf(items, pace, freshBefore){
+  var fresh = 0, end = 0;
+  items.forEach(function(it){
+    if (!seen(it)){ var start = (freshBefore + fresh) / pace; fresh++; end = Math.max(end, start + itemDaysLeft(it)); }
+    else end = Math.max(end, itemDaysLeft(it));
+  });
+  if (fresh && !(pace > 0)) return null;
+  return {fresh: fresh, start: fresh ? Math.ceil(freshBefore / pace) : 0, learn: Math.ceil(end)};
+}
+function etaText(e, realistic){
+  if (!e) return L('etaUnknown');
+  if (!e.learn) return L('allLearned');
+  var r = againRate(), parts = [];
+  if (e.fresh && e.start) parts.push(L('startIn') + ' ' + nWord(e.start, 'days'));
+  parts.push(L('learnBy') + ' ' + fmtDay(NOW() + e.learn * DAY));
+  if (realistic && r != null && r > 0.02) parts.push(L('realistic') + ' ' + fmtDay(NOW() + Math.ceil(e.learn * (1 + 2 * r)) * DAY));
+  return parts.join(' · ');
+}
+
+/* ---------- decks ---------- */
+function wordDecks(){
+  var learn = learnWords().map(function(w){ return allItems().filter(function(x){ return x.id === w.id; })[0]; }).filter(Boolean);
+  var n = Math.ceil(learn.length / TRB), out = [];
+  for (var i = 0; i < n; i++){
+    var items = learn.slice(i * TRB, (i + 1) * TRB);
+    out.push({key: 'w' + (i + 1), grp: L('byImportance'), items: items, title: L('wordsN') + ' ' + (i * TRB + 1) + '–' + (i * TRB + items.length), desc: L('group') + ' ' + (i + 1) + ' ' + L('of') + ' ' + n, words: true});
+  }
+  return out;
+}
+function decks(){
+  var out = wordDecks();
+  var ph = itemsOfKind('phrase'); if (ph.length) out.push({key: 'phrases', grp: L('other'), items: ph, title: L('phrases'), desc: L('phrasesDesc')});
+  var gr = itemsOfKind('cloze').concat(itemsOfKind('pair')); if (gr.length) out.push({key: 'grammar', grp: L('other'), items: gr, title: L('grammar'), desc: L('grammarDesc')});
+  var dl = itemsOfKind('dialog'); if (dl.length) out.push({key: 'dialogs', grp: L('other'), items: dl, title: L('dialogs'), desc: L('dialogsDesc')});
+  return out;
+}
+function interleave(entries){
+  // entries: [{it, sides:[…]}] → random order, an item never twice in a row, its sides in order (recognition before recall)
+  var per = entries.map(function(e){ return {it: e.it, fs: e.sides.slice()}; }), q = [], last = null;
+  while (per.some(function(x){ return x.fs.length; })){
+    var cand = per.filter(function(x){ return x.fs.length && x.it !== last; });
+    if (!cand.length) cand = per.filter(function(x){ return x.fs.length; });
+    var pool = []; cand.forEach(function(x){ for (var r = 0; r < x.fs.length; r++) pool.push(x); });
+    var pick = pool[Math.floor(Math.random() * pool.length)];
+    q.push({it: pick.it, f: pick.fs.shift()}); last = pick.it;
+  }
+  return q;
+}
+function queueFor(items, n, opts){
+  opts = opts || {};
+  var k = knownSet(), byRank = function(a, b){ return a.rank - b.rank; };
+  var pool = items.filter(function(it){ return !(it.kind === 'word' && k[it.id]) && !isLeech(it); });
+  var rev = pool.filter(function(it){ return seen(it) && itemDue(it); }).sort(byRank);
+  var fresh = pool.filter(function(it){ return !seen(it); }).sort(byRank);
+  if (opts.smart && !opts.extra){
+    var wLeft = Math.max(0, T.goal - newToday('word')), pLeft = Math.max(0, Math.max(3, Math.round(T.goal / 4)) - newToday('phrase')), oLeft = 5;
+    var startedW = {}; itemsOfKind('word').forEach(function(it){ if (seen(it)) startedW[it.id] = true; });
+    fresh = fresh.filter(function(it){
+      if (it.kind === 'word') return wLeft-- > 0;
+      if (it.kind === 'phrase') return pLeft-- > 0;
+      if (it.kind === 'dialog') return oLeft-- > 0;
+      return (it.words || []).every(function(id){ return startedW[id]; }) && oLeft-- > 0;   // cloze and pairs follow their words
+    });
+  }
+  var out = [], count = 0;
+  function take(list){ var e = [];
+    for (var i = 0; i < list.length && count < n; i++){ var sides = sidesOf(list[i]).filter(function(sd){ return sideDue(list[i], sd); }); if (!sides.length) continue;
+      if (opts.only) sides = sides.filter(function(sd){ return opts.only.indexOf(sd) >= 0; }); if (!sides.length) continue;
+      sides = sides.slice(0, Math.max(1, n - count)); e.push({it: list[i], sides: sides}); count += sides.length; }
+    return e; }
+  out = interleave(take(rev)).concat(interleave(take(fresh)));
+  return out;
+}
+function smartDeck(){ return {key: 'smart', items: allItems(), title: L('smart'), smart: true}; }
+function startRound(dk, opts){
+  opts = opts || {};
+  var q = queueFor(dk.items, ui.size, {smart: dk.smart, extra: dk.extra, only: opts.only});
+  if (!q.length && !dk.smart){   // nothing due: a short practice round of what is already started
+    var started = shuffle(dk.items.filter(seen)).slice(0, 6);
+    q = interleave(started.map(function(it){ return {it: it, sides: stage1(it)}; }));
+    if (opts.only) q = q.filter(function(e){ return opts.only.indexOf(e.f) >= 0; });
+  }
+  if (!q.length) return;
+  play = {deck: dk, queue: q, idx: 0, right: 0, wrong: 0, shown: false, picked: null, t0: NOW(), opts: opts, startedAt: NOW()};
+  render(); scrollTo(0, 0);
+}
+
+/* ---------- grading ---------- */
+var FAST_MS = {word: 6000, phrase: 10000, cloze: 9000, pair: 9000, dialog: 10000};
+function gradeChoice(ok, ms, kind){ return !ok ? 1 : ms <= (FAST_MS[kind] || 8000) ? 3 : 2; }
+function grade(g){
+  var e = play.queue[play.idx], k = key(e.it, e.f), ms = Math.min(120000, NOW() - play.t0);
+  var res = FSRS.review(T.cards[k], g, NOW(), T.retention);
+  res.card.g = g; T.cards[k] = res.card;
+  var entry = [NOW(), k, g, ms, res.elapsed, res.sBefore];
+  LOG.push(entry); LOGNEW.push(entry);
+  if (g === 1){ play.wrong++; play.queue.push({it: e.it, f: e.f, again: true}); } else play.right++;
+  save();
+  play.idx++; play.shown = false; play.picked = null; play.pickedOk = null; play.ch = null; play.typed = null; play.typedNote = null; play.peek = false; play.hold = false; clearTimeout(play.timer); play.t0 = NOW(); render();
+}
+function previewIvl(e, g){
+  var r = FSRS.review(T.cards[key(e.it, e.f)], g, NOW(), T.retention).card, m = (r.due - NOW()) / 60000;
+  return m < 60 ? Math.round(m) + ' ' + L('min') : m < 1440 ? Math.round(m / 60) + ' ' + L('hrs') : Math.round(m / 1440) + ' ' + L('dShort');
+}
+
+/* ---------- card content ---------- */
+var POS_KEY = {noun: 'posNoun', verb: 'posVerb', adj: 'posAdj', adv: 'posAdv', pron: 'posPron', prep: 'posPrep', conj: 'posConj', part: 'posPart', num: 'posNum', interj: 'posInterj', phrase: 'posPhrase'};
+function wordTag(w){
+  var t = [];
+  if (w.pos) t.push(L(POS_KEY[w.pos] || w.pos));
+  if (w.gender) t.push(L('g_' + w.gender));
+  if (w.asp) t.push(L('asp_' + w.asp));
+  return t.join(' · ');
+}
+function formsLine(w){
+  if (!w.forms) return '';
+  return Object.keys(w.forms).map(function(k){ return L('f_' + k) + ' ' + srx(w.forms[k]); }).join(' · ');
+}
+/* which language a card shows and which it is answered in: [shown, answer] */
+var FLAG = {sr: '🇷🇸', ru: '🇷🇺', uk: '🇺🇦', en: '🇬🇧'};
+function cardLangs(f){
+  var tr = TRL;
+  if (f === 'pick-sr' || f === 'say-sr' || f === 'type' || f === 'say-ph' || f === 'type-ph' || f === 'aspect') return [tr, 'sr'];
+  if (f === 'cloze' || f === 'reply') return ['sr', 'sr'];
+  return ['sr', tr];
+}
+function questionOf(e){
+  var it = e.it, f = e.f, w = it.it;
+  switch (f){
+    case 'pick-tr': return {lbl: L('qPickTr'), q: srx(w.sr), sr: w.sr, hint: wordTag(w), pick: 'tr'};
+    case 'listen': return {lbl: L('qListen'), q: '🔊', sr: w.sr, listen: true, pick: 'tr'};
+    case 'pick-sr': return {lbl: L('qPickSr'), q: shortTr(w.tr), hint: wordTag(w), pick: 'sr', say: [shortTr(w.tr), TRL]};
+    case 'say-tr': return {lbl: L('qSayTr'), q: srx(w.sr), sr: w.sr, hint: wordTag(w)};
+    case 'say-sr': return {lbl: L('qSaySr'), q: shortTr(w.tr), hint: wordTag(w), say: [shortTr(w.tr), TRL]};
+    case 'type': return {lbl: L('qType'), q: shortTr(w.tr), hint: wordTag(w), type: w.sr, say: [shortTr(w.tr), TRL]};
+    case 'listen-ph': return {lbl: L('qListenPh'), q: '🔊', sr: w.sr, listen: true, pick: 'tr', small: true};
+    case 'read-ph': return {lbl: L('qReadPh'), q: srx(w.sr), sr: w.sr, pick: 'tr', small: true};
+    case 'say-ph': return {lbl: L('qSayPh'), q: w.tr, small: true, say: [w.tr, TRL]};
+    case 'type-ph': return {lbl: L('qTypePh'), q: w.tr, small: true, type: w.sr, say: [w.tr, TRL]};
+    case 'cloze': return {lbl: L('qCloze'), q: srx(w.sr.replace(/\{[^}]*\}/, '____')), small: true, hint: (w.hint ? srx(w.hint) + ' · ' : '') + w.tr, pick: 'form'};
+    case 'aspect': return {lbl: L('qAspect'), q: shortTr(it.a.tr) + '  /  ' + shortTr(it.b.tr), small: true, hint: L('aspectHint')};
+    case 'reply': return {lbl: L('qReply') + ' · ' + ((SIT_BY_ID[it.sit] || {}).title || ''), q: srx(it.they.sr), sr: it.they.sr, small: true, pick: 'reply'};
+  }
+  return {lbl: '', q: ''};
+}
+/* a translation as a choice: without the example in brackets ("из (Ja sam iz Rusije — …)" → "из"),
+   so options stay short and do not give the answer away; the full text is on the answer side */
+function shortTr(t){
+  // only the Russian part: cut at the first Latin letter (a Serbian example), drop the dangling bracket / dash
+  var full = String(t || ''), m = full.search(/[a-zčćšžđ]/i), s = m < 0 ? full : full.slice(0, m);
+  if ((s.match(/\(/g) || []).length > (s.match(/\)/g) || []).length) s = s.slice(0, s.lastIndexOf('('));
+  s = s.replace(/[\s,;:—–\-\/(]+$/, '').trim();
+  return s || full;
+}
+function choicesOf(e){
+  var it = e.it, f = e.f, w = it.it, right, pool = [];
+  if (f === 'pick-tr' || f === 'listen' || f === 'pick-sr'){
+    var field = f === 'pick-sr' ? 'sr' : 'tr';
+    var cut = field === 'tr' ? shortTr : function(x){ return x; };
+    right = cut(w[field]);
+    // no near-synonyms among the options: a distractor whose meaning shares a word with the answer's (ovo / to — «это») is skipped
+    var wordsOf = function(t){ return shortTr(t).toLowerCase().split(/[^а-яёa-zčćšžđ]+/i).filter(function(x){ return x.length > 1; }); };
+    var mine = wordsOf(w.tr);
+    var clash = function(o){ return wordsOf(o.tr).some(function(x){ return mine.indexOf(x) >= 0; }); };
+    var same = DECK.words.filter(function(o){ return o.id !== w.id && o.pos === w.pos && o[field] !== right && !clash(o); });
+    var near = same.filter(function(o){ return Math.abs(o.rank - w.rank) < 120; });
+    pool = shuffle((near.length >= 5 ? near : same.length >= 5 ? same : DECK.words.filter(function(o){ return o.id !== w.id && !clash(o); })).slice()).map(function(o){ return cut(o[field]); });
+  } else if (f === 'listen-ph' || f === 'read-ph'){
+    right = w.tr; pool = shuffle(DECK.phrases.filter(function(o){ return o.id !== w.id; }).map(function(o){ return o.tr; }));
+  } else if (f === 'cloze'){
+    var m = /\{([^}]*)\}/.exec(w.sr); right = m ? m[1] : '';
+    var forms = (w.opts || []).concat(it.w.forms ? Object.keys(it.w.forms).map(function(k){ return it.w.forms[k]; }) : []).concat([it.w.sr]);
+    pool = shuffle(forms.filter(function(x){ return x && x.indexOf('/') < 0 && normSr(x) !== normSr(right); }));
+  } else if (f === 'reply'){
+    right = it.me.sr;
+    var mine = [], other = [];
+    itemsOfKind('dialog').forEach(function(o){ if (o.id === it.id || o.me.sr === right) return; (o.sit === it.sit ? mine : other).push(o.me.sr); });
+    pool = shuffle(mine).concat(shuffle(other));
+  } else return null;
+  var n = f === 'cloze' || f === 'reply' || f === 'listen-ph' || f === 'read-ph' ? 4 : 6, uniq = [right], seenT = {}; seenT[normSr(right)] = 1;
+  pool.forEach(function(x){ if (uniq.length < n && x && !seenT[normSr(x)]){ seenT[normSr(x)] = 1; uniq.push(x); } });
+  if (uniq.length < 2) return null;
+  return {right: right, opts: shuffle(uniq)};
+}
+function answerBlock(e){
+  var it = e.it, box = el('div', 'tr-ans');
+  if (it.kind === 'word'){
+    var w = it.it, h = el('div', 'tr-a'); h.appendChild(document.createTextNode(srx(w.accent && !ui.cyr ? w.accent : w.sr))); h.appendChild(spk(w.sr, 'sr')); box.appendChild(h);
+    box.appendChild(el('div', 'tr-tr', w.tr));
+    var tag = wordTag(w); if (tag) box.appendChild(el('div', 'tr-tag', tag));
+    var fl = formsLine(w); if (fl) box.appendChild(el('div', 'tr-forms', fl));
+    if (w.pair && WORD_BY_ID[w.pair]) box.appendChild(el('div', 'tr-forms', L('pairWith') + ' ' + srx(WORD_BY_ID[w.pair].sr) + ' — ' + WORD_BY_ID[w.pair].tr));
+    if (w.note) box.appendChild(el('div', 'tr-note', w.note));
+    var ex = (w.ex || []); if (ex.length){ var x = ex[Math.floor(Math.random() * ex.length)], d = el('div', 'tr-ex'), b = el('b', null, srx(x.sr)); b.appendChild(spk(x.sr, 'sr')); d.appendChild(b); d.appendChild(el('div', null, x.tr)); if (x.about) d.appendChild(el('span', 'tr-src', L('ex_' + x.about))); box.appendChild(d); }
+    if ((w.sit || []).length){ var chips = el('div', 'chips'); w.sit.forEach(function(s){ if (SIT_BY_ID[s]) chips.appendChild(el('span', 'chip', SIT_BY_ID[s].title)); }); box.appendChild(chips); }
+  } else if (it.kind === 'phrase' || it.kind === 'cloze'){
+    var p = it.it, full = p.sr.replace(/[{}]/g, ''), a = el('div', 'tr-a small'); a.appendChild(document.createTextNode(srx(full))); a.appendChild(spk(full, 'sr')); box.appendChild(a);
+    box.appendChild(el('div', 'tr-tr', p.tr));
+    if (p.note) box.appendChild(el('div', 'tr-note', p.note));
+    if (it.kind === 'cloze' && p.case) box.appendChild(el('div', 'tr-tag', L('case_' + p.case)));
+  } else if (it.kind === 'pair'){
+    [it.a, it.b].forEach(function(w){ var r = el('div', 'tr-a small'); r.appendChild(document.createTextNode(srx(w.sr) + ' — ' + L('asp_' + (w.asp || '')))); r.appendChild(spk(w.sr, 'sr')); box.appendChild(r);
+      box.appendChild(el('div', 'tr-tr', w.tr)); var x = (w.ex || [])[0]; if (x){ var d = el('div', 'tr-ex'); d.appendChild(el('b', null, srx(x.sr))); d.appendChild(el('div', null, x.tr)); box.appendChild(d); } });
+  } else if (it.kind === 'dialog'){
+    [['they', it.they], ['me', it.me]].forEach(function(x){ var r = el('div', 'dl-line ' + x[0]); var s = el('b', null, srx(x[1].sr)); s.appendChild(spk(x[1].sr, 'sr')); r.appendChild(s); r.appendChild(el('div', null, x[1].tr)); box.appendChild(r); });
+  }
+  return box;
+}
+function answerSpeech(e){
+  var it = e.it;
+  // the answer is spoken in its own language: Serbian shown → the Russian meaning; Russian shown → Serbian
+  if (it.kind === 'word') return e.f === 'pick-tr' || e.f === 'say-tr' || e.f === 'listen' ? [shortTr(it.it.tr), TRL] : [it.it.sr, 'sr'];
+  if (it.kind === 'phrase') return e.f === 'listen-ph' || e.f === 'read-ph' ? [it.it.tr, TRL] : [it.it.sr, 'sr'];
+  if (it.kind === 'cloze') return [it.it.sr.replace(/[{}]/g, ''), 'sr'];
+  if (it.kind === 'pair') return [it.a.sr + ', ' + it.b.sr, 'sr'];
+  if (it.kind === 'dialog') return [it.me.sr, 'sr'];
+  return null;
+}
+function questionSpeech(e, q){ if (q.listen || q.sr) return [q.sr, 'sr']; if (q.say) return q.say; return null; }
+
+/* ===== trainer_ui.js ===== */
+/* ---------- Trainer tab: overview ---------- */
+function ring(size, frac, label, cls){
+  var NS = 'http://www.w3.org/2000/svg', sw = Math.max(4, Math.round(size / 9)), r = (size - sw) / 2, c = 2 * Math.PI * r;
+  var svg = document.createElementNS(NS, 'svg'); svg.setAttribute('width', size); svg.setAttribute('height', size); svg.setAttribute('viewBox', '0 0 ' + size + ' ' + size);
+  svg.setAttribute('class', 'ring' + (frac >= 1 ? ' full' : '') + (cls ? ' ' + cls : '')); svg.setAttribute('role', 'img'); svg.setAttribute('aria-label', label);
+  function circ(k){ var e = document.createElementNS(NS, 'circle'); e.setAttribute('cx', size / 2); e.setAttribute('cy', size / 2); e.setAttribute('r', r); e.setAttribute('fill', 'none'); e.setAttribute('stroke-width', sw); e.setAttribute('class', k); return e; }
+  svg.appendChild(circ('ring-bg'));
+  if (frac > 0){ var fg = circ('ring-fg'); fg.setAttribute('stroke-linecap', 'round'); fg.setAttribute('stroke-dasharray', c); fg.setAttribute('stroke-dashoffset', c * (1 - Math.max(0, Math.min(1, frac)))); fg.setAttribute('transform', 'rotate(-90 ' + size / 2 + ' ' + size / 2 + ')'); svg.appendChild(fg); }
+  var tx = document.createElementNS(NS, 'text'); tx.setAttribute('x', '50%'); tx.setAttribute('y', '50%'); tx.setAttribute('text-anchor', 'middle'); tx.setAttribute('dominant-baseline', 'central'); tx.setAttribute('class', 'ring-t'); tx.textContent = label; svg.appendChild(tx);
+  return svg;
+}
+function drawGoal(){
+  var by = newWordsByDay(), t0 = today0(), done = by[t0] || 0, box = el('div', 'goal');
+  var big = el('div', 'goal-ring'); big.appendChild(ring(120, done / T.goal, done + '/' + T.goal));
+  var cap = el('div', 'goal-cap');
+  cap.appendChild(el('b', null, done >= T.goal ? '✓ ' + L('goalDone') : L('goalToday') + ': ' + done + ' / ' + T.goal));
+  if (done < T.goal) cap.appendChild(el('span', 'meta', L('goalLeft') + ' ' + (T.goal - done)));
+  var st = streak(); if (st) cap.appendChild(el('span', 'goal-streak', '🔥 ' + L('streak') + ': ' + nWord(st, 'days')));
+  big.appendChild(cap); box.appendChild(big);
+  var wk = el('div', 'goal-week'), row = el('div', 'goal-days'), act = activeDays();
+  wk.appendChild(el('div', 'goal-wk-h', L('goalWeek')));
+  for (var i = 6; i >= 0; i--){
+    var day = t0 - i * DAY, n = by[day] || 0, cell = el('div', 'goal-day' + (i === 0 ? ' today' : ''));
+    cell.appendChild(ring(40, n / T.goal, String(n))); cell.title = (act[day] || 0) + ' ' + L('answers');
+    cell.appendChild(el('span', null, new Date(day).toLocaleDateString(TRL, {weekday: 'short'}))); row.appendChild(cell);
+  }
+  wk.appendChild(row); box.appendChild(wk);
+  var adj = el('label', 'goal-adj'), val = el('b', null, nWord(T.goal, 'wordsPerDay'));
+  adj.appendChild(el('span', null, L('goalLabel') + ': ')); adj.appendChild(val);
+  var rg = el('input'); rg.type = 'range'; rg.min = 5; rg.max = 40; rg.step = 5; rg.value = Math.min(40, Math.max(5, T.goal)); rg.setAttribute('aria-label', L('goalLabel'));
+  rg.oninput = function(){ val.textContent = nWord(+rg.value, 'wordsPerDay'); };
+  rg.onchange = function(){ T.goal = +rg.value; save(); rerenderKeepScroll(); };
+  adj.appendChild(rg); box.appendChild(adj);
+  return box;
+}
+function renderTrainer(main){
+  if (play) return renderPlay(main);
+  var all = decks(), words = itemsOfKind('word').filter(function(it){ return !knownSet()[it.id]; });
+  main.appendChild(el('h2', 'tr-h', L('trTitle')));
+  main.appendChild(el('p', 'meta tr-intro', L('trIntro')));
+  main.appendChild(drawGoal());
+  var s = stats(allItems().filter(function(it){ return !(it.kind === 'word' && knownSet()[it.id]); })), cov = coverageNow();
+  var tiles = el('div', 'tr-stats');
+  [[pct(cov.spoken), L('covSpokenLong')], [s.learned, L('trLearned')], [s.firm + s.learning, L('trInProgress')], [s.due, L('dueNow')]].forEach(function(x){
+    var c = el('div', 'tr-stat'); c.appendChild(el('b', null, x[0])); c.appendChild(el('span', null, x[1])); tiles.appendChild(c); });
+  main.appendChild(tiles);
+  // the main button: what is due, by importance, then new words up to today's goal
+  var sm = smartDeck(), inRound = queueFor(sm.items, ui.size, {smart: true}).length;
+  if (!inRound) sm.extra = true;
+  var big = el('button', 'tr-smart' + (sm.extra ? ' extra' : '')); big.type = 'button';
+  var r = el('div', 'row'), l = el('div');
+  l.appendChild(el('h3', null, sm.extra ? L('goalDone') + ' · ' + L('extraRound') : L('smart'))); l.appendChild(el('p', null, sm.extra ? L('extraDesc') : L('smartDesc')));
+  var go = el('div', 'go'); go.appendChild(el('b', null, sm.extra ? Math.min(ui.size, queueFor(sm.items, ui.size, {smart: true, extra: true}).length) : inRound)); go.appendChild(document.createTextNode(L('cardsGo')));
+  r.appendChild(l); r.appendChild(go); big.appendChild(r); big.onclick = function(){ startRound(sm); }; main.appendChild(big);
+  var modes = el('div', 'tr-modes');
+  if (listenOn()) modes.appendChild(btn('btn', '🎧 ' + L('listenOnly'), function(){ startRound({key: 'listen', items: allItems().filter(seen)}, {only: ['listen', 'listen-ph']}); }));
+  modes.appendChild(btn('btn', '🗣 ' + L('sayOnly'), function(){ startRound({key: 'say', items: allItems().filter(seen)}, {only: ['say-sr', 'say-ph', 'aspect', 'type', 'type-ph']}); }));
+  main.appendChild(modes);
+  // overall forecast
+  var wp = T.goal, fc = etaOf(words, wp, 0), ov = el('div', 'tr-overall');
+  var prog = 0; words.forEach(function(it){ prog += itemPct(it); }); prog = words.length ? prog / words.length : 0;
+  ov.appendChild(el('div', 'tr-ov-h', L('overall') + ' ' + Math.round(prog * 100) + '%'));
+  var ob = el('div', 'bar tr-ov-bar'), oi = el('i', 'd'); oi.style.width = Math.round(prog * 100) + '%'; ob.appendChild(oi); ov.appendChild(ob);
+  ov.appendChild(el('div', 'meta', L('wordsN') + ' (' + words.length + '): ' + etaText(fc, true)));
+  ov.appendChild(el('div', 'tr-note-s', L('etaNote')));
+  main.appendChild(ov);
+  var list = el('div', 'tr-decks'), grp = null, before = 0;
+  all.forEach(function(dk){
+    if (dk.grp !== grp){ grp = dk.grp; list.appendChild(el('div', 'tr-grp', grp)); }
+    var st = stats(dk.items), b = el('button', 'tr-deck' + (st.learned === st.total ? ' done' : '')); b.type = 'button';
+    var row = el('div', 'row'), left = el('div');
+    left.appendChild(el('h3', null, dk.title)); left.appendChild(el('p', null, dk.desc + ' · ' + nWord(st.total, 'cards')));
+    var g2 = el('div', 'go' + (st.due ? '' : ' zero')); g2.appendChild(el('b', null, st.due)); g2.appendChild(document.createTextNode(st.due ? L('due') : L('nothingDue')));
+    row.appendChild(left); row.appendChild(g2); b.appendChild(row);
+    b.appendChild(bar(mix(dk.items))); b.appendChild(legend(st));
+    var e = dk.words ? etaOf(dk.items, wp, before) : etaOf(dk.items, Math.max(1, wp / 4), 0); if (dk.words && e) before += e.fresh;
+    var p = 0; dk.items.forEach(function(it){ p += itemPct(it); });
+    b.appendChild(el('div', 'tr-eta', L('progress') + ' ' + Math.round(p / Math.max(1, dk.items.length) * 100) + '% · ' + etaText(e)));
+    b.onclick = function(){ startRound(dk); };
+    list.appendChild(b);
+  });
+  main.appendChild(list);
+  main.appendChild(trainerOptions());
+}
+function trainerOptions(){
+  var opts = el('details', 'tr-opts'); opts.appendChild(el('summary', null, L('settings')));
+  var row = el('div', 'opt-row');
+  var lab = el('label', null, L('size') + ' '), sel = el('select');
+  [10, 20, 30, 50].forEach(function(v){ var o = el('option', null, String(v)); o.value = v; o.selected = v === ui.size; sel.appendChild(o); });
+  sel.onchange = function(){ ui.size = +sel.value; lsSet('pl.size', ui.size); }; lab.appendChild(sel); row.appendChild(lab);
+  var rl = el('label', null, L('retention') + ' '), rs = el('select');
+  [[0.85, '85%'], [0.9, '90%'], [0.95, '95%']].forEach(function(x){ var o = el('option', null, x[1] + ' — ' + L('ret_' + Math.round(x[0] * 100))); o.value = x[0]; o.selected = Math.abs(T.retention - x[0]) < 0.001; rs.appendChild(o); });
+  rs.onchange = function(){ T.retention = +rs.value; save(); }; rl.appendChild(rs); row.appendChild(rl);
+  opts.appendChild(row);
+  [['typing', L('optTyping')]].forEach(function(x){
+    var lb = el('label', 'opt-check'), c = el('input'); c.type = 'checkbox'; c.checked = !!T[x[0]];
+    c.onchange = function(){ T[x[0]] = c.checked; save(); rerenderKeepScroll(); }; lb.appendChild(c); lb.appendChild(document.createTextNode(' ' + x[1])); opts.appendChild(lb);
+  });
+  opts.appendChild(ttsControls());
+  if (window.POLAKO_SITE) opts.appendChild(storageControls());   // the public site: browser or GitHub
+  var rsb = btn('linkbtn', L('reset')), armed = false;
+  rsb.onclick = function(){ if (!armed){ armed = true; rsb.textContent = L('resetSure'); setTimeout(function(){ armed = false; rsb.textContent = L('reset'); }, 4000); return; }
+    T.cards = {}; T.reset = NOW(); save(); flush(); render(); };
+  opts.appendChild(rsb);
+  return opts;
+}
+
+/* ---------- a round ---------- */
+function endRound(){ play = null; snapshot(); flush(); render(); }
+function renderPlay(main){
+  var p = play, box = el('div', 'tr-play');
+  var hud = el('div', 'tr-hud'); hud.appendChild(btn('btn', '← ' + L('toDecks'), endRound));
+  if (p.idx < p.queue.length){
+    hud.appendChild(el('span', 'tr-pill', (p.idx + 1) + ' / ' + p.queue.length));
+    hud.appendChild(el('span', 'tr-pill g', '✓ ' + p.right)); hud.appendChild(el('span', 'tr-pill r', '✗ ' + p.wrong));
+  }
+  box.appendChild(hud);
+  if (p.idx >= p.queue.length){
+    snapshot();
+    var c = el('div', 'tr-done'), mins = Math.max(1, Math.round((NOW() - p.startedAt) / 60000));
+    c.appendChild(el('h3', null, L('endTitle')));
+    c.appendChild(el('p', null, L('right') + ': ' + p.right + ' · ' + L('wrong') + ': ' + p.wrong + ' · ' + mins + ' ' + L('min')));
+    var cov = coverageNow(); c.appendChild(el('p', 'meta', L('covSpokenLong') + ': ' + pct(cov.spoken) + (cov.my != null ? ' · ' + L('covMy') + ': ' + pct(cov.my) : '')));
+    var left = queueFor(p.deck.items, ui.size, {smart: p.deck.smart}).length;
+    c.appendChild(el('p', 'meta', left ? L('dueNow') + ': ' + left : L('allDoneTomorrow')));
+    var a = el('div', 'tr-acts');
+    a.appendChild(btn('btn primary', left ? L('again') : L('toDecks'), function(){ if (left) startRound(p.deck, p.opts); else endRound(); }, 'next'));
+    if (left) a.appendChild(btn('btn', L('toDecks'), endRound));
+    c.appendChild(a); box.appendChild(c); main.appendChild(box); flush(); return;
+  }
+  box.appendChild(bar([['d', p.idx / p.queue.length]]));
+  var e = p.queue[p.idx], it = e.it, q = questionOf(e), ch = q.pick ? (p.ch || (p.ch = choicesOf(e))) : null;
+  if (q.pick && !ch) q.pick = null;   // too few options: fall back to self-grading
+  var c2 = el('div', 'tr-box' + (p.picked ? (p.pickedOk ? ' ok' : ' bad') : ''));
+  var lg = cardLangs(e.f);
+  // only a big flag: the language of what is shown (the answer's flag is above the options)
+  var fl = el('div', 'tr-flag', FLAG[lg[0]] || ''); fl.title = q.lbl; fl.setAttribute('aria-label', q.lbl); c2.appendChild(fl);
+  if (e.again) c2.appendChild(el('div', 'tr-lbl', L('againMark')));
+  var qEl = el('div', 'tr-q' + (q.small ? ' small' : '') + (q.listen ? ' listen' : ''));
+  if (q.listen){ var lb = btn('listen-btn', '🔊', function(){ speak(q.sr, 'sr'); }); lb.setAttribute('aria-label', L('ttsPlay')); qEl.appendChild(lb);
+    // the written word: after the answer, or on request (no voice, nothing heard)
+    if (p.shown || p.peek) qEl.appendChild(el('div', 'tr-q small', srx(q.sr)));
+    else qEl.appendChild(btn('linkbtn peek', L('showWord'), function(){ p.peek = true; render(); })); }
+  else { qEl.appendChild(document.createTextNode(q.q)); var qs = questionSpeech(e, q); if (qs && !q.type) qEl.appendChild(spk(qs[0], qs[1])); }
+  c2.appendChild(qEl);
+  if (q.hint) c2.appendChild(el('div', 'tr-hint', q.hint));
+  if (p.shown) c2.appendChild(answerBlock(e));
+  box.appendChild(c2);
+  var below = el('div');
+  below.appendChild(el('div', 'tr-flag ans', '↓ ' + (FLAG[lg[1]] || '')));
+  if (q.pick){
+    var chs = el('div', 'tr-choices' + (q.small || q.pick === 'form' ? ' wide' : ''));
+
+    ch.opts.forEach(function(o, i){
+      var b = btn('tr-choice', (i + 1) + '. ' + (q.pick === 'tr' ? o : srx(o)), null, 'opt' + (i + 1));
+      if (p.picked){ b.disabled = true; if (o === ch.right) b.className = 'tr-choice ok'; else if (o === p.picked) b.className = 'tr-choice no'; }
+      b.onclick = function(){
+        if (p.picked) return;
+        var ok = o === ch.right, idx = p.idx, ms = NOW() - p.t0;
+        p.picked = o; p.pickedOk = ok; p.shown = true; p.spoken = idx + ':1'; p.g = gradeChoice(ok, ms, it.kind);
+        render(); sfx(ok ? 'ok' : 'bad');
+        function next(){
+          if (!TTS_CFG.next || play !== p || p.idx !== idx || !p.picked || p.hold) return;
+          var nb = document.querySelector('.tr-play [data-key="next"]'), wait = Math.round((ok ? TTS_CFG.pauseOk : TTS_CFG.pauseBad) * 1000);
+          if (nb){ nb.style.setProperty('--auto', wait + 'ms'); nb.classList.add('counting'); }
+          p.timer = setTimeout(function(){ if (play === p && p.idx === idx && p.picked && !p.hold){ p.ch = null; grade(p.g); } }, wait);
+        }
+        var sa = answerSpeech(e);
+        setTimeout(function(){ if (TTS_CFG.auto && sa) speak(sa[0], sa[1], next); else next(); }, ok ? 150 : 380);
+      };
+      chs.appendChild(b);
+    });
+    below.appendChild(chs);
+    if (p.shown){
+      var a1 = el('div', 'tr-acts'); a1.appendChild(btn('btn primary wide', L('next'), function(){ p.ch = null; p.hold = false; clearTimeout(p.timer); grade(p.g); }, 'next'));
+      // stay on this card: stops the countdown (and the voice) until "Next"
+      if (TTS_CFG.next && !p.hold) a1.appendChild(btn('btn', '⏸ ' + L('holdCard'), function(){ p.hold = true; clearTimeout(p.timer); try { speechSynthesis.cancel(); } catch (e){} render(); }, 'hold'));
+      below.appendChild(a1);
+    }
+    below.appendChild(el('p', 'tr-keys', p.shown ? L('keysNext') : L('keysPick')));
+    // the pause before the next card, adjustable without leaving the round
+    var ap = el('div', 'tr-auto'), tg = el('label', 'opt-check'), cb = el('input'); cb.type = 'checkbox'; cb.checked = TTS_CFG.next;
+    cb.onchange = function(){ TTS_CFG.next = cb.checked; ttsSave(); if (!cb.checked){ clearTimeout(p.timer); p.hold = true; } render(); };
+    tg.appendChild(cb); tg.appendChild(document.createTextNode(' ' + L('ttsNext'))); ap.appendChild(tg);
+    if (TTS_CFG.next){ ap.appendChild(pauseSlider('pauseOk', L('ttsPauseOk'))); ap.appendChild(pauseSlider('pauseBad', L('ttsPauseBad'))); }
+    below.appendChild(ap);
+  } else if (q.type && !p.shown){
+    var form = el('form', 'tr-type'), inp = el('input'); inp.type = 'text'; inp.autocomplete = 'off'; inp.spellcheck = false; inp.setAttribute('autocapitalize', 'off'); inp.placeholder = L('typeHere');
+    form.appendChild(inp); form.appendChild(btn('btn primary', L('check')));
+    form.onsubmit = function(ev){
+      ev.preventDefault(); var v = inp.value.trim(); if (!v) return;
+      var right = normSr(q.type), got = normSr(v), ms = NOW() - p.t0, g;
+      if (got === right) g = ms < 9000 ? 3 : 2;
+      else if (fold(got) === fold(right)) { g = 2; p.typedNote = L('typeDiacritics'); }
+      else if (right.length >= 5 && lev(got, right) <= 1) { g = 2; p.typedNote = L('typeAlmost'); }
+      else g = 1;
+      p.typed = v; p.g = g; p.shown = true; p.picked = v; p.pickedOk = g > 1; sfx(g > 1 ? 'ok' : 'bad'); render();
+      var sa = answerSpeech(e); if (TTS_CFG.auto && sa) speak(sa[0], sa[1]);
+    };
+    below.appendChild(form); setTimeout(function(){ inp.focus(); }, 30);
+    below.appendChild(el('p', 'tr-keys', L('keysType')));
+  } else if (q.type){
+    below.appendChild(el('div', 'tr-typed ' + (p.pickedOk ? 'ok' : 'no'), L('youTyped') + ': ' + p.typed + (p.typedNote ? ' · ' + p.typedNote : '')));
+    var a4 = el('div', 'tr-acts'); a4.appendChild(btn('btn primary wide', L('next'), function(){ grade(p.g); }, 'next')); below.appendChild(a4);
+  } else if (!p.shown){
+    var a2 = el('div', 'tr-acts'); a2.appendChild(btn('btn primary wide', L('show'), function(){ p.shown = true; render(); }, 'show')); below.appendChild(a2);
+    below.appendChild(el('p', 'tr-keys', L('keysShow')));
+  } else {
+    var a3 = el('div', 'tr-grades');
+    [[1, 'gAgain', 'bad'], [2, 'gHard', 'hard'], [3, 'gGood', 'good'], [4, 'gEasy', 'easy']].forEach(function(x){
+      var b = btn('btn grade ' + x[2], null, function(){ sfx(x[0] > 1 ? 'ok' : 'bad'); grade(x[0]); }, 'g' + x[0]);
+      b.appendChild(el('b', null, x[0] + ' · ' + L(x[1]))); b.appendChild(el('span', null, previewIvl(e, x[0]))); a3.appendChild(b);
+    });
+    below.appendChild(a3);
+    below.appendChild(el('p', 'tr-keys', L('keysGrade')));
+  }
+  if (TTS.ok && canSpeak('sr')) below.appendChild(el('p', 'tr-keys', L('keysSpeak')));
+  box.appendChild(below); main.appendChild(box);
+  // auto-play once per card side: the question when it opens (a listening card plays its sound), the answer when revealed
+  var k = p.idx + ':' + (p.shown ? 1 : 0);
+  if (TTS_CFG.auto && p.spoken !== k){ p.spoken = k; var s = p.shown ? answerSpeech(e) : (q.listen ? [q.sr, 'sr'] : questionSpeech(e, q));
+    if (s && s[0] && !(p.shown && q.pick)) setTimeout(function(){ if (play === p && p.idx === +k.split(':')[0]) speak(s[0], s[1]); }, 120); }
+}
+function lev(a, b){
+  var m = a.length, n = b.length, d = []; for (var i = 0; i <= m; i++){ d[i] = [i]; } for (var j = 1; j <= n; j++) d[0][j] = j;
+  for (i = 1; i <= m; i++) for (j = 1; j <= n; j++) d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+  return d[m][n];
+}
+document.addEventListener('keydown', function(ev){
+  if (!play || ui.tab !== 'train' || /INPUT|SELECT|TEXTAREA/.test((ev.target || {}).tagName || '')) return;
+  var q = function(k){ return document.querySelector('.tr-play [data-key="' + k + '"]'); };
+  if (ev.key === 'Escape'){ endRound(); return; }
+  if (ev.key === ' ' || ev.key === 'Enter'){ var b = q('next') || q('show') || q('g3'); if (b){ ev.preventDefault(); b.click(); } return; }
+  if (/^[1-6]$/.test(ev.key)){ var o = q('opt' + ev.key) || q('g' + ev.key); if (o && !o.disabled){ ev.preventDefault(); o.click(); } return; }
+  if ((ev.key === 'v' || ev.key === 'V' || ev.key === 'м' || ev.key === 'М') && play.idx < play.queue.length){
+    var e = play.queue[play.idx], qq = questionOf(e), s = play.shown ? answerSpeech(e) : (qq.listen ? [qq.sr, 'sr'] : questionSpeech(e, qq));
+    if (s){ ev.preventDefault(); speak(s[0], s[1]); } }
+});
+
+/* ===== views.js ===== */
+function cap(t){ t = String(t || ''); return t.charAt(0).toUpperCase() + t.slice(1); }
+/* ---------- Vocabulary tab: the "I know it" check ----------
+   First a quick check by frequency band: 10 words of a band, spread evenly by rank, WITHOUT the
+   translation (it is a check, not a hint); knows ≥ 9 of 10 → the whole band is known except the
+   unticked words. Then batches of 50 with the translation and an "I know" box. Only the words not
+   marked go into the trainer; a known word can be sent back to the trainer from the Deck tab. */
+var VB = 50, QN = 10, QPASS = 0.9;
+function wBand(w){ if (w.band) return w.band; var z = w.zipf || 0; return z >= 5.3 ? 1 : z >= 4.5 ? 2 : z >= 3.5 ? 3 : 4; }
+function qDone(b){ var r = V['q' + b]; return !!(r && !r.reset); }
+function qSample(list){ if (list.length <= QN) return list.slice(); var out = []; for (var i = 0; i < QN; i++) out.push(list[Math.floor((i + 0.5) * list.length / QN)]); return out; }
+function quickBands(words){
+  var by = {}; words.forEach(function(w){ var b = wBand(w); (by[b] = by[b] || []).push(w); });
+  return Object.keys(by).map(Number).sort().filter(function(b){ return by[b].length >= QN * 2; }).map(function(b){ return {b: b, words: by[b]}; });
+}
+function renderQuick(main, bands){
+  var sec = el('div', 'card qcheck'); sec.appendChild(el('h3', null, L('qTitle'))); sec.appendChild(el('p', 'meta', L('qIntro')));
+  var open = bands.filter(function(x){ return !qDone(x.b); })[0];
+  bands.forEach(function(x){
+    var r = V['q' + x.b], row = el('div', 'qrow');
+    row.appendChild(el('b', null, cap(L('band' + x.b))));
+    row.appendChild(el('span', 'meta', nWord(x.words.length, 'wordsN3')));
+    if (qDone(x.b)){
+      row.appendChild(el('span', r.pass ? 'tag ok' : 'tag', r.skipped ? L('qSkipped') : r.pass ? L('qPass') : L('qFail')));
+      row.appendChild(btn('linkbtn', L('qRedo'), async function(){ await saveVocab('q' + x.b, {reset: true, known: [], unknown: [], at: NOW()}); render(); }));
+    }
+    sec.appendChild(row);
+  });
+  if (open){
+    var marks = {}, box = el('div', 'qbox');
+    qSample(open.words).forEach(function(w){
+      var r = el('label', 'vrow'), c = el('input'); c.type = 'checkbox'; marks[w.id] = c;
+      r.appendChild(c); r.appendChild(el('span', 'sr', srx(w.sr))); r.appendChild(spkPair(w.sr, w.tr)); r.appendChild(el('span', 'tr', w.tr)); box.appendChild(r);
+    });
+    sec.appendChild(el('p', 'meta', cap(L('band' + open.b)) + ' — ' + L('qHint')));
+    sec.appendChild(box);
+    var acts = el('div', 'acts');
+    acts.appendChild(btn('btn primary', L('qCheck'), async function(){
+      var ids = Object.keys(marks), kn = ids.filter(function(id){ return marks[id].checked; });
+      var pass = kn.length >= Math.ceil(ids.length * QPASS);
+      var known = pass ? open.words.map(function(w){ return w.id; }).filter(function(id){ return !marks[id] || marks[id].checked; }) : kn;
+      var unknown = ids.filter(function(id){ return !marks[id].checked; });
+      await saveVocab('q' + open.b, {band: open.b, pass: pass, known: known, unknown: unknown, at: NOW()});
+      ITEMS_CACHE = null; render();
+    }));
+    acts.appendChild(btn('btn', L('qSkip'), async function(){ for (var i = 0; i < bands.length; i++) if (!qDone(bands[i].b)) await saveVocab('q' + bands[i].b, {band: bands[i].b, pass: false, skipped: true, known: [], unknown: [], at: NOW()}); render(); }));
+    sec.appendChild(acts);
+  }
+  main.appendChild(sec);
+}
+function renderVocab(main){
+  var all = DECK.words.slice().sort(function(a, b){ return a.rank - b.rank; }), bands = quickBands(all);
+  main.appendChild(el('h2', 'tr-h', L('vocabTitle')));
+  main.appendChild(el('p', 'meta', L('vocabIntro')));
+  if (bands.some(function(x){ return !qDone(x.b); })){ renderQuick(main, bands); return; }
+  var decided = {}; Object.keys(V).forEach(function(k){ if (k.charAt(0) === 'q' && !V[k].reset) (V[k].known || []).concat(V[k].unknown || []).forEach(function(id){ decided[id] = true; }); });
+  var words = all.filter(function(w){ return !decided[w.id]; }), batches = [];
+  for (var i = 0; i < words.length; i += VB) batches.push(words.slice(i, i + VB));
+  var known = knownSet(), checked = checkedSet(), kn = Object.keys(known).length, ch = Object.keys(checked).length, N = all.length;
+  if (bands.length) renderQuick(main, bands);
+  var line = el('div', 'progress-line'); line.appendChild(el('span', null, L('checked') + ' ' + ch + ' / ' + N)); line.appendChild(el('span', null, L('know') + ' ' + kn + ' · ' + L('toLearn') + ' ' + (ch - kn)));
+  main.appendChild(line); main.appendChild(bar([['d', N ? kn / N : 0], ['l', N ? (ch - kn) / N : 0]]));
+  if (!batches.length){ main.appendChild(el('p', 'meta', L('vocabAllChecked'))); return; }
+  var cur = batches.findIndex(function(_, i){ return !V['b' + (i + 1)]; }); if (cur < 0) cur = 0; if (ui.vb != null && ui.vb < batches.length) cur = ui.vb;
+  var nav = el('div', 'toolbar');
+  batches.forEach(function(_, i){ var from = batches.slice(0, i).reduce(function(n, b){ return n + b.length; }, 0); var c = btn('chip', L('batch') + ' ' + (from + 1) + '–' + (from + batches[i].length) + (V['b' + (i + 1)] ? ' ✓' : ''), function(){ ui.vb = i; render(); }); c.setAttribute('aria-pressed', String(i === cur)); nav.appendChild(c); });
+  main.appendChild(nav);
+  var box = el('div', 'card'), marks = {};
+  batches[cur].forEach(function(w){
+    var r = el('label', 'vrow'), c = el('input'); c.type = 'checkbox'; c.checked = !!known[w.id]; marks[w.id] = c;
+    r.appendChild(c); r.appendChild(el('span', 'sr', srx(w.sr))); r.appendChild(spkPair(w.sr, w.tr)); r.appendChild(el('span', 'tr', w.tr)); box.appendChild(r);
+  });
+  main.appendChild(box);
+  var acts = el('div', 'acts');
+  acts.appendChild(btn('btn primary', L('saveBatch'), async function(){
+    var rec = {known: [], unknown: [], at: NOW()};
+    Object.keys(marks).forEach(function(id){ (marks[id].checked ? rec.known : rec.unknown).push(id); });
+    ui.vb = Math.min(cur + 1, batches.length - 1);
+    await saveVocab('b' + (cur + 1), rec); ITEMS_CACHE = null; render(); scrollTo(0, 0);
+  }));
+  main.appendChild(acts);
+}
+
+/* ---------- Situations tab ---------- */
+function sitItems(sid){
+  return allItems().filter(function(it){
+    if (it.kind === 'dialog') return it.sit === sid;
+    var x = it.kind === 'word' || it.kind === 'phrase' ? it.it : it.kind === 'cloze' ? it.w : null;
+    return x && (x.sit || []).indexOf(sid) >= 0;
+  });
+}
+function renderSituations(main){
+  main.appendChild(el('h2', 'tr-h', L('sitTitle')));
+  main.appendChild(el('p', 'meta', L('sitIntro')));
+  if (!SITS.length){ placeholder(main, L('phSit')); return; }
+  var grid = el('div', 'sit-grid');
+  SITS.forEach(function(s){
+    var items = sitItems(s.id), st = stats(items), p = 0; items.forEach(function(it){ p += itemPct(it); }); p = items.length ? p / items.length : 0;
+    var c = el('div', 'card sit' + (ui.open === s.id ? ' open' : ''));
+    var h = el('div', 'sit-h'); h.appendChild(el('h3', null, s.title)); if (s.title_sr) h.appendChild(el('span', 'meta', srx(s.title_sr)));
+    h.appendChild(el('span', 'tag pri' + s.pri, L('pri' + s.pri))); c.appendChild(h);
+    c.appendChild(el('div', 'sit-ready', L('ready') + ' ' + Math.round(p * 100) + '%'));
+    c.appendChild(bar(mix(items))); c.appendChild(legend(st));
+    var acts = el('div', 'acts');
+    if (items.length) acts.appendChild(btn('btn primary', L('trainSit') + ' (' + items.length + ')', function(){ ui.tab = 'train'; lsSet('pl.tab', 'train'); startRound({key: 'sit-' + s.id, items: items, title: s.title}); }));
+    acts.appendChild(btn('btn', ui.open === s.id ? L('hide') : L('showDialogs'), function(){ ui.open = ui.open === s.id ? null : s.id; rerenderKeepScroll(); }));
+    c.appendChild(acts);
+    if (ui.open === s.id){
+      (s.dialogs || []).forEach(function(d){
+        var dl = el('div', 'dialog'); if (d.title) dl.appendChild(el('h4', null, d.title));
+        d.lines.forEach(function(ln){ var r = el('div', 'dl-line ' + ln.who), b = el('b', null, srx(ln.sr)); b.appendChild(spk(ln.sr, 'sr')); r.appendChild(b);
+          var t = el('details', 'dl-tr'); t.appendChild(el('summary', null, L('translation'))); t.appendChild(el('div', null, ln.tr)); r.appendChild(t); dl.appendChild(r); });
+        if (canSpeak('sr')) dl.appendChild(btn('linkbtn', '▶ ' + L('playDialog'), function(){ var i = 0; (function nx(){ if (i < d.lines.length) speak(d.lines[i++].sr, 'sr', function(){ setTimeout(nx, 500); }); })(); }));
+        c.appendChild(dl);
+      });
+      var ph = items.filter(function(it){ return it.kind === 'phrase'; });
+      if (ph.length){ var ul = el('ul', 'sit-ph'); ph.forEach(function(it){ var li = el('li'), b = el('b', null, srx(it.it.sr)); b.appendChild(spk(it.it.sr, 'sr')); li.appendChild(b); li.appendChild(el('span', null, ' — ' + it.it.tr)); ul.appendChild(li); }); c.appendChild(ul); }
+    }
+    grid.appendChild(c);
+  });
+  main.appendChild(grid);
+}
+
+/* ---------- My texts tab: what the person actually receives, with what they know highlighted ---------- */
+var FORM2ID = D.forms || {};
+function tokenState(id){
+  if (!id) return 'out';
+  if (understood()[id]) return 'known';
+  var it = allItems().filter(function(x){ return x.id === id; })[0];
+  return it && seen(it) ? 'learning' : 'deck';
+}
+function drawTokens(toks, host){
+  var und = understood(), states = {known: 0, learning: 0, deck: 0, out: 0};
+  toks.forEach(function(t){
+    if (typeof t === 'string'){ host.appendChild(document.createTextNode(srx(t))); return; }
+    var id = t[1], st = id ? (und[id] ? 'known' : tokenState(id)) : (t[2] ? 'out' : 'plain');
+    if (st !== 'plain') states[st]++;
+    var s = el('span', 'tok ' + st, srx(t[0]));
+    if (id && WORD_BY_ID[id]){ s.title = WORD_BY_ID[id].sr + ' — ' + WORD_BY_ID[id].tr; s.tabIndex = 0; s.onclick = function(){ popWord(WORD_BY_ID[id], s); }; }
+    host.appendChild(s);
+  });
+  return states;
+}
+function popWord(w, anchor){
+  var pop = $('pop'); pop.innerHTML = '';
+  var h = el('h4', null, srx(w.sr)); h.appendChild(spkPair(w.sr, w.tr)); pop.appendChild(h);
+  pop.appendChild(el('div', null, w.tr)); var tg = wordTag(w); if (tg) pop.appendChild(el('div', 'hint', tg));
+  var fl = formsLine(w); if (fl) pop.appendChild(el('div', 'hint', fl)); if (w.note) pop.appendChild(el('div', 'note', w.note));
+  var r = anchor.getBoundingClientRect(); pop.hidden = false;
+  pop.style.left = Math.max(8, Math.min(r.left, innerWidth - pop.offsetWidth - 8)) + 'px';
+  pop.style.top = (r.bottom + 6 + pop.offsetHeight > innerHeight ? r.top - pop.offsetHeight - 6 : r.bottom + 6) + 'px';
+}
+document.addEventListener('click', function(e){ var pop = $('pop'); if (pop && !pop.hidden && !pop.contains(e.target) && !(e.target.classList && e.target.classList.contains('tok'))) pop.hidden = true; });
+function renderTexts(main){
+  main.appendChild(el('h2', 'tr-h', L('textsTitle')));
+  main.appendChild(el('p', 'meta', L('textsIntro')));
+  var key = el('div', 'tok-key'); [['known', 'tokKnown'], ['learning', 'tokLearning'], ['deck', 'tokDeck'], ['out', 'tokOut']].forEach(function(x){ key.appendChild(el('span', 'tok ' + x[0], L(x[1]))); }); main.appendChild(key);
+  TEXTS.forEach(function(t){
+    var c = el('div', 'card text-card'), h = el('div', 'sit-h'); h.appendChild(el('h3', null, t.title)); if (t.from) h.appendChild(el('span', 'meta', t.from)); c.appendChild(h);
+    var body = el('div', 'text-body'), st = drawTokens(t.tokens, body), tot = st.known + st.learning + st.deck + st.out;
+    var row = el('div', 'meta'); row.textContent = L('youKnow') + ' ' + pct(tot ? st.known / tot : 0) + ' · ' + L('tokLearning') + ' ' + st.learning + ' · ' + L('tokDeck') + ' ' + st.deck + ' · ' + L('tokOut') + ' ' + st.out;
+    c.appendChild(row); c.appendChild(bar([['d', tot ? st.known / tot : 0], ['l', tot ? st.learning / tot : 0], ['c', tot ? st.deck / tot : 0]]));
+    c.appendChild(body); main.appendChild(c);
+  });
+  // paste a text: checked against the deck right here; "send to Claude" puts it in the inbox for a proper analysis
+  var c2 = el('div', 'card paste'); c2.appendChild(el('h3', null, L('pasteTitle'))); c2.appendChild(el('p', 'meta', L('pasteIntro')));
+  var ti = el('input'); ti.type = 'text'; ti.placeholder = L('pasteName'); ti.className = 'inp';
+  var ta = el('textarea'); ta.rows = 6; ta.placeholder = L('pasteHere'); ta.className = 'inp';
+  var out = el('div', 'text-body'), msg = el('p', 'meta');
+  c2.appendChild(ti); c2.appendChild(ta);
+  var acts = el('div', 'acts');
+  acts.appendChild(btn('btn', L('pasteCheck'), function(){
+    out.innerHTML = ''; var toks = [], re = /([A-Za-zČĆŽŠĐčćžšđА-Яа-яЂђЈјЉљЊњЋћЏџ]+)|([^A-Za-zČĆŽŠĐčćžšđА-Яа-яЂђЈјЉљЊњЋћЏџ]+)/g, m, txt = latinOf(ta.value);
+    while ((m = re.exec(txt))){ if (m[1]){ var f = normSr(m[1]), id = FORM2ID[f] || FORM2ID[fold(f)] || null; toks.push([m[1], id, 1]); } else toks.push(m[2]); }
+    var st = drawTokens(toks, out), tot = st.known + st.learning + st.deck + st.out;
+    msg.textContent = L('youKnow') + ' ' + pct(tot ? st.known / tot : 0) + ' · ' + L('tokOut') + ': ' + st.out;
+  }));
+  acts.appendChild(btn('btn primary', L('pasteSend'), async function(){
+    if (!ta.value.trim()) return;
+    try { await sendInbox({type: 'text', title: ti.value.trim() || L('pasteDefault'), text: ta.value, at: NOW()}); msg.textContent = L('pasteSent'); }
+    catch (e){ msg.textContent = L('pasteOffline'); }
+  }));
+  c2.appendChild(acts); c2.appendChild(msg); c2.appendChild(out); main.appendChild(c2);
+}
+var LAT = {'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'ђ': 'đ', 'е': 'e', 'ж': 'ž', 'з': 'z', 'и': 'i', 'ј': 'j', 'к': 'k', 'л': 'l', 'љ': 'lj', 'м': 'm', 'н': 'n', 'њ': 'nj', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'ћ': 'ć', 'у': 'u', 'ф': 'f', 'х': 'h', 'ц': 'c', 'ч': 'č', 'џ': 'dž', 'ш': 'š'};
+function latinOf(t){ return String(t).replace(/[а-яђјљњћџ]/gi, function(ch){ var l = LAT[ch.toLowerCase()]; if (!l) return ch; return ch === ch.toLowerCase() ? l : l.charAt(0).toUpperCase() + l.slice(1); }); }
+
+/* ---------- Deck tab: every card, searchable ---------- */
+function renderDeck(main){
+  main.appendChild(el('h2', 'tr-h', L('deckTitle')));
+  var bar1 = el('div', 'toolbar'), q = el('input'); q.type = 'search'; q.placeholder = L('search'); q.value = ui.q || ''; q.className = 'inp';
+  q.oninput = function(){ ui.q = q.value; clearTimeout(ui.qt); ui.qt = setTimeout(function(){ var y = scrollY; render(); scrollTo(0, y); var n = document.querySelector('.toolbar input[type=search]'); if (n){ n.focus(); n.setSelectionRange(n.value.length, n.value.length); } }, 250); };
+  bar1.appendChild(q);
+  [['all', 'fAll'], ['learning', 'learning'], ['firm', 'firm'], ['learned', 'learned'], ['fresh', 'notStarted'], ['known', 'fKnown'], ['leech', 'fLeech']].forEach(function(x){
+    var c = btn('chip', L(x[1]), function(){ ui.filter = x[0]; render(); }); c.setAttribute('aria-pressed', String(ui.filter === x[0])); bar1.appendChild(c); });
+  main.appendChild(bar1);
+  var k = knownSet(), qq = fold(normSr(ui.q || '')), rows = [];
+  itemsOfKind('word').concat(itemsOfKind('phrase')).forEach(function(it){
+    var x = it.it, st = k[it.id] ? 'known' : isLeech(it) ? 'leech' : itemState(it);
+    if (ui.filter !== 'all' && ui.filter !== st) return;
+    if (qq && fold(normSr(x.sr)).indexOf(qq) < 0 && String(x.tr).toLowerCase().indexOf((ui.q || '').toLowerCase()) < 0) return;
+    rows.push({it: it, st: st});
+  });
+  main.appendChild(el('p', 'meta', nWord(rows.length, 'cards')));
+  var tb = el('table', 'deck-t'), th = el('tr'); ['#', L('colSr'), L('colTr'), L('colState'), L('colNext'), ''].forEach(function(h){ th.appendChild(el('th', null, h)); }); tb.appendChild(th);
+  rows.slice(0, 400).forEach(function(r){
+    var x = r.it.it, tr = el('tr', 'st-' + r.st), nxt = null;
+    sidesOf(r.it).forEach(function(sd){ var c = cardOf(r.it, sd); if (c && (nxt == null || c.due < nxt)) nxt = c.due; });
+    tr.appendChild(el('td', 'num', x.rank || '')); var s = el('td', 'sr'); s.appendChild(document.createTextNode(srx(x.sr))); s.appendChild(spkPair(x.sr, x.tr)); tr.appendChild(s);
+    tr.appendChild(el('td', null, x.tr)); tr.appendChild(el('td', null, L(r.st === 'fresh' ? 'notStarted' : r.st === 'known' ? 'fKnown' : r.st === 'leech' ? 'fLeech' : r.st)));
+    tr.appendChild(el('td', 'num', nxt ? (nxt <= NOW() ? L('now') : fmtShort(nxt)) : ''));
+    var a = el('td');
+    if (r.it.kind === 'word'){
+      if (r.st === 'known') a.appendChild(btn('linkbtn', L('backToTrainer'), async function(){ var rec = V.manual || {known: [], unknown: [], back: [], at: NOW()}; rec.back = (rec.back || []).concat([x.id]); rec.known = (rec.known || []).filter(function(i){ return i !== x.id; }); await saveVocab('manual', rec); ITEMS_CACHE = null; rerenderKeepScroll(); }));
+      else a.appendChild(btn('linkbtn', L('iKnow'), async function(){ var rec = V.manual || {known: [], unknown: [], back: [], at: NOW()}; rec.known = (rec.known || []).concat([x.id]); rec.back = (rec.back || []).filter(function(i){ return i !== x.id; }); await saveVocab('manual', rec); ITEMS_CACHE = null; rerenderKeepScroll(); }));
+    }
+    tr.appendChild(a); tb.appendChild(tr);
+  });
+  var wrap = el('div', 'table-wrap'); wrap.appendChild(tb); main.appendChild(wrap);
+  if (rows.length > 400) main.appendChild(el('p', 'meta', L('first400')));
+  var exp = el('div', 'acts');
+  exp.appendChild(btn('btn', L('exportCsv'), function(){
+    var lines = [['rank', 'sr', 'tr', 'pos', 'state'].join(',')];
+    rows.forEach(function(r){ var x = r.it.it; lines.push([x.rank || '', x.sr, x.tr, x.pos || '', r.st].map(function(v){ v = String(v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }).join(',')); });
+    download('polako-deck.csv', lines.join('\n'), 'text/csv;charset=utf-8');
+  }));
+  main.appendChild(exp);
+}
+
+/* ===== stats.js ===== */
+/* ---------- Statistics tab ----------
+   Everything is computed here from the review log (LOG: [ts, side key, grade, ms, elapsed days,
+   stability before]) and the card states — the same numbers tools/stats.py prints in the chat.
+   Charts are plain SVG: thin marks, hairline grid, one value axis, a hover tooltip on every mark,
+   and a "table" toggle under each chart so no number is reachable only by hovering. */
+var NS = 'http://www.w3.org/2000/svg';
+function sv(tag, attrs, text){ var e = document.createElementNS(NS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); if (text != null) e.textContent = text; return e; }
+var TIP = null;
+function tipShow(ev, lines){
+  if (!TIP){ TIP = el('div', 'viz-tip'); document.body.appendChild(TIP); }
+  TIP.innerHTML = ''; lines.forEach(function(l, i){ var r = el('div', i ? 'tl' : 'tv'); if (l[1]){ var k = el('i', 'tk'); k.style.background = l[1]; r.appendChild(k); } r.appendChild(document.createTextNode(l[0])); TIP.appendChild(r); });
+  TIP.hidden = false;
+  var x = ev.clientX + 14, y = ev.clientY + 14;
+  if (x + TIP.offsetWidth > innerWidth - 8) x = ev.clientX - TIP.offsetWidth - 14;
+  if (y + TIP.offsetHeight > innerHeight - 8) y = ev.clientY - TIP.offsetHeight - 14;
+  TIP.style.left = x + 'px'; TIP.style.top = y + 'px';
+}
+function tipHide(){ if (TIP) TIP.hidden = true; }
+function niceMax(v){ if (v <= 0) return 1; var p = Math.pow(10, Math.floor(Math.log10(v))), f = v / p; return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 5 ? 5 : 10) * p; }
+function vizCard(title, sub){ var c = el('div', 'card viz'); c.appendChild(el('h3', null, title)); if (sub) c.appendChild(el('p', 'meta', sub)); return c; }
+function tableToggle(card, head, rows){
+  var d = el('details', 'viz-table'); d.appendChild(el('summary', null, L('asTable')));
+  var t = el('table'), tr = el('tr'); head.forEach(function(h){ tr.appendChild(el('th', null, h)); }); t.appendChild(tr);
+  rows.forEach(function(r){ var x = el('tr'); r.forEach(function(v, i){ x.appendChild(el('td', i ? 'num' : null, v)); }); t.appendChild(x); });
+  d.appendChild(t); card.appendChild(d);
+}
+/* vertical bars: data [{label, v, tip, color?}], opts {fmt, max, ref, refLabel, h} */
+function barChart(data, opts){
+  opts = opts || {};
+  var W = 640, H = opts.h || 200, padL = 40, padB = 26, padT = 12, n = data.length, iw = W - padL - 8, ih = H - padB - padT;
+  var max = opts.max || niceMax(Math.max.apply(null, data.map(function(d){ return d.v; }).concat([opts.ref || 0, 0.0001])));
+  var svg = sv('svg', {viewBox: '0 0 ' + W + ' ' + H, class: 'viz-svg', role: 'img', 'aria-label': opts.aria || ''});
+  for (var i = 0; i <= 4; i++){ var y = padT + ih - ih * i / 4; svg.appendChild(sv('line', {x1: padL, x2: W - 8, y1: y, y2: y, class: i ? 'grid' : 'axis'})); svg.appendChild(sv('text', {x: padL - 6, y: y + 4, class: 'tick', 'text-anchor': 'end'}, (opts.fmt || String)(max * i / 4))); }
+  var band = iw / Math.max(1, n), bw = Math.min(24, band * 0.7);
+  data.forEach(function(d, i){
+    var x = padL + band * i + (band - bw) / 2, h = Math.max(0, ih * d.v / max), y = padT + ih - h;
+    var g = sv('g', {class: 'mark', tabindex: 0});
+    g.appendChild(sv('rect', {x: padL + band * i, y: padT, width: band, height: ih, class: 'hit'}));
+    if (h > 0) g.appendChild(sv('path', {d: 'M' + x + ',' + (padT + ih) + 'V' + (y + Math.min(4, h)) + 'q0,-4 4,-4h' + (bw - 8) + 'q4,0 4,4V' + (padT + ih) + 'Z', class: 'bar', style: 'fill:' + (d.color || 'var(--c1)')}));
+    var show = function(ev){ tipShow(ev, d.tip || [[(opts.fmt || String)(d.v)], [d.label]]); };
+    g.addEventListener('pointermove', show); g.addEventListener('pointerleave', tipHide);
+    g.addEventListener('focus', function(){ var r = g.getBoundingClientRect(); show({clientX: r.left + r.width / 2, clientY: r.top}); }); g.addEventListener('blur', tipHide);
+    svg.appendChild(g);
+    var every = Math.ceil(n / 10);
+    if (i % every === 0 || i === n - 1) svg.appendChild(sv('text', {x: padL + band * i + band / 2, y: H - 8, class: 'tick', 'text-anchor': 'middle'}, d.label));
+  });
+  if (opts.ref != null){ var ry = padT + ih - ih * opts.ref / max; svg.appendChild(sv('line', {x1: padL, x2: W - 8, y1: ry, y2: ry, class: 'ref'})); svg.appendChild(sv('text', {x: W - 10, y: ry - 5, class: 'tick ref-t', 'text-anchor': 'end'}, opts.refLabel || '')); }
+  return svg;
+}
+/* lines over time: series [{name, color, pts:[[ts, y]]}] with a crosshair snapping to the nearest day */
+function lineChart(series, opts){
+  opts = opts || {};
+  var W = 640, H = opts.h || 220, padL = 40, padB = 26, padT = 14, padR = 64, iw = W - padL - padR, ih = H - padT - padB;
+  var xs = []; series.forEach(function(s){ s.pts.forEach(function(p){ xs.push(p[0]); }); });
+  var x0 = Math.min.apply(null, xs), x1 = Math.max.apply(null, xs); if (x1 === x0) x1 = x0 + DAY;
+  var max = opts.max || niceMax(Math.max.apply(null, series.map(function(s){ return Math.max.apply(null, s.pts.map(function(p){ return p[1] || 0; })); }).concat([0.0001])));
+  var X = function(t){ return padL + iw * (t - x0) / (x1 - x0); }, Y = function(v){ return padT + ih - ih * v / max; };
+  var svg = sv('svg', {viewBox: '0 0 ' + W + ' ' + H, class: 'viz-svg', role: 'img', 'aria-label': opts.aria || ''});
+  for (var i = 0; i <= 4; i++){ var y = padT + ih - ih * i / 4; svg.appendChild(sv('line', {x1: padL, x2: W - padR, y1: y, y2: y, class: i ? 'grid' : 'axis'})); svg.appendChild(sv('text', {x: padL - 6, y: y + 4, class: 'tick', 'text-anchor': 'end'}, (opts.fmt || String)(max * i / 4))); }
+  [x0, (x0 + x1) / 2, x1].forEach(function(t, i){ svg.appendChild(sv('text', {x: X(t), y: H - 8, class: 'tick', 'text-anchor': i === 0 ? 'start' : i === 2 ? 'end' : 'middle'}, fmtShort(t))); });
+  series.forEach(function(s){
+    var pts = s.pts.filter(function(p){ return p[1] != null; }); if (!pts.length) return;
+    svg.appendChild(sv('path', {d: pts.map(function(p, i){ return (i ? 'L' : 'M') + X(p[0]).toFixed(1) + ',' + Y(p[1]).toFixed(1); }).join(''), class: 'line', style: 'stroke:' + s.color}));
+    var last = pts[pts.length - 1];
+    svg.appendChild(sv('circle', {cx: X(last[0]), cy: Y(last[1]), r: 4, class: 'dot', style: 'fill:' + s.color}));
+    svg.appendChild(sv('text', {x: X(last[0]) + 8, y: Y(last[1]) + 4, class: 'end-l'}, (opts.fmt || String)(last[1])));
+  });
+  var cross = sv('line', {y1: padT, y2: padT + ih, class: 'cross', visibility: 'hidden'}); svg.appendChild(cross);
+  var hit = sv('rect', {x: padL, y: padT, width: iw, height: ih, class: 'hit'}); svg.appendChild(hit);
+  hit.addEventListener('pointermove', function(ev){
+    var r = svg.getBoundingClientRect(), t = x0 + (x1 - x0) * Math.max(0, Math.min(1, ((ev.clientX - r.left) * W / r.width - padL) / iw));
+    var best = null; xs.forEach(function(x){ if (best == null || Math.abs(x - t) < Math.abs(best - t)) best = x; });
+    cross.setAttribute('x1', X(best)); cross.setAttribute('x2', X(best)); cross.setAttribute('visibility', 'visible');
+    var lines = [[fmtDay(best)]]; series.forEach(function(s){ var p = s.pts.filter(function(q){ return q[0] === best; })[0]; if (p && p[1] != null) lines.push([(opts.fmt || String)(p[1]) + ' · ' + s.name, s.color]); });
+    tipShow(ev, lines);
+  });
+  hit.addEventListener('pointerleave', function(){ cross.setAttribute('visibility', 'hidden'); tipHide(); });
+  return svg;
+}
+/* activity calendar: one cell per day, the last 26 weeks, sequential blue by the number of answers */
+function heatmap(byDay){
+  var weeks = 26, cell = 14, gap = 3, padL = 26, padT = 16, W = padL + weeks * (cell + gap), H = padT + 7 * (cell + gap) + 4;
+  var svg = sv('svg', {viewBox: '0 0 ' + W + ' ' + H, class: 'viz-svg heat', role: 'img', 'aria-label': L('heatTitle')});
+  var end = today0(), dow = (new Date(end).getDay() + 6) % 7, start = end - (weeks * 7 - 1 - (6 - dow)) * DAY;
+  var vals = Object.keys(byDay).map(function(k){ return byDay[k]; }), mx = Math.max.apply(null, vals.concat([1]));
+  ['1', '3', '5'].forEach(function(r){ svg.appendChild(sv('text', {x: 0, y: padT + (+r) * (cell + gap) + 11, class: 'tick'}, new Date(2024, 0, (+r) + 1).toLocaleDateString(TRL, {weekday: 'short'}))); });
+  var lastMonth = -1;
+  for (var d = start; d <= end; d += DAY){
+    var i = Math.round((d - start) / DAY), wk = Math.floor(i / 7), wd = i % 7, n = byDay[day0(d)] || 0;
+    var lvl = n ? Math.min(4, Math.ceil(4 * n / mx)) : 0;
+    var r = sv('rect', {x: padL + wk * (cell + gap), y: padT + wd * (cell + gap), width: cell, height: cell, rx: 3, class: 'hc l' + lvl, tabindex: -1});
+    (function(dd, nn){ r.addEventListener('pointermove', function(ev){ tipShow(ev, [[nWord(nn, 'answersN')], [fmtDay(dd)]]); }); r.addEventListener('pointerleave', tipHide); })(d, n);
+    svg.appendChild(r);
+    var m = new Date(d).getMonth(); if (wd === 0 && m !== lastMonth){ lastMonth = m; svg.appendChild(sv('text', {x: padL + wk * (cell + gap), y: 10, class: 'tick'}, new Date(d).toLocaleDateString(TRL, {month: 'short'}))); }
+  }
+  return svg;
+}
+
+function logSince(ms){ var from = NOW() - ms; return LOG.filter(function(x){ return x[0] >= from; }); }
+function sideOf(k){ return k.split('|')[1] || ''; }
+function idOf(k){ return k.split('|')[0]; }
+function renderStats(main){
+  main.appendChild(el('h2', 'tr-h', L('statsTitle')));
+  if (!LOG.length){ main.appendChild(el('p', 'meta', L('statsEmpty'))); }
+  snapshot();
+  var cov = coverageNow(), words = itemsOfKind('word'), ws = stats(words), last30 = logSince(30 * DAY);
+  var rev30 = last30.filter(function(x){ return x[4] >= 1; }), ret30 = rev30.length ? rev30.filter(function(x){ return x[2] > 1; }).length / rev30.length : null;
+  var minsWeek = Math.round(logSince(7 * DAY).reduce(function(a, x){ return a + Math.min(60000, x[3] || 0); }, 0) / 60000);
+  // hero + tiles
+  var hero = el('div', 'hero-stat'), hv = el('div', 'hero-v', pct(cov.spoken));
+  hero.appendChild(hv); hero.appendChild(el('div', 'hero-l', L('heroCov')));
+  var ceil = COV.spCeil ? ' ' + L('heroCeil').replace('{x}', pct(COV.spCeil)) : ''; hero.appendChild(el('p', 'meta', L('heroCovNote') + ceil));
+  main.appendChild(hero);
+  var tiles = el('div', 'tr-stats');
+  [[cov.my == null ? '—' : pct(cov.my), L('covMyLong')], [ws.learned + ' / ' + words.length, L('wordsLearned')], [ret30 == null ? '—' : pct(ret30), L('retention30')], [minsWeek + ' ' + L('min'), L('minsWeek')], [streak(), L('streak')]].forEach(function(x){
+    var c = el('div', 'tr-stat'); c.appendChild(el('b', null, x[0])); c.appendChild(el('span', null, x[1])); tiles.appendChild(c); });
+  main.appendChild(tiles);
+  var grid = el('div', 'viz-grid'); main.appendChild(grid);
+
+  // 1. coverage over time
+  var hk = Object.keys(T.hist || {}).sort();
+  if (hk.length){
+    var c1 = vizCard(L('covTime'), L('covTimeSub'));
+    var tsOf = function(k){ var p = k.split('-'); return new Date(+p[0], +p[1] - 1, +p[2]).getTime(); };
+    var s1 = {name: L('covSpoken'), color: 'var(--c1)', pts: hk.map(function(k){ return [tsOf(k), T.hist[k].sp]; })};
+    var s2 = {name: L('covMy'), color: 'var(--c2)', pts: hk.map(function(k){ return [tsOf(k), T.hist[k].my]; })};
+    var lg = el('div', 'viz-legend'); [s1, s2].forEach(function(s){ var i = el('span'), k = el('i', 'lk'); k.style.background = s.color; i.appendChild(k); i.appendChild(document.createTextNode(s.name)); lg.appendChild(i); });
+    c1.appendChild(lg); c1.appendChild(lineChart([s1, s2], {fmt: pct, max: 1, aria: L('covTime')}));
+    tableToggle(c1, [L('colDay'), L('covSpoken'), L('covMy')], hk.slice(-30).reverse().map(function(k){ return [k, pct(T.hist[k].sp), pct(T.hist[k].my)]; }));
+    grid.appendChild(c1);
+  }
+  // 2. situations readiness
+  if (SITS.length){
+    var c2 = vizCard(L('sitReady'), L('sitReadySub')), data = SITS.map(function(s){ var it = sitItems(s.id), p = 0; it.forEach(function(x){ p += itemPct(x); }); var v = it.length ? p / it.length : 0; return {label: s.title_sr || s.title, v: v, tip: [[pct(v)], [s.title]]}; });
+    c2.appendChild(barChart(data, {fmt: pct, max: 1, aria: L('sitReady')}));
+    tableToggle(c2, [L('colSit'), L('ready')], SITS.map(function(s, i){ return [s.title, pct(data[i].v)]; }));
+    grid.appendChild(c2);
+  }
+  // 3. retention by week vs target
+  var weeks = []; for (var w = 11; w >= 0; w--){ var a = today0() - (w * 7 + 6) * DAY, b = today0() - w * 7 * DAY + DAY; var r = LOG.filter(function(x){ return x[0] >= a && x[0] < b && x[4] >= 1; }); weeks.push({from: a, n: r.length, ok: r.filter(function(x){ return x[2] > 1; }).length}); }
+  var c3 = vizCard(L('retWeeks'), L('retWeeksSub').replace('{t}', pct(T.retention)));
+  c3.appendChild(barChart(weeks.map(function(x){ var v = x.n ? x.ok / x.n : 0; return {label: fmtShort(x.from), v: v, color: x.n && v < T.retention - 0.05 ? 'var(--c2)' : 'var(--c1)', tip: [[x.n ? pct(v) : L('noData')], [L('weekOf') + ' ' + fmtShort(x.from) + ' · ' + nWord(x.n, 'answersN')]]}; }), {fmt: pct, max: 1, ref: T.retention, refLabel: L('target') + ' ' + pct(T.retention), aria: L('retWeeks')}));
+  tableToggle(c3, [L('weekOf'), L('answers'), L('remembered')], weeks.slice().reverse().map(function(x){ return [fmtShort(x.from), x.n, x.n ? pct(x.ok / x.n) : '—']; }));
+  grid.appendChild(c3);
+  // 4. memory by interval (how much is kept after N days)
+  var B = [[1, 2, '1'], [2, 4, '2–3'], [4, 8, '4–7'], [8, 15, '8–14'], [15, 31, '15–30'], [31, 1e9, '31+']], bk = B.map(function(x){ var r = LOG.filter(function(y){ return y[4] >= x[0] && y[4] < x[1]; }); return {label: x[2], n: r.length, ok: r.filter(function(y){ return y[2] > 1; }).length}; });
+  var c4 = vizCard(L('curve'), L('curveSub'));
+  c4.appendChild(barChart(bk.map(function(x){ var v = x.n ? x.ok / x.n : 0; return {label: x.label, v: v, tip: [[x.n ? pct(v) : L('noData')], [x.label + ' ' + L('dShort') + ' · ' + nWord(x.n, 'answersN')]]}; }), {fmt: pct, max: 1, ref: T.retention, refLabel: L('target'), aria: L('curve')}));
+  tableToggle(c4, [L('afterDays'), L('answers'), L('remembered')], bk.map(function(x){ return [x.label, x.n, x.n ? pct(x.ok / x.n) : '—']; }));
+  grid.appendChild(c4);
+  // 5. calendar
+  var c5 = vizCard(L('heatTitle'), L('heatSub')); c5.appendChild(heatmap(activeDays()));
+  var hl = el('div', 'heat-key'); hl.appendChild(el('span', 'meta', L('less'))); for (var lv = 0; lv <= 4; lv++){ var sq = el('i', 'hc l' + lv); hl.appendChild(sq); } hl.appendChild(el('span', 'meta', L('more'))); c5.appendChild(hl);
+  grid.appendChild(c5);
+  // 6. minutes per day, last 30 days
+  var md = []; for (var dd = 29; dd >= 0; dd--){ var d0 = today0() - dd * DAY, rr = LOG.filter(function(x){ return x[0] >= d0 && x[0] < d0 + DAY; }); md.push({d: d0, m: rr.reduce(function(a, x){ return a + Math.min(60000, x[3] || 0); }, 0) / 60000, n: rr.length}); }
+  var c6 = vizCard(L('timeDay'), L('timeDaySub'));
+  c6.appendChild(barChart(md.map(function(x){ return {label: new Date(x.d).getDate() + '', v: Math.round(x.m * 10) / 10, tip: [[Math.round(x.m) + ' ' + L('min') + ' · ' + nWord(x.n, 'answersN')], [fmtDay(x.d)]]}; }), {fmt: function(v){ return Math.round(v) + ''; }, aria: L('timeDay')}));
+  tableToggle(c6, [L('colDay'), L('min'), L('answers')], md.slice().reverse().filter(function(x){ return x.n; }).map(function(x){ return [fmtShort(x.d), Math.round(x.m), x.n]; }));
+  grid.appendChild(c6);
+  // 7. by side: accuracy and answer time — where the weak spot is
+  var SIDES = ['pick-tr', 'listen', 'pick-sr', 'say-tr', 'say-sr', 'type', 'listen-ph', 'read-ph', 'say-ph', 'cloze', 'aspect', 'reply'];
+  var bs = SIDES.map(function(sd){ var r = last30.filter(function(x){ return sideOf(x[1]) === sd; }); return {sd: sd, n: r.length, ok: r.filter(function(x){ return x[2] > 1; }).length, ms: r.length ? r.reduce(function(a, x){ return a + Math.min(60000, x[3] || 0); }, 0) / r.length : 0}; }).filter(function(x){ return x.n; });
+  if (bs.length){
+    var c7 = vizCard(L('bySide'), L('bySideSub'));
+    c7.appendChild(barChart(bs.map(function(x){ var v = x.ok / x.n; return {label: L('sd_' + x.sd), v: v, tip: [[pct(v) + ' · ' + (x.ms / 1000).toFixed(1) + ' ' + L('sec')], [L('sdl_' + x.sd) + ' · ' + nWord(x.n, 'answersN')]]}; }), {fmt: pct, max: 1, aria: L('bySide')}));
+    tableToggle(c7, [L('colSide'), L('answers'), L('remembered'), L('avgTime')], bs.map(function(x){ return [L('sdl_' + x.sd), x.n, pct(x.ok / x.n), (x.ms / 1000).toFixed(1) + ' ' + L('sec')]; }));
+    grid.appendChild(c7);
+  }
+  // 8. load: reviews due in each of the next 30 days
+  var load = []; for (var k2 = 0; k2 < 30; k2++) load.push(0);
+  Object.keys(T.cards).forEach(function(kk){ var c = T.cards[kk]; if (!c || !c.due) return; var i = Math.floor((day0(c.due) - today0()) / DAY); if (i < 0) i = 0; if (i < 30) load[i]++; });
+  var c8 = vizCard(L('load'), L('loadSub'));
+  c8.appendChild(barChart(load.map(function(v, i){ var d = today0() + i * DAY; return {label: i === 0 ? L('today') : new Date(d).getDate() + '', v: v, tip: [[nWord(v, 'cards')], [fmtDay(d)]]}; }), {aria: L('load')}));
+  tableToggle(c8, [L('colDay'), L('cardsDue')], load.map(function(v, i){ return [fmtShort(today0() + i * DAY), v]; }).filter(function(r){ return r[1]; }));
+  grid.appendChild(c8);
+  // 9. cases and aspect
+  var cz = {}; LOG.forEach(function(x){ var id = idOf(x[1]); if (id.indexOf('c:') !== 0 && id.indexOf('v:') !== 0) return; var c = DECK.cloze.filter(function(q){ return q.id === id; })[0]; var cs = id.indexOf('v:') === 0 ? 'aspect' : c && c.case || 'other'; cz[cs] = cz[cs] || {n: 0, ok: 0}; cz[cs].n++; if (x[2] > 1) cz[cs].ok++; });
+  var czk = Object.keys(cz);
+  if (czk.length){
+    var c9 = vizCard(L('cases'), L('casesSub'));
+    c9.appendChild(barChart(czk.map(function(kk){ var v = cz[kk].ok / cz[kk].n; return {label: L('case_' + kk), v: v, tip: [[pct(v)], [L('case_' + kk) + ' · ' + nWord(cz[kk].n, 'answersN')]]}; }), {fmt: pct, max: 1, aria: L('cases')}));
+    tableToggle(c9, [L('colCase'), L('answers'), L('remembered')], czk.map(function(kk){ return [L('case_' + kk), cz[kk].n, pct(cz[kk].ok / cz[kk].n)]; }));
+    grid.appendChild(c9);
+  }
+  // 10. leeches and the hardest words
+  var hard = allItems().filter(seen).map(function(it){ var lp = 0, s = Infinity; sidesOf(it).forEach(function(sd){ var c = cardOf(it, sd); if (c){ lp += c.lapses || 0; s = Math.min(s, c.s); } }); return {it: it, lapses: lp, s: s}; })
+    .filter(function(x){ return x.lapses > 0; }).sort(function(a, b){ return b.lapses - a.lapses || a.s - b.s; }).slice(0, 20);
+  var c10 = vizCard(L('hardTitle'), L('hardSub'));
+  if (!hard.length) c10.appendChild(el('p', 'meta', L('hardNone')));
+  else {
+    var t = el('table', 'deck-t'), hr = el('tr'); [L('colSr'), L('colTr'), L('lapses'), L('stability')].forEach(function(h){ hr.appendChild(el('th', null, h)); }); t.appendChild(hr);
+    hard.forEach(function(x){ var it = x.it, o = it.it || it.me || it.a || {}; var r = el('tr', isLeech(it) ? 'st-leech' : ''); r.appendChild(el('td', 'sr', srx(o.sr || ''))); r.appendChild(el('td', null, o.tr || '')); r.appendChild(el('td', 'num', x.lapses + (isLeech(it) ? ' 🐛' : ''))); r.appendChild(el('td', 'num', (Math.round(x.s * 10) / 10) + ' ' + L('dShort'))); t.appendChild(r); });
+    var wrap = el('div', 'table-wrap'); wrap.appendChild(t); c10.appendChild(wrap);
+    var msg = el('p', 'meta');
+    c10.appendChild(btn('btn', L('hardAsk'), async function(){ try { await sendInbox({type: 'hard', ids: hard.map(function(x){ return x.it.id; }), at: NOW()}); msg.textContent = L('hardSent'); } catch (e){ msg.textContent = L('pasteOffline'); } }));
+    c10.appendChild(msg);
+  }
+  grid.appendChild(c10);
+  // 11. forecast by group
+  var c11 = vizCard(L('fcTitle'), L('fcSub')), ft = el('table', 'deck-t'), fh = el('tr'); [L('colGroup'), L('progress'), L('fcWhen')].forEach(function(h){ fh.appendChild(el('th', null, h)); }); ft.appendChild(fh);
+  var before = 0; decks().forEach(function(dk){ var e = dk.words ? etaOf(dk.items, T.goal, before) : etaOf(dk.items, Math.max(1, T.goal / 4), 0); if (dk.words && e) before += e.fresh; var p = 0; dk.items.forEach(function(it){ p += itemPct(it); });
+    var r = el('tr'); r.appendChild(el('td', null, dk.title)); r.appendChild(el('td', 'num', Math.round(p / Math.max(1, dk.items.length) * 100) + '%')); r.appendChild(el('td', null, etaText(e, true))); ft.appendChild(r); });
+  var fw = el('div', 'table-wrap'); fw.appendChild(ft); c11.appendChild(fw); c11.appendChild(el('p', 'tr-note-s', L('etaNote')));
+  grid.appendChild(c11);
+  var ex = el('div', 'acts'); ex.appendChild(btn('btn', L('exportLog'), function(){ download('polako-review-log.json', JSON.stringify({cards: T.cards, log: LOG}, null, 1), 'application/json'); })); main.appendChild(ex);
+}
+
+/* ===== ghstore.js ===== */
+/* ---------- storage in the person's own GitHub repository (the public site: firstpilotpirx.github.io/polako) ----------
+   The site is the same page without personal data. Words and progress live in a private repository the person
+   connects once per device (repository name + a fine-grained token with "Contents: read and write" on that one
+   repository; both stay in this browser's localStorage, key pl.gh). Layout of the data repository:
+     deck.json                    the page data: words, phrases, situations (built by tools/build_page.py)
+     prep/trainer-state.json      FSRS cards and settings          ← same files as the local mode,
+     prep/vocab-state.json        "I know" marks                     so the Claude plugin reads them as is
+     prep/log/YYYY-MM.json        every answer, one file per month
+   Saving is batched into one commit: after a pause in answering (45 s), at most every 2 min while answering,
+   when a round ends and when the page is hidden. Before writing, the latest version is read and merged:
+   cards — the side reviewed last wins; marks — the newer record; answers — union. So two devices never
+   overwrite each other. On return to the page the newest state is pulled again. */
+var GH = (function(){
+  var cfg = window.POLAKO_GH || null, API = 'https://api.github.com', branch = null;
+  function on(){ return !!(cfg && cfg.repo && cfg.token); }
+  function b64enc(s){ return btoa(unescape(encodeURIComponent(s))); }
+  function b64dec(s){ return decodeURIComponent(escape(atob(String(s).replace(/\s/g, '')))); }
+  async function req(method, path, body){
+    var r = await fetch(API + path, {method: method, cache: 'no-store', headers: {'Authorization': 'Bearer ' + cfg.token, 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28'}, body: body ? JSON.stringify(body) : undefined});
+    if (r.status === 404) return null;
+    if (!r.ok){ var e = new Error('github ' + r.status); e.status = r.status; throw e; }
+    return r.status === 204 ? {} : r.json();
+  }
+  function repo(p){ return '/repos/' + cfg.repo + p; }
+  // the branch's head commit; null for an empty repository (GitHub answers 409 there)
+  async function refOf(br){ try { return await req('GET', repo('/git/ref/heads/' + br)); } catch (e){ if (e.status === 409) return null; throw e; } }
+  async function getBranch(){ if (!branch){ var r = await req('GET', repo('')); if (!r) { var e = new Error('no repo'); e.status = 404; throw e; } branch = r.default_branch || 'main'; } return branch; }
+  // a file's text (null when absent); files over 1 MB come through the blob API
+  async function read(path, ref){
+    var r = await req('GET', repo('/contents/' + path + (ref ? '?ref=' + ref : '')));
+    if (!r || Array.isArray(r)) return null;
+    if (r.content == null || (r.encoding === 'none' && r.size)){ var bl = await req('GET', repo('/git/blobs/' + r.sha)); return bl ? b64dec(bl.content) : null; }
+    return b64dec(r.content);
+  }
+  async function readJSON(path, ref, dflt){ var t = await read(path, ref); if (t == null) return dflt; try { return JSON.parse(t); } catch (e){ return dflt; } }
+  async function list(path, ref){ var r = await req('GET', repo('/contents/' + path + (ref ? '?ref=' + ref : ''))); return Array.isArray(r) ? r : []; }
+  // first file of an empty repository: the contents API creates the first commit
+  async function putFile(path, text, msg){
+    var cur = await req('GET', repo('/contents/' + path));
+    return req('PUT', repo('/contents/' + path), {message: msg, content: b64enc(text), sha: cur && cur.sha || undefined});
+  }
+  // several files in one commit; null when the branch moved meanwhile (the caller re-reads and retries)
+  async function commit(files, msg){
+    var br = await getBranch();
+    var ref = await refOf(br);
+    if (!ref){   // empty repository
+      for (var i = 0; i < files.length; i++) await putFile(files[i].path, files[i].text, msg);
+      return true;
+    }
+    var head = ref.object.sha, c = await req('GET', repo('/git/commits/' + head));
+    var tree = await req('POST', repo('/git/trees'), {base_tree: c.tree.sha, tree: files.map(function(f){ return {path: f.path, mode: '100644', type: 'blob', content: f.text}; })});
+    var nc = await req('POST', repo('/git/commits'), {message: msg, tree: tree.sha, parents: [head]});
+    try { await req('PATCH', repo('/git/refs/heads/' + br), {sha: nc.sha, force: false}); }
+    catch (e){ if (e.status === 422 || e.status === 409) return null; throw e; }
+    return true;
+  }
+  async function headSha(){ var br = await getBranch(), ref = await refOf(br); return ref ? ref.object.sha : null; }
+  async function check(){ var r = await req('GET', repo('')); if (!r){ var e = new Error('repo'); e.status = 'repo'; throw e; } branch = r.default_branch || 'main'; return r; }
+  return {on: on, cfg: function(){ return cfg; }, setCfg: function(c){ cfg = c; branch = null; }, check: check, read: read, readJSON: readJSON, list: list, commit: commit, putFile: putFile, headSha: headSha};
+})();
+
+/* ---------- merging two copies of the progress (this device and the repository) ---------- */
+function mergeCards(a, b){
+  var out = {}, k;
+  for (k in a) out[k] = a[k];
+  for (k in b){ var x = out[k], y = b[k]; if (!x || (y.last || 0) > (x.last || 0) || ((y.last || 0) === (x.last || 0) && (y.reps || 0) > (x.reps || 0))) out[k] = y; }
+  return out;
+}
+function mergeT(local, remote){
+  if (!remote || !remote.cards) return local;
+  if (local.reset && local.reset > (remote.updated || 0)) return local;   // a reset made here wins over older progress
+  if (remote.reset && remote.reset > (local.updated || 0)) return Object.assign({}, remote);
+  var newer = (remote.updated || 0) > (local.updated || 0) ? remote : local;
+  var out = Object.assign({}, local, newer);
+  out.cards = mergeCards(local.cards || {}, remote.cards || {});
+  out.hist = Object.assign({}, remote.hist || {}, local.hist || {});
+  return out;
+}
+function mergeV(local, remote){
+  var out = Object.assign({}, remote || {});
+  for (var k in local){ var x = out[k], y = local[k]; if (!x || (y && (y.at || 0) >= (x.at || 0))) out[k] = y; }
+  return out;
+}
+function mergeLog(a, b){
+  var seen = {}, out = [];
+  a.concat(b).forEach(function(x){ var k = x[0] + '|' + x[1]; if (!seen[k]){ seen[k] = 1; out.push(x); } });
+  return out.sort(function(x, y){ return x[0] - y[0]; });
+}
+function monthKey(ts){ var d = new Date(ts); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0'); }
+
+/* read everything from the repository and merge it into this device's copy */
+async function ghPull(){
+  var ref = await GH.headSha();
+  var t = await GH.readJSON('prep/trainer-state.json', ref, null);
+  var v = await GH.readJSON('prep/vocab-state.json', ref, null);
+  var files = (await GH.list('prep/log', ref)).filter(function(f){ return /\.json$/.test(f.name); });
+  var all = [];
+  for (var i = 0; i < files.length; i++){ var part = await GH.readJSON('prep/log/' + files[i].name, ref, []); if (Array.isArray(part)) all = all.concat(part); }
+  if (t) T = mergeT(T, t);
+  if (v) V = mergeV(V, v);
+  LOG = mergeLog(LOG, all);
+  ITEMS_CACHE = null;
+}
+/* write this device's changes as one commit (re-reading and merging if another device wrote meanwhile) */
+async function ghPush(items){
+  for (var attempt = 0; attempt < 3; attempt++){
+    var ref = await GH.headSha();
+    var rt = await GH.readJSON('prep/trainer-state.json', ref, null), rv = await GH.readJSON('prep/vocab-state.json', ref, null);
+    var t = mergeT(T, rt), v = mergeV(V, rv), files = [];
+    if (store.dirtyT || !rt){ T = t; files.push({path: 'prep/trainer-state.json', text: JSON.stringify(t)}); }
+    if (store.dirtyV || !rv){ V = v; files.push({path: 'prep/vocab-state.json', text: JSON.stringify(v, null, 1)}); }
+    var months = {};
+    items.forEach(function(x){ (months[monthKey(x[0])] = months[monthKey(x[0])] || []).push(x); });
+    for (var m in months){ var old = await GH.readJSON('prep/log/' + m + '.json', ref, []); files.push({path: 'prep/log/' + m + '.json', text: JSON.stringify(mergeLog(Array.isArray(old) ? old : [], months[m]))}); }
+    if (!files.length) return;
+    var n = items.length, msg = 'Polako: ' + (n ? L('ghAnswers') + ' ' + n : L('ghProgress')) + ' · ' + new Date().toLocaleString(TRL);
+    if (await GH.commit(files, msg)) return;
+  }
+  throw new Error('github: the branch keeps moving');
+}
+
+/* ---------- this browser's copy (the public site): IndexedDB, written on every save, read at start ---------- */
+var IDBK = window.POLAKO_SITE && window.PolakoIDB ? window.PolakoIDB : null, idbTimer = null;
+function idbSave(){
+  if (!IDBK) return;
+  clearTimeout(idbTimer);
+  idbTimer = setTimeout(function(){ IDBK.set('progress', {T: T, V: V, LOG: LOG}).catch(function(){}); }, 300);
+}
+async function idbLoad(){
+  if (!IDBK) return false;
+  try {
+    var p = await IDBK.get('progress');
+    if (!p) return false;
+    if (p.T) T = mergeT(T, p.T);
+    if (p.V) V = mergeV(V, p.V);
+    if (p.LOG) LOG = mergeLog(LOG, p.LOG);
+    ITEMS_CACHE = null; return true;
+  } catch (e){ return false; }
+}
+
+/* ---------- "Где хранить прогресс" in the trainer's settings (the public site only) ---------- */
+function deckText(){ var d = document.getElementById('pl-data'); return d ? d.textContent : JSON.stringify(D); }
+async function ghConnect(cfg, msg){
+  msg.textContent = L('ghConnecting'); msg.className = 'meta';
+  try {
+    GH.setCfg(cfg);
+    await GH.check();
+    var remoteDeck = await GH.read('deck.json');
+    if (remoteDeck == null){   // an empty repository: this browser's set and all its progress go there
+      await GH.commit([{path: 'deck.json', text: deckText()}, {path: 'polako.json', text: JSON.stringify({kind: 'polako-data', version: 1}, null, 1) + '\n'}], 'Polako: ' + L('ghFirstCommit'));
+    } else {
+      await ghPull();          // the repository already has words and progress: merge them with this browser's
+    }
+    store.dirtyT = true; store.dirtyV = true;
+    await ghPush(LOG.slice());
+    if (IDBK){ try { await IDBK.set('progress', {T: T, V: V, LOG: LOG}); } catch (e){} }
+    window.polakoStorage.set(cfg);
+    msg.textContent = L('ghConnected2'); setTimeout(function(){ location.reload(); }, 600);
+  } catch (e){
+    GH.setCfg(null); msg.textContent = window.polakoGithubError ? window.polakoGithubError(e) : String(e.status || e.message); msg.className = 'setup-err';
+  }
+}
+async function toBrowser(){
+  try { await flush(); } catch (e){}
+  if (IDBK){ try { await IDBK.set('progress', {T: T, V: V, LOG: LOG}); await IDBK.set('deck', deckText()); } catch (e){} }
+  window.polakoStorage.set({type: 'browser', source: 'saved'});
+  location.reload();
+}
+function storageControls(){
+  var box = el('div', 'storage');
+  box.appendChild(el('h3', null, L('stTitle')));
+  var cur = (window.polakoStorage && window.polakoStorage.get()) || {type: 'browser'}, gh = cur.type === 'github', open = null;
+  [['browser', L('stBrowser'), L('stBrowserNote')], ['github', L('stGithub'), L('stGithubNote')]].forEach(function(x){
+    var lb = el('label', 'st-opt' + ((x[0] === 'github') === gh ? ' on' : '')), r = el('input'); r.type = 'radio'; r.name = 'st'; r.checked = (x[0] === 'github') === gh;
+    var t = el('span'); t.appendChild(el('b', null, x[1])); t.appendChild(el('span', 'meta', x[2]));
+    lb.appendChild(r); lb.appendChild(t); box.appendChild(lb);
+    r.onchange = function(){
+      if (x[0] === 'browser' && gh){ if (confirmBox(box, L('stToBrowserSure'), toBrowser)) return; }
+      if (x[0] === 'github' && !gh){ form.hidden = false; if (open) open.hidden = true; }
+    };
+  });
+  var msg = el('p', 'meta');
+  var form = window.polakoGithubForm ? window.polakoGithubForm(function(cfg){ return ghConnect(cfg, msg); }) : el('div');
+  form.hidden = true;
+  if (gh){
+    var info = el('p', 'meta', L('ghConnected') + ' ' + cur.repo + ' · ');
+    info.appendChild(btn('linkbtn', L('ghSyncNow'), function(){ store.dirtyT = true; store.dirtyV = true; flush().then(function(){ return ghPull(); }).then(function(){ render(); setSync(L('ghSaved')); }).catch(function(e){ setSync(L('ghFail') + ' (' + (e.status || e.message) + ')'); }); }));
+    box.appendChild(info);
+  } else {
+    open = btn('btn', L('stConnectGithub'), function(){ form.hidden = false; open.hidden = true; }); box.appendChild(open);
+  }
+  box.appendChild(form); box.appendChild(msg);
+  return box;
+}
+/* a small inline "are you sure" instead of a browser dialog */
+function confirmBox(box, text, onYes){
+  var c = el('div', 'st-confirm'); c.appendChild(el('p', null, text));
+  c.appendChild(btn('btn primary', L('yes'), onYes)); c.appendChild(btn('btn', L('cancel'), function(){ render(); }));
+  box.appendChild(c); return true;
+}
+
+/* ===== boot.js ===== */
+/* ---------- boot: theme, first render, storage (local server → artifact db → this browser) ---------- */
+$('theme').onclick = function(){ var dark = ui.theme ? ui.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches; ui.theme = dark ? 'light' : 'dark'; lsSet('pl.theme', ui.theme); applyTheme(); };
+applyTheme();
+if (D.fsrs && D.fsrs.w) FSRS.setW(D.fsrs.w);   // personal weights from tools/fsrs_fit.py
+(function(){ var fb = lsGet('pl.fallback', null); if (fb){ if (fb.T && fb.T.cards) T = Object.assign(T, fb.T); LOG = fb.LOG || []; V = fb.V || {}; } })();
+if (!TABS.some(function(t){ return t[0] === ui.tab; })) ui.tab = 'train';
+render();
+setTimeout(function(){ if (TTS.ok){ ttsLoad(); if (!play) render(); } }, 700);   // voices arrive late in some browsers
+
+(async function(){
+  var local = /^https?:$/.test(location.protocol) && /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+  if (local){
+    try {
+      var ping = await fetch('/api/ping', {cache: 'no-store'});
+      if (ping.ok){
+        store.mode = 'api';
+        var tr = await (await fetch('/api/trainer')).json(); if (tr && tr.cards) T = Object.assign(T, tr);
+        var lg = await (await fetch('/api/log')).json(); if (Array.isArray(lg)) LOG = lg;
+        var vc = await (await fetch('/api/vocab')).json(); if (vc && typeof vc === 'object') V = vc;
+        ITEMS_CACHE = null; render(); setSync(L('live')); liveReload(); return;
+      }
+    } catch (e){}
+  }
+  if (window.POLAKO_SITE) await idbLoad();   // the public site: this browser's copy first (works offline too)
+  if (typeof GH !== 'undefined' && GH.on()){   // the public site with the person's own repository
+    try {
+      setSync(L('ghLoading')); await ghPull(); store.mode = 'gh';
+      if (window.POLAKO_GH_EMPTY){   // connected to an empty repository: put this set and the progress there
+        await GH.commit([{path: 'deck.json', text: deckText()}, {path: 'polako.json', text: JSON.stringify({kind: 'polako-data', version: 1}, null, 1) + '\n'}], 'Polako: ' + L('ghFirstCommit'));
+        store.dirtyT = true; store.dirtyV = true; await ghPush(LOG.slice()); window.POLAKO_GH_EMPTY = false;
+      }
+      render(); setSync(L('ghSaved'));
+    } catch (e){ store.mode = 'local'; render(); setSync(L('ghFail') + ' (' + (e.status || e.message) + ')'); }
+    // leaving the page saves; coming back pulls what other devices did; offline → catch up when GitHub answers
+    var resync = function(){
+      if (play) return;
+      var pending = store.mode === 'local' && (store.dirtyT || store.dirtyV || LOGNEW.length);
+      ghPull().then(function(){ store.mode = 'gh'; if (pending){ store.dirtyT = true; store.dirtyV = true; return flush(); } })
+        .then(function(){ render(); setSync(L('ghSaved')); }).catch(function(){});
+    };
+    document.addEventListener('visibilitychange', function(){ if (document.visibilityState === 'hidden') flush(); else resync(); });
+    window.addEventListener('online', resync);
+    return;
+  }
+  try {
+    var h = !window.POLAKO_SITE && window.claude && window.claude.use ? await window.claude.use('db') : null;
+    if (!h){ if (window.POLAKO_SITE){ render(); setSync(L('savedBrowser')); } else setSync(L('savedLocal')); return; }
+    // read everything first; writes are enabled only after (store.db = h), so nothing is written unread
+    var t = await h.doc('trainer/state').get(), v = await h.collection('vocab').get(), l = await h.collection('log').get();
+    if (t.exists && t.data().cards){ var remote = clone(t.data()); remote.cards = Object.assign(remote.cards, store.dirtyT ? T.cards : {}); T = Object.assign(T, remote); }
+    V = {}; v.docs.forEach(function(d){ V[d.id] = clone(d.data()); });
+    var all = []; l.docs.forEach(function(d){ (d.data().items || []).forEach(function(x){ all.push(x); }); });
+    var mine = LOGNEW.slice(); LOG = all.concat(mine).sort(function(a, b){ return a[0] - b[0]; });
+    store.db = h; store.mode = 'db';
+    ITEMS_CACHE = null; render(); setSync(L('saved'));
+    if (store.dirtyT || LOGNEW.length) flush();
+  } catch (e){ store.mode = 'local'; setSync(L('savedLocal')); }
+})();
+/* the agent rebuilt the page → version.json changed → reload in place (never in the middle of a round) */
+function liveReload(){
+  var y = sessionStorage.getItem('pl.scroll'); if (y){ sessionStorage.removeItem('pl.scroll'); setTimeout(function(){ scrollTo(0, +y); }, 50); }
+  setInterval(async function(){
+    try {
+      var v = await (await fetch('version.json', {cache: 'no-store'})).json();
+      if (v.id && v.id !== (D.build || {}).id && !play){ await flush(); try { sessionStorage.setItem('pl.scroll', String(scrollY)); } catch (e){} location.reload(); }
+    } catch (e){}
+  }, 2500);
+}
+window.addEventListener('beforeunload', function(){ if (store.mode === 'api' && (store.dirtyT || LOGNEW.length)){ try { navigator.sendBeacon('/api/trainer', new Blob([JSON.stringify(T)], {type: 'application/json'})); if (LOGNEW.length) navigator.sendBeacon('/api/log', new Blob([JSON.stringify({items: LOGNEW})], {type: 'application/json'})); } catch (e){} } });
+/* for the page's own tests and the site's loader: save now, read the current state */
+window.polakoFlush = function(){ return flush(); };
+window.polakoState = function(){ return {cards: Object.keys(T.cards || {}).length, log: LOG.length, mode: store.mode}; };
+
+};
+/* ---------- the public site: choose where words and progress live, then start the page ----------
+   Two kinds of storage, switchable any time in the trainer's settings ("Где хранить прогресс"):
+     browser — nothing to set up: the chosen set and all progress live in this browser (IndexedDB, asked to be
+               persistent; localStorage as a fallback). One device.
+     github  — the person's private repository (owner/name + a fine-grained token with "Contents: read and
+               write" on that repository only): words and progress shared by all their devices. Connecting moves
+               the progress made in the browser into the repository.
+   The choice is kept in localStorage (pl.storage); the token never leaves this browser except to api.github.com.
+   The site itself holds no personal data. */
+(function(){
+  var KEY = 'pl.storage', U = window.POLAKO_UI || {};
+  function L(k){ return U[k] != null ? U[k] : k; }
+  function cfgGet(){
+    try {
+      var c = JSON.parse(localStorage.getItem(KEY) || 'null');
+      if (!c){ var old = JSON.parse(localStorage.getItem('pl.gh') || 'null'); if (old && old.repo) c = {type: 'github', repo: old.repo, token: old.token}; }
+      return c;
+    } catch (e){ return null; }
+  }
+  function cfgSet(v){ try { if (v) localStorage.setItem(KEY, JSON.stringify(v)); else localStorage.removeItem(KEY); localStorage.removeItem('pl.gh'); } catch (e){} }
+  window.polakoStorage = {get: cfgGet, set: cfgSet};
+  function $(id){ return document.getElementById(id); }
+  function el(tag, cls, text){ var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function start(json){ $('pl-data').textContent = json; window.__polakoStart(); }
+
+  /* the set for browser mode: the site's current version of the pack (fixes arrive), the stored copy offline */
+  async function browserDeck(cfg){
+    var IDB = window.PolakoIDB, saved = null;
+    try { saved = IDB ? await IDB.get('deck') : null; } catch (e){}
+    var pack = (window.POLAKO_PACKS || []).filter(function(p){ return 'pack:' + p.name === cfg.source; })[0];
+    if (pack){
+      try {
+        var r = await fetch(pack.file, {cache: 'no-store'});
+        if (r.ok){ var t = await r.text(); try { if (IDB) await IDB.set('deck', t); } catch (e){} return t; }
+      } catch (e){}
+    }
+    return saved;
+  }
+  async function gh(cfg, path){
+    return fetch('https://api.github.com/repos/' + cfg.repo + path, {cache: 'no-store',
+      headers: {'Authorization': 'Bearer ' + cfg.token, 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28'}});
+  }
+  function b64dec(s){ return decodeURIComponent(escape(atob(String(s).replace(/\s/g, '')))); }
+  async function githubDeck(cfg){
+    var rr = await gh(cfg, '');   // a private repository without access answers 404 too
+    if (!rr.ok){ var e0 = new Error(String(rr.status)); e0.status = rr.status === 404 ? 'repo' : rr.status; throw e0; }
+    var r = await gh(cfg, '/contents/deck.json');
+    if (r.status === 404) return null;
+    if (!r.ok){ var e = new Error(String(r.status)); e.status = r.status; throw e; }
+    var j = await r.json();
+    if (j.content == null || (j.encoding === 'none' && j.size)){ var b = await (await gh(cfg, '/git/blobs/' + j.sha)).json(); return b64dec(b.content); }
+    return b64dec(j.content);
+  }
+  window.polakoGithubError = function(e){
+    return e.status === 401 ? L('setupBadToken') : e.status === 'repo' || e.status === 403 ? L('setupNoAccess') : L('setupFail') + ' (' + (e.status || e.message) + ')';
+  };
+
+  function screen(build){
+    var main = $('main'); main.innerHTML = ''; var c = el('div', 'card setup'); build(c); main.appendChild(c);
+    var s = $('summary'); if (s) s.hidden = true;
+  }
+  function welcome(err){
+    screen(function(c){
+      c.appendChild(el('h2', null, L('setupTitle')));
+      c.appendChild(el('p', null, L('setupIntro')));
+      if (err) c.appendChild(el('p', 'setup-err', err));
+      c.appendChild(el('h3', null, L('setupStartBrowser')));
+      c.appendChild(el('p', 'meta', L('setupStartBrowserNote')));
+      var box = el('div', 'setup-packs');
+      (window.POLAKO_PACKS || []).forEach(function(p){
+        var b = el('button', 'btn primary', p.title + ' — ' + p.words + ' ' + L('setupWords')); b.type = 'button';
+        b.onclick = function(){ cfgSet({type: 'browser', source: 'pack:' + p.name}); boot(); }; box.appendChild(b);
+      });
+      c.appendChild(box);
+      c.appendChild(el('h3', null, L('setupStartGithub')));
+      c.appendChild(el('p', 'meta', L('setupStartGithubNote')));
+      c.appendChild(window.polakoGithubForm(function(cfg){ cfgSet(cfg); boot(); }));
+    });
+  }
+  /* the GitHub form with the step-by-step help; used here and in the trainer's settings */
+  window.polakoGithubForm = function(onConnect, prefill){
+    var wrap = el('div', 'gh-setup');
+    var steps = el('ol', 'gh-steps');
+    [['ghStep1', 'https://github.com/new'], ['ghStep2', 'https://github.com/settings/personal-access-tokens/new'], ['ghStep3', null]].forEach(function(s){
+      var li = el('li'); li.appendChild(document.createTextNode(L(s[0]) + ' '));
+      if (s[1]){ var a = el('a', null, s[1].replace('https://', '')); a.href = s[1]; a.target = '_blank'; a.rel = 'noopener'; li.appendChild(a); }
+      steps.appendChild(li);
+    });
+    var det = el('details', 'gh-help'); det.appendChild(el('summary', null, L('ghHowTo'))); det.appendChild(steps);
+    var more = el('p', 'meta'); var a2 = el('a', null, L('setupHelp')); a2.href = 'https://github.com/firstpilotpirx/polako#2-синхронизация-между-устройствами-через-github'; a2.target = '_blank'; a2.rel = 'noopener'; more.appendChild(a2); det.appendChild(more);
+    wrap.appendChild(det);
+    var f = el('form', 'setup-form');
+    var r1 = el('label', null, L('setupRepo')), i1 = el('input'); i1.placeholder = L('setupRepoPh'); i1.autocapitalize = 'off'; i1.spellcheck = false; i1.value = (prefill || {}).repo || ''; r1.appendChild(i1);
+    var r2 = el('label', null, L('setupToken')), i2 = el('input'); i2.type = 'password'; i2.placeholder = 'github_pat_…'; i2.autocomplete = 'off'; r2.appendChild(i2);
+    var go = el('button', 'btn', L('setupConnect')); go.type = 'submit';
+    f.appendChild(r1); f.appendChild(r2); f.appendChild(go);
+    f.onsubmit = function(ev){ ev.preventDefault();
+      var repo = i1.value.trim().replace(/^https?:\/\/github\.com\//, '').replace(/\.git$/, '').replace(/\/$/, ''), tok = i2.value.trim();
+      if (!/^[\w.-]+\/[\w.-]+$/.test(repo)){ i1.focus(); return; } if (!tok){ i2.focus(); return; }
+      go.disabled = true; go.textContent = L('ghConnecting');
+      Promise.resolve(onConnect({type: 'github', repo: repo, token: tok})).catch(function(){}).then(function(){ go.disabled = false; go.textContent = L('setupConnect'); });
+    };
+    wrap.appendChild(f);
+    return wrap;
+  };
+
+  async function boot(){
+    var cfg = cfgGet();
+    window.POLAKO_SITE = true;
+    if (!cfg){ welcome(); return; }
+    screen(function(c){ c.appendChild(el('p', 'meta', L(cfg.type === 'github' ? 'ghLoading' : 'loading'))); });
+    if (cfg.type === 'browser'){
+      var t = await browserDeck(cfg);
+      if (!t){ cfgSet(null); welcome(L('setupFail')); return; }
+      window.POLAKO_STORE = cfg; start(t); return;
+    }
+    try {
+      var json = await githubDeck(cfg);
+      if (json == null){   // an empty repository: the person's current set (from the browser) or a pack goes there on connect
+        var local = null; try { local = window.PolakoIDB ? await window.PolakoIDB.get('deck') : null; } catch (e){}
+        if (!local){ var p = (window.POLAKO_PACKS || [])[0]; if (p){ var r = await fetch(p.file, {cache: 'no-store'}); local = await r.text(); } }
+        window.POLAKO_STORE = cfg; window.POLAKO_GH = cfg; window.POLAKO_GH_EMPTY = true; start(local); return;
+      }
+      try { if (window.PolakoIDB) await window.PolakoIDB.set('deck', json); } catch (e){}   // the offline copy
+      window.POLAKO_STORE = cfg; window.POLAKO_GH = cfg; start(json);
+    } catch (e){
+      if (e.status === 401 || e.status === 403 || e.status === 'repo'){ welcome(window.polakoGithubError(e)); return; }
+      // no network: the last copy from this browser; the page saves here and syncs when GitHub answers again
+      var copy = null; try { copy = window.PolakoIDB ? await window.PolakoIDB.get('deck') : null; } catch (e2){}
+      if (!copy){ welcome(window.polakoGithubError(e)); return; }
+      window.POLAKO_STORE = cfg; window.POLAKO_GH = cfg; start(copy);
+    }
+  }
+  boot();
+})();
+
+})();
+</script>
+
+</body>
+</html>
