@@ -74,6 +74,12 @@ for pk in (ROOT / "data" / "packs").glob("*.yaml"):
     for w in d.get("words", []):
         if not isinstance(w.get("sr"), str) or not isinstance(w.get("tr"), str):
             err(f"{pk.name}: bad word {w}")
+        if w.get("tier") not in (1, 2, 3):
+            err(f"{pk.name}: word without tier 1/2/3: {w.get('sr')}")
+    srs = {w.get("sr") for w in d.get("words", [])}
+    for x in d.get("removed", []):
+        if x in srs:
+            err(f"{pk.name}: {x} is both a word and removed")
     for s in d.get("situations", []):
         for dl in s.get("dialogs", []):
             for ln in dl["lines"]:

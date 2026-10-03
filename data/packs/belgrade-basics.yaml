@@ -1,10 +1,14 @@
-# Набор «Белград: первые разговоры» — минимальный словарь для пяти ситуаций.
+# Набор «Белград: первые разговоры» — минимальный словарь для восьми ситуаций.
 # Ставится в папку ученика командой: run pack.py --dir <folder> install belgrade-basics
 #
-# Принцип отбора: только то, без чего разговор в этих ситуациях не складывается.
-#   core       — ~90 самых частых слов, общие для всех ситуаций (местоимения, biti/imati/moći/trebati,
-#                вопросы, предлоги, числа, вежливые формулы). Они дают основную часть покрытия речи.
-#   situations — по 20–30 слов на ситуацию: только то, что реально звучит в диалогах ниже.
+# Принцип отбора — 80/20: минимум слов, который даёт максимум понимания. Порядок изучения — по важности,
+# не по темам (поле tier у каждого слова):
+#   tier 1 — база (~110): местоимения, предлоги, вопросы, частые глаголы, числа, вежливые формулы.
+#            Они нужны во всех ситуациях сразу и дают основную часть покрытия живой речи.
+#   tier 2 — ключевые слова ситуаций (~95): без них разговор в конкретном месте не складывается
+#            (документ, заверить, сколько стоит, болит…).
+#   tier 3 — полезные (~65): учить, когда первые два уровня держатся.
+# removed — слова, убранные при ревью как лишние для минимума (в колоде уходят в архив, прогресс сохраняется).
 # Диалоги — ориентир «как это обычно звучит»; детали процедур (сроки, суммы) — примеры, не справка.
 # Экавица, латиница. Переводы — русский.
 version: 1
@@ -12,7 +16,7 @@ id: belgrade-basics
 title: "Белград: первые разговоры"
 title_sr: "Beograd: prvi razgovori"
 explain: ru
-desc: "Соседи, магазин, МУП (ВНЖ и ПМЖ, справки), нотариус/юрист/бухгалтер, дружеская беседа с коллегой."
+desc: "Соседи, магазин, булочная, детская площадка, врач, МУП (ВНЖ и ПМЖ, справки), нотариус/юрист/бухгалтер, дружеская беседа с коллегой."
 
 situations:
   - id: komsije
@@ -170,279 +174,394 @@ situations:
           - {who: they, sr: "Idemo na pivo sa ekipom u sedam.", tr: "Идём на пиво с компанией в семь."}
           - {who: me, sr: "Super, dolazim! Pošalji mi adresu.", tr: "Супер, приду! Пришли адрес."}
 
+  - id: igraliste
+    title: "Детская площадка"
+    title_sr: "Na igralištu"
+    pri: 1
+    dialogs:
+      - id: igraliste-1
+        title: "Знакомство с мамой"
+        lines:
+          - {who: they, sr: "Ćao! Kako se zove vaš sin?", tr: "Привет! Как зовут вашего сына?"}
+          - {who: me, sr: "Zove se Miša. A vaša ćerka?", tr: "Его зовут Миша. А вашу дочку?"}
+          - {who: they, sr: "Ana. Koliko ima godina?", tr: "Ана. Сколько ему лет?"}
+          - {who: me, sr: "Tri godine. A ona?", tr: "Три года. А ей?"}
+          - {who: they, sr: "I ona ima tri! Mogu da se igraju zajedno.", tr: "Ей тоже три! Могут поиграть вместе."}
+      - id: igraliste-2
+        title: "Качели и очередь"
+        lines:
+          - {who: they, sr: "Izvinite, da li je ljuljaška slobodna?", tr: "Извините, качели свободны?"}
+          - {who: me, sr: "Još malo pa je vaš red.", tr: "Ещё чуть-чуть, и ваша очередь."}
+          - {who: me, sr: "Miša, hajde, sada ide devojčica.", tr: "Миша, давай, теперь девочка."}
+          - {who: they, sr: "Hvala, baš ste ljubazni.", tr: "Спасибо, вы очень любезны."}
+      - id: igraliste-3
+        title: "Игрушки и садик"
+        lines:
+          - {who: they, sr: "Je l' ovo vaša lopta?", tr: "Это ваш мяч?"}
+          - {who: me, sr: "Da, ali mogu da se igraju njom. Nema problema.", tr: "Да, но они могут ею поиграть. Без проблем."}
+          - {who: they, sr: "Da li ide u vrtić?", tr: "Он ходит в садик?"}
+          - {who: me, sr: "Da, u vrtić pored parka.", tr: "Да, в садик возле парка."}
+          - {who: me, sr: "Pažljivo, nemoj da padneš!", tr: "Осторожно, не упади!"}
+
+  - id: pekara
+    title: "Булочная"
+    title_sr: "U pekari"
+    pri: 1
+    dialogs:
+      - id: pekara-1
+        title: "Хлеб и бурек"
+        lines:
+          - {who: they, sr: "Izvolite, šta želite?", tr: "Пожалуйста, что желаете?"}
+          - {who: me, sr: "Jedan beli hleb i dva bureka sa sirom.", tr: "Один белый хлеб и два бурека с сыром."}
+          - {who: they, sr: "Da vam isečem hleb?", tr: "Нарезать вам хлеб?"}
+          - {who: me, sr: "Da, molim vas.", tr: "Да, пожалуйста."}
+          - {who: they, sr: "Za poneti ili ovde?", tr: "С собой или здесь?"}
+          - {who: me, sr: "Za poneti.", tr: "С собой."}
+      - id: pekara-2
+        title: "Что свежее"
+        lines:
+          - {who: me, sr: "Da li je ovo sveže?", tr: "Это свежее?"}
+          - {who: they, sr: "Jeste, još je toplo.", tr: "Да, ещё тёплое."}
+          - {who: me, sr: "Dajte mi četiri kifle i jedan jogurt.", tr: "Дайте мне четыре рогалика и один йогурт."}
+          - {who: they, sr: "Nešto slatko? Imamo pitu sa jabukama.", tr: "Что-нибудь сладкое? Есть пирог с яблоками."}
+          - {who: me, sr: "Može jedno parče.", tr: "Давайте один кусок."}
+      - id: pekara-3
+        title: "Нет нужного"
+        lines:
+          - {who: me, sr: "Imate li integralni hleb?", tr: "Есть цельнозерновой хлеб?"}
+          - {who: they, sr: "Nažalost, nestalo je. Biće ponovo posle podne.", tr: "К сожалению, закончился. Будет снова после обеда."}
+          - {who: me, sr: "Onda pola crnog hleba.", tr: "Тогда половину чёрного хлеба."}
+          - {who: they, sr: "Još nešto?", tr: "Что-нибудь ещё?"}
+          - {who: me, sr: "Ne, to je sve. Hvala!", tr: "Нет, это всё. Спасибо!"}
+
+  - id: lekar
+    title: "У врача"
+    title_sr: "Kod lekara"
+    pri: 1
+    dialogs:
+      - id: lekar-1
+        title: "Запись в дом здравља"
+        lines:
+          - {who: me, sr: "Dobar dan, želim da zakažem pregled kod lekara.", tr: "Добрый день, хочу записаться на приём к врачу."}
+          - {who: they, sr: "Imate li zdravstvenu karticu?", tr: "У вас есть медицинская карточка (страховки)?"}
+          - {who: me, sr: "Imam. Kada ima slobodan termin?", tr: "Есть. Когда есть свободное время?"}
+          - {who: they, sr: "Sutra u devet. Dođite petnaest minuta ranije.", tr: "Завтра в девять. Приходите на пятнадцать минут раньше."}
+      - id: lekar-2
+        title: "Что болит"
+        lines:
+          - {who: they, sr: "Šta vas boli?", tr: "Что у вас болит?"}
+          - {who: me, sr: "Boli me grlo i imam temperaturu.", tr: "Болит горло и у меня температура."}
+          - {who: they, sr: "Od kada?", tr: "С какого времени?"}
+          - {who: me, sr: "Od juče. Osećam se loše.", tr: "Со вчера. Чувствую себя плохо."}
+          - {who: they, sr: "Da li ste alergični na neki lek?", tr: "У вас есть аллергия на какое-нибудь лекарство?"}
+          - {who: me, sr: "Nisam.", tr: "Нет."}
+      - id: lekar-3
+        title: "Рецепт"
+        lines:
+          - {who: they, sr: "Dobićete recept. Uzimajte lek tri puta dnevno posle jela.", tr: "Получите рецепт. Принимайте лекарство три раза в день после еды."}
+          - {who: me, sr: "Gde mogu da kupim lek?", tr: "Где можно купить лекарство?"}
+          - {who: they, sr: "U apoteci. Ako ne bude bolje, dođite ponovo.", tr: "В аптеке. Если не станет лучше, приходите снова."}
+          - {who: me, sr: "Hvala, doktore.", tr: "Спасибо, доктор."}
+
 # ---------- слова ----------
 # core: общее ядро (sit не указан — ситуации проставятся сами по диалогам)
 words:
   # люди и указатели
-  - {sr: ja, tr: "я (мне — mi, meni; меня — me, mene)"}
-  - {sr: ti, tr: "ты (тебе — ti, tebi)", note: "С коллегами и друзьями — на «ti», с соседями старшего возраста и в учреждениях — на «Vi»."}
-  - {sr: vi, tr: "вы (вам — vam; вас — vas)", note: "В письмах и учреждениях вежливое «Vi» пишется с большой буквы."}
-  - {sr: mi, tr: "мы"}
-  - {sr: "on", tr: "он (его — ga, njega; ему — mu)"}
-  - {sr: ona, tr: "она (её — je, nju; ей — joj)", ex: [{sr: "Ona radi u banci.", tr: "Она работает в банке.", about: general}]}
-  - {sr: moj, tr: "мой", ex: [{sr: "Ovo je moj stan.", tr: "Это моя квартира.", about: general}]}
-  - {sr: vaš, tr: "ваш"}
-  - {sr: ovo, tr: "это (здесь)"}
-  - {sr: to, tr: "это, то"}
-  - {sr: šta, tr: "что"}
-  - {sr: ko, tr: "кто", ex: [{sr: "Ko je poslednji u redu?", tr: "Кто последний в очереди?", about: general}]}
-  - {sr: nešto, tr: "что-то, что-нибудь"}
-  - {sr: taj, tr: "тот, этот (ta, to)"}
-  - {sr: se, tr: "себя; частица возвратных глаголов", note: "Vidimo se — увидимся; sviđa mi se — мне нравится; zovem se — меня зовут."}
-  - {sr: ništa, tr: "ничего", note: "Ništa posebno — ничего особенного."}
+  - {tier: 1, sr: ja, tr: "я (мне — mi, meni; меня — me, mene)"}
+  - {tier: 1, sr: ti, tr: "ты (тебе — ti, tebi)", note: "С коллегами и друзьями — на «ti», с соседями старшего возраста и в учреждениях — на «Vi»."}
+  - {tier: 1, sr: vi, tr: "вы (вам — vam; вас — vas)", note: "В письмах и учреждениях вежливое «Vi» пишется с большой буквы."}
+  - {tier: 1, sr: mi, tr: "мы"}
+  - {tier: 1, sr: "on", tr: "он (его — ga, njega; ему — mu)"}
+  - {tier: 1, sr: ona, tr: "она (её — je, nju; ей — joj)", ex: [{sr: "Ona radi u banci.", tr: "Она работает в банке.", about: general}]}
+  - {tier: 1, sr: moj, tr: "мой", ex: [{sr: "Ovo je moj stan.", tr: "Это моя квартира.", about: general}]}
+  - {tier: 1, sr: vaš, tr: "ваш"}
+  - {tier: 1, sr: ovo, tr: "это (здесь)"}
+  - {tier: 1, sr: to, tr: "это, то"}
+  - {tier: 1, sr: šta, tr: "что"}
+  - {tier: 1, sr: ko, tr: "кто", ex: [{sr: "Ko je poslednji u redu?", tr: "Кто последний в очереди?", about: general}]}
+  - {tier: 1, sr: nešto, tr: "что-то, что-нибудь"}
+  - {tier: 1, sr: taj, tr: "тот, этот (ta, to)"}
+  - {tier: 1, sr: se, tr: "себя; частица возвратных глаголов", note: "Vidimo se — увидимся; sviđa mi se — мне нравится; zovem se — меня зовут."}
+  - {tier: 1, sr: ništa, tr: "ничего", note: "Ništa posebno — ничего особенного."}
   # глаголы-основа
-  - {sr: biti, tr: "быть (sam, si, je, smo, ste, su; не — nisam, nije)"}
-  - {sr: imati, tr: "иметь, (у меня) есть; nemam — у меня нет", note: "Nema — «нет, нету»: Nema problema."}
-  - {sr: hteti, tr: "хотеть (hoću, hoćeš); будущее: ću, ćeš, će"}
-  - {sr: moći, tr: "мочь (mogu, možeš, može); može — можно, давай", note: "«Može?» — «Можно?», ответ «Može!» — «Можно / давай»."}
-  - {sr: trebati, tr: "быть нужным: treba mi — мне нужно", note: "Treba mi kesa — мне нужен пакет (буквально «нужен мне»)."}
-  - {sr: znati, tr: "знать (znam, ne znam)", ex: [{sr: "Ne znam gde je pošta.", tr: "Не знаю, где почта.", about: general}]}
-  - {sr: razumeti, tr: "понимать (razumem, ne razumem)"}
-  - {sr: govoriti, tr: "говорить (govorim)", ex: [{sr: "Govorim malo srpski.", tr: "Я немного говорю по-сербски.", about: general}]}
-  - {sr: raditi, tr: "работать; делать", note: "Šta radiš? — Что делаешь? / Чем занимаешься?"}
-  - {sr: ići, tr: "идти, ехать (idem, idemo; idemo na kafu — пойдём на кофе)"}
-  - {sr: doći, tr: "прийти (dođem; dolazim — прихожу, приду)", ex: [{sr: "Mogu li da dođem sutra?", tr: "Можно мне прийти завтра?", about: general}]}
-  - {sr: dati, tr: "дать (dajte mi — дайте мне)"}
-  - {sr: uzeti, tr: "взять (uzmem)"}
-  - {sr: platiti, tr: "заплатить (platim)"}
-  - {sr: kupiti, tr: "купить (kupim)", ex: [{sr: "Moram da kupim hleb.", tr: "Мне нужно купить хлеб.", about: general}]}
-  - {sr: poslati, tr: "отправить, прислать (pošaljem, pošalji)"}
-  - {sr: čekati, tr: "ждать (čekam)", ex: [{sr: "Čekam u redu već pola sata.", tr: "Я жду в очереди уже полчаса.", about: general}]}
-  - {sr: reći, tr: "сказать (kažem, kažete)"}
-  - {sr: ponoviti, tr: "повторить (ponovite)"}
-  - {sr: izviniti, tr: "извинить; izvinite — извините (вежливо), izvini — извини"}
-  - {sr: želeti, tr: "желать, хотеть (želim, želite)", note: "«Šta želite?» — «Что желаете?» у прилавка."}
-  - {sr: dobiti, tr: "получить (dobijem; dobijate — получаете)"}
-  - {sr: ostaviti, tr: "оставить (ostavite — оставьте)"}
-  - {sr: tražiti, tr: "искать; просить", ex: [{sr: "Tražim pekaru.", tr: "Я ищу пекарню.", about: general}]}
-  - {sr: naći, tr: "найти (nađem)"}
+  - {tier: 1, sr: biti, tr: "быть (sam, si, je, smo, ste, su; не — nisam, nije)"}
+  - {tier: 1, sr: imati, tr: "иметь, (у меня) есть; nemam — у меня нет", note: "Nema — «нет, нету»: Nema problema."}
+  - {tier: 1, sr: hteti, tr: "хотеть (hoću, hoćeš); будущее: ću, ćeš, će"}
+  - {tier: 1, sr: moći, tr: "мочь (mogu, možeš, može); može — можно, давай", note: "«Može?» — «Можно?», ответ «Može!» — «Можно / давай»."}
+  - {tier: 1, sr: trebati, tr: "быть нужным: treba mi — мне нужно", note: "Treba mi kesa — мне нужен пакет (буквально «нужен мне»)."}
+  - {tier: 1, sr: znati, tr: "знать (znam, ne znam)", ex: [{sr: "Ne znam gde je pošta.", tr: "Не знаю, где почта.", about: general}]}
+  - {tier: 1, sr: razumeti, tr: "понимать (razumem, ne razumem)"}
+  - {tier: 1, sr: govoriti, tr: "говорить (govorim)", ex: [{sr: "Govorim malo srpski.", tr: "Я немного говорю по-сербски.", about: general}]}
+  - {tier: 1, sr: raditi, tr: "работать; делать", note: "Šta radiš? — Что делаешь? / Чем занимаешься?"}
+  - {tier: 1, sr: ići, tr: "идти, ехать (idem, idemo; idemo na kafu — пойдём на кофе)"}
+  - {tier: 1, sr: doći, tr: "прийти (dođem; dolazim — прихожу, приду)", ex: [{sr: "Mogu li da dođem sutra?", tr: "Можно мне прийти завтра?", about: general}]}
+  - {tier: 1, sr: dati, tr: "дать (dajte mi — дайте мне)"}
+  - {tier: 1, sr: uzeti, tr: "взять (uzmem)"}
+  - {tier: 1, sr: platiti, tr: "заплатить (platim)"}
+  - {tier: 1, sr: kupiti, tr: "купить (kupim)", ex: [{sr: "Moram da kupim hleb.", tr: "Мне нужно купить хлеб.", about: general}]}
+  - {tier: 1, sr: poslati, tr: "отправить, прислать (pošaljem, pošalji)"}
+  - {tier: 1, sr: čekati, tr: "ждать (čekam)", ex: [{sr: "Čekam u redu već pola sata.", tr: "Я жду в очереди уже полчаса.", about: general}]}
+  - {tier: 1, sr: reći, tr: "сказать (kažem, kažete)"}
+  - {tier: 3, sr: ponoviti, tr: "повторить (ponovite)"}
+  - {tier: 1, sr: izviniti, tr: "извинить; izvinite — извините (вежливо), izvini — извини"}
+  - {tier: 1, sr: želeti, tr: "желать, хотеть (želim, želite)", note: "«Šta želite?» — «Что желаете?» у прилавка."}
+  - {tier: 1, sr: dobiti, tr: "получить (dobijem; dobijate — получаете)"}
+  - {tier: 3, sr: ostaviti, tr: "оставить (ostavite — оставьте)"}
+  - {tier: 3, sr: tražiti, tr: "искать; просить", ex: [{sr: "Tražim pekaru.", tr: "Я ищу пекарню.", about: general}]}
+  - {tier: 3, sr: naći, tr: "найти (nađem)"}
   # вопросы
-  - {sr: gde, tr: "где, куда"}
-  - {sr: kada, tr: "когда (тж. kad)", ex: [{sr: "Kada radi pošta?", tr: "Когда работает почта?", about: general}]}
-  - {sr: koliko, tr: "сколько", note: "Koliko košta? — Сколько стоит?"}
-  - {sr: kako, tr: "как"}
-  - {sr: zašto, tr: "почему, зачем", ex: [{sr: "Zašto lift ne radi?", tr: "Почему лифт не работает?", about: general}]}
-  - {sr: koji, tr: "который, какой (koja, koje)"}
-  - {sr: li, tr: "ли — вопрос: Imate li…? / Da li imate…? — У вас есть…?"}
+  - {tier: 1, sr: gde, tr: "где, куда"}
+  - {tier: 1, sr: kada, tr: "когда (тж. kad)", ex: [{sr: "Kada radi pošta?", tr: "Когда работает почта?", about: general}]}
+  - {tier: 1, sr: koliko, tr: "сколько", note: "Koliko košta? — Сколько стоит?"}
+  - {tier: 1, sr: kako, tr: "как"}
+  - {tier: 1, sr: zašto, tr: "почему, зачем", ex: [{sr: "Zašto lift ne radi?", tr: "Почему лифт не работает?", about: general}]}
+  - {tier: 1, sr: koji, tr: "который, какой (koja, koje)"}
+  - {tier: 1, sr: li, tr: "ли — вопрос: Imate li…? / Da li imate…? — У вас есть…?"}
   # наречия и частицы
-  - {sr: da, tr: "да; что, чтобы", note: "«Mogu da platim» — «могу заплатить»: после moći, želeti, morati часто da + настоящее время."}
-  - {sr: ne, tr: "не; нет"}
-  - {sr: ovde, tr: "здесь", ex: [{sr: "Da li mogu da platim ovde?", tr: "Можно заплатить здесь?", about: general}]}
-  - {sr: tamo, tr: "там", ex: [{sr: "Šalter je tamo, levo.", tr: "Окошко там, слева.", about: general}]}
-  - {sr: sada, tr: "сейчас (тж. sad)"}
-  - {sr: danas, tr: "сегодня", ex: [{sr: "Danas ne radim.", tr: "Сегодня я не работаю.", about: general}]}
-  - {sr: sutra, tr: "завтра"}
-  - {sr: juče, tr: "вчера", ex: [{sr: "Juče sam bio u MUP-u.", tr: "Вчера я был в МУП.", about: general}]}
-  - {sr: posle, tr: "после; потом"}
-  - {sr: još, tr: "ещё"}
-  - {sr: samo, tr: "только", ex: [{sr: "Samo malo, molim.", tr: "Только немного, пожалуйста.", about: general}]}
-  - {sr: malo, tr: "немного, мало"}
-  - {sr: mnogo, tr: "много; очень"}
-  - {sr: jako, tr: "очень"}
-  - {sr: dobro, tr: "хорошо, ладно"}
-  - {sr: dobar, tr: "хороший (dobar dan — добрый день, dobro jutro — доброе утро, dobro veče — добрый вечер)"}
-  - {sr: više, tr: "больше; более"}
-  - {sr: evo, tr: "вот (здесь, держите)", note: "Evo pasoša — вот паспорт; «Evo, polako» — да вот, потихоньку."}
-  - {sr: otprilike, tr: "примерно"}
-  - {sr: naravno, tr: "конечно"}
-  - {sr: nažalost, tr: "к сожалению"}
-  - {sr: možda, tr: "может быть", ex: [{sr: "Možda sutra.", tr: "Может быть, завтра.", about: general}]}
-  - {sr: polako, tr: "потихоньку, не спеша", note: "«Evo, polako» — обычный ответ на «Kako ste?»: «да потихоньку»."}
-  - {sr: sporo, tr: "медленно (sporije — медленнее)"}
-  - {sr: levo, tr: "налево, слева"}
-  - {sr: desno, tr: "направо, справа", ex: [{sr: "Šalter je desno.", tr: "Окошко справа.", about: general}]}
+  - {tier: 1, sr: da, tr: "да; что, чтобы", note: "«Mogu da platim» — «могу заплатить»: после moći, želeti, morati часто da + настоящее время."}
+  - {tier: 1, sr: ne, tr: "не; нет"}
+  - {tier: 1, sr: ovde, tr: "здесь", ex: [{sr: "Da li mogu da platim ovde?", tr: "Можно заплатить здесь?", about: general}]}
+  - {tier: 1, sr: tamo, tr: "там", ex: [{sr: "Šalter je tamo, levo.", tr: "Окошко там, слева.", about: general}]}
+  - {tier: 1, sr: sada, tr: "сейчас (тж. sad)"}
+  - {tier: 1, sr: danas, tr: "сегодня", ex: [{sr: "Danas ne radim.", tr: "Сегодня я не работаю.", about: general}]}
+  - {tier: 1, sr: sutra, tr: "завтра"}
+  - {tier: 1, sr: juče, tr: "вчера", ex: [{sr: "Juče sam bio u MUP-u.", tr: "Вчера я был в МУП.", about: general}]}
+  - {tier: 1, sr: posle, tr: "после; потом"}
+  - {tier: 1, sr: još, tr: "ещё"}
+  - {tier: 1, sr: samo, tr: "только", ex: [{sr: "Samo malo, molim.", tr: "Только немного, пожалуйста.", about: general}]}
+  - {tier: 1, sr: malo, tr: "немного, мало"}
+  - {tier: 1, sr: mnogo, tr: "много; очень"}
+  - {tier: 1, sr: jako, tr: "очень"}
+  - {tier: 1, sr: dobro, tr: "хорошо, ладно"}
+  - {tier: 1, sr: dobar, tr: "хороший (dobar dan — добрый день, dobro jutro — доброе утро, dobro veče — добрый вечер)"}
+  - {tier: 1, sr: više, tr: "больше; более"}
+  - {tier: 1, sr: evo, tr: "вот (здесь, держите)", note: "Evo pasoša — вот паспорт; «Evo, polako» — да вот, потихоньку."}
+  - {tier: 3, sr: otprilike, tr: "примерно"}
+  - {tier: 1, sr: naravno, tr: "конечно"}
+  - {tier: 1, sr: nažalost, tr: "к сожалению"}
+  - {tier: 1, sr: možda, tr: "может быть", ex: [{sr: "Možda sutra.", tr: "Может быть, завтра.", about: general}]}
+  - {tier: 1, sr: polako, tr: "потихоньку, не спеша", note: "«Evo, polako» — обычный ответ на «Kako ste?»: «да потихоньку»."}
+  - {tier: 3, sr: sporo, tr: "медленно (sporije — медленнее)"}
+  - {tier: 3, sr: levo, tr: "налево, слева"}
+  - {tier: 3, sr: desno, tr: "направо, справа", ex: [{sr: "Šalter je desno.", tr: "Окошко справа.", about: general}]}
   # предлоги и союзы
-  - {sr: u, tr: "в"}
-  - {sr: na, tr: "на"}
-  - {sr: sa, tr: "с (sa kolegom — с коллегой)"}
-  - {sr: za, tr: "для; за; на (za vikend — на выходных)"}
-  - {sr: od, tr: "от; из (материала)"}
-  - {sr: iz, tr: "из (Ja sam iz Rusije — я из России)"}
-  - {sr: pored, tr: "рядом с, возле"}
-  - {sr: do, tr: "до"}
-  - {sr: kod, tr: "у (кого-то), возле: kod notara — у нотариуса"}
-  - {sr: bez, tr: "без"}
-  - {sr: o, tr: "о (potvrda o uplati — подтверждение об оплате)"}
-  - {sr: i, tr: "и"}
-  - {sr: a, tr: "а"}
-  - {sr: ali, tr: "но", ex: [{sr: "Skupo je, ali je dobro.", tr: "Дорого, но хорошо.", about: general}]}
-  - {sr: ili, tr: "или"}
-  - {sr: ako, tr: "если"}
-  - {sr: jer, tr: "потому что", ex: [{sr: "Žurim jer imam termin.", tr: "Спешу, потому что у меня запись.", about: general}]}
+  - {tier: 1, sr: u, tr: "в"}
+  - {tier: 1, sr: na, tr: "на"}
+  - {tier: 1, sr: sa, tr: "с (sa kolegom — с коллегой)"}
+  - {tier: 1, sr: za, tr: "для; за; на (za vikend — на выходных)"}
+  - {tier: 1, sr: od, tr: "от; из (материала)"}
+  - {tier: 1, sr: iz, tr: "из (Ja sam iz Rusije — я из России)"}
+  - {tier: 1, sr: pored, tr: "рядом с, возле"}
+  - {tier: 1, sr: do, tr: "до"}
+  - {tier: 1, sr: kod, tr: "у (кого-то), возле: kod notara — у нотариуса"}
+  - {tier: 1, sr: bez, tr: "без"}
+  - {tier: 1, sr: o, tr: "о (potvrda o uplati — подтверждение об оплате)"}
+  - {tier: 1, sr: i, tr: "и"}
+  - {tier: 1, sr: a, tr: "а"}
+  - {tier: 1, sr: ali, tr: "но", ex: [{sr: "Skupo je, ali je dobro.", tr: "Дорого, но хорошо.", about: general}]}
+  - {tier: 1, sr: ili, tr: "или"}
+  - {tier: 1, sr: ako, tr: "если"}
+  - {tier: 1, sr: jer, tr: "потому что", ex: [{sr: "Žurim jer imam termin.", tr: "Спешу, потому что у меня запись.", about: general}]}
   # вежливость
-  - {sr: hvala, tr: "спасибо (hvala puno — большое спасибо)"}
-  - {sr: molim, tr: "пожалуйста (прошу); что-что?", note: "Переспросить: «Molim?» — «Простите, что?»"}
-  - {sr: izvolite, tr: "пожалуйста (вот, прошу; слушаю вас)", note: "Говорят, протягивая что-то или приглашая сказать, что нужно."}
-  - {sr: zdravo, tr: "привет; здравствуйте", ex: [{sr: "Zdravo, kako si?", tr: "Привет, как ты?", about: general}]}
-  - {sr: ćao, tr: "привет; пока (с друзьями, коллегами)"}
-  - {sr: prijatno, tr: "всего доброго (при прощании); приятного аппетита"}
-  - {sr: doviđenja, tr: "до свидания", ex: [{sr: "Hvala, doviđenja!", tr: "Спасибо, до свидания!", about: general}]}
+  - {tier: 1, sr: hvala, tr: "спасибо (hvala puno — большое спасибо)"}
+  - {tier: 1, sr: molim, tr: "пожалуйста (прошу); что-что?", note: "Переспросить: «Molim?» — «Простите, что?»"}
+  - {tier: 1, sr: izvolite, tr: "пожалуйста (вот, прошу; слушаю вас)", note: "Говорят, протягивая что-то или приглашая сказать, что нужно."}
+  - {tier: 1, sr: zdravo, tr: "привет; здравствуйте", ex: [{sr: "Zdravo, kako si?", tr: "Привет, как ты?", about: general}]}
+  - {tier: 1, sr: ćao, tr: "привет; пока (с друзьями, коллегами)"}
+  - {tier: 1, sr: prijatno, tr: "всего доброго (при прощании); приятного аппетита"}
+  - {tier: 1, sr: doviđenja, tr: "до свидания", ex: [{sr: "Hvala, doviđenja!", tr: "Спасибо, до свидания!", about: general}]}
   # числа и время
-  - {sr: jedan, tr: "один (jedna, jedno)"}
-  - {sr: dva, tr: "два (dve — для женского рода)"}
-  - {sr: tri, tr: "три"}
-  - {sr: četiri, tr: "четыре", ex: [{sr: "Imam termin u četiri.", tr: "У меня запись на четыре.", about: general}]}
-  - {sr: pet, tr: "пять"}
-  - {sr: šest, tr: "шесть", ex: [{sr: "Vidimo se u šest.", tr: "Увидимся в шесть.", about: general}]}
-  - {sr: sedam, tr: "семь"}
-  - {sr: osam, tr: "восемь", ex: [{sr: "Prodavnica se otvara u osam.", tr: "Магазин открывается в восемь.", about: general}]}
-  - {sr: devet, tr: "девять", ex: [{sr: "Termin je u devet.", tr: "Запись на девять.", about: general}]}
-  - {sr: deset, tr: "десять (11–19: jedanaest, dvanaest … devetnaest)"}
-  - {sr: dvadeset, tr: "двадцать (trideset — 30, četrdeset — 40, pedeset — 50)", ex: [{sr: "Čekao sam dvadeset minuta.", tr: "Я ждал двадцать минут.", about: general}]}
-  - {sr: sto, tr: "сто (dvesta — 200, trista — 300, osamsto — 800)", ex: [{sr: "To je sto dinara.", tr: "Это сто динаров.", about: general}]}
-  - {sr: hiljada, tr: "тысяча", ex: [{sr: "To je tri hiljade dinara.", tr: "Это три тысячи динаров.", about: general}]}
-  - {sr: pola, tr: "половина, пол- (pola sata — полчаса, pola kile — полкило)"}
-  - {sr: dan, tr: "день (dobar dan — добрый день)"}
-  - {sr: nedelja, tr: "неделя; воскресенье", ex: [{sr: "U nedelju ne radim.", tr: "В воскресенье я не работаю.", about: general}]}
-  - {sr: mesec, tr: "месяц"}
-  - {sr: godina, tr: "год"}
-  - {sr: sat, tr: "час; часы"}
-  - {sr: vikend, tr: "выходные"}
-  - {sr: posao, tr: "работа", note: "Ići na posao — идти на работу; posle posla — после работы."}
-  - {sr: kuća, tr: "дом (kod kuće — дома)"}
-  - {sr: dinar, tr: "динар"}
+  - {tier: 1, sr: jedan, tr: "один (jedna, jedno)"}
+  - {tier: 1, sr: dva, tr: "два (dve — для женского рода)"}
+  - {tier: 1, sr: tri, tr: "три"}
+  - {tier: 1, sr: četiri, tr: "четыре", ex: [{sr: "Imam termin u četiri.", tr: "У меня запись на четыре.", about: general}]}
+  - {tier: 1, sr: pet, tr: "пять"}
+  - {tier: 1, sr: šest, tr: "шесть", ex: [{sr: "Vidimo se u šest.", tr: "Увидимся в шесть.", about: general}]}
+  - {tier: 1, sr: sedam, tr: "семь"}
+  - {tier: 1, sr: osam, tr: "восемь", ex: [{sr: "Prodavnica se otvara u osam.", tr: "Магазин открывается в восемь.", about: general}]}
+  - {tier: 1, sr: devet, tr: "девять", ex: [{sr: "Termin je u devet.", tr: "Запись на девять.", about: general}]}
+  - {tier: 1, sr: deset, tr: "десять (11–19: jedanaest, dvanaest … devetnaest)"}
+  - {tier: 1, sr: dvadeset, tr: "двадцать (trideset — 30, četrdeset — 40, pedeset — 50)", ex: [{sr: "Čekao sam dvadeset minuta.", tr: "Я ждал двадцать минут.", about: general}]}
+  - {tier: 1, sr: sto, tr: "сто (dvesta — 200, trista — 300, osamsto — 800)", ex: [{sr: "To je sto dinara.", tr: "Это сто динаров.", about: general}]}
+  - {tier: 1, sr: hiljada, tr: "тысяча", ex: [{sr: "To je tri hiljade dinara.", tr: "Это три тысячи динаров.", about: general}]}
+  - {tier: 1, sr: pola, tr: "половина, пол- (pola sata — полчаса, pola kile — полкило)"}
+  - {tier: 1, sr: dan, tr: "день (dobar dan — добрый день)"}
+  - {tier: 1, sr: nedelja, tr: "неделя; воскресенье", ex: [{sr: "U nedelju ne radim.", tr: "В воскресенье я не работаю.", about: general}]}
+  - {tier: 1, sr: mesec, tr: "месяц"}
+  - {tier: 1, sr: godina, tr: "год"}
+  - {tier: 1, sr: sat, tr: "час; часы"}
+  - {tier: 2, sr: vikend, tr: "выходные"}
+  - {tier: 2, sr: posao, tr: "работа", note: "Ići na posao — идти на работу; posle posla — после работы."}
+  - {tier: 3, sr: kuća, tr: "дом (kod kuće — дома)"}
+  - {tier: 2, sr: dinar, tr: "динар"}
 
   # ---------- соседи ----------
-  - {sr: komšija, tr: "сосед", sit: [komsije], note: "Komšinica — соседка. Обращение «Komšija!» — дружелюбно и обычно."}
-  - {sr: komšinica, tr: "соседка", sit: [komsije]}
-  - {sr: zgrada, tr: "здание, дом (многоэтажный)", sit: [komsije], ex: [{sr: "U našoj zgradi nema lifta.", tr: "В нашем доме нет лифта.", about: general}]}
-  - {sr: sprat, tr: "этаж", sit: [komsije], note: "Na drugom spratu — на втором этаже (первый этаж над землёй — prizemlje)."}
-  - {sr: prizemlje, tr: "первый этаж (на уровне земли)", sit: [komsije], ex: [{sr: "Pošta je u prizemlju.", tr: "Почта на первом этаже.", about: general}]}
-  - {sr: ulaz, tr: "подъезд; вход", sit: [komsije], ex: [{sr: "Paket je u ulazu.", tr: "Посылка в подъезде.", about: general}]}
-  - {sr: lift, tr: "лифт", sit: [komsije], ex: [{sr: "Lift ne radi do petka.", tr: "Лифт не работает до пятницы.", about: general}]}
-  - {sr: stan, tr: "квартира", sit: [komsije], note: "Ложный друг: не «стан», а квартира.", ex: [{sr: "Naš stan je na trećem spratu.", tr: "Наша квартира на третьем этаже.", about: general}]}
-  - {sr: ključ, tr: "ключ", sit: [komsije], ex: [{sr: "Zaboravio sam ključ.", tr: "Я забыл ключ.", about: general}]}
-  - {sr: paket, tr: "посылка", sit: [komsije]}
-  - {sr: kurir, tr: "курьер", sit: [komsije]}
-  - {sr: buka, tr: "шум", sit: [komsije], ex: [{sr: "Izvinite zbog buke.", tr: "Извините за шум.", about: general}]}
-  - {sr: smeće, tr: "мусор", sit: [komsije], ex: [{sr: "Gde se baca smeće?", tr: "Куда выбрасывают мусор?", about: general}]}
-  - {sr: vreme, tr: "погода; время", sit: [komsije], note: "Kakvo je vreme? — Какая погода?"}
-  - {sr: lep, tr: "красивый; хороший (о погоде, дне)", sit: [komsije]}
-  - {sr: divan, tr: "чудесный", sit: [komsije], note: "Ложный друг: не «диван» (диван — kauč).", ex: [{sr: "Divan dan!", tr: "Чудесный день!", about: general}]}
-  - {sr: žuriti, tr: "спешить (žurim — спешу)", sit: [komsije]}
-  - {sr: šetati, tr: "гулять (šetali smo — мы гуляли)", sit: [komsije]}
-  - {sr: videti, tr: "видеть; vidimo se — увидимся", sit: [komsije]}
-  - {sr: ljubazan, tr: "любезный, приветливый", sit: [komsije, kolega]}
-  - {sr: reka, tr: "река", sit: [komsije]}
-  - {sr: ćerka, tr: "дочь", sit: [komsije]}
-  - {sr: deca, tr: "дети", sit: [komsije, kolega], ex: [{sr: "Deca su u školi.", tr: "Дети в школе.", about: general}]}
+  - {tier: 2, sr: komšija, tr: "сосед", sit: [komsije], note: "Komšinica — соседка. Обращение «Komšija!» — дружелюбно и обычно."}
+  - {tier: 2, sr: zgrada, tr: "здание, дом (многоэтажный)", sit: [komsije], ex: [{sr: "U našoj zgradi nema lifta.", tr: "В нашем доме нет лифта.", about: general}]}
+  - {tier: 2, sr: sprat, tr: "этаж", sit: [komsije], note: "Na drugom spratu — на втором этаже (первый этаж над землёй — prizemlje)."}
+  - {tier: 3, sr: ulaz, tr: "подъезд; вход", sit: [komsije], ex: [{sr: "Paket je u ulazu.", tr: "Посылка в подъезде.", about: general}]}
+  - {tier: 2, sr: stan, tr: "квартира", sit: [komsije], note: "Ложный друг: не «стан», а квартира.", ex: [{sr: "Naš stan je na trećem spratu.", tr: "Наша квартира на третьем этаже.", about: general}]}
+  - {tier: 3, sr: ključ, tr: "ключ", sit: [komsije], ex: [{sr: "Zaboravio sam ključ.", tr: "Я забыл ключ.", about: general}]}
+  - {tier: 3, sr: paket, tr: "посылка", sit: [komsije]}
+  - {tier: 3, sr: kurir, tr: "курьер", sit: [komsije]}
+  - {tier: 1, sr: vreme, tr: "погода; время", sit: [komsije], note: "Kakvo je vreme? — Какая погода?"}
+  - {tier: 3, sr: lep, tr: "красивый; хороший (о погоде, дне)", sit: [komsije]}
+  - {tier: 1, sr: videti, tr: "видеть; vidimo se — увидимся", sit: [komsije]}
+  - {tier: 3, sr: ljubazan, tr: "любезный, приветливый", sit: [komsije, kolega]}
+  - {tier: 2, sr: ćerka, tr: "дочь", sit: [komsije]}
+  - {tier: 2, sr: deca, tr: "дети", sit: [komsije, kolega], ex: [{sr: "Deca su u školi.", tr: "Дети в школе.", about: general}]}
 
   # ---------- магазин ----------
-  - {sr: prodavnica, tr: "магазин", sit: [prodavnica], ex: [{sr: "Prodavnica radi do deset.", tr: "Магазин работает до десяти.", about: general}]}
-  - {sr: kasa, tr: "касса", sit: [prodavnica]}
-  - {sr: kesa, tr: "пакет", sit: [prodavnica]}
-  - {sr: račun, tr: "чек; счёт", sit: [prodavnica, notar]}
-  - {sr: kartica, tr: "карта (банковская, лояльности)", sit: [prodavnica], note: "Platiti karticom — заплатить картой."}
-  - {sr: gotovina, tr: "наличные", sit: [prodavnica], note: "Plaćam gotovinom — плачу наличными.", ex: [{sr: "Imate li gotovinu?", tr: "У вас есть наличные?", about: general}]}
-  - {sr: kusur, tr: "сдача", sit: [prodavnica], ex: [{sr: "Izvolite kusur.", tr: "Ваша сдача.", about: general}]}
-  - {sr: cena, tr: "цена", sit: [prodavnica], ex: [{sr: "Koja je cena?", tr: "Какая цена?", about: general}]}
-  - {sr: akcija, tr: "акция, распродажа", sit: [prodavnica], ex: [{sr: "Ovaj sir je na akciji.", tr: "Этот сыр по акции.", about: general}]}
-  - {sr: koštati, tr: "стоить (košta, koštaju)", sit: [prodavnica, notar]}
-  - {sr: hleb, tr: "хлеб", sit: [prodavnica]}
-  - {sr: mleko, tr: "молоко", sit: [prodavnica]}
-  - {sr: sir, tr: "сыр", sit: [prodavnica]}
-  - {sr: jogurt, tr: "йогурт (кефир-подобный питьевой)", sit: [prodavnica]}
-  - {sr: šunka, tr: "ветчина", sit: [prodavnica]}
-  - {sr: jaje, tr: "яйцо (jaja — яйца)", sit: [prodavnica], ex: [{sr: "Deset jaja, molim.", tr: "Десяток яиц, пожалуйста.", about: general}]}
-  - {sr: voda, tr: "вода", sit: [prodavnica], ex: [{sr: "Jednu vodu, molim.", tr: "Одну воду, пожалуйста.", about: general}]}
-  - {sr: voće, tr: "фрукты", sit: [prodavnica], ex: [{sr: "Gde je voće?", tr: "Где фрукты?", about: general}]}
-  - {sr: povrće, tr: "овощи", sit: [prodavnica], ex: [{sr: "Povrće je sveže.", tr: "Овощи свежие.", about: general}]}
-  - {sr: kilo, tr: "килограмм (pola kile — полкило)", sit: [prodavnica]}
-  - {sr: gram, tr: "грамм", sit: [prodavnica]}
-  - {sr: frižider, tr: "холодильник", sit: [prodavnica]}
-  - {sr: probati, tr: "попробовать", sit: [prodavnica]}
+  - {tier: 3, sr: prodavnica, tr: "магазин", sit: [prodavnica], ex: [{sr: "Prodavnica radi do deset.", tr: "Магазин работает до десяти.", about: general}]}
+  - {tier: 2, sr: kesa, tr: "пакет", sit: [prodavnica]}
+  - {tier: 2, sr: račun, tr: "чек; счёт", sit: [prodavnica, notar]}
+  - {tier: 2, sr: kartica, tr: "карта (банковская, лояльности)", sit: [prodavnica], note: "Platiti karticom — заплатить картой."}
+  - {tier: 2, sr: gotovina, tr: "наличные", sit: [prodavnica], note: "Plaćam gotovinom — плачу наличными.", ex: [{sr: "Imate li gotovinu?", tr: "У вас есть наличные?", about: general}]}
+  - {tier: 2, sr: cena, tr: "цена", sit: [prodavnica], ex: [{sr: "Koja je cena?", tr: "Какая цена?", about: general}]}
+  - {tier: 2, sr: koštati, tr: "стоить (košta, koštaju)", sit: [prodavnica, notar]}
+  - {tier: 2, sr: hleb, tr: "хлеб", sit: [prodavnica]}
+  - {tier: 2, sr: mleko, tr: "молоко", sit: [prodavnica]}
+  - {tier: 2, sr: sir, tr: "сыр", sit: [prodavnica]}
+  - {tier: 3, sr: jogurt, tr: "йогурт (кефир-подобный питьевой)", sit: [prodavnica]}
+  - {tier: 3, sr: jaje, tr: "яйцо (jaja — яйца)", sit: [prodavnica], ex: [{sr: "Deset jaja, molim.", tr: "Десяток яиц, пожалуйста.", about: general}]}
+  - {tier: 2, sr: voda, tr: "вода", sit: [prodavnica], ex: [{sr: "Jednu vodu, molim.", tr: "Одну воду, пожалуйста.", about: general}]}
+  - {tier: 3, sr: voće, tr: "фрукты", sit: [prodavnica], ex: [{sr: "Gde je voće?", tr: "Где фрукты?", about: general}]}
+  - {tier: 3, sr: povrće, tr: "овощи", sit: [prodavnica], ex: [{sr: "Povrće je sveže.", tr: "Овощи свежие.", about: general}]}
+  - {tier: 2, sr: kilo, tr: "килограмм (pola kile — полкило)", sit: [prodavnica]}
+  - {tier: 3, sr: probati, tr: "попробовать", sit: [prodavnica]}
 
   # ---------- МУП ----------
-  - {sr: zahtev, tr: "заявление, запрос", sit: [mup], note: "Predati zahtev — подать заявление."}
-  - {sr: predati, tr: "подать, сдать (predam — подам)", sit: [mup, notar]}
-  - {sr: privremeni, tr: "временный (privremeni boravak — ВНЖ)", sit: [mup]}
-  - {sr: boravak, tr: "пребывание; ВНЖ (privremeni boravak)", sit: [mup]}
-  - {sr: stalno nastanjenje, tr: "ПМЖ, постоянное проживание", pos: phrase, sit: [mup]}
-  - {sr: stranac, tr: "иностранец (za strance — для иностранцев)", sit: [mup]}
-  - {sr: pasoš, tr: "паспорт (заграничный)", sit: [mup, notar]}
-  - {sr: lična karta, tr: "удостоверение личности (ID-карта)", pos: phrase, sit: [mup], ex: [{sr: "Ponesite ličnu kartu.", tr: "Возьмите удостоверение личности.", about: general}]}
-  - {sr: dokument, tr: "документ (dokumenta — документы)", sit: [mup, notar]}
-  - {sr: dokaz, tr: "доказательство, подтверждение", sit: [mup]}
-  - {sr: smeštaj, tr: "жильё, проживание (dokaz o smeštaju — подтверждение жилья)", sit: [mup]}
-  - {sr: osiguranje, tr: "страховка (zdravstveno osiguranje — медицинская)", sit: [mup]}
-  - {sr: polisa, tr: "полис", sit: [mup]}
-  - {sr: ugovor, tr: "договор (ugovor o zakupu — договор аренды)", sit: [mup, notar]}
-  - {sr: zakup, tr: "аренда (официально); в быту — kirija", sit: [mup]}
-  - {sr: taksa, tr: "госпошлина", sit: [mup]}
-  - {sr: uplatnica, tr: "квитанция для оплаты", sit: [mup]}
-  - {sr: uplata, tr: "оплата, платёж (potvrda o uplati)", sit: [mup]}
-  - {sr: potvrda, tr: "справка, подтверждение", sit: [mup]}
-  - {sr: prijava, tr: "регистрация (prijava adrese — регистрация адреса)", sit: [mup]}
-  - {sr: adresa, tr: "адрес", sit: [mup, kolega]}
-  - {sr: šalter, tr: "окошко (в учреждении)", sit: [mup]}
-  - {sr: termin, tr: "запись, назначенное время", sit: [mup], note: "Zakazan termin — назначенная запись."}
-  - {sr: zakazati, tr: "записаться, назначить (zakazan — назначенный)", sit: [mup]}
-  - {sr: rešenje, tr: "решение (официальное)", sit: [mup]}
-  - {sr: postupak, tr: "процедура", sit: [mup]}
-  - {sr: trajati, tr: "длиться (traje — длится)", sit: [mup, notar]}
-  - {sr: morati, tr: "быть должным: moram — я должен", sit: [mup]}
-  - {sr: potreban, tr: "нужный (potrebna su dokumenta — нужны документы)", sit: [mup]}
-  - {sr: doneti, tr: "принести (donesite — принесите)", sit: [mup]}
-  - {sr: poneti, tr: "взять с собой (ponesite — возьмите)", sit: [mup]}
-  - {sr: pošta, tr: "почта", sit: [mup]}
-  - {sr: banka, tr: "банк", sit: [mup]}
-  - {sr: broj, tr: "номер, число", sit: [mup]}
-  - {sr: sledeći, tr: "следующий («Sledeći!» — «Следующий!»)", sit: [mup]}
-  - {sr: red, tr: "очередь; ряд", sit: [mup, prodavnica], note: "Čekati u redu — стоять в очереди; Ko je poslednji? — Кто последний?"}
-  - {sr: zdravstveni, tr: "медицинский (zdravstveno osiguranje)", sit: [mup], ex: [{sr: "Treba mi zdravstveno osiguranje.", tr: "Мне нужна медицинская страховка.", about: general}]}
+  - {tier: 2, sr: zahtev, tr: "заявление, запрос", sit: [mup], note: "Predati zahtev — подать заявление."}
+  - {tier: 2, sr: predati, tr: "подать, сдать (predam — подам)", sit: [mup, notar]}
+  - {tier: 2, sr: privremeni, tr: "временный (privremeni boravak — ВНЖ)", sit: [mup]}
+  - {tier: 2, sr: boravak, tr: "пребывание; ВНЖ (privremeni boravak)", sit: [mup]}
+  - {tier: 2, sr: stalno nastanjenje, tr: "ПМЖ, постоянное проживание", pos: phrase, sit: [mup]}
+  - {tier: 3, sr: stranac, tr: "иностранец (za strance — для иностранцев)", sit: [mup]}
+  - {tier: 2, sr: pasoš, tr: "паспорт (заграничный)", sit: [mup, notar]}
+  - {tier: 2, sr: lična karta, tr: "удостоверение личности (ID-карта)", pos: phrase, sit: [mup], ex: [{sr: "Ponesite ličnu kartu.", tr: "Возьмите удостоверение личности.", about: general}]}
+  - {tier: 2, sr: dokument, tr: "документ (dokumenta — документы)", sit: [mup, notar]}
+  - {tier: 3, sr: dokaz, tr: "доказательство, подтверждение", sit: [mup]}
+  - {tier: 3, sr: smeštaj, tr: "жильё, проживание (dokaz o smeštaju — подтверждение жилья)", sit: [mup]}
+  - {tier: 2, sr: osiguranje, tr: "страховка (zdravstveno osiguranje — медицинская)", sit: [mup]}
+  - {tier: 2, sr: ugovor, tr: "договор (ugovor o zakupu — договор аренды)", sit: [mup, notar]}
+  - {tier: 3, sr: zakup, tr: "аренда (официально); в быту — kirija", sit: [mup]}
+  - {tier: 2, sr: taksa, tr: "госпошлина", sit: [mup]}
+  - {tier: 2, sr: uplatnica, tr: "квитанция для оплаты", sit: [mup]}
+  - {tier: 2, sr: potvrda, tr: "справка, подтверждение", sit: [mup]}
+  - {tier: 2, sr: prijava, tr: "регистрация (prijava adrese — регистрация адреса)", sit: [mup]}
+  - {tier: 2, sr: adresa, tr: "адрес", sit: [mup, kolega]}
+  - {tier: 2, sr: šalter, tr: "окошко (в учреждении)", sit: [mup]}
+  - {tier: 2, sr: termin, tr: "запись, назначенное время", sit: [mup], note: "Zakazan termin — назначенная запись."}
+  - {tier: 2, sr: zakazati, tr: "записаться, назначить (zakazan — назначенный)", sit: [mup]}
+  - {tier: 2, sr: rešenje, tr: "решение (официальное)", sit: [mup]}
+  - {tier: 3, sr: trajati, tr: "длиться (traje — длится)", sit: [mup, notar]}
+  - {tier: 1, sr: morati, tr: "быть должным: moram — я должен", sit: [mup]}
+  - {tier: 3, sr: potreban, tr: "нужный (potrebna su dokumenta — нужны документы)", sit: [mup]}
+  - {tier: 1, sr: doneti, tr: "принести (donesite — принесите)", sit: [mup]}
+  - {tier: 3, sr: poneti, tr: "взять с собой (ponesite — возьмите)", sit: [mup]}
+  - {tier: 3, sr: pošta, tr: "почта", sit: [mup]}
+  - {tier: 3, sr: banka, tr: "банк", sit: [mup]}
+  - {tier: 2, sr: broj, tr: "номер, число", sit: [mup]}
+  - {tier: 3, sr: sledeći, tr: "следующий («Sledeći!» — «Следующий!»)", sit: [mup]}
+  - {tier: 2, sr: red, tr: "очередь; ряд", sit: [mup, prodavnica], note: "Čekati u redu — стоять в очереди; Ko je poslednji? — Кто последний?"}
+  - {tier: 2, sr: zdravstveni, tr: "медицинский (zdravstveno osiguranje)", sit: [mup], ex: [{sr: "Treba mi zdravstveno osiguranje.", tr: "Мне нужна медицинская страховка.", about: general}]}
 
   # ---------- нотариус, юрист, бухгалтер ----------
-  - {sr: javni beležnik, tr: "нотариус (в разговоре — notar)", pos: phrase, sit: [notar]}
-  - {sr: notar, tr: "нотариус (разг.)", sit: [notar, mup]}
-  - {sr: advokat, tr: "адвокат, юрист", sit: [notar]}
-  - {sr: knjigovođa, tr: "бухгалтер", sit: [notar]}
-  - {sr: overa, tr: "заверение", sit: [notar]}
-  - {sr: overiti, tr: "заверить (overen — заверенный)", sit: [notar, mup]}
-  - {sr: punomoćje, tr: "доверенность", sit: [notar]}
-  - {sr: potpis, tr: "подпись", sit: [notar], ex: [{sr: "Treba mi vaš potpis.", tr: "Мне нужна ваша подпись.", about: general}]}
-  - {sr: potpisati, tr: "подписать (potpišem, potpišite)", sit: [notar], ex: [{sr: "Potpišite ovde, molim vas.", tr: "Распишитесь здесь, пожалуйста.", about: general}]}
-  - {sr: prevod, tr: "перевод", sit: [notar]}
-  - {sr: sudski tumač, tr: "судебный (присяжный) переводчик", pos: phrase, sit: [notar]}
-  - {sr: apostil, tr: "апостиль", sit: [notar]}
-  - {sr: izvod, tr: "выписка (izvod iz banke — банковская выписка)", sit: [notar], ex: [{sr: "Pošaljite mi izvod iz banke.", tr: "Пришлите мне выписку из банка.", about: general}]}
-  - {sr: izvod iz matične knjige rođenih, tr: "свидетельство о рождении (выписка из книги рождений)", pos: phrase, sit: [notar], ex: [{sr: "Donesite izvod iz matične knjige rođenih.", tr: "Принесите свидетельство о рождении.", about: general}]}
-  - {sr: uverenje, tr: "справка, удостоверение (официальное)", sit: [notar], ex: [{sr: "Gde mogu da dobijem uverenje?", tr: "Где можно получить справку?", about: general}]}
-  - {sr: original, tr: "оригинал", sit: [notar]}
-  - {sr: kopija, tr: "копия", sit: [notar]}
-  - {sr: podaci, tr: "данные (личные)", sit: [notar]}
-  - {sr: sastaviti, tr: "составить (текст, договор)", sit: [notar]}
-  - {sr: umesto, tr: "вместо", sit: [notar]}
-  - {sr: supruga, tr: "жена, супруга (suprug — муж)", sit: [notar]}
-  - {sr: firma, tr: "фирма; ИП", sit: [notar]}
-  - {sr: porez, tr: "налог", sit: [notar]}
-  - {sr: paušalac, tr: "предприниматель на паушальном налоге", sit: [notar]}
-  - {sr: usluga, tr: "услуга", sit: [notar]}
-  - {sr: mesečno, tr: "в месяц, ежемесячно", sit: [notar]}
-  - {sr: zavisiti, tr: "зависеть (zavisi — зависит)", sit: [notar]}
-  - {sr: posavetovati, tr: "посоветоваться, проконсультироваться (posavetovati se)", sit: [notar], ex: [{sr: "Hteo bih da se posavetujem sa advokatom.", tr: "Я хотел бы проконсультироваться с юристом.", about: general}]}
+  - {tier: 2, sr: notar, tr: "нотариус (разг.)", sit: [notar, mup]}
+  - {tier: 2, sr: advokat, tr: "адвокат, юрист", sit: [notar]}
+  - {tier: 2, sr: knjigovođa, tr: "бухгалтер", sit: [notar]}
+  - {tier: 2, sr: overa, tr: "заверение", sit: [notar]}
+  - {tier: 2, sr: overiti, tr: "заверить (overen — заверенный)", sit: [notar, mup]}
+  - {tier: 2, sr: punomoćje, tr: "доверенность", sit: [notar]}
+  - {tier: 2, sr: potpis, tr: "подпись", sit: [notar], ex: [{sr: "Treba mi vaš potpis.", tr: "Мне нужна ваша подпись.", about: general}]}
+  - {tier: 2, sr: potpisati, tr: "подписать (potpišem, potpišite)", sit: [notar], ex: [{sr: "Potpišite ovde, molim vas.", tr: "Распишитесь здесь, пожалуйста.", about: general}]}
+  - {tier: 2, sr: prevod, tr: "перевод", sit: [notar]}
+  - {tier: 2, sr: sudski tumač, tr: "судебный (присяжный) переводчик", pos: phrase, sit: [notar]}
+  - {tier: 2, sr: apostil, tr: "апостиль", sit: [notar]}
+  - {tier: 3, sr: izvod, tr: "выписка (izvod iz banke — банковская выписка)", sit: [notar], ex: [{sr: "Pošaljite mi izvod iz banke.", tr: "Пришлите мне выписку из банка.", about: general}]}
+  - {tier: 2, sr: izvod iz matične knjige rođenih, tr: "свидетельство о рождении (выписка из книги рождений)", pos: phrase, sit: [notar], ex: [{sr: "Donesite izvod iz matične knjige rođenih.", tr: "Принесите свидетельство о рождении.", about: general}]}
+  - {tier: 2, sr: uverenje, tr: "справка, удостоверение (официальное)", sit: [notar], ex: [{sr: "Gde mogu da dobijem uverenje?", tr: "Где можно получить справку?", about: general}]}
+  - {tier: 2, sr: original, tr: "оригинал", sit: [notar]}
+  - {tier: 2, sr: kopija, tr: "копия", sit: [notar]}
+  - {tier: 3, sr: podaci, tr: "данные (личные)", sit: [notar]}
+  - {tier: 3, sr: umesto, tr: "вместо", sit: [notar]}
+  - {tier: 3, sr: supruga, tr: "жена, супруга (suprug — муж)", sit: [notar]}
+  - {tier: 3, sr: firma, tr: "фирма; ИП", sit: [notar]}
+  - {tier: 2, sr: porez, tr: "налог", sit: [notar]}
+  - {tier: 3, sr: usluga, tr: "услуга", sit: [notar]}
 
   # ---------- коллега ----------
-  - {sr: kolega, tr: "коллега (koleginica — коллега-женщина)", sit: [kolega], ex: [{sr: "Ovo je moj kolega Marko.", tr: "Это мой коллега Марко.", about: general}]}
-  - {sr: kafa, tr: "кофе", sit: [kolega], note: "Ići na kafu — пойти на кофе (часто значит «поговорить»)."}
-  - {sr: pauza, tr: "перерыв", sit: [kolega]}
-  - {sr: pivo, tr: "пиво", sit: [kolega]}
-  - {sr: ekipa, tr: "компания, команда (друзей)", sit: [kolega]}
-  - {sr: plan, tr: "план", sit: [kolega]}
-  - {sr: predlog, tr: "предложение", sit: [kolega]}
-  - {sr: odlično, tr: "отлично", sit: [kolega]}
-  - {sr: poseban, tr: "особенный, отдельный (ništa posebno — ничего особенного)", sit: [kolega]}
-  - {sr: odmarati, tr: "отдыхать (odmarao sam — я отдыхал)", sit: [kolega]}
-  - {sr: planina, tr: "гора; горы (na planini — в горах)", sit: [kolega]}
-  - {sr: more, tr: "море", sit: [kolega]}
-  - {sr: sviđati, tr: "нравиться: sviđa mi se — мне нравится", sit: [kolega], note: "Всегда с se и дательным: Sviđa mi se Beograd — мне нравится Белград."}
-  - {sr: ljudi, tr: "люди", sit: [kolega]}
-  - {sr: teško, tr: "трудно", sit: [kolega]}
-  - {sr: lako, tr: "легко", sit: [kolega], ex: [{sr: "Nije lako, ali učim.", tr: "Нелегко, но я учусь.", about: general}]}
-  - {sr: jezik, tr: "язык", sit: [kolega]}
-  - {sr: brinuti, tr: "волноваться, беспокоиться (ne brini — не переживай)", sit: [kolega]}
-  - {sr: umoran, tr: "уставший", sit: [kolega], ex: [{sr: "Umoran sam posle posla.", tr: "Я устал после работы.", about: general}]}
-  - {sr: porodica, tr: "семья", sit: [kolega], ex: [{sr: "Moja porodica je u Beogradu.", tr: "Моя семья в Белграде.", about: general}]}
-  - {sr: super, tr: "супер", sit: [kolega]}
+  - {tier: 3, sr: kolega, tr: "коллега (koleginica — коллега-женщина)", sit: [kolega], ex: [{sr: "Ovo je moj kolega Marko.", tr: "Это мой коллега Марко.", about: general}]}
+  - {tier: 2, sr: kafa, tr: "кофе", sit: [kolega], note: "Ići na kafu — пойти на кофе (часто значит «поговорить»)."}
+  - {tier: 3, sr: odlično, tr: "отлично", sit: [kolega]}
+  - {tier: 2, sr: sviđati, tr: "нравиться: sviđa mi se — мне нравится", sit: [kolega], note: "Всегда с se и дательным: Sviđa mi se Beograd — мне нравится Белград."}
+  - {tier: 3, sr: ljudi, tr: "люди", sit: [kolega]}
+  - {tier: 2, sr: teško, tr: "трудно", sit: [kolega]}
+  - {tier: 2, sr: lako, tr: "легко", sit: [kolega], ex: [{sr: "Nije lako, ali učim.", tr: "Нелегко, но я учусь.", about: general}]}
+  - {tier: 2, sr: jezik, tr: "язык", sit: [kolega]}
+  - {tier: 3, sr: brinuti, tr: "волноваться, беспокоиться (ne brini — не переживай)", sit: [kolega]}
+  - {tier: 3, sr: umoran, tr: "уставший", sit: [kolega], ex: [{sr: "Umoran sam posle posla.", tr: "Я устал после работы.", about: general}]}
+  - {tier: 2, sr: porodica, tr: "семья", sit: [kolega], ex: [{sr: "Moja porodica je u Beogradu.", tr: "Моя семья в Белграде.", about: general}]}
+  - {tier: 3, sr: super, tr: "супер", sit: [kolega]}
+
+  # ---------- детская площадка ----------
+  - {tier: 2, sr: dete, tr: "ребёнок (мн. — deca)", sit: [igraliste]}
+  - {tier: 2, sr: sin, tr: "сын", sit: [igraliste]}
+  - {tier: 2, sr: zvati se, tr: "называться: zovem se — меня зовут; kako se zove? — как его/её зовут?", pos: phrase, sit: [igraliste]}
+  - {tier: 2, sr: igrati se, tr: "играть (о детях): igraju se — играют", pos: phrase, sit: [igraliste]}
+  - {tier: 2, sr: zajedno, tr: "вместе", sit: [igraliste]}
+  - {tier: 3, sr: slobodan, tr: "свободный (slobodno — свободно)", sit: [igraliste]}
+  - {tier: 2, sr: hajde, tr: "давай, пойдём (hajdemo — пойдёмте)", sit: [igraliste]}
+  - {tier: 2, sr: vrtić, tr: "детский сад", sit: [igraliste]}
+  - {tier: 3, sr: park, tr: "парк", sit: [igraliste]}
+  - {tier: 2, sr: pažljivo, tr: "осторожно", sit: [igraliste]}
+  - {tier: 2, sr: nemoj, tr: "не надо, не (запрет): nemoj da… — не делай…", sit: [igraliste]}
+  - {tier: 3, sr: baš, tr: "очень, прямо; как раз", sit: [igraliste]}
+
+  # ---------- булочная ----------
+  - {tier: 3, sr: pekara, tr: "булочная, пекарня", sit: [pekara]}
+  - {tier: 2, sr: burek, tr: "бурек (sa sirom — с сыром, sa mesom — с мясом)", sit: [pekara]}
+  - {tier: 3, sr: kifla, tr: "рогалик, булочка", sit: [pekara]}
+  - {tier: 3, sr: meso, tr: "мясо", sit: [pekara]}
+  - {tier: 3, sr: beo, tr: "белый (beli hleb — белый хлеб)", sit: [pekara]}
+  - {tier: 3, sr: crn, tr: "чёрный (crni hleb — чёрный хлеб)", sit: [pekara]}
+  - {tier: 2, sr: svež, tr: "свежий (sveže — свежее)", sit: [pekara]}
+  - {tier: 3, sr: parče, tr: "кусок", sit: [pekara]}
+  - {tier: 2, sr: za poneti, tr: "с собой (на вынос)", pos: phrase, sit: [pekara]}
+  - {tier: 3, sr: posle podne, tr: "после обеда, днём", pos: phrase, sit: [pekara]}
+  - {tier: 1, sr: onda, tr: "тогда", sit: [pekara]}
+
+  # ---------- врач ----------
+  - {tier: 2, sr: lekar, tr: "врач (doktor — доктор, обращение: doktore)", sit: [lekar]}
+  - {tier: 2, sr: dom zdravlja, tr: "поликлиника (государственная)", pos: phrase, sit: [lekar]}
+  - {tier: 2, sr: pregled, tr: "осмотр, приём у врача", sit: [lekar]}
+  - {tier: 2, sr: zdravstvena kartica, tr: "карточка медстраховки", pos: phrase, sit: [lekar]}
+  - {tier: 2, sr: boleti, tr: "болеть: boli me… — у меня болит…", sit: [lekar], note: "Boli me glava — болит голова; bole me leđa — болит спина."}
+  - {tier: 2, sr: glava, tr: "голова", sit: [lekar]}
+  - {tier: 2, sr: grlo, tr: "горло", sit: [lekar]}
+  - {tier: 2, sr: stomak, tr: "живот, желудок", sit: [lekar]}
+  - {tier: 3, sr: zub, tr: "зуб", sit: [lekar]}
+  - {tier: 3, sr: leđa, tr: "спина", sit: [lekar]}
+  - {tier: 2, sr: temperatura, tr: "температура (imam temperaturu — у меня температура)", sit: [lekar]}
+  - {tier: 3, sr: kašalj, tr: "кашель (kašljem — кашляю)", sit: [lekar]}
+  - {tier: 3, sr: prehlada, tr: "простуда (prehlađen sam — я простыл)", sit: [lekar]}
+  - {tier: 2, sr: osećati se, tr: "чувствовать себя (osećam se loše — чувствую себя плохо)", pos: phrase, sit: [lekar]}
+  - {tier: 2, sr: loše, tr: "плохо", sit: [lekar]}
+  - {tier: 2, sr: bolje, tr: "лучше", sit: [lekar]}
+  - {tier: 2, sr: alergičan, tr: "с аллергией: alergičan sam na… — у меня аллергия на…", sit: [lekar]}
+  - {tier: 2, sr: lek, tr: "лекарство", sit: [lekar]}
+  - {tier: 2, sr: recept, tr: "рецепт", sit: [lekar]}
+  - {tier: 2, sr: apoteka, tr: "аптека", sit: [lekar]}
+  - {tier: 3, sr: uzimati, tr: "принимать (лекарство): uzimajte — принимайте", sit: [lekar]}
+  - {tier: 3, sr: put, tr: "раз (tri puta dnevno — три раза в день); дорога", sit: [lekar]}
+  - {tier: 3, sr: dnevno, tr: "в день, ежедневно", sit: [lekar]}
+  - {tier: 3, sr: jelo, tr: "еда, блюдо (pre jela / posle jela — до / после еды)", sit: [lekar]}
+  - {tier: 3, sr: ponovo, tr: "снова", sit: [lekar, pekara]}
+  - {tier: 2, sr: hitna pomoć, tr: "скорая помощь (hitno — срочно)", pos: phrase, sit: [lekar]}
+  - {tier: 3, sr: pedijatar, tr: "педиатр", sit: [lekar, igraliste]}
+
+# убраны при ревью 80/20 (слишком узкие или редкие для минимума)
+removed: [akcija, buka, devojčica, divan, ekipa, frižider, gram, igralište, igračka, integralni, iseći, jabuka, javni beležnik, kasa, komšinica, kusur, lift, ljuljaška, lopta, mesečno, more, nestati, odmarati, pasti, pauza, paušalac, pecivo, pesak, pita, pivo, plan, planina, podeliti, polisa, posavetovati, poseban, postupak, predlog, prizemlje, reka, sastaviti, sladak, smeće, tobogan, topao, uplata, zavisiti, šetati, šunka, žuriti]
 
 # ---------- фразы сверх реплик диалогов ----------
 # Реплики «я» из диалогов и короткие реплики собеседника становятся фразами автоматически.
@@ -471,6 +590,16 @@ phrases:
   - {sr: "Ja sam iz Rusije, živim u Beogradu godinu dana.", tr: "Я из России, живу в Белграде год.", sit: [kolega, komsije], note: "говорю я"}
   - {sr: "Čime se baviš?", tr: "Чем занимаешься?", sit: [kolega], note: "слышу"}
   - {sr: "Vidimo se sutra!", tr: "Увидимся завтра!", sit: [kolega, komsije], note: "говорю я"}
+  - {sr: "Kako se zove?", tr: "Как его/её зовут?", sit: [igraliste], note: "говорю я"}
+  - {sr: "Koliko ima godina?", tr: "Сколько ему/ей лет?", sit: [igraliste], note: "говорю я"}
+  - {sr: "Hajde kući!", tr: "Пойдём домой!", sit: [igraliste], note: "говорю я"}
+  - {sr: "Daj da probam.", tr: "Дай попробовать.", sit: [igraliste], note: "слышу"}
+  - {sr: "Jedan burek sa mesom, molim.", tr: "Один бурек с мясом, пожалуйста.", sit: [pekara], note: "говорю я"}
+  - {sr: "Šta preporučujete?", tr: "Что посоветуете?", sit: [pekara], note: "говорю я"}
+  - {sr: "Boli me glava.", tr: "У меня болит голова.", sit: [lekar], note: "говорю я"}
+  - {sr: "Dete ima temperaturu.", tr: "У ребёнка температура.", sit: [lekar], note: "говорю я"}
+  - {sr: "Treba mi bolovanje.", tr: "Мне нужен больничный.", sit: [lekar], note: "говорю я"}
+  - {sr: "Zovite hitnu pomoć!", tr: "Вызовите скорую!", sit: [lekar], note: "говорю я"}
 
 # ---------- нужная форма (падежи и вид) ----------
 cloze:
@@ -482,3 +611,6 @@ cloze:
   - {sr: "Idemo na kafu sa {kolegom}.", tr: "Идём на кофе с коллегой.", word: kolega, case: ins, hint: "kolega — с кем? (sa + твор.)", opts: ["kolega", "kolege", "kolegi"]}
   - {sr: "Nemam {vremena} danas.", tr: "У меня сегодня нет времени.", word: vreme, case: gen, hint: "vreme — чего нет? (nemam + род.)", opts: ["vreme", "vremenu", "vremenom"]}
   - {sr: "Stan je na drugom {spratu}.", tr: "Квартира на втором этаже.", word: sprat, case: loc, hint: "sprat — где?"}
+  - {sr: "Idemo u {pekaru}.", tr: "Идём в булочную.", word: pekara, case: acc, hint: "pekara — куда?"}
+  - {sr: "Deca se igraju u {parku}.", tr: "Дети играют в парке.", word: park, case: loc, hint: "park — где?", opts: ["park", "parka", "parkom"]}
+  - {sr: "Idem kod {lekara}.", tr: "Иду к врачу.", word: lekar, case: gen, hint: "lekar — к кому? (kod + род.)", opts: ["lekar", "lekaru", "lekarom"]}

@@ -41,6 +41,40 @@ def load_pack(name: str) -> dict:
     return read_yaml(p, {})
 
 
+TIER_BOOST = {1: 20, 2: 10, 3: 0}   # larger than any score gap: tier 1 always comes before tier 2, etc.
+
+
+def write_tier_boosts(root: Path, name: str, pack: dict) -> None:
+    """Pack words carry `tier` (1 — the base for every situation, 2 — key words of the situations,
+    3 — useful later). The order of learning follows the tiers: their boosts go into prep/word-boosts.txt
+    in a block owned by the pack (rewritten on every install; the person's own lines stay)."""
+    p = root / "prep" / "word-boosts.txt"
+    head, tail = f"# pack {name} — tiers (managed by pack.py)", f"# end pack {name}"
+    keep, skip = [], False
+    for line in (p.read_text(encoding="utf-8").splitlines() if p.exists() else []):
+        if line == head:
+            skip = True
+        elif line == tail:
+            skip = False
+        elif not skip:
+            keep.append(line)
+    block = [head] + [f"{w['sr']} +{TIER_BOOST[w['tier']]}" for w in pack["words"] if TIER_BOOST.get(w.get("tier"), 0)] + [tail]
+    p.write_text("\n".join(keep + block) + "\n", encoding="utf-8")
+
+
+def retire_removed(root: Path, pack: dict) -> None:
+    """Words the pack dropped in a review (`removed:`) are retired in the deck: no longer offered,
+    progress kept (words.py retire)."""
+    gone = {norm(x) for x in pack.get("removed", [])}
+    if not gone:
+        return
+    deck = read_yaml(root / "prep" / "words.yaml", {}) or {}
+    ids = [w["id"] for w in deck.get("words", []) if norm(w["sr"]) in gone and not w.get("retired")]
+    if ids:
+        print("removed from the pack:")
+        run("words.py", "--dir", str(root), "retire", *ids)
+
+
 def run(*args) -> None:
     r = subprocess.run([sys.executable, str(TOOLS / args[0]), *args[1:]], capture_output=True, text=True)
     out = (r.stdout + r.stderr).strip()
@@ -117,11 +151,10 @@ def main() -> int:
     pack = load_pack(a.name)
     if a.cmd == "show":
         print(f"{pack['title']}: {len(pack['words'])} words, {len(pack.get('phrases', []))} extra phrases, {len(pack.get('cloze', []))} case cards")
-        core = [w for w in pack["words"] if not w.get("sit")]
-        print(f"  core ({len(core)}): " + ", ".join(w["sr"] for w in core))
-        for s in pack["situations"]:
-            ws = [w["sr"] for w in pack["words"] if s["id"] in (w.get("sit") or [])]
-            print(f"  {s['title']} ({len(ws)}): " + ", ".join(ws))
+        names = {1: "base", 2: "key for the situations", 3: "useful later"}
+        for t in (1, 2, 3):
+            ws = [w["sr"] for w in pack["words"] if w.get("tier") == t]
+            print(f"  tier {t} — {names[t]} ({len(ws)}): " + ", ".join(ws))
         return 0
     if a.cmd == "coverage":
         r = coverage(pack)
@@ -144,7 +177,9 @@ def main() -> int:
         run("text_freq.py", "--dir", str(root))
         deck = read_yaml(prep / "words.yaml", {}) or {}
         rnd = int(deck.get("rounds", 0)) + 1
-        words = [{**w, "src": w.get("src") or (["sit"] if w.get("sit") else ["base"])} for w in pack["words"]]
+        words = [{**{k: v for k, v in w.items() if k != "tier"}, "src": w.get("src") or (["sit"] if w.get("sit") else ["base"])}
+                 for w in pack["words"]]
+        write_tier_boosts(root, a.name, pack)
         write_yaml(t / "words.yaml", words)
         print("words:")
         run("words.py", "--dir", str(root), "add", str(t / "words.yaml"), "--round", str(rnd))
@@ -155,6 +190,8 @@ def main() -> int:
             write_yaml(t / "cloze.yaml", pack["cloze"])
             print("case cards:")
             run("words.py", "--dir", str(root), "add", str(t / "cloze.yaml"), "--kind", "cloze", "--round", str(rnd))
+    retire_removed(root, pack)
+    run("score_words.py", "--dir", str(root))
     run("validate.py", "--dir", str(root), "--update-lock")
     run("build_page.py", "--dir", str(root))
     cov = coverage(pack)

@@ -7,11 +7,15 @@
     ru:
       - "Телефон: вкладки отдельной строкой с прокруткой, неделя целиком в одну строку."
       - "Варианты ответа без примеров в скобках — короче и не подсказывают ответ."
-      - "Приложение для телефона (pwa.py): своя иконка на экране «Домой», полный экран, работает без интернета."
+      - "Набор «Белград»: добавлены детская площадка, булочная и врач."
+      - "pwa.py: сборка страницы для своего сайта (иконка на экране «Домой»)."
+      - "Ревью 80/20: 270 слов в трёх уровнях важности (база → ключевые для ситуаций → полезные), учатся по важности, а не по темам; 50 узких слов убраны (прогресс по ним сохраняется)."
     en:
       - "Phone layout: tabs on their own scrollable row, the week fits on one line."
       - "Answer choices drop the bracketed examples — shorter, and they no longer give the answer away."
-      - "A phone app (pwa.py): its own home-screen icon, full screen, works offline."
+      - "Pack «Belgrade»: playground, bakery and doctor added."
+      - "pwa.py: builds the page for one's own site (a home-screen icon)."
+      - "80/20 review: 270 words in three tiers (base → key for the situations → useful), learned by importance, not by topic; 50 narrow words removed (their progress is kept)."
   actions: [rebuild]
 - version: "0.2.0"
   date: "2026-10-03"
