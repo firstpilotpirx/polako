@@ -48,7 +48,7 @@ nav.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(-
 .seg{display:inline-flex;border:1px solid var(--line-strong);border-radius:8px;overflow:hidden}
 .seg button{border:0;background:none;padding:4px 10px;font-size:13px;font-weight:600;color:var(--muted)}
 .seg button[aria-pressed="true"]{background:var(--accent);color:var(--surface)}
-.iconbtn{border:1px solid var(--line-strong);background:none;border-radius:8px;padding:4px 9px;font-size:13px}
+.iconbtn{border:1px solid var(--line-strong);background:none;border-radius:8px;padding:4px 9px;font-size:13px;color:var(--muted);display:inline-flex;align-items:center;justify-content:center;min-height:30px}
 .summary{display:flex;gap:6px 18px;align-items:center;font-size:13px;color:var(--muted);padding:6px 24px 8px;flex-wrap:wrap}
 .sync{font-size:12px;color:var(--faint);margin-left:auto}
 main{padding:24px 24px 96px}
@@ -242,4 +242,13 @@ table{border-collapse:collapse}
   .goal{grid-template-columns:1fr}.tr-choices{grid-template-columns:1fr}.tr-grades{grid-template-columns:1fr 1fr}
   .viz-grid,.tr-decks,.sit-grid{grid-template-columns:1fr}.hero-v{font-size:44px}
   .vrow .sr{min-width:120px}
+  main{padding-bottom:calc(80px + env(safe-area-inset-bottom))}.wrap{padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}
+  input[type=text],input[type=search],input:not([type]),textarea,select{font-size:16px}
+  .vrow input{width:24px;height:24px}.seg button{padding:7px 12px}
+  .bar-top{gap:6px 10px}.brand{order:1}.head-tools{order:2}
+  nav.tabs{order:3;flex:1 1 100%;margin:0 -14px;padding:0 6px;-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent);mask-image:linear-gradient(90deg,#000 88%,transparent)}
+  nav.tabs button{padding:10px 9px;font-size:15px}
+  .goal-days{flex-wrap:nowrap;gap:2px;justify-content:space-between}
+  .goal-days .ring{width:36px;height:36px}
+  .goal-ring{gap:12px}
 }

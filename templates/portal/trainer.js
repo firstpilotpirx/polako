@@ -254,14 +254,18 @@ function questionOf(e){
   }
   return {lbl: '', q: ''};
 }
+/* a translation as a choice: without the example in brackets ("из (Ja sam iz Rusije — …)" → "из"),
+   so options stay short and do not give the answer away; the full text is on the answer side */
+function shortTr(t){ var s = String(t || '').replace(/\s*\([^()]*[a-zčćšžđ][^()]*\)/gi, function(m){ return /[a-zčćšžđ]/i.test(m.replace(/[а-яё]/gi, '')) ? '' : m; }).trim(); var d = s.search(/\s[—–-]\s/); if (d > 0 && /[a-zčćšžđ]/i.test(s.slice(d))) s = s.slice(0, d).trim(); return s || String(t || ''); }
 function choicesOf(e){
   var it = e.it, f = e.f, w = it.it, right, pool = [];
   if (f === 'pick-tr' || f === 'listen' || f === 'pick-sr'){
     var field = f === 'pick-sr' ? 'sr' : 'tr';
-    right = w[field];
+    var cut = field === 'tr' ? shortTr : function(x){ return x; };
+    right = cut(w[field]);
     var same = DECK.words.filter(function(o){ return o.id !== w.id && o.pos === w.pos && o[field] !== right; });
     var near = same.filter(function(o){ return Math.abs(o.rank - w.rank) < 120; });
-    pool = shuffle((near.length >= 5 ? near : same.length >= 5 ? same : DECK.words.filter(function(o){ return o.id !== w.id; })).slice()).map(function(o){ return o[field]; });
+    pool = shuffle((near.length >= 5 ? near : same.length >= 5 ? same : DECK.words.filter(function(o){ return o.id !== w.id; })).slice()).map(function(o){ return cut(o[field]); });
   } else if (f === 'listen-ph' || f === 'read-ph'){
     right = w.tr; pool = shuffle(DECK.phrases.filter(function(o){ return o.id !== w.id; }).map(function(o){ return o.tr; }));
   } else if (f === 'cloze'){

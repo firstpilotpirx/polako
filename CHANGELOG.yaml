@@ -1,5 +1,16 @@
 # What's new per version. The upgrade module reads entries newer than the folder's plugin_version.
 # actions: what the upgrade does after migrating (rebuild, new cards, …).
+- version: "0.2.1"
+  date: "2026-10-03"
+  data_version: 1
+  notes:
+    ru:
+      - "Телефон: вкладки отдельной строкой с прокруткой, неделя целиком в одну строку."
+      - "Варианты ответа без примеров в скобках — короче и не подсказывают ответ."
+    en:
+      - "Phone layout: tabs on their own scrollable row, the week fits on one line."
+      - "Answer choices drop the bracketed examples — shorter, and they no longer give the answer away."
+  actions: [rebuild]
 - version: "0.2.0"
   date: "2026-10-03"
   data_version: 1
