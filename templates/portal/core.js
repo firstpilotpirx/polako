@@ -62,11 +62,12 @@ var LOGNEW = [];   // answers not yet written to storage
 var V = {};        // "I know" check: batchKey → {known:[ids], unknown:[ids], at}
 var store = {mode: 'local', db: null, timer: null, dirtyT: false, dirtyV: false, first: 0};
 
-function setSync(msg){ var s = $('sync'); if (s) s.textContent = msg || ''; }
+function setSync(msg){ store.syncMsg = msg || ''; var s = $('sync'); if (s) s.textContent = store.syncMsg; }   // kept across re-renders
 function post(path, body){ return fetch(path, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body)}).then(function(r){ if (!r.ok) throw new Error(r.status); return r.json(); }); }
 function save(){
   store.dirtyT = true;
   lsSet('pl.fallback', {T: T, LOG: LOG.slice(-6000), V: V});
+  if (typeof idbSave === 'function') idbSave();
   if (store.mode === 'local') return;
   clearTimeout(store.timer);
   if (store.mode === 'gh'){   // one commit per pause, at most every 2 minutes while answering
@@ -100,7 +101,7 @@ async function flush(){
   } catch (e){ LOGNEW = items.concat(LOGNEW); setSync(L('savedLocal')); }
 }
 async function saveVocab(key, rec){
-  V[key] = rec; lsSet('pl.fallback', {T: T, LOG: LOG.slice(-6000), V: V});
+  V[key] = rec; lsSet('pl.fallback', {T: T, LOG: LOG.slice(-6000), V: V}); if (typeof idbSave === 'function') idbSave();
   try {
     if (store.mode === 'gh'){ store.dirtyV = true; save(); return; }
     if (store.mode === 'api') await post('/api/vocab', V);
@@ -157,7 +158,7 @@ function renderHead(){
     if (c.my != null) line.appendChild(el('span', null, L('covMy') + ' ' + pct(c.my)));
     line.appendChild(el('span', null, L('dueNow') + ': ' + due));
     var st = streak(); if (st) line.appendChild(el('span', null, '🔥 ' + nWord(st, 'days')));
-    line.appendChild(el('span', 'sync', '')).id = 'sync';
+    line.appendChild(el('span', 'sync', store.syncMsg || '')).id = 'sync';
     sum.appendChild(line); sum.hidden = false;
   } else sum.hidden = true;
 }

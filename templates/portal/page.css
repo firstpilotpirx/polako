@@ -265,3 +265,11 @@ table{border-collapse:collapse}
 .setup-form input{font-size:16px;padding:10px 12px;border:1px solid var(--line-strong);border-radius:9px;background:var(--surface);color:var(--ink)}
 .setup-err{color:var(--bad, #b3261e);font-weight:600}
 .setup-packs{display:flex;flex-direction:column;gap:8px}.setup-packs .btn{text-align:left}
+.gh-help summary{cursor:pointer;font-weight:600;color:var(--accent)}.gh-steps{margin:8px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:15px}
+.gh-steps a{word-break:break-all}
+.storage{margin-top:16px;padding-top:12px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:10px}.storage h3{margin:0;font-size:17px}
+.st-opt{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:1px solid var(--line-strong);border-radius:10px;cursor:pointer}
+.st-opt.on{border-color:var(--accent);background:var(--accent-soft)}.st-opt input{margin-top:4px;accent-color:var(--accent)}
+.st-opt span{display:flex;flex-direction:column;gap:2px}.st-confirm{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.st-confirm p{flex:1 1 100%;margin:0}
+.storage .gh-setup{display:flex;flex-direction:column;gap:10px}
+[hidden]{display:none !important}

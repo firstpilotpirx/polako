@@ -97,10 +97,7 @@ function trainerOptions(){
     c.onchange = function(){ T[x[0]] = c.checked; save(); rerenderKeepScroll(); }; lb.appendChild(c); lb.appendChild(document.createTextNode(' ' + x[1])); opts.appendChild(lb);
   });
   opts.appendChild(ttsControls());
-  if (typeof GH !== 'undefined' && GH.on()){   // the public site: which repository holds the progress
-    var gl = el('p', 'meta', L('ghConnected') + ' ' + GH.cfg().repo + ' · ');
-    gl.appendChild(btn('linkbtn', L('ghDisconnect'), function(){ flush().then(function(){ window.polakoDisconnect(); }); })); opts.appendChild(gl);
-  }
+  if (window.POLAKO_SITE) opts.appendChild(storageControls());   // the public site: browser or GitHub
   var rsb = btn('linkbtn', L('reset')), armed = false;
   rsb.onclick = function(){ if (!armed){ armed = true; rsb.textContent = L('resetSure'); setTimeout(function(){ armed = false; rsb.textContent = L('reset'); }, 4000); return; }
     T.cards = {}; T.reset = NOW(); save(); flush(); render(); };

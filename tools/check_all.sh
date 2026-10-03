@@ -47,6 +47,9 @@ step "pack";              mkdir -p "$OUT/pack" && "$PY" tools/pack.py --dir "$OU
                        && "$PY" tools/next_steps.py --dir "$OUT/pack" | sed -n '1,2p'
 step "page";              "$PY" tools/build_page.py --dir "$S"
 step "public site";       "$PY" tools/site.py --out "$OUT/site" && grep -q __polakoStart "$OUT/site/index.html" && test -s "$OUT/site/packs/belgrade-basics.json"
+if python3 -c "import playwright" 2>/dev/null && [ -x /opt/pw-browsers/chromium ] || [ -n "${CHROMIUM:-}" ]; then
+  step "site storage (browser ↔ GitHub)"; CHROMIUM="${CHROMIUM:-/opt/pw-browsers/chromium}" python3 tests/site_storage.py "$OUT/site" 2>&1 | grep -v "HTTP/1.1\|code 404" | tail -3
+fi
 if command -v node >/dev/null && node -e "require('jsdom')" 2>/dev/null; then
   step "page in jsdom";   node tests/page_smoke.js "$S/dist/index.html"
 else printf '\n(jsdom not installed: skipped the page test — npm i -g jsdom)\n'; fi

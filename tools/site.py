@@ -58,7 +58,8 @@ def main() -> int:
     out.mkdir(parents=True, exist_ok=True)
     packs = [build_pack(p.stem, out) for p in sorted((BUNDLED / "packs").glob("*.yaml"))]
     ui = ui_strings(Path("/nonexistent"), "ru")
-    boot = ("window.POLAKO_UI = " + json.dumps(ui, ensure_ascii=False) + ";\nwindow.POLAKO_PACKS = " + json.dumps(packs, ensure_ascii=False) + ";\n"
+    boot = ("window.POLAKO_UI = " + json.dumps(ui, ensure_ascii=False) + ";\nwindow.POLAKO_PACKS = " + json.dumps(packs, ensure_ascii=False) + ";\n" +
+            (SITE / "idb.js").read_text(encoding="utf-8") + "\n" +
             "window.__polakoStart = function(){\n" + app_js() + "\n};\n" + (SITE / "loader.js").read_text(encoding="utf-8"))
     page = render_page("", boot.replace("</script", "<\\/script"), "ru", "Polako", HEAD)
     write_text(out / "index.html", page)

@@ -21,19 +21,30 @@ setTimeout(function(){ if (TTS.ok){ ttsLoad(); if (!play) render(); } }, 700);  
       }
     } catch (e){}
   }
+  if (window.POLAKO_SITE) await idbLoad();   // the public site: this browser's copy first (works offline too)
   if (typeof GH !== 'undefined' && GH.on()){   // the public site with the person's own repository
     try {
-      setSync(L('ghLoading')); await ghPull(); store.mode = 'gh'; render(); setSync(L('ghSaved'));
-      document.addEventListener('visibilitychange', function(){
-        if (document.visibilityState === 'hidden') flush();
-        else if (!play) ghPull().then(function(){ render(); setSync(L('ghSaved')); }).catch(function(){});
-      });
-    } catch (e){ store.mode = 'local'; setSync(L('ghFail') + ' (' + (e.status || e.message) + ')'); }
+      setSync(L('ghLoading')); await ghPull(); store.mode = 'gh';
+      if (window.POLAKO_GH_EMPTY){   // connected to an empty repository: put this set and the progress there
+        await GH.commit([{path: 'deck.json', text: deckText()}, {path: 'polako.json', text: JSON.stringify({kind: 'polako-data', version: 1}, null, 1) + '\n'}], 'Polako: ' + L('ghFirstCommit'));
+        store.dirtyT = true; store.dirtyV = true; await ghPush(LOG.slice()); window.POLAKO_GH_EMPTY = false;
+      }
+      render(); setSync(L('ghSaved'));
+    } catch (e){ store.mode = 'local'; render(); setSync(L('ghFail') + ' (' + (e.status || e.message) + ')'); }
+    // leaving the page saves; coming back pulls what other devices did; offline → catch up when GitHub answers
+    var resync = function(){
+      if (play) return;
+      var pending = store.mode === 'local' && (store.dirtyT || store.dirtyV || LOGNEW.length);
+      ghPull().then(function(){ store.mode = 'gh'; if (pending){ store.dirtyT = true; store.dirtyV = true; return flush(); } })
+        .then(function(){ render(); setSync(L('ghSaved')); }).catch(function(){});
+    };
+    document.addEventListener('visibilitychange', function(){ if (document.visibilityState === 'hidden') flush(); else resync(); });
+    window.addEventListener('online', resync);
     return;
   }
   try {
-    var h = window.claude && window.claude.use ? await window.claude.use('db') : null;
-    if (!h){ setSync(L('savedLocal')); return; }
+    var h = !window.POLAKO_SITE && window.claude && window.claude.use ? await window.claude.use('db') : null;
+    if (!h){ if (window.POLAKO_SITE){ render(); setSync(L('savedBrowser')); } else setSync(L('savedLocal')); return; }
     // read everything first; writes are enabled only after (store.db = h), so nothing is written unread
     var t = await h.doc('trainer/state').get(), v = await h.collection('vocab').get(), l = await h.collection('log').get();
     if (t.exists && t.data().cards){ var remote = clone(t.data()); remote.cards = Object.assign(remote.cards, store.dirtyT ? T.cards : {}); T = Object.assign(T, remote); }

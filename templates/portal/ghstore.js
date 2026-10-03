@@ -22,6 +22,8 @@ var GH = (function(){
     return r.status === 204 ? {} : r.json();
   }
   function repo(p){ return '/repos/' + cfg.repo + p; }
+  // the branch's head commit; null for an empty repository (GitHub answers 409 there)
+  async function refOf(br){ try { return await req('GET', repo('/git/ref/heads/' + br)); } catch (e){ if (e.status === 409) return null; throw e; } }
   async function getBranch(){ if (!branch){ var r = await req('GET', repo('')); if (!r) { var e = new Error('no repo'); e.status = 404; throw e; } branch = r.default_branch || 'main'; } return branch; }
   // a file's text (null when absent); files over 1 MB come through the blob API
   async function read(path, ref){
@@ -40,7 +42,7 @@ var GH = (function(){
   // several files in one commit; null when the branch moved meanwhile (the caller re-reads and retries)
   async function commit(files, msg){
     var br = await getBranch();
-    var ref = await req('GET', repo('/git/ref/heads/' + br));
+    var ref = await refOf(br);
     if (!ref){   // empty repository
       for (var i = 0; i < files.length; i++) await putFile(files[i].path, files[i].text, msg);
       return true;
@@ -52,8 +54,9 @@ var GH = (function(){
     catch (e){ if (e.status === 422 || e.status === 409) return null; throw e; }
     return true;
   }
-  async function headSha(){ var br = await getBranch(), ref = await req('GET', repo('/git/ref/heads/' + br)); return ref ? ref.object.sha : null; }
-  return {on: on, cfg: function(){ return cfg; }, read: read, readJSON: readJSON, list: list, commit: commit, putFile: putFile, headSha: headSha};
+  async function headSha(){ var br = await getBranch(), ref = await refOf(br); return ref ? ref.object.sha : null; }
+  async function check(){ var r = await req('GET', repo('')); if (!r){ var e = new Error('repo'); e.status = 'repo'; throw e; } branch = r.default_branch || 'main'; return r; }
+  return {on: on, cfg: function(){ return cfg; }, setCfg: function(c){ cfg = c; branch = null; }, check: check, read: read, readJSON: readJSON, list: list, commit: commit, putFile: putFile, headSha: headSha};
 })();
 
 /* ---------- merging two copies of the progress (this device and the repository) ---------- */
@@ -114,4 +117,84 @@ async function ghPush(items){
     if (await GH.commit(files, msg)) return;
   }
   throw new Error('github: the branch keeps moving');
+}
+
+/* ---------- this browser's copy (the public site): IndexedDB, written on every save, read at start ---------- */
+var IDBK = window.POLAKO_SITE && window.PolakoIDB ? window.PolakoIDB : null, idbTimer = null;
+function idbSave(){
+  if (!IDBK) return;
+  clearTimeout(idbTimer);
+  idbTimer = setTimeout(function(){ IDBK.set('progress', {T: T, V: V, LOG: LOG}).catch(function(){}); }, 300);
+}
+async function idbLoad(){
+  if (!IDBK) return false;
+  try {
+    var p = await IDBK.get('progress');
+    if (!p) return false;
+    if (p.T) T = mergeT(T, p.T);
+    if (p.V) V = mergeV(V, p.V);
+    if (p.LOG) LOG = mergeLog(LOG, p.LOG);
+    ITEMS_CACHE = null; return true;
+  } catch (e){ return false; }
+}
+
+/* ---------- "Где хранить прогресс" in the trainer's settings (the public site only) ---------- */
+function deckText(){ var d = document.getElementById('pl-data'); return d ? d.textContent : JSON.stringify(D); }
+async function ghConnect(cfg, msg){
+  msg.textContent = L('ghConnecting'); msg.className = 'meta';
+  try {
+    GH.setCfg(cfg);
+    await GH.check();
+    var remoteDeck = await GH.read('deck.json');
+    if (remoteDeck == null){   // an empty repository: this browser's set and all its progress go there
+      await GH.commit([{path: 'deck.json', text: deckText()}, {path: 'polako.json', text: JSON.stringify({kind: 'polako-data', version: 1}, null, 1) + '\n'}], 'Polako: ' + L('ghFirstCommit'));
+    } else {
+      await ghPull();          // the repository already has words and progress: merge them with this browser's
+    }
+    store.dirtyT = true; store.dirtyV = true;
+    await ghPush(LOG.slice());
+    if (IDBK){ try { await IDBK.set('progress', {T: T, V: V, LOG: LOG}); } catch (e){} }
+    window.polakoStorage.set(cfg);
+    msg.textContent = L('ghConnected2'); setTimeout(function(){ location.reload(); }, 600);
+  } catch (e){
+    GH.setCfg(null); msg.textContent = window.polakoGithubError ? window.polakoGithubError(e) : String(e.status || e.message); msg.className = 'setup-err';
+  }
+}
+async function toBrowser(){
+  try { await flush(); } catch (e){}
+  if (IDBK){ try { await IDBK.set('progress', {T: T, V: V, LOG: LOG}); await IDBK.set('deck', deckText()); } catch (e){} }
+  window.polakoStorage.set({type: 'browser', source: 'saved'});
+  location.reload();
+}
+function storageControls(){
+  var box = el('div', 'storage');
+  box.appendChild(el('h3', null, L('stTitle')));
+  var cur = (window.polakoStorage && window.polakoStorage.get()) || {type: 'browser'}, gh = cur.type === 'github', open = null;
+  [['browser', L('stBrowser'), L('stBrowserNote')], ['github', L('stGithub'), L('stGithubNote')]].forEach(function(x){
+    var lb = el('label', 'st-opt' + ((x[0] === 'github') === gh ? ' on' : '')), r = el('input'); r.type = 'radio'; r.name = 'st'; r.checked = (x[0] === 'github') === gh;
+    var t = el('span'); t.appendChild(el('b', null, x[1])); t.appendChild(el('span', 'meta', x[2]));
+    lb.appendChild(r); lb.appendChild(t); box.appendChild(lb);
+    r.onchange = function(){
+      if (x[0] === 'browser' && gh){ if (confirmBox(box, L('stToBrowserSure'), toBrowser)) return; }
+      if (x[0] === 'github' && !gh){ form.hidden = false; if (open) open.hidden = true; }
+    };
+  });
+  var msg = el('p', 'meta');
+  var form = window.polakoGithubForm ? window.polakoGithubForm(function(cfg){ return ghConnect(cfg, msg); }) : el('div');
+  form.hidden = true;
+  if (gh){
+    var info = el('p', 'meta', L('ghConnected') + ' ' + cur.repo + ' · ');
+    info.appendChild(btn('linkbtn', L('ghSyncNow'), function(){ store.dirtyT = true; store.dirtyV = true; flush().then(function(){ return ghPull(); }).then(function(){ render(); setSync(L('ghSaved')); }).catch(function(e){ setSync(L('ghFail') + ' (' + (e.status || e.message) + ')'); }); }));
+    box.appendChild(info);
+  } else {
+    open = btn('btn', L('stConnectGithub'), function(){ form.hidden = false; open.hidden = true; }); box.appendChild(open);
+  }
+  box.appendChild(form); box.appendChild(msg);
+  return box;
+}
+/* a small inline "are you sure" instead of a browser dialog */
+function confirmBox(box, text, onYes){
+  var c = el('div', 'st-confirm'); c.appendChild(el('p', null, text));
+  c.appendChild(btn('btn primary', L('yes'), onYes)); c.appendChild(btn('btn', L('cancel'), function(){ render(); }));
+  box.appendChild(c); return true;
 }
